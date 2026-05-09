@@ -1,4 +1,6 @@
-﻿namespace StuMap.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace StuMap.Models
 {
     public class Roadmap
     {
@@ -7,8 +9,8 @@
         public string Description { get; set; } = string.Empty;
 
         // Roadmap Creator
-        public int? ContributorId { get; set; }
-        public Contributor? Contributor { get; set; }
+        public string? ContributorId { get; set; }
+        public IdentityUser? Contributor { get; set; }
 
         // Roadmap Specialization
         public int? SpecializationId { get; set; }
@@ -18,7 +20,7 @@
         //public List<string> Tags { get; set; } = [];
 
         // Roadmap Enrollments
-        public ICollection<Student> Students { get; set; } = [];
+        public ICollection<IdentityUser> Students { get; set; } = [];
         public ICollection<Enrollment> Enrollments { get; set; } = [];
 
         public DateTime DateCreated { get; set; } = DateTime.Now;

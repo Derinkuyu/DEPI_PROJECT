@@ -1,3 +1,8 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using StuMap.Context;
+using StuMap.Models;
+
 namespace StuMap
 {
     public class Program
@@ -8,6 +13,25 @@ namespace StuMap
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // Configure Db connection (Injection)
+            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("StuMapDbConnection")));
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+       .AddEntityFrameworkStores<AppDbContext>()
+       .AddDefaultTokenProviders();
+
+            // Models and Repositories Injection
+            //builder.Services.AddScoped<Managers.IAdminManager, Services.AdminRepository>();
+            builder.Services.AddScoped<Managers.IContactManager, Services.ContactRepository>();
+            builder.Services.AddScoped<Managers.ICourseManager, Services.CourseRepository>();
+            builder.Services.AddScoped<Managers.IEnrollmentManager, Services.EnrollmentRepository>();
+            builder.Services.AddScoped<Managers.IRoadmapManager, Services.RoadmapRepository>();
+            builder.Services.AddScoped<Managers.ISpecializationManager, Services.SpecializationRepository>();
+            //builder.Services.AddScoped<Managers.IStudentManager, Services.StudentRepository>();
+            //builder.Services.AddScoped<Managers.IContributorManager, Services.ContributorRepository>();
+            builder.Services.AddScoped<Managers.IMaterialManager, Services.MaterialRepository>();
+            builder.Services.AddScoped<Managers.ICertificateManager, Services.CertificateRepository>();
+            
 
             var app = builder.Build();
 

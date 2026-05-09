@@ -1,9 +1,11 @@
-﻿namespace StuMap.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace StuMap.Models
 {
     public class Enrollment
     {
-        public int StudentId { get; set; }
-        public Student? Student { get; set; }
+        public string StudentId { get; set; }
+        public IdentityUser? Student { get; set; }
         public int RoadmapId { get; set; }
         public Roadmap? Roadmap { get; set; }
         public DateTime DateEnrolled { get; set; } = DateTime.Now;

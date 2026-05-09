@@ -1,4 +1,6 @@
-﻿namespace StuMap.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace StuMap.Models
 {
     public class Material
     {
@@ -9,11 +11,11 @@
         public MaterialTypes MaterialType { get; set; } = MaterialTypes.Other;
 
         // Material Creator
-        public int? ContributorId { get; set; }
-        public Contributor? Contributor { get; set; }
+        public string? ContributorId { get; set; }
+        public IdentityUser? Contributor { get; set; }
 
         // Material Course
-        public int CourseId { get; set; }
+        public int? CourseId { get; set; }
         public Course? Course { get; set; }
 
         public DateTime DateCreated { get; set; } = DateTime.Now;

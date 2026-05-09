@@ -1,39 +1,41 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using StuMap.Models;
 namespace StuMap.Context
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<IdentityUser>
     {
-        public DbSet<User> Users { get; set; }
-        public DbSet<Student> Students { get; set; }
-        public DbSet<Admin> Admins { get; set; }
-        public DbSet<Contributor> Contributors { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
-        public DbSet<Certificate> Certificates { get; set; }
-        public DbSet<Specialization> Specializations { get; set; }
-        public DbSet<Roadmap> Roadmaps { get; set; }
-        public DbSet<Course> Courses { get; set; }
-        public DbSet<Material> Materials { get; set; }
-        public DbSet<Enrollment> Enrollments { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public AppDbContext() { }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer("Server=.;Database=StuMapDb;Integrated Security =True;Encrypt =False");
         }
+        //public virtual DbSet<Student> Students { get; set; }
+        //public virtual DbSet<Admin> Admins { get; set; }
+        //public virtual DbSet<Contributor> Contributors { get; set; }
+        public virtual DbSet<Contact> Contacts { get; set; }
+        public virtual DbSet<Certificate> Certificates { get; set; }
+        public virtual DbSet<Specialization> Specializations { get; set; }
+        public virtual DbSet<Roadmap> Roadmaps { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<Material> Materials { get; set; }
+        public virtual DbSet<Enrollment> Enrollments { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().UseTptMappingStrategy();
+            base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.Contacts)
-                .WithOne(e => e.User)
-                .HasForeignKey(e => e.UserId);
+            //    //modelBuilder.Entity<User>().UseTptMappingStrategy();
 
-            modelBuilder.Entity<Contributor>()
-                .HasMany(e => e.Certificates)
-                .WithOne(e => e.Contributor)
-                .HasForeignKey(e => e.ContributorId);
+            //    //modelBuilder.Entity<User>()
+            //    //    .HasMany(e => e.Contacts)
+            //    //    .WithOne(e => e.User)
+            //    //    .HasForeignKey(e => e.UserId);
+
+            //    modelBuilder.Entity<Contributor>()
+            //        .HasMany(e => e.Certificates)
+            //        .WithOne(e => e.Contributor)
+            //        .HasForeignKey(e => e.ContributorId);
 
             modelBuilder.Entity<Roadmap>()
                 .HasOne(e => e.Specialization)
@@ -64,14 +66,16 @@ namespace StuMap.Context
                 .HasOne(e => e.Contributor)
                 .WithMany()
                 .HasForeignKey(e => e.ContributorId);
+            modelBuilder.Entity<Enrollment>()
+                .HasKey(e => new { e.RoadmapId, e.StudentId });
 
+            //modelBuilder.Entity<Student>()
+            //    .HasMany(e => e.Roadmaps)
+            //    .WithMany(e => e.Students)
+            //    .UsingEntity<Enrollment>(
+            //        r => r.HasOne(e => e.Roadmap).WithMany(e => e.Enrollments).HasForeignKey(e => e.RoadmapId),
+            //        l => l.HasOne(e => e.Student).WithMany(e => e.Enrollments).HasForeignKey(e => e.StudentId));
 
-            modelBuilder.Entity<Student>()
-                .HasMany(e => e.Roadmaps)
-                .WithMany(e => e.Students)
-                .UsingEntity<Enrollment>(
-                    r => r.HasOne(e => e.Roadmap).WithMany(e => e.Enrollments).HasForeignKey(e => e.RoadmapId),
-                    l => l.HasOne(e => e.Student).WithMany(e => e.Enrollments).HasForeignKey(e => e.StudentId));
         }
     }
 }
