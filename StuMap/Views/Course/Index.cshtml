@@ -1,0 +1,105 @@
+﻿@* @model List<Course>
+
+
+    @foreach (var course in Model)
+    {
+        <div class="course-item">
+            <h3>@course.Title</h3>
+            <p>@course.Description</p>
+        <p>@course.Contributor.UserName</p>
+        <p>@course.DateCreated</p>
+        </div>
+}
+ *@
+
+<section class="mx-6 my-8 ">
+    <div class="flex flex-col justify-center items-center">
+        <p class="text-4xl font-semibold ">Explore All Courses</p>
+        <p class="text-xl text-primary-content w-200 text-center my-2">
+            Step into the luminescent path of modern technology. Our curated courses
+            guide you through the digital nebula from fundamentals to mastery.
+        </p>
+    </div>
+    <div class="grid grid-cols-3 gap-x-8 gap-y-10 my-12">
+    @* add card  *@
+    <a href="#" class="hover-3d cursor-pointer mx-3">
+        <div class="card h-70 card-dash bg-base-300 border-primary-content rounded-2xl">
+            <div class="card-body flex justify-center ">
+                <div class="flex flex-col items-center justify-center text-primary-content">
+                    <p class="text-4xl py-2 flex-grow-0">Add New Course</p>
+                <i class="fa-solid fa-plus text-4xl py-2"></i>
+                </div>
+
+            </div>
+    </div>
+    
+        <!-- 8 empty divs needed for the 3D effect -->
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+</a>
+      
+    @foreach (var course in Model)
+    {
+
+        <a href="#" class="hover-3d cursor-pointer mx-3">
+            <div class="card h-70 bg-base-300 border-primary-content rounded-2xl">
+                <div class="card-body">
+                    <h1 class="card-title text-2xl">
+                        @course.Title
+                            <div class="badge badge-secondary ">By @course.Contributor.UserName</div>
+                    </h1>
+                        <p class=" text-primary-content py-2">@course.Description</p>
+                        <button class=" btn btn-primary btn-outline text-base-content  h-15 rounded-full">More Details<i class="fa-solid fa-arrow-right-long"></i></button>
+                </div>
+            </div>
+    
+            <!-- 8 empty divs needed for the 3D effect -->
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </a>
+      
+    }
+
+        @foreach (var course in Model)
+        {
+
+            <a href="#" class="hover-3d  cursor-pointer mx-3">
+                <div class="card h-70 bg-base-300 border-primary-content rounded-2xl">
+                    <div class="card-body">
+                        <h1 class="card-title text-2xl">
+                            @course.Title
+                            <div class="badge badge-secondary ">By @course.Contributor.UserName</div>
+                        </h1>
+                        <p class=" text-primary-content py-2">@course.Description</p>
+                        <button class=" btn btn-primary btn-outline text-base-content  h-15 rounded-full">More Details<i class="fa-solid fa-arrow-right-long"></i></button>
+                    </div>
+                </div>
+    
+                <!-- 8 empty divs needed for the 3D effect -->
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </a>
+      
+        }
+
+    </div>
+
+</section>
