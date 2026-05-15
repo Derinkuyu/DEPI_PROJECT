@@ -33,7 +33,8 @@ namespace StuMap.Services
         public int Insert(Course entity)
         {
            context.Courses.Add(entity);
-           return context.SaveChanges();
+           context.SaveChanges();
+           return entity.Id;
         }
 
         public int Update(int id, Course entity)

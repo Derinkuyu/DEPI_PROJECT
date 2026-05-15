@@ -31,7 +31,7 @@ namespace StuMap
             //builder.Services.AddScoped<Managers.IContributorManager, Services.ContributorRepository>();
             builder.Services.AddScoped<Managers.IMaterialManager, Services.MaterialRepository>();
             builder.Services.AddScoped<Managers.ICertificateManager, Services.CertificateRepository>();
-            
+            builder.Services.AddScoped<Managers.IMaterialTypeManager, Services.MaterialTypeRepository>();
 
             var app = builder.Build();
 

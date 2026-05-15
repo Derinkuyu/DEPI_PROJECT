@@ -19,6 +19,7 @@ namespace StuMap.Context
         public virtual DbSet<Roadmap> Roadmaps { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Material> Materials { get; set; }
+        public virtual DbSet<MaterialType> MaterialTypes { get; set; }
         public virtual DbSet<Enrollment> Enrollments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

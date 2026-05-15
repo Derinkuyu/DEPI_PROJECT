@@ -24,7 +24,7 @@ namespace StuMap.Models
         public DateTime DateCreated { get; set; } = DateTime.Now;
 
         // required for admin approval before being displayed on the site
-        public bool IsApproved { get; set; } = false;
+        public bool? IsApproved { get; set; }
 
     }
 }

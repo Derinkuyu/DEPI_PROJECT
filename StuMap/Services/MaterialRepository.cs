@@ -27,6 +27,11 @@ namespace StuMap.Services
             context.Materials.Add(entity);
             return context.SaveChanges();
         }
+        public int InsertRange(List<Material> materials)
+        {
+            context.Materials.AddRange(materials);
+            return context.SaveChanges();
+        }
 
         public int Update(int id, Material entity)
         {
