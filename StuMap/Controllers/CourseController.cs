@@ -27,7 +27,6 @@ namespace StuMap.Controllers
             var QString = Request.Query;
 
             //ContributorId Added manually
-
             //ContributorId will be changed after auth stuf
             var newCourse = new Course{ Title = QString["CourseTitle"], Description = QString["CourseDescription"], ContributorId = "1"};
             var newCourseId=courseRepo.Insert(newCourse);
@@ -41,15 +40,12 @@ namespace StuMap.Controllers
 
             }
             materialRepo.InsertRange(newMaterials);
-            //foreach (var queryParam in Request.Query)
-            //{
-            //    var key = queryParam.Key;
-            //    var value = queryParam.Value; // This is a StringValues object (can hold multiple values for one key)
-
-            //}
-           
             return RedirectToAction("Index");
         }
 
+        public IActionResult Details(int id)
+        {
+            return View(courseRepo.GetById(id));
+        }
     }
 }

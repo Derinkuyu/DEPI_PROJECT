@@ -21,7 +21,7 @@ namespace StuMap.Context
         public virtual DbSet<Material> Materials { get; set; }
         public virtual DbSet<MaterialType> MaterialTypes { get; set; }
         public virtual DbSet<Enrollment> Enrollments { get; set; }
-
+        public virtual DbSet<CourseRoadmap>CourseRoadmaps { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -43,10 +43,7 @@ namespace StuMap.Context
                 .WithMany(e => e.Roadmaps)
                 .HasForeignKey(e => e.SpecializationId);
 
-            modelBuilder.Entity<Roadmap>()
-                .HasMany(e => e.Courses)
-                .WithOne(e => e.Roadmap)
-                .HasForeignKey(e => e.RoadmapId);
+            
 
             modelBuilder.Entity<Roadmap>()
                 .HasOne(e => e.Contributor)
@@ -69,6 +66,8 @@ namespace StuMap.Context
                 .HasForeignKey(e => e.ContributorId);
             modelBuilder.Entity<Enrollment>()
                 .HasKey(e => new { e.RoadmapId, e.StudentId });
+            modelBuilder.Entity<CourseRoadmap>()
+              .HasKey(e => new { e.RoadmapId, e.CourseId });
 
             //modelBuilder.Entity<Student>()
             //    .HasMany(e => e.Roadmaps)

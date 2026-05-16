@@ -31,5 +31,6 @@ namespace StuMap.Models
         // todo: how to show roadmap plan?
 
         public ICollection<Course> Courses { get; set; } = [];
+        public virtual List<CourseRoadmap>? CourseRoadmaps { get; set; }
     }
 }

@@ -1,16 +1,7 @@
-﻿@* @model List<Course>
+﻿@model List<Course>
 
 
-    @foreach (var course in Model)
-    {
-        <div class="course-item">
-            <h3>@course.Title</h3>
-            <p>@course.Description</p>
-        <p>@course.Contributor.UserName</p>
-        <p>@course.DateCreated</p>
-        </div>
-}
- *@
+
  
 <section class="mx-6 my-8 ">
     <div class="flex flex-col justify-center items-center">
@@ -47,7 +38,7 @@
     @foreach (var course in Model)
     {
 
-        <a href="#" class="hover-3d cursor-pointer mx-3">
+        <a asp-controller="Course" asp-action="Details" asp-route-id="@course.Id"  class="hover-3d cursor-pointer mx-3">
             <div class="card h-70 bg-base-300 border-primary-content rounded-2xl">
                 <div class="card-body">
                     <h1 class="card-title text-2xl">

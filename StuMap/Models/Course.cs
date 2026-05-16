@@ -13,9 +13,6 @@ namespace StuMap.Models
         public IdentityUser? Contributor { get; set; }
 
         // Course Roadmap
-        public int? RoadmapId { get; set; }
-        public Roadmap? Roadmap { get; set; }
-
         public ICollection<Material> Materials { get; set; } = [];
 
         // todo: need to figure out if list works with EF Core
@@ -25,6 +22,7 @@ namespace StuMap.Models
 
         // required for admin approval before being displayed on the site
         public bool? IsApproved { get; set; }
+        public virtual List<CourseRoadmap>? CourseRoadmaps { get; set; }
 
     }
 }

@@ -16,8 +16,8 @@ namespace StuMap.Services
         {
             return context.Courses
                 .Include(c => c.Contributor)
-                .Include(c => c.Roadmap)
                 .Include(c => c.Materials)
+                .ThenInclude(m => m.MaterialType)
                 .ToList();
         }
 
@@ -25,8 +25,8 @@ namespace StuMap.Services
         {
             return context.Courses
                 .Include(c => c.Contributor)
-                .Include(c => c.Roadmap)
                 .Include(c => c.Materials)
+                .ThenInclude(m => m.MaterialType)
                 .FirstOrDefault(c => c.Id == id);
         }
 
@@ -45,7 +45,6 @@ namespace StuMap.Services
                 oldCourse.Title = entity.Title;
                 oldCourse.Description = entity.Description;
                 oldCourse.ContributorId = entity.ContributorId;
-                oldCourse.RoadmapId = entity.RoadmapId;
                 oldCourse.IsApproved = entity.IsApproved;
                 oldCourse.DateCreated = entity.DateCreated;
                 oldCourse.Materials = entity.Materials;

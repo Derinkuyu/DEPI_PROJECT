@@ -1,0 +1,50 @@
+﻿ @model Course
+@* <p>@Model.Title</p>
+<p>@Model.Description</p>
+<p>@Model.Contributor.UserName</p>
+@foreach (var item in Model.Materials)
+{
+    <p>@item.Title</p>
+    <p>@item.Description</p>
+    <p>@item.MaterialType.Title</p>
+    <p>@item.Url</p>
+} *@
+
+<section class="mx-6 my-8 ">
+    <div class="grid grid-cols-4  ">
+        <p class="col-1 text-4xl font-semibold col-span-4"><i class="fa-solid fa-angle-right "></i> @Model.Title </p>
+       
+        <p class=" text-xl text-primary-content col-span-3 my-4">
+            @Model.Description
+        </p>
+        <div class=" col-2 col-span-3 text-xl badge badge-dash badge-primary p-5 self-start"><i class="fa-solid fa-circle-user"></i> @Model.Contributor.UserName</div>
+        <div class=" col-1 col-span-4 divider"></div>
+        <p class="col-1 text-4xl font-semibold "> <i class="fa-solid fa-angle-right"></i> All Materials </p>
+        <div id="all-accordions" class="col-span-4 my-6  ">
+            @{
+                var count = 0;
+            }
+          @foreach (var item in Model.Materials)
+          {
+                count++;
+                    
+                <details class="collapse collapse-arrow bg-base-100 border border-base-300" name="my-accordion-det-1" open>
+                    <input type="radio" name="my-accordion-2" hidden/>
+                    <summary  class="collapse-title font-semibold text-xl">#@count @item.Title <div class="badge badge-soft badge-warning">@item.MaterialType.Title</div></summary>
+                    <div class="collapse-content text-sm flex flex-col mx-6 my-4">
+                        <ul class="list-disc">
+                            <li class="">
+                            <span class="font-semibold text-xl">Description</span>
+                            <p class="text-xl text-primary-content mb-4">@item.Description</p>
+                            </li>
+                            <li>
+                                <a class="link link-info text-xl" href="@item.Url" target=_blank>Click Here To Explore</a>
+                    </li>
+                    </ul>
+                    </div>
+                </details>
+            }                       
+        </div>
+
+</div>
+</section>
