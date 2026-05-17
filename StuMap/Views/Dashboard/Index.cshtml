@@ -1,0 +1,984 @@
+﻿@model List<Course>
+@{
+    ViewData["Title"] = "Admin Dashboard – StuMap";
+    Layout = null;
+}
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+@*     {{!-- Tailwind CSS CDN --}}
+ *@    <script src="https://cdn.tailwindcss.com"></script>
+
+@*     {{!-- DaisyUI CDN --}}
+ *@    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" />
+
+@*     {{!-- Font Awesome --}}
+ *@    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+@*     {{!-- Google Fonts: Syne (display) + DM Sans (body) --}}
+ *@    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+    <style>
+        :root {
+        --stumap-accent: #6EE7B7;
+        --stumap-accent-soft: rgba(110, 231, 183, 0.12);
+        --stumap-accent-border: rgba(110, 231, 183, 0.25);
+        --stumap-warning: #FCD34D;
+        --stumap-info: #67E8F9;
+        --stumap-error: #FCA5A5;
+        --stumap-surface: rgba(255, 255, 255, 0.03);
+        --stumap-border: rgba(255, 255, 255, 0.07);
+        --stumap-text-muted: rgba(255, 255, 255, 0.45);
+        }
+
+        * {
+        box-sizing: border-box;
+        }
+
+        body {
+        font-family: 'DM Sans', sans-serif;
+        background: #0D1117;
+        color: #E2E8F0;
+        min-height: 100vh;
+        }
+
+        .font-display {
+        font-family: 'Syne', sans-serif;
+        }
+
+        /* ── Subtle grid background ── */
+        .dashboard-bg {
+        background-color: #0D1117;
+        background-image: linear-gradient(rgba(110, 231, 183, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(110, 231, 183, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+        }
+
+        /* ── Glass cards ── */
+        .glass-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--stumap-border);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 16px;
+        transition: all 0.25s ease;
+        }
+
+        .glass-card:hover {
+        background: rgba(255, 255, 255, 0.065);
+        border-color: var(--stumap-accent-border);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), 0 0 0 1px var(--stumap-accent-border);
+        }
+
+        /* ── Accent glow stat cards ── */
+        .stat-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--stumap-border);
+        border-radius: 16px;
+        transition: all 0.25s ease;
+        position: relative;
+        overflow: hidden;
+        }
+
+        .stat-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at top left, var(--card-glow, rgba(110,231,183,0.06)) 0%, transparent 65%);
+        pointer-events: none;
+        }
+
+        .stat-card:hover {
+        border-color: var(--stumap-accent-border);
+        transform: translateY(-3px);
+        box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+        }
+
+        /* icon orb */
+        .icon-orb {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+        }
+
+        /* ── Chart placeholders ── */
+        .chart-placeholder {
+        background: rgba(255,255,255,0.025);
+        border: 1.5px dashed rgba(110, 231, 183, 0.2);
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--stumap-text-muted);
+        gap: 10px;
+        position: relative;
+        overflow: hidden;
+        }
+
+        .chart-placeholder::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 55%;
+        background: linear-gradient(to top, rgba(110,231,183,0.06), transparent);
+        pointer-events: none;
+        }
+        /* fake bar lines */
+        .chart-placeholder .fake-bars {
+        display: flex;
+        align-items: flex-end;
+        gap: 6px;
+        height: 60px;
+        margin-top: 8px;
+        }
+
+        .fake-bars span {
+        width: 14px;
+        border-radius: 4px 4px 0 0;
+        background: rgba(110,231,183,0.18);
+        }
+
+        /* ── Quick action cards ── */
+        .action-card {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid var(--stumap-border);
+        border-radius: 14px;
+        padding: 1.25rem 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        color: inherit;
+        }
+
+        .action-card:hover {
+        background: var(--stumap-accent-soft);
+        border-color: var(--stumap-accent-border);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+
+        .action-card .action-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: var(--stumap-accent-soft);
+        border: 1px solid var(--stumap-accent-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        color: var(--stumap-accent);
+        }
+
+        /* ── Activity feed ── */
+        .activity-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--stumap-border);
+        transition: background 0.15s;
+        }
+
+        .activity-row:last-child {
+        border-bottom: none;
+        }
+
+        .activity-row:hover {
+        background: rgba(255,255,255,0.02);
+        border-radius: 8px;
+        padding-left: 8px;
+        }
+
+        .activity-dot {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        flex-shrink: 0;
+        margin-top: 2px;
+        }
+
+        /* ── Accent button ── */
+        .btn-stumap {
+        background: linear-gradient(135deg, #6EE7B7, #34D399);
+        color: #0D2B1F;
+        border: none;
+        font-weight: 600;
+        font-family: 'DM Sans', sans-serif;
+        transition: all 0.2s ease;
+        }
+
+        .btn-stumap:hover {
+        background: linear-gradient(135deg, #34D399, #059669);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(52,211,153,0.35);
+        }
+
+        /* ── Breadcrumb ── */
+        .breadcrumb-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--stumap-accent-soft);
+        border: 1px solid var(--stumap-accent-border);
+        color: var(--stumap-accent);
+        padding: 4px 14px;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        }
+
+        /* ── Section headers ── */
+        .section-title {
+        font-family: 'Syne', sans-serif;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #F0F6F2;
+        letter-spacing: -0.01em;
+        }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar {
+        width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+        background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+        background: rgba(110,231,183,0.2);
+        border-radius: 4px;
+        }
+
+        /* ── Pulse dot ── */
+        .live-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #6EE7B7;
+        box-shadow: 0 0 0 3px rgba(110,231,183,0.2);
+        animation: livePulse 2s ease infinite;
+        }
+
+        @@keyframes livePulse {
+        0%, 100% {
+        box-shadow: 0 0 0 3px rgba(110,231,183,0.2);
+        }
+
+        50% {
+        box-shadow: 0 0 0 6px rgba(110,231,183,0.06);
+        }
+        }
+
+        /* ── Responsive tweaks ── */
+        @@media (max-width: 640px) {
+        .font-display.text-3xl {
+        font-size: 1.5rem;
+        }
+        }
+    </style>
+</head>
+
+<body class="dashboard-bg">
+
+    <!-- ══════════════════════════════════════════════════
+     TOP NAVBAR (slim)
+══════════════════════════════════════════════════ -->
+    <nav class="sticky top-0 z-50 border-b border-white/[0.07]"
+         style="background: rgba(13,17,23,0.85); backdrop-filter: blur(20px);">
+        <div class="max-w-screen-2xl mx-auto px-6 h-14 flex items-center justify-between">
+
+@*             {{!-- Brand --}}
+ *@            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center"
+                     style="background: linear-gradient(135deg,#6EE7B7,#34D399);">
+                    <i class="fa-solid fa-map-location-dot text-sm" style="color:#0D2B1F;"></i>
+                </div>
+                <span class="font-display font-700 text-base tracking-tight" style="color:#F0F6F2; font-family:'Syne',sans-serif; font-weight:700;">
+                    Stu<span style="color:#6EE7B7;">Map</span>
+                </span>
+                <span class="hidden sm:inline-block text-xs px-2 py-0.5 rounded-full ml-1"
+                      style="background:rgba(110,231,183,0.1); color:#6EE7B7; border:1px solid rgba(110,231,183,0.2);">
+                    Admin
+                </span>
+            </div>
+
+@*             {{!-- Nav actions --}}
+ *@            <div class="flex items-center gap-3">
+@*                 {{!-- Live indicator --}}
+ *@                <div class="hidden sm:flex items-center gap-2 text-xs" style="color:rgba(255,255,255,0.45);">
+                    <div class="live-dot"></div>
+                    Live
+                </div>
+
+@*                 {{!-- Notifications --}}
+ *@                <div class="dropdown dropdown-end">
+                    <button tabindex="0" class="btn btn-ghost btn-sm btn-circle relative">
+                        <i class="fa-regular fa-bell" style="color:rgba(255,255,255,0.6);"></i>
+                        <span class="absolute top-1 right-1 w-2 h-2 rounded-full"
+                              style="background:#6EE7B7;"></span>
+                    </button>
+                    <ul tabindex="0"
+                        class="dropdown-content z-50 menu p-3 shadow-2xl rounded-2xl w-72 mt-2"
+                        style="background:#161B22; border:1px solid rgba(255,255,255,0.08);">
+                        <li class="menu-title text-xs opacity-50 font-semibold uppercase tracking-widest mb-1">
+                            Notifications
+                        </li>
+                        <li>
+                            <a class="flex items-start gap-3 rounded-xl py-2 hover:bg-white/5">
+                                <div class="activity-dot mt-0 flex-shrink-0" style="background:rgba(110,231,183,0.12); color:#6EE7B7;">
+                                    <i class="fa-solid fa-user-plus text-xs"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium" style="color:#E2E8F0;">New contributor request</p>
+                                    <p class="text-xs" style="color:rgba(255,255,255,0.4);">2 min ago</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="flex items-start gap-3 rounded-xl py-2 hover:bg-white/5">
+                                <div class="activity-dot mt-0 flex-shrink-0" style="background:rgba(252,211,77,0.1); color:#FCD34D;">
+                                    <i class="fa-solid fa-map text-xs"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium" style="color:#E2E8F0;">Roadmap awaiting approval</p>
+                                    <p class="text-xs" style="color:rgba(255,255,255,0.4);">15 min ago</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+@*                 {{!-- Avatar --}}
+ *@                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button"
+                         class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-sm font-bold"
+                         style="background:linear-gradient(135deg,#6EE7B7,#34D399); color:#0D2B1F; font-family:'Syne',sans-serif;">
+                        A
+                    </div>
+                    <ul tabindex="0"
+                        class="dropdown-content z-50 menu p-3 shadow-2xl rounded-2xl w-52 mt-2"
+                        style="background:#161B22; border:1px solid rgba(255,255,255,0.08);">
+                        <li class="px-2 pb-2 border-b mb-1" style="border-color:rgba(255,255,255,0.07);">
+                            <p class="font-semibold text-sm" style="color:#E2E8F0;">Administrator</p>
+                            <p class="text-xs" style="color:rgba(255,255,255,0.4);">admin@stumap.io</p>
+                        </li>
+                        <li>
+                            <a asp-controller="Admin" asp-action="Profile" class="rounded-xl hover:bg-white/5 text-sm">
+                                <i class="fa-regular fa-user w-4"></i> Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Admin" asp-action="Settings" class="rounded-xl hover:bg-white/5 text-sm">
+                                <i class="fa-solid fa-gear w-4"></i> Settings
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Auth" asp-action="Logout"
+                               class="rounded-xl text-sm" style="color:#FCA5A5;">
+                                <i class="fa-solid fa-right-from-bracket w-4"></i> Sign Out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ══════════════════════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════════════════════ -->
+    <main class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- ── 1. HEADER ── -->
+        <section class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-2">
+@*                 {{!-- Breadcrumb --}}
+ *@                <div class="breadcrumb-pill">
+                    <i class="fa-solid fa-gauge-high text-xs"></i>
+                    Dashboard
+                </div>
+
+                <h1 class="font-display text-3xl sm:text-4xl font-800 leading-tight mt-1"
+                    style="font-family:'Syne',sans-serif; font-weight:800; color:#F0F6F2; letter-spacing:-0.02em;">
+                    Welcome Back, Admin 👋
+                </h1>
+                <p class="text-sm" style="color:rgba(255,255,255,0.5);">
+                    Here's what's happening in <span style="color:#6EE7B7; font-weight:500;">StuMap</span> today.
+                </p>
+            </div>
+
+@*             {{!-- Date badge --}}
+ *@            <div class="flex-shrink-0 glass-card px-5 py-3 flex items-center gap-3">
+                <i class="fa-regular fa-calendar-check" style="color:#6EE7B7;"></i>
+                <div>
+                    <p class="text-xs" style="color:rgba(255,255,255,0.4);">Today</p>
+                    <p class="text-sm font-medium" style="color:#E2E8F0;">@DateTime.Now.ToString("dddd, MMM dd yyyy")</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ── 2. STAT CARDS ── -->
+        <section>
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+
+                <!-- Card 1 · Total Users -->
+                <div class="stat-card p-5" style="--card-glow: rgba(110,231,183,0.08);">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="icon-orb"
+                             style="background:rgba(110,231,183,0.1); border:1px solid rgba(110,231,183,0.2); color:#6EE7B7;">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <span class="badge badge-sm" style="background:rgba(110,231,183,0.12); color:#6EE7B7; border:1px solid rgba(110,231,183,0.2);">
+                            All Time
+                        </span>
+                    </div>
+                    <p class="text-xs font-medium uppercase tracking-widest mb-1" style="color:rgba(255,255,255,0.4);">
+                        Total Users
+                    </p>
+                    <p class="font-display text-4xl font-800 mb-3"
+                       style="font-family:'Syne',sans-serif; font-weight:800; color:#F0F6F2; letter-spacing:-0.03em;">
+                        000000
+                    </p>
+                    <div class="flex gap-3 text-xs" style="color:rgba(255,255,255,0.5);">
+                        <span class="flex items-center gap-1">
+                            <i class="fa-solid fa-graduation-cap" style="color:#67E8F9;"></i>
+                            000 Students
+                        </span>
+                        <span class="flex items-center gap-1">
+                            <i class="fa-solid fa-pen-nib" style="color:#C084FC;"></i>
+                            000 Contributors
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Card 2 · Pending Contributor Requests -->
+                <div class="stat-card p-5" style="--card-glow: rgba(252,211,77,0.07);">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="icon-orb"
+                             style="background:rgba(252,211,77,0.1); border:1px solid rgba(252,211,77,0.2); color:#FCD34D;">
+                            <i class="fa-solid fa-user-clock"></i>
+                        </div>
+                        <span class="badge badge-warning badge-sm badge-outline">Pending</span>
+                    </div>
+                    <p class="text-xs font-medium uppercase tracking-widest mb-1" style="color:rgba(255,255,255,0.4);">
+                        Contributor Requests
+                    </p>
+                    <p class="font-display text-4xl font-800 mb-3"
+                       style="font-family:'Syne',sans-serif; font-weight:800; color:#F0F6F2; letter-spacing:-0.03em;">
+                        0
+                    </p>
+                    <a asp-controller="Admin" asp-action="ContributorRequests"
+                       class="btn btn-xs w-full rounded-xl font-semibold"
+                       style="background:rgba(252,211,77,0.1); color:#FCD34D; border:1px solid rgba(252,211,77,0.2);">
+                        <i class="fa-solid fa-arrow-right-long text-xs"></i>
+                        Review Requests
+                    </a>
+                </div>
+
+                <!-- Card 3 · Pending Roadmaps -->
+                <div class="stat-card p-5" style="--card-glow: rgba(167,139,250,0.07);">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="icon-orb"
+                             style="background:rgba(167,139,250,0.1); border:1px solid rgba(167,139,250,0.2); color:#A78BFA;">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                        </div>
+                        <span class="badge badge-sm" style="background:rgba(167,139,250,0.1); color:#A78BFA; border:1px solid rgba(167,139,250,0.2);">
+                            Awaiting
+                        </span>
+                    </div>
+                    <p class="text-xs font-medium uppercase tracking-widest mb-1" style="color:rgba(255,255,255,0.4);">
+                        Pending Roadmaps
+                    </p>
+                    <p class="font-display text-4xl font-800 mb-3"
+                       style="font-family:'Syne',sans-serif; font-weight:800; color:#F0F6F2; letter-spacing:-0.03em;">
+                     @ViewBag.RoadMaps.Count
+                    </p>
+                    <a asp-controller="Admin" asp-action="Roadmaps"
+                       class="btn btn-xs w-full rounded-xl font-semibold"
+                       style="background:rgba(167,139,250,0.1); color:#A78BFA; border:1px solid rgba(167,139,250,0.2);">
+                        <i class="fa-solid fa-arrow-right-long text-xs"></i>
+                        Manage Roadmaps
+                    </a>
+                </div>
+
+                <!-- Card 4 · Total Courses -->
+                <div class="stat-card p-5" style="--card-glow: rgba(103,232,249,0.07);">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="icon-orb"
+                             style="background:rgba(103,232,249,0.1); border:1px solid rgba(103,232,249,0.2); color:#67E8F9;">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                        </div>
+                        <span class="badge badge-info badge-sm badge-outline">Total</span>
+                    </div>
+                    <p class="text-xs font-medium uppercase tracking-widest mb-1" style="color:rgba(255,255,255,0.4);">
+                        Total Courses
+                    </p>
+                    <p class="font-display text-4xl font-800 mb-3"
+                       style="font-family:'Syne',sans-serif; font-weight:800; color:#F0F6F2; letter-spacing:-0.03em;">
+                      @ViewBag.Course.Count
+                    </p>
+                    <a asp-controller="Admin" asp-action="Courses"
+                       class="btn btn-xs w-full rounded-xl font-semibold"
+                       style="background:rgba(103,232,249,0.1); color:#67E8F9; border:1px solid rgba(103,232,249,0.2);">
+                        <i class="fa-solid fa-arrow-right-long text-xs"></i>
+                        Manage Courses
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ── 3. CHARTS ── -->
+        <section>
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="section-title flex items-center gap-2">
+                    <i class="fa-solid fa-chart-line" style="color:#6EE7B7; font-size:0.95rem;"></i>
+                    Analytics Overview
+                </h2>
+                <span class="text-xs" style="color:rgba(255,255,255,0.4);">
+                    Updated live
+                </span>
+            </div>
+
+            <!-- Large primary chart -->
+            <div class="glass-card p-6 mb-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+                    <div>
+                        <h3 class="font-display text-lg font-700"
+                            style="font-family:'Syne',sans-serif; font-weight:700; color:#F0F6F2;">
+                            Approval Analytics
+                        </h3>
+                        <p class="text-sm mt-0.5" style="color:rgba(255,255,255,0.45);">
+                            Monthly roadmap and contributor approval trends
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="flex items-center gap-1.5 text-xs" style="color:rgba(255,255,255,0.5);">
+                            <span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#6EE7B7;"></span>
+                            Approved
+                        </span>
+                        <span class="flex items-center gap-1.5 text-xs" style="color:rgba(255,255,255,0.5);">
+                            <span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#FCD34D;"></span>
+                            Pending
+                        </span>
+                        <span class="flex items-center gap-1.5 text-xs" style="color:rgba(255,255,255,0.5);">
+                            <span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#FCA5A5;"></span>
+                            Rejected
+                        </span>
+                        <select class="select select-xs rounded-lg ml-2"
+                                style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:rgba(255,255,255,0.7); font-size:0.7rem;">
+                            <option>Last 30 days</option>
+                            <option>Last 90 days</option>
+                            <option>This year</option>
+                        </select>
+                    </div>
+                </div>
+
+                {{!-- Chart area --}}
+                <div class="chart-placeholder" style="height: 280px;">
+                    <div id="approvalChart" class="w-full h-full"></div>
+                    {{!-- placeholder visual (hidden once chart library loads) --}}
+                    <div class="chart-placeholder-inner flex flex-col items-center justify-center gap-3 absolute inset-0">
+                        <div class="fake-bars">
+                            <span style="height:30%; opacity:.6;"></span>
+                            <span style="height:55%; opacity:.7;"></span>
+                            <span style="height:45%; opacity:.65;"></span>
+                            <span style="height:75%; background:rgba(110,231,183,0.35);"></span>
+                            <span style="height:60%; opacity:.7;"></span>
+                            <span style="height:80%; background:rgba(110,231,183,0.35);"></span>
+                            <span style="height:50%; opacity:.65;"></span>
+                            <span style="height:90%; background:rgba(110,231,183,0.4);"></span>
+                            <span style="height:65%; opacity:.7;"></span>
+                            <span style="height:70%; opacity:.75;"></span>
+                            <span style="height:85%; background:rgba(110,231,183,0.38);"></span>
+                            <span style="height:55%; opacity:.6;"></span>
+                        </div>
+                        <p class="text-xs font-medium" style="color:rgba(255,255,255,0.3); letter-spacing:.05em;">
+                            <i class="fa-solid fa-chart-column mr-1"></i> Chart will render here
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two smaller charts -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <!-- User Distribution -->
+                <div class="glass-card p-6">
+                    <div class="mb-5">
+                        <h3 class="font-display text-base font-700"
+                            style="font-family:'Syne',sans-serif; font-weight:700; color:#F0F6F2;">
+                            User Distribution
+                        </h3>
+                        <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.45);">
+                            Students vs Contributors vs Admins
+                        </p>
+                    </div>
+
+                    <div class="chart-placeholder" style="height:200px; position:relative;">
+                        <div id="usersChart" class="w-full h-full"></div>
+                        {{!-- decorative donut hint --}}
+                        <div class="absolute inset-0 flex flex-col items-center justify-center gap-2 pointer-events-none">
+                            <div style="
+                            width:80px; height:80px;
+                            border-radius:50%;
+                            border: 10px solid transparent;
+                            border-top-color: #6EE7B7;
+                            border-right-color: #67E8F9;
+                            border-bottom-color: #C084FC;
+                            opacity:.35;
+                            "></div>
+                            <p class="text-xs" style="color:rgba(255,255,255,0.3); letter-spacing:.05em;">
+                                <i class="fa-solid fa-chart-pie mr-1"></i> Chart will render here
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-around mt-4 text-xs">
+                        <span class="flex items-center gap-1.5" style="color:rgba(255,255,255,0.55);">
+                            <span class="w-2.5 h-2.5 rounded-full" style="background:#6EE7B7;"></span>Students
+                        </span>
+                        <span class="flex items-center gap-1.5" style="color:rgba(255,255,255,0.55);">
+                            <span class="w-2.5 h-2.5 rounded-full" style="background:#67E8F9;"></span>Contributors
+                        </span>
+                        <span class="flex items-center gap-1.5" style="color:rgba(255,255,255,0.55);">
+                            <span class="w-2.5 h-2.5 rounded-full" style="background:#C084FC;"></span>Admins
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Roadmap Activity -->
+                <div class="glass-card p-6">
+                    <div class="mb-5">
+                        <h3 class="font-display text-base font-700"
+                            style="font-family:'Syne',sans-serif; font-weight:700; color:#F0F6F2;">
+                            Roadmap Activity
+                        </h3>
+                        <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.45);">
+                            Most active roadmaps &amp; specializations
+                        </p>
+                    </div>
+
+                    <div class="chart-placeholder" style="height:200px; position:relative;">
+                        <div id="roadmapChart" class="w-full h-full"></div>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 pointer-events-none">
+                            <div class="fake-bars" style="height:55px;">
+                                <span style="height:40%; width:18px; border-radius:4px 4px 0 0; background:rgba(167,139,250,0.3);"></span>
+                                <span style="height:80%; width:18px; background:rgba(167,139,250,0.45);"></span>
+                                <span style="height:55%; width:18px; background:rgba(167,139,250,0.3);"></span>
+                                <span style="height:100%; width:18px; background:rgba(167,139,250,0.5);"></span>
+                                <span style="height:65%; width:18px; background:rgba(167,139,250,0.35);"></span>
+                            </div>
+                            <p class="text-xs" style="color:rgba(255,255,255,0.3); letter-spacing:.05em;">
+                                <i class="fa-solid fa-chart-bar mr-1"></i> Chart will render here
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-around mt-4 text-xs">
+                        <span class="flex items-center gap-1.5" style="color:rgba(255,255,255,0.55);">
+                            <span class="w-2.5 h-2.5 rounded-sm" style="background:#A78BFA;"></span>Enrollments
+                        </span>
+                        <span class="flex items-center gap-1.5" style="color:rgba(255,255,255,0.55);">
+                            <span class="w-2.5 h-2.5 rounded-sm" style="background:#C084FC;"></span>Completions
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ── 4. QUICK ACTIONS ── -->
+        <section>
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="section-title flex items-center gap-2">
+                    <i class="fa-solid fa-bolt" style="color:#FCD34D; font-size:0.9rem;"></i>
+                    Quick Actions
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+
+                <a asp-controller="Admin" asp-action="Users" class="action-card">
+                    <div class="action-icon"><i class="fa-solid fa-users"></i></div>
+                    <span class="text-sm font-medium" style="color:#E2E8F0;">Manage Users</span>
+                </a>
+
+                <a asp-controller="Admin" asp-action="ContributorRequests" class="action-card">
+                    <div class="action-icon" style="background:rgba(252,211,77,0.08); border-color:rgba(252,211,77,0.2); color:#FCD34D;">
+                        <i class="fa-solid fa-user-clock"></i>
+                    </div>
+                    <span class="text-sm font-medium" style="color:#E2E8F0;">Contributor Requests</span>
+                </a>
+
+                <a asp-controller="Admin" asp-action="Roadmaps" class="action-card">
+                    <div class="action-icon" style="background:rgba(167,139,250,0.08); border-color:rgba(167,139,250,0.2); color:#A78BFA;">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                    </div>
+                    <span class="text-sm font-medium" style="color:#E2E8F0;">Manage Roadmaps</span>
+                </a>
+
+                <a asp-controller="Admin" asp-action="Courses" class="action-card">
+                    <div class="action-icon" style="background:rgba(103,232,249,0.08); border-color:rgba(103,232,249,0.2); color:#67E8F9;">
+                        <i class="fa-solid fa-book-open-reader"></i>
+                    </div>
+                    <span class="text-sm font-medium" style="color:#E2E8F0;">Manage Courses</span>
+                </a>
+
+                <a asp-controller="Admin" asp-action="ContactMessages" class="action-card">
+                    <div class="action-icon" style="background:rgba(252,165,165,0.08); border-color:rgba(252,165,165,0.2); color:#FCA5A5;">
+                        <i class="fa-solid fa-envelope-open-text"></i>
+                    </div>
+                    <span class="text-sm font-medium" style="color:#E2E8F0;">Contact Messages</span>
+                </a>
+
+                <a asp-controller="Admin" asp-action="Analytics" class="action-card">
+                    <div class="action-icon" style="background:rgba(52,211,153,0.08); border-color:rgba(52,211,153,0.2); color:#34D399;">
+                        <i class="fa-solid fa-chart-mixed"></i>
+                    </div>
+                    <span class="text-sm font-medium" style="color:#E2E8F0;">Analytics</span>
+                </a>
+
+            </div>
+        </section>
+
+
+        <!-- ── 5. RECENT ACTIVITY  +  PENDING QUEUE ── -->
+        <section class="grid grid-cols-1 lg:grid-cols-5 gap-4">
+
+            <!-- Recent Activity (wider) -->
+            <div class="glass-card p-6 lg:col-span-3">
+                <div class="flex items-center justify-between mb-5">
+                    <h2 class="section-title flex items-center gap-2">
+                        <i class="fa-solid fa-clock-rotate-left" style="color:#6EE7B7; font-size:0.9rem;"></i>
+                        Recent Activity
+                    </h2>
+                    <a asp-controller="Admin" asp-action="ActivityLog"
+                       class="text-xs font-medium hover:opacity-80 transition-opacity"
+                       style="color:#6EE7B7;">
+                        View all <i class="fa-solid fa-arrow-right ml-1 text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Activity rows -->
+                <div>
+
+                    <!-- Row 1 -->
+                    <div class="activity-row">
+                        <div class="activity-dot" style="background:rgba(110,231,183,0.1); color:#6EE7B7;">
+                            <i class="fa-solid fa-user-plus text-xs"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium" style="color:#E2E8F0;">New contributor request submitted</p>
+                            <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.4);">
+                                Awaiting admin review &mdash; pending queue
+                            </p>
+                        </div>
+                        <span class="text-xs flex-shrink-0" style="color:rgba(255,255,255,0.35);">2 min ago</span>
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="activity-row">
+                        <div class="activity-dot" style="background:rgba(252,211,77,0.1); color:#FCD34D;">
+                            <i class="fa-solid fa-map text-xs"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium" style="color:#E2E8F0;">Roadmap waiting approval</p>
+                            <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.4);">
+                                "Full-Stack Web Development" &mdash; submitted by contributor
+                            </p>
+                        </div>
+                        <span class="text-xs flex-shrink-0" style="color:rgba(255,255,255,0.35);">15 min ago</span>
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="activity-row">
+                        <div class="activity-dot" style="background:rgba(103,232,249,0.1); color:#67E8F9;">
+                            <i class="fa-solid fa-envelope text-xs"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium" style="color:#E2E8F0;">New student contact message</p>
+                            <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.4);">
+                                Inquiry about roadmap access permissions
+                            </p>
+                        </div>
+                        <span class="text-xs flex-shrink-0" style="color:rgba(255,255,255,0.35);">42 min ago</span>
+                    </div>
+
+                    <!-- Row 4 -->
+                    <div class="activity-row">
+                        <div class="activity-dot" style="background:rgba(167,139,250,0.1); color:#A78BFA;">
+                            <i class="fa-solid fa-book text-xs"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium" style="color:#E2E8F0;">New course added</p>
+                            <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.4);">
+                                "Machine Learning Fundamentals" added to roadmap
+                            </p>
+                        </div>
+                        <span class="text-xs flex-shrink-0" style="color:rgba(255,255,255,0.35);">1 hr ago</span>
+                    </div>
+
+                    <!-- Row 5 -->
+                    <div class="activity-row">
+                        <div class="activity-dot" style="background:rgba(52,211,153,0.1); color:#34D399;">
+                            <i class="fa-solid fa-circle-check text-xs"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium" style="color:#E2E8F0;">Roadmap approved &amp; published</p>
+                            <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.4);">
+                                "DevOps &amp; Cloud Engineering" is now live
+                            </p>
+                        </div>
+                        <span class="text-xs flex-shrink-0" style="color:rgba(255,255,255,0.35);">3 hrs ago</span>
+                    </div>
+
+                    <!-- Row 6 -->
+                    <div class="activity-row">
+                        <div class="activity-dot" style="background:rgba(252,165,165,0.1); color:#FCA5A5;">
+                            <i class="fa-solid fa-ban text-xs"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium" style="color:#E2E8F0;">Contributor request rejected</p>
+                            <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.4);">
+                                Incomplete profile &mdash; notified via email
+                            </p>
+                        </div>
+                        <span class="text-xs flex-shrink-0" style="color:rgba(255,255,255,0.35);">5 hrs ago</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Pending Queue (narrower) -->
+            <div class="glass-card p-6 lg:col-span-2 flex flex-col">
+                <div class="flex items-center justify-between mb-5">
+                    <h2 class="section-title flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group" style="color:#FCD34D; font-size:0.9rem;"></i>
+                        Pending Queue
+                    </h2>
+                    <span class="badge badge-warning badge-sm">Needs Review</span>
+                </div>
+
+                <div class="space-y-3 flex-1">
+
+                    <!-- Pending item -->
+                    <div class="rounded-xl p-3.5 flex items-center gap-3"
+                         style="background:rgba(252,211,77,0.05); border:1px solid rgba(252,211,77,0.12);">
+                        <div class="icon-orb w-10 h-10"
+                             style="background:rgba(252,211,77,0.1); color:#FCD34D; border:1px solid rgba(252,211,77,0.2); font-size:0.9rem; border-radius:10px;">
+                            <i class="fa-solid fa-user-clock"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-semibold" style="color:#E2E8F0;">Contributor Requests</p>
+                            <p class="text-xs" style="color:rgba(255,255,255,0.45);">
+                                <span style="color:#FCD34D; font-weight:600;">0</span> awaiting review
+                            </p>
+                        </div>
+                        <a asp-controller="Admin" asp-action="ContributorRequests"
+                           class="btn btn-xs rounded-lg"
+                           style="background:rgba(252,211,77,0.15); color:#FCD34D; border:1px solid rgba(252,211,77,0.25);">
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+
+                    <!-- Pending roadmaps -->
+                    <div class="rounded-xl p-3.5 flex items-center gap-3"
+                         style="background:rgba(167,139,250,0.05); border:1px solid rgba(167,139,250,0.12);">
+                        <div class="icon-orb w-10 h-10"
+                             style="background:rgba(167,139,250,0.1); color:#A78BFA; border:1px solid rgba(167,139,250,0.2); font-size:0.9rem; border-radius:10px;">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-semibold" style="color:#E2E8F0;">Pending Roadmaps</p>
+                            <p class="text-xs" style="color:rgba(255,255,255,0.45);">
+                                <span style="color:#A78BFA; font-weight:600;">0</span> awaiting approval
+                            </p>
+                        </div>
+                        <a asp-controller="Admin" asp-action="Roadmaps"
+                           class="btn btn-xs rounded-lg"
+                           style="background:rgba(167,139,250,0.15); color:#A78BFA; border:1px solid rgba(167,139,250,0.25);">
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+
+                    <!-- Unread messages -->
+                    <div class="rounded-xl p-3.5 flex items-center gap-3"
+                         style="background:rgba(103,232,249,0.05); border:1px solid rgba(103,232,249,0.12);">
+                        <div class="icon-orb w-10 h-10"
+                             style="background:rgba(103,232,249,0.1); color:#67E8F9; border:1px solid rgba(103,232,249,0.2); font-size:0.9rem; border-radius:10px;">
+                            <i class="fa-solid fa-envelope-open-text"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-semibold" style="color:#E2E8F0;">Unread Messages</p>
+                            <p class="text-xs" style="color:rgba(255,255,255,0.45);">
+                                <span style="color:#67E8F9; font-weight:600;">0</span> unread contact messages
+                            </p>
+                        </div>
+                        <a asp-controller="Admin" asp-action="ContactMessages"
+                           class="btn btn-xs rounded-lg"
+                           style="background:rgba(103,232,249,0.15); color:#67E8F9; border:1px solid rgba(103,232,249,0.25);">
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+                <!-- CTA -->
+                <div class="mt-5 pt-4" style="border-top:1px solid rgba(255,255,255,0.07);">
+                    <a asp-controller="Admin" asp-action="Analytics"
+                       class="btn btn-stumap btn-sm w-full rounded-xl">
+                        <i class="fa-solid fa-chart-mixed mr-1"></i>
+                        Full Analytics Report
+                    </a>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ── FOOTER ── -->
+        <footer class="flex flex-col sm:flex-row items-center justify-between gap-2 pt-4"
+                style="border-top:1px solid rgba(255,255,255,0.06);">
+            <p class="text-xs" style="color:rgba(255,255,255,0.3);">
+                &copy; @DateTime.Now.Year
+                <span style="color:#6EE7B7; font-weight:500;">StuMap</span>
+                &mdash; Admin Panel
+            </p>
+            <p class="text-xs" style="color:rgba(255,255,255,0.25);">
+                Version 1.0.0
+            </p>
+        </footer>
+
+    </main>
+
+</body>
