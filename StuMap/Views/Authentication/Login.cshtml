@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="flex min-h-auto justify-self-center my-8 w-md bg-gray-800  rounded-3xl  flex-col justify-center items-center px-6 py-12 lg:px-8 ">
+    <div class=" sm:w-full sm:max-w-sm">
+        <h1 class="m-10 text-center text-5xl font-bold tracking-tight text-white">StuMap</h1>
+        <h2 class="m-5 text-center text-xl font-bold tracking-tight text-white">Sign in to your account</h2>
+    </div>
+
+    <div class="w-sm w-auto">
+        <form id="loginForm" class="space-y-6">
+
+            <fieldset class="fieldset">
+                <label for="email" class="label">Email address</label>
+                <input id="email" type="email" name="email" required autocomplete="email" class="validator input w-full" />
+            </fieldset>
+
+            <fieldset class="fieldset">
+                <div class="flex items-center justify-between">
+                    <label for="password" class="label">Password</label>
+                    <div class="text-sm">
+                        <a href="#" class="font-semibold text-indigo-400 hover:text-indigo-300">Forgot password?</a>
+                    </div>
+                </div>
+                <input id="password" type="password" name="password" required autocomplete="current-password" class="validator input w-full" />
+            </fieldset>
+            <label id="login-error" hidden class="label text-error">
+                Heloeleoq
+            </label>
+            <div>
+                <button id="btnLogin" type="submit"
+                        class="flex w-full btn btn-primary">
+                    <span id="loginBtnTxt">Sign in</span>
+                    <span id="loginSpinner" class="loading loading-dots loading-sm ml-2 hidden"></span>
+                </button>
+            </div>
+        </form>
+
+        <div class="divider self-center"></div>
+
+        <p class="text-center text-sm/6 text-gray-400">
+            Not a member?
+            <a href="/register" class="font-semibold text-indigo-400 hover:text-indigo-300">Sign up here</a>
+        </p>
+    </div>
+</div>
+
+<div id="TestContainer" class="flex flex-col items-center w-stretch mt-5">
+</div>
+
+
+@section Scripts {
+    <script src="~/js/Authentication/login.js"></script>
+}

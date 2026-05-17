@@ -1,0 +1,165 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+<div class="flex min-h-auto justify-self-center my-8 w-md bg-gray-800  rounded-3xl  flex-col justify-center items-center px-6 py-12 lg:px-8 ">
+    <div class=" sm:w-full sm:max-w-sm">
+        <h1 class="m-10 text-center text-5xl font-bold tracking-tight text-white">StuMap</h1>
+        <h2 class="m-5 text-center text-xl font-bold tracking-tight text-white">Sign up</h2>
+    </div>
+
+    <div class="w-sm w-auto">
+
+        <form id="form-1" data-form="1" class="space-y-4 p-6 transition-all duration-300 opacity-100 translate-x-0">
+            <fieldset class="fieldset">
+                <label for="account-type" class="label"><span class="label">Please choose account type</span></label>
+                <select id="account-type" name="account-type" class="select mt-2 validator w-full" required>
+                    <option disabled selected value="">Choose</option>
+                    <option>Student</option>
+                    <option>Contributor</option>
+                </select>
+            </fieldset>
+
+            <button class="btn btn-primary w-full" type="submit">Next</button>
+        </form>
+
+        <form id="form-2" data-form="2" class="space-y-3 transition-all duration-300 hidden">
+            <fieldset class="fieldset flex validator flex-row gap-5">
+                <fieldset class="fieldset validator w-full">
+                    <label for="fName" class="label">First Name</label>
+                    <input id="fName" type="text" name="fName" required
+                           placeholder="First Name"
+                           pattern="^[A-Za-z][A-Za-z'\- ]*[A-Za-z]$"
+                           minlength="2"
+                           maxlength="50"
+                           class="mt-2 input validator w-full" />
+                </fieldset>
+                <fieldset class="fieldset validator w-full">
+                    <label for="lName" class="label">Last Name</label>
+                    <input id="lName" type="text" name="lName" required
+                           placeholder="Last Name"
+                           pattern="^[A-Za-z][A-Za-z'\- ]*[A-Za-z]$"
+                           minlength="2"
+                           maxlength="50"
+                           class="mt-2 input validator w-full" />
+                </fieldset>
+            </fieldset>
+            <p class="validator-hint hidden">
+                Must be at least 2 characters. Letters, spaces, hyphens, and apostrophes only.
+            </p>
+            
+            <fieldset class="fieldset">
+                <label for="email" class="label">Email address</label>
+                <input id="email" type="email" name="email" required
+                       placeholder="example@site.com"
+                       class="mt-2 input validator w-full" />
+            </fieldset>
+            <fieldset class="fieldset">
+                <label for="password" class="label">Password</label>
+                <input id="password" type="password" name="password" required
+                       placeholder="Password"
+                       min="8"
+                       class="mt-2 input validator w-full" />
+                <div class="mt-2 flex flex-col gap-1 text-xs text-gray-500">
+                    <div id="req-length" class="flex items-center gap-1 transition-colors duration-200">
+                        <span class="status-icon">❌</span> At least 8 characters
+                    </div>
+                    <div id="req-uppercase" class="flex items-center gap-1 transition-colors duration-200">
+                        <span class="status-icon">❌</span> At least 1 uppercase letter
+                    </div>
+                    <div id="req-number" class="flex items-center gap-1 transition-colors duration-200">
+                        <span class="status-icon">❌</span> At least 1 number
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="fieldset">
+                <label for="confirmPassword" class="label">Confirm Password</label>
+                <input id="confirmPassword" type="password" name="confirmPassword" required
+                       min="8"
+                       placeholder="Confirm Password"
+                       class="mt-2 input validator w-full" />
+            </fieldset>
+            <fieldset class="fieldset">
+                <label for="birthdate" class="label">Date of Birth</label>
+                <input id="birthdate" type="date" name="DateOfBirth"
+                       required
+                       placeholder="Date of Birth"
+                       min="1900-01-01"
+                       class="mt-2 input validator w-full" />
+            </fieldset>
+           
+            <fieldset class="fieldset">
+                <div class="flex flex-row">
+                    <label for="phone" class="label w-full">Phone Number</label>
+                    <p class="label text-sm">(Optional)</p>
+                </div>
+                <input id="phone" type="tel" name="phone"
+                       required
+                       placeholder="Phone Number"
+                       class="mt-2 input validator w-full" />
+            </fieldset>
+
+            <fieldset class="fieldset">
+                <label for="country"><span class="label">Please choose your country</span></label>
+                <select id="country" name="country" class="select mt-2 validator w-full" required>
+                    <option disabled selected value="">Select Country</option>
+                </select>
+            </fieldset>
+
+            <template id="certificate-template">
+                <li class="certificate-item collapse" data-certificate="">
+                    <input type="radio" name="my-accordion-2" checked="checked" />
+                    <div class="collapse-title font-semibold">New Certificate</div>
+                    <div class="collapse-content items-center list-row">
+                        <div class="flex flex-col validator space-y-4 list-col-grow">
+                            <input type="text" required class="certificate-title validator input" placeholder="Title" />
+                            <input type="text" required class="certificate-url validator input" placeholder="Certificate Url (https://..)" />
+                        </div>
+                        <button type="button" class="delete-certificate btn btn-primary btn-square" data-certificate="">X</button>
+                    </div>
+                </li>
+            </template>
+
+            <fieldset id="certificates-field" class="fieldset bg-base-100 border-base-100 rounded p-4">
+                <legend class="fieldset-legend">Certificates</legend>
+                <button onclick="addCertificate()" type="button" class="btn">Add Certificate</button>
+                <ul id="certificate-list" class="list">
+                </ul>
+            </fieldset>
+
+            
+            <div class="flex flex-row gap-4 justify-center">
+                <div class="w-full">
+                    <button onclick="goToForm(1)" type="button" class="btn btn-primary w-full">
+                        Back
+                    </button>
+                </div>
+                <div class="w-full">
+                    <button id="btnRegister" type="submit" class="btn btn-primary w-full">
+                        Sign up
+                    </button>
+                </div>
+
+               
+            </div>
+        </form>
+
+
+        <dialog id="signup-modal" class="modal">
+            <div class="modal-box">
+                <h3 class="text-lg font-bold">Signed up!</h3>
+                <p class="py-4">Signed Up successfully, you can now login.</p>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <button type="button" onclick="gotoLogin()" class="btn">Login</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/Authentication/register.js"></script>
+}
