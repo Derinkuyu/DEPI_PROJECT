@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using StuMap.DataSeeding;
 using StuMap.Models;
 namespace StuMap.Context
 {
@@ -25,6 +26,21 @@ namespace StuMap.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new MaterialTypeSeedConfiguration());
+
+            modelBuilder.ApplyConfiguration(new IdentityRoleSeedConfiguration());
+
+            modelBuilder.ApplyConfiguration(new IdentityUserSeedConfiguration());
+
+            modelBuilder.ApplyConfiguration(new SpecializationSeedConfiguration());
+
+            modelBuilder.ApplyConfiguration(new IdentityUserRoleSeedConfiguration());
+            
+            modelBuilder.ApplyConfiguration(new CourseSeedConfiguration());
+
+            modelBuilder.ApplyConfiguration(new MaterialSeedConfiguration());
+
 
             //    //modelBuilder.Entity<User>().UseTptMappingStrategy();
 

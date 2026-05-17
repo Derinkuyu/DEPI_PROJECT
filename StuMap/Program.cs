@@ -7,7 +7,7 @@ namespace StuMap
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +53,22 @@ namespace StuMap
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
+
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    var services = scope.ServiceProvider;
+            //    try
+            //    {
+            //        await IdentitySeeder.SeedRolesAndAdminAsync(services);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        // Log errors here (e.g., database connection issues)
+            //        var logger = services.GetRequiredService<ILogger<Program>>();
+            //        logger.LogError(ex, "An error occurred while seeding the database.");
+            //    }
+            //}
+
 
             app.Run();
         }

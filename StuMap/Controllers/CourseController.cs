@@ -28,7 +28,8 @@ namespace StuMap.Controllers
 
             //ContributorId Added manually
             //ContributorId will be changed after auth stuf
-            var newCourse = new Course{ Title = QString["CourseTitle"], Description = QString["CourseDescription"], ContributorId = "1"};
+            string conId = "E2E368AB-8D20-401B-826A-F591202E3D19";
+            var newCourse = new Course{ Title = QString["CourseTitle"], Description = QString["CourseDescription"], ContributorId = conId };
             var newCourseId=courseRepo.Insert(newCourse);
 
             List<Material> newMaterials = [];
@@ -36,7 +37,7 @@ namespace StuMap.Controllers
             for (int i = 1; i <= 5; i++)
             {
                 if (!QString[$"MaterialTitle-{i}"].IsNullOrEmpty())
-                    newMaterials.Add(new Material { Title = QString[$"MaterialTitle-{i}"][0], Description = QString[$"MaterialDescription-{i}"][0], Url = QString[$"MaterialUrl-{i}"][0], MaterialTypeId = int.Parse(QString[$"MaterialType-{i}"][0]), ContributorId = "1", CourseId = newCourseId });
+                    newMaterials.Add(new Material { Title = QString[$"MaterialTitle-{i}"][0], Description = QString[$"MaterialDescription-{i}"][0], Url = QString[$"MaterialUrl-{i}"][0], MaterialTypeId = int.Parse(QString[$"MaterialType-{i}"][0]), ContributorId = conId, CourseId = newCourseId });
 
             }
             materialRepo.InsertRange(newMaterials);

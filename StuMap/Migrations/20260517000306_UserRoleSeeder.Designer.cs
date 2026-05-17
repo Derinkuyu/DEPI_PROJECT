@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StuMap.Context;
 
@@ -11,9 +12,11 @@ using StuMap.Context;
 namespace StuMap.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260517000306_UserRoleSeeder")]
+    partial class UserRoleSeeder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -438,40 +441,6 @@ namespace StuMap.Migrations
                     b.HasIndex("RoadmapId");
 
                     b.ToTable("Courses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
-                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Description = "Learn the absolute basics of building web pages. Master the structure of a website using text elements, hyperlinks, forms, images, and semantic tags that help search engines understand your content.",
-                            Title = "Introduction to HTML5"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
-                            DateCreated = new DateTime(2026, 5, 16, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Description = "Transform plain text into beautiful, styled web pages. Discover colors, custom fonts, borders, margins, padding, and how to use selectors to target and style specific elements across your site.",
-                            Title = "Introduction to CSS3"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
-                            DateCreated = new DateTime(2026, 5, 15, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Description = "Learn how to make your websites look perfect on any screen size. Master modern layouts using CSS Flexbox and Grid, and use media queries to automatically adapt designs for mobile phones, tablets, and desktops.",
-                            Title = "Creating Responsive Web Designs"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
-                            DateCreated = new DateTime(2026, 5, 14, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Description = "Bring your static web pages to life with interactivity. Learn the fundamentals of programming—like variables, functions, and events—to handle user clicks, toggle menus, and create dynamic content.",
-                            Title = "Basic JavaScript for the Web"
-                        });
                 });
 
             modelBuilder.Entity("StuMap.Models.CourseRoadmap", b =>
@@ -551,129 +520,6 @@ namespace StuMap.Migrations
                     b.HasIndex("MaterialTypeId");
 
                     b.ToTable("Materials");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
-                            CourseId = 1,
-                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Description = "An authoritative, text-based guide by MDN Web Docs outlining elements, tags, attributes, and formatting requirements for standard web documents.",
-                            MaterialTypeId = 1,
-                            Title = "MDN Web Docs: Basic HTML Syntax",
-                            Url = "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Basic_HTML_syntax"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
-                            CourseId = 1,
-                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Description = "An interactive web-based sandbox tool from W3Schools allowing you to write basic markup and instantly preview rendered headings, links, and text formatting.",
-                            MaterialTypeId = 1,
-                            Title = "W3Schools: HTML Tutorial",
-                            Url = "https://www.w3schools.com/Html/"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
-                            CourseId = 1,
-                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Description = "A comprehensive, four-hour structural video layout tutorial hosted on YouTube via freeCodeCamp designed to advance beginners through core content tagging.",
-                            MaterialTypeId = 3,
-                            Title = "freeCodeCamp: Learn HTML Full Tutorial for Beginners",
-                            Url = "https://www.youtube.com/watch?v=kUMe1FH4CHE"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
-                            CourseId = 2,
-                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Description = "A foundational guide on MDN Web Docs detailing cascade inheritance, standard syntax declarations, color applications, and fundamental font properties.",
-                            MaterialTypeId = 1,
-                            Title = "MDN Web Docs: CSS First Steps",
-                            Url = "https://developer.mozilla.org/en-US/docs/Web/CSS"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
-                            CourseId = 2,
-                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Description = "A focused structural design video playlist from freeCodeCamp demonstrating visual layout selectors, custom borders, elements padding, and style rules.",
-                            MaterialTypeId = 3,
-                            Title = "freeCodeCamp: CSS Tutorial – Full Course for Beginners",
-                            Url = "https://www.youtube.com/watch?v=OXGznpKZ_sA"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
-                            CourseId = 2,
-                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Description = "A modular web text environment via W3Schools with quick templates, text-align rules, custom backgrounds, and step-by-step styling exercises.",
-                            MaterialTypeId = 1,
-                            Title = "W3Schools: Online CSS Tutorials",
-                            Url = "https://www.w3schools.com/css/"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
-                            CourseId = 3,
-                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Description = "An intensive project-based video on YouTube via SuperSimpleDev/freeCodeCamp mapping responsive website components and complex grid layouts.",
-                            MaterialTypeId = 3,
-                            Title = "freeCodeCamp: HTML & CSS Full Course - Beginner to Pro",
-                            Url = "https://www.youtube.com/watch?v=G3e-cpL7ofc"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
-                            CourseId = 3,
-                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Description = "An instructional web framework guide by W3Schools showcasing dynamic viewport adjustments and screen-fluid grid column behaviors.",
-                            MaterialTypeId = 1,
-                            Title = "W3Schools: Build Responsive Sites with W3.CSS",
-                            Url = "https://www.w3schools.com/css/"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
-                            CourseId = 4,
-                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Description = "A technical deployment article from MDN Web Docs explaining script tag execution order, variable linkage, and element handling scripts.",
-                            MaterialTypeId = 1,
-                            Title = "MDN Web Docs: Adding JavaScript to an HTML File",
-                            Url = "https://developer.mozilla.org/en-US/docs/Web/HTML"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
-                            CourseId = 4,
-                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Description = "A comprehensive foundational video course on YouTube via freeCodeCamp exploring programmatic statements, custom functions, and interactive button bindings.",
-                            MaterialTypeId = 3,
-                            Title = "freeCodeCamp: Learn JavaScript Full Course for Beginners",
-                            Url = "https://www.youtube.com/c/Freecodecamp"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
-                            CourseId = 4,
-                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Description = "A live programming sandbox on W3Schools providing quick snippets to modify document style properties dynamically via user clicks.",
-                            MaterialTypeId = 1,
-                            Title = "W3Schools: JavaScript Interactive Reference",
-                            Url = "https://www.w3schools.com/js/"
-                        });
                 });
 
             modelBuilder.Entity("StuMap.Models.MaterialType", b =>
