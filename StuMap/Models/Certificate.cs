@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace StuMap.Models
+﻿namespace StuMap.Models
 {
     public class Certificate
     {
@@ -9,7 +7,7 @@ namespace StuMap.Models
 
         // Certificate Holder
         public string ContributorId { get; set; }
-        public IdentityUser? Contributor { get; set; }
+        public ApplicationUser? Contributor { get; set; }
 
         // todo: date uploaded to site or date issued by issuer?
         public DateTime DateIssued { get; set; } = DateTime.Now;

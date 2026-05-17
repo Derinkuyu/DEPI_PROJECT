@@ -5,17 +5,8 @@ using StuMap.Models;
 
 namespace StuMap.Controllers
 {
-    public class CourseController : Controller
+    public class CourseController(ICourseManager courseRepo, IMaterialTypeManager materialTypeRepo, IMaterialManager materialRepo) : Controller
     {
-        ICourseManager courseRepo;
-        IMaterialTypeManager materialTypeRepo;
-        IMaterialManager materialRepo;
-        public CourseController(ICourseManager courseRepo,IMaterialTypeManager materialTypeRepo,IMaterialManager materialRepo)
-        {
-            this.courseRepo = courseRepo;
-            this.materialTypeRepo = materialTypeRepo;
-            this.materialRepo = materialRepo;
-        }
         public IActionResult Index()
         {
             ViewBag.MaterialTypes= materialTypeRepo.GetAll();

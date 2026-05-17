@@ -1,21 +1,45 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using StuMap.Services.Authentication;
 
 namespace StuMap.Controllers
 {
-    public class AuthenticationController : Controller
+    public class AuthenticationController(
+        IAuthenticationService authenticationService) : Controller
     {
         [Route("login")]
         public IActionResult Login()
         {
-            // to do: check if the user is already logged in, if so, redirect to home page
-            return View("login");
-        }
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
-        // todo: implement register page
+            return View("Login");
+        }
         [Route("register")]
         public IActionResult Register()
         {
-            return Redirect("/Home");
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+
+            return View("Register");
+        }
+        [Route("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await authenticationService.Logout();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        [Route("Test")]
+        public IActionResult Test()
+        {
+            return RedirectToAction("Index", "Home");
         }
     }
 }

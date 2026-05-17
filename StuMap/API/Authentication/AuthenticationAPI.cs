@@ -1,33 +1,68 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using StuMap.DTO.Authentication;
+using StuMap.Services.Authentication;
 
 namespace StuMap.API
 {
     // API Style: Returns Raw Data
     [Route("api/auth")]
     [ApiController]
-    public class AuthenticationAPI : ControllerBase
+    public class AuthenticationAPI(
+        IAuthenticationService authenticationService) : ControllerBase
     {
-        public class LoginDto
+
+        [HttpGet("logout")]
+        public async Task<IActionResult> Logout()
         {
-            public string Email { get; set; } = string.Empty;
-            public string Password { get; set; } = string.Empty;
+            await authenticationService.Logout();
+
+            return NoContent();
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto data)
         {
-            await Task.Delay(800);
-            if (data.Email == "omarmoh2510@gmail.com" && data.Password == "asdasd")
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var (success, message) = await authenticationService.Login(data);
+
+            if (success)
             {
-                return Ok(new
+                return Ok(new { success, message });
+            }
+            return Unauthorized(new { success, message });
+        }
+
+
+        [HttpPost("signup")]
+        public async Task<IActionResult> Signup([FromBody] SignupDto signupDto)
+        {
+            Console.WriteLine($"Sign Up Request From : {signupDto.Email}");
+            Console.WriteLine($"DoB: {signupDto.DateOfBirth}");
+
+            if (!ModelState.IsValid)
+            {
+                Console.WriteLine($"Reporting Errors:");
+                // Extract every error message from the ModelState dictionary
+                var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                               .Select(e => e.ErrorMessage);
+
+                foreach (var error in errors)
                 {
-                    success = true,
-                    url = "/Home/Dashboard",
-                    message = "Welcome back!"
-                });
+                    Console.WriteLine($"[MODELSTATE ERROR] {error}");
+                }
+                return BadRequest(ModelState);
             }
 
-            return Unauthorized(new { success = false, message = "Incorrect username or password." });
+            if (await authenticationService.Signup(signupDto))
+                return Ok(new
+                {
+                    success = true
+                });
+
+            return BadRequest();
         }
     }
 }
