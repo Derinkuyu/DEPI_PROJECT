@@ -1,10 +1,10 @@
 ﻿@{
     ViewData["Title"] = "Register";
 }
-<div class="flex min-h-auto justify-self-center my-8 w-md bg-gray-800  rounded-3xl  flex-col justify-center items-center px-6 py-12 lg:px-8 ">
+<div class="flex min-h-auto justify-self-center my-8 w-md bg-base-300  rounded-3xl  flex-col justify-center items-center px-6 py-12 lg:px-8 ">
     <div class=" sm:w-full sm:max-w-sm">
-        <h1 class="m-10 text-center text-5xl font-bold tracking-tight text-white">StuMap</h1>
-        <h2 class="m-5 text-center text-xl font-bold tracking-tight text-white">Sign up</h2>
+        <h1 class="m-10 text-center text-5xl font-bold tracking-tight text-primary">StuMap</h1>
+        <h2 class="m-5 text-center text-xl font-bold tracking-tight text-base-content">Sign up</h2>
     </div>
 
     <div class="w-sm">
@@ -65,18 +65,18 @@
                        placeholder="Password"
                        min="8"
                        class="mt-2 input validator w-full" />
-                <div class="mt-2 flex flex-col gap-1 text-xs text-gray-500">
+                <div class="ml-2 mt-2 flex flex-col gap-1 text-xs text-gray-500">
                     <div id="req-length" class="flex items-center gap-1 transition-colors duration-200">
-                        <span class="status-icon">❌</span> At least 8 characters
+                        <span class="status"></span> At least 8 characters
                     </div>
                     <div id="req-lowercase" class="flex items-center gap-1 transition-colors duration-200">
-                        <span class="status-icon">❌</span> At least 1 lowercase letter
+                        <span class="status"></span> At least 1 lowercase letter
                     </div>
                     <div id="req-uppercase" class="flex items-center gap-1 transition-colors duration-200">
-                        <span class="status-icon">❌</span> At least 1 uppercase letter
+                        <span class="status"></span> At least 1 uppercase letter
                     </div>
                     <div id="req-number" class="flex items-center gap-1 transition-colors duration-200">
-                        <span class="status-icon">❌</span> At least 1 number
+                        <span class="status"></span> At least 1 number
                     </div>
                 </div>
             </fieldset>
@@ -130,7 +130,7 @@
 
             <fieldset id="certificates-field" class="fieldset bg-base-100 border-base-100 rounded p-4">
                 <legend class="fieldset-legend">Certificates</legend>
-                <button onclick="addCertificate()" type="button" class="btn">Add Certificate</button>
+                <button onclick="addCertificate()" type="button" class="btn btn-primary">Add Certificate</button>
                 <ul id="certificate-list" class="list">
                 </ul>
             </fieldset>

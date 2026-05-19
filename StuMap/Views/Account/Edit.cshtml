@@ -27,7 +27,7 @@
 
     
     <div class="flex items-start gap-4 ">
-        <div class="w-sm h-auto flex-col flex bg-card gap-5 p-10 bg-gray-800">
+        <div class="w-sm h-auto flex-col flex bg-card gap-5 p-10 bg-base-300">
             <a asp-controller="Account"
                    asp-action="Edit"
                    asp-route-form="profile"
@@ -41,7 +41,7 @@
                 Account
             </a>
         </div>
-        <div class="w-full flex-col flex bg-card gap-5 p-10 bg-gray-700">
+        <div class="w-full flex-col flex bg-card gap-5 p-10 bg-base-300">
             @if (ViewBag.form == "profile")
             {
                 <form asp-controller="Account" asp-action="EditProfile" method="post"
@@ -93,7 +93,7 @@
                     </fieldset>
 
                     <fieldset class="fieldset">
-                        <label for="country"><span class="label">Please choose your country</span></label>
+                        <label for="country"><span class="label">Country</span></label>
                         <select id="country" name="country" class="select mt-2 validator w-full" required>
                             <option id="acc-country" selected value="@Model.Country">@Model.Country</option>
                         </select>
@@ -135,18 +135,18 @@
                                placeholder="New Password"
                                min="8"
                                class="mt-2 input validator w-full" />
-                        <div class="mt-2 flex flex-col gap-1 text-xs text-gray-500">
+                        <div class="ml-2 mt-2 flex flex-col gap-1 text-xs text-gray-500">
                             <div id="req-length" class="flex items-center gap-1 transition-colors duration-200">
-                                <span class="status-icon">❌</span> At least 8 characters
+                                <span class="status"></span> At least 8 characters
                             </div>
                             <div id="req-lowercase" class="flex items-center gap-1 transition-colors duration-200">
-                                <span class="status-icon">❌</span> At least 1 lowercase letter
+                                <span class="status"></span> At least 1 lowercase letter
                             </div>
                             <div id="req-uppercase" class="flex items-center gap-1 transition-colors duration-200">
-                                <span class="status-icon">❌</span> At least 1 uppercase letter
+                                <span class="status"></span> At least 1 uppercase letter
                             </div>
                             <div id="req-number" class="flex items-center gap-1 transition-colors duration-200">
-                                <span class="status-icon">❌</span> At least 1 number
+                                <span class="status"></span> At least 1 number
                             </div>
                         </div>
                     </fieldset>
