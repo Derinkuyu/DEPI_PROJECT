@@ -27,7 +27,7 @@
 
     
     <div class="flex items-start gap-4 ">
-        <div class="w-sm h-auto flex-col flex bg-card gap-5 p-10 bg-gray-800">
+        <div class="w-sm h-auto flex-col flex bg-card gap-5 p-10 bg-base-300">
             <a asp-controller="Account"
                    asp-action="Edit"
                    asp-route-form="profile"
@@ -41,7 +41,7 @@
                 Account
             </a>
         </div>
-        <div class="w-full flex-col flex bg-card gap-5 p-10 bg-gray-700">
+        <div class="w-full flex-col flex bg-card gap-5 p-10 bg-base-300">
             @if (ViewBag.form == "profile")
             {
                 <form asp-controller="Account" asp-action="EditProfile" method="post"
@@ -93,7 +93,7 @@
                     </fieldset>
 
                     <fieldset class="fieldset">
-                        <label for="country"><span class="label">Please choose your country</span></label>
+                        <label for="country"><span class="label">Country</span></label>
                         <select id="country" name="country" class="select mt-2 validator w-full" required>
                             <option id="acc-country" selected value="@Model.Country">@Model.Country</option>
                         </select>
