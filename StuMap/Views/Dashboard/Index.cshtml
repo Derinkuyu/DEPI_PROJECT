@@ -9,19 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
 
-@*     {{!-- Tailwind CSS CDN --}}
- *@    <script src="https://cdn.tailwindcss.com"></script>
-
-@*     {{!-- DaisyUI CDN --}}
- *@    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" />
-
-@*     {{!-- Font Awesome --}}
- *@    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
-@*     {{!-- Google Fonts: Syne (display) + DM Sans (body) --}}
- *@    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <style>
         :root {
@@ -51,14 +45,12 @@
         font-family: 'Syne', sans-serif;
         }
 
-        /* ── Subtle grid background ── */
         .dashboard-bg {
         background-color: #0D1117;
         background-image: linear-gradient(rgba(110, 231, 183, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(110, 231, 183, 0.03) 1px, transparent 1px);
         background-size: 40px 40px;
         }
 
-        /* ── Glass cards ── */
         .glass-card {
         background: rgba(255, 255, 255, 0.04);
         border: 1px solid var(--stumap-border);
@@ -75,7 +67,6 @@
         box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), 0 0 0 1px var(--stumap-accent-border);
         }
 
-        /* ── Accent glow stat cards ── */
         .stat-card {
         background: rgba(255, 255, 255, 0.04);
         border: 1px solid var(--stumap-border);
@@ -99,7 +90,6 @@
         box-shadow: 0 16px 48px rgba(0,0,0,0.4);
         }
 
-        /* icon orb */
         .icon-orb {
         width: 48px;
         height: 48px;
@@ -111,47 +101,6 @@
         flex-shrink: 0;
         }
 
-        /* ── Chart placeholders ── */
-        .chart-placeholder {
-        background: rgba(255,255,255,0.025);
-        border: 1.5px dashed rgba(110, 231, 183, 0.2);
-        border-radius: 12px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: var(--stumap-text-muted);
-        gap: 10px;
-        position: relative;
-        overflow: hidden;
-        }
-
-        .chart-placeholder::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 55%;
-        background: linear-gradient(to top, rgba(110,231,183,0.06), transparent);
-        pointer-events: none;
-        }
-        /* fake bar lines */
-        .chart-placeholder .fake-bars {
-        display: flex;
-        align-items: flex-end;
-        gap: 6px;
-        height: 60px;
-        margin-top: 8px;
-        }
-
-        .fake-bars span {
-        width: 14px;
-        border-radius: 4px 4px 0 0;
-        background: rgba(110,231,183,0.18);
-        }
-
-        /* ── Quick action cards ── */
         .action-card {
         background: rgba(255,255,255,0.04);
         border: 1px solid var(--stumap-border);
@@ -188,7 +137,6 @@
         color: var(--stumap-accent);
         }
 
-        /* ── Activity feed ── */
         .activity-row {
         display: flex;
         align-items: flex-start;
@@ -220,7 +168,6 @@
         margin-top: 2px;
         }
 
-        /* ── Accent button ── */
         .btn-stumap {
         background: linear-gradient(135deg, #6EE7B7, #34D399);
         color: #0D2B1F;
@@ -236,7 +183,6 @@
         box-shadow: 0 6px 20px rgba(52,211,153,0.35);
         }
 
-        /* ── Breadcrumb ── */
         .breadcrumb-pill {
         display: inline-flex;
         align-items: center;
@@ -252,7 +198,6 @@
         text-transform: uppercase;
         }
 
-        /* ── Section headers ── */
         .section-title {
         font-family: 'Syne', sans-serif;
         font-size: 1.05rem;
@@ -261,7 +206,6 @@
         letter-spacing: -0.01em;
         }
 
-        /* ── Scrollbar ── */
         ::-webkit-scrollbar {
         width: 6px;
         }
@@ -275,7 +219,6 @@
         border-radius: 4px;
         }
 
-        /* ── Pulse dot ── */
         .live-dot {
         width: 8px;
         height: 8px;
@@ -295,7 +238,6 @@
         }
         }
 
-        /* ── Responsive tweaks ── */
         @@media (max-width: 640px) {
         .font-display.text-3xl {
         font-size: 1.5rem;
@@ -307,19 +249,20 @@
 <body class="dashboard-bg">
 
     <!-- ══════════════════════════════════════════════════
-     TOP NAVBAR (slim)
-══════════════════════════════════════════════════ -->
+         TOP NAVBAR
+    ══════════════════════════════════════════════════ -->
     <nav class="sticky top-0 z-50 border-b border-white/[0.07]"
          style="background: rgba(13,17,23,0.85); backdrop-filter: blur(20px);">
         <div class="max-w-screen-2xl mx-auto px-6 h-14 flex items-center justify-between">
 
-@*             {{!-- Brand --}}
- *@            <div class="flex items-center gap-3">
+            <!-- Brand -->
+            <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-lg flex items-center justify-center"
                      style="background: linear-gradient(135deg,#6EE7B7,#34D399);">
                     <i class="fa-solid fa-map-location-dot text-sm" style="color:#0D2B1F;"></i>
                 </div>
-                <span class="font-display font-700 text-base tracking-tight" style="color:#F0F6F2; font-family:'Syne',sans-serif; font-weight:700;">
+                <span class="font-display font-700 text-base tracking-tight"
+                      style="color:#F0F6F2; font-family:'Syne',sans-serif; font-weight:700;">
                     Stu<span style="color:#6EE7B7;">Map</span>
                 </span>
                 <span class="hidden sm:inline-block text-xs px-2 py-0.5 rounded-full ml-1"
@@ -328,20 +271,20 @@
                 </span>
             </div>
 
-@*             {{!-- Nav actions --}}
- *@            <div class="flex items-center gap-3">
-@*                 {{!-- Live indicator --}}
- *@                <div class="hidden sm:flex items-center gap-2 text-xs" style="color:rgba(255,255,255,0.45);">
+            <!-- Nav actions -->
+            <div class="flex items-center gap-3">
+
+                <!-- Live indicator -->
+                <div class="hidden sm:flex items-center gap-2 text-xs" style="color:rgba(255,255,255,0.45);">
                     <div class="live-dot"></div>
                     Live
                 </div>
 
-@*                 {{!-- Notifications --}}
- *@                <div class="dropdown dropdown-end">
+                <!-- Notifications -->
+                <div class="dropdown dropdown-end">
                     <button tabindex="0" class="btn btn-ghost btn-sm btn-circle relative">
                         <i class="fa-regular fa-bell" style="color:rgba(255,255,255,0.6);"></i>
-                        <span class="absolute top-1 right-1 w-2 h-2 rounded-full"
-                              style="background:#6EE7B7;"></span>
+                        <span class="absolute top-1 right-1 w-2 h-2 rounded-full" style="background:#6EE7B7;"></span>
                     </button>
                     <ul tabindex="0"
                         class="dropdown-content z-50 menu p-3 shadow-2xl rounded-2xl w-72 mt-2"
@@ -351,7 +294,8 @@
                         </li>
                         <li>
                             <a class="flex items-start gap-3 rounded-xl py-2 hover:bg-white/5">
-                                <div class="activity-dot mt-0 flex-shrink-0" style="background:rgba(110,231,183,0.12); color:#6EE7B7;">
+                                <div class="activity-dot mt-0 flex-shrink-0"
+                                     style="background:rgba(110,231,183,0.12); color:#6EE7B7;">
                                     <i class="fa-solid fa-user-plus text-xs"></i>
                                 </div>
                                 <div>
@@ -362,7 +306,8 @@
                         </li>
                         <li>
                             <a class="flex items-start gap-3 rounded-xl py-2 hover:bg-white/5">
-                                <div class="activity-dot mt-0 flex-shrink-0" style="background:rgba(252,211,77,0.1); color:#FCD34D;">
+                                <div class="activity-dot mt-0 flex-shrink-0"
+                                     style="background:rgba(252,211,77,0.1); color:#FCD34D;">
                                     <i class="fa-solid fa-map text-xs"></i>
                                 </div>
                                 <div>
@@ -374,8 +319,8 @@
                     </ul>
                 </div>
 
-@*                 {{!-- Avatar --}}
- *@                <div class="dropdown dropdown-end">
+                <!-- Avatar -->
+                <div class="dropdown dropdown-end">
                     <div tabindex="0" role="button"
                          class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-sm font-bold"
                          style="background:linear-gradient(135deg,#6EE7B7,#34D399); color:#0D2B1F; font-family:'Syne',sans-serif;">
@@ -389,12 +334,14 @@
                             <p class="text-xs" style="color:rgba(255,255,255,0.4);">admin@stumap.io</p>
                         </li>
                         <li>
-                            <a asp-controller="Admin" asp-action="Profile" class="rounded-xl hover:bg-white/5 text-sm">
+                            <a asp-controller="Admin" asp-action="Profile"
+                               class="rounded-xl hover:bg-white/5 text-sm">
                                 <i class="fa-regular fa-user w-4"></i> Profile
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Admin" asp-action="Settings" class="rounded-xl hover:bg-white/5 text-sm">
+                            <a asp-controller="Admin" asp-action="Settings"
+                               class="rounded-xl hover:bg-white/5 text-sm">
                                 <i class="fa-solid fa-gear w-4"></i> Settings
                             </a>
                         </li>
@@ -406,24 +353,23 @@
                         </li>
                     </ul>
                 </div>
+
             </div>
         </div>
     </nav>
 
     <!-- ══════════════════════════════════════════════════
-     MAIN CONTENT
-══════════════════════════════════════════════════ -->
+         MAIN CONTENT
+    ══════════════════════════════════════════════════ -->
     <main class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
         <!-- ── 1. HEADER ── -->
         <section class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div class="space-y-2">
-@*                 {{!-- Breadcrumb --}}
- *@                <div class="breadcrumb-pill">
+                <div class="breadcrumb-pill">
                     <i class="fa-solid fa-gauge-high text-xs"></i>
                     Dashboard
                 </div>
-
                 <h1 class="font-display text-3xl sm:text-4xl font-800 leading-tight mt-1"
                     style="font-family:'Syne',sans-serif; font-weight:800; color:#F0F6F2; letter-spacing:-0.02em;">
                     Welcome Back, Admin 👋
@@ -433,8 +379,7 @@
                 </p>
             </div>
 
-@*             {{!-- Date badge --}}
- *@            <div class="flex-shrink-0 glass-card px-5 py-3 flex items-center gap-3">
+            <div class="flex-shrink-0 glass-card px-5 py-3 flex items-center gap-3">
                 <i class="fa-regular fa-calendar-check" style="color:#6EE7B7;"></i>
                 <div>
                     <p class="text-xs" style="color:rgba(255,255,255,0.4);">Today</p>
@@ -455,7 +400,8 @@
                              style="background:rgba(110,231,183,0.1); border:1px solid rgba(110,231,183,0.2); color:#6EE7B7;">
                             <i class="fa-solid fa-users"></i>
                         </div>
-                        <span class="badge badge-sm" style="background:rgba(110,231,183,0.12); color:#6EE7B7; border:1px solid rgba(110,231,183,0.2);">
+                        <span class="badge badge-sm"
+                              style="background:rgba(110,231,183,0.12); color:#6EE7B7; border:1px solid rgba(110,231,183,0.2);">
                             All Time
                         </span>
                     </div>
@@ -464,16 +410,16 @@
                     </p>
                     <p class="font-display text-4xl font-800 mb-3"
                        style="font-family:'Syne',sans-serif; font-weight:800; color:#F0F6F2; letter-spacing:-0.03em;">
-                        000000
+                        @ViewBag.UsersCount
                     </p>
                     <div class="flex gap-3 text-xs" style="color:rgba(255,255,255,0.5);">
                         <span class="flex items-center gap-1">
                             <i class="fa-solid fa-graduation-cap" style="color:#67E8F9;"></i>
-                            000 Students
+                            @ViewBag.StudentCount Students
                         </span>
                         <span class="flex items-center gap-1">
                             <i class="fa-solid fa-pen-nib" style="color:#C084FC;"></i>
-                            000 Contributors
+                            @ViewBag.ContributorCount Contributor
                         </span>
                     </div>
                 </div>
@@ -509,7 +455,8 @@
                              style="background:rgba(167,139,250,0.1); border:1px solid rgba(167,139,250,0.2); color:#A78BFA;">
                             <i class="fa-solid fa-map-location-dot"></i>
                         </div>
-                        <span class="badge badge-sm" style="background:rgba(167,139,250,0.1); color:#A78BFA; border:1px solid rgba(167,139,250,0.2);">
+                        <span class="badge badge-sm"
+                              style="background:rgba(167,139,250,0.1); color:#A78BFA; border:1px solid rgba(167,139,250,0.2);">
                             Awaiting
                         </span>
                     </div>
@@ -518,7 +465,7 @@
                     </p>
                     <p class="font-display text-4xl font-800 mb-3"
                        style="font-family:'Syne',sans-serif; font-weight:800; color:#F0F6F2; letter-spacing:-0.03em;">
-                     @ViewBag.RoadMaps.Count
+                        @ViewBag.RoadMaps.Count
                     </p>
                     <a asp-controller="Admin" asp-action="Roadmaps"
                        class="btn btn-xs w-full rounded-xl font-semibold"
@@ -542,7 +489,7 @@
                     </p>
                     <p class="font-display text-4xl font-800 mb-3"
                        style="font-family:'Syne',sans-serif; font-weight:800; color:#F0F6F2; letter-spacing:-0.03em;">
-                      @ViewBag.Course.Count
+                        @ViewBag.Course.Count
                     </p>
                     <a asp-controller="Admin" asp-action="Courses"
                        class="btn btn-xs w-full rounded-xl font-semibold"
@@ -563,122 +510,45 @@
                     <i class="fa-solid fa-chart-line" style="color:#6EE7B7; font-size:0.95rem;"></i>
                     Analytics Overview
                 </h2>
-                <span class="text-xs" style="color:rgba(255,255,255,0.4);">
-                    Updated live
-                </span>
+                <span class="text-xs" style="color:rgba(255,255,255,0.4);">Updated live</span>
             </div>
 
-            <!-- Large primary chart -->
-            <div class="glass-card p-6 mb-4">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
-                    <div>
-                        <h3 class="font-display text-lg font-700"
-                            style="font-family:'Syne',sans-serif; font-weight:700; color:#F0F6F2;">
-                            Approval Analytics
-                        </h3>
-                        <p class="text-sm mt-0.5" style="color:rgba(255,255,255,0.45);">
-                            Monthly roadmap and contributor approval trends
-                        </p>
-                    </div>
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="flex items-center gap-1.5 text-xs" style="color:rgba(255,255,255,0.5);">
-                            <span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#6EE7B7;"></span>
-                            Approved
-                        </span>
-                        <span class="flex items-center gap-1.5 text-xs" style="color:rgba(255,255,255,0.5);">
-                            <span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#FCD34D;"></span>
-                            Pending
-                        </span>
-                        <span class="flex items-center gap-1.5 text-xs" style="color:rgba(255,255,255,0.5);">
-                            <span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#FCA5A5;"></span>
-                            Rejected
-                        </span>
-                        <select class="select select-xs rounded-lg ml-2"
-                                style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:rgba(255,255,255,0.7); font-size:0.7rem;">
-                            <option>Last 30 days</option>
-                            <option>Last 90 days</option>
-                            <option>This year</option>
-                        </select>
-                    </div>
-                </div>
-
-                {{!-- Chart area --}}
-                <div class="chart-placeholder" style="height: 280px;">
-                    <div id="approvalChart" class="w-full h-full"></div>
-                    {{!-- placeholder visual (hidden once chart library loads) --}}
-                    <div class="chart-placeholder-inner flex flex-col items-center justify-center gap-3 absolute inset-0">
-                        <div class="fake-bars">
-                            <span style="height:30%; opacity:.6;"></span>
-                            <span style="height:55%; opacity:.7;"></span>
-                            <span style="height:45%; opacity:.65;"></span>
-                            <span style="height:75%; background:rgba(110,231,183,0.35);"></span>
-                            <span style="height:60%; opacity:.7;"></span>
-                            <span style="height:80%; background:rgba(110,231,183,0.35);"></span>
-                            <span style="height:50%; opacity:.65;"></span>
-                            <span style="height:90%; background:rgba(110,231,183,0.4);"></span>
-                            <span style="height:65%; opacity:.7;"></span>
-                            <span style="height:70%; opacity:.75;"></span>
-                            <span style="height:85%; background:rgba(110,231,183,0.38);"></span>
-                            <span style="height:55%; opacity:.6;"></span>
-                        </div>
-                        <p class="text-xs font-medium" style="color:rgba(255,255,255,0.3); letter-spacing:.05em;">
-                            <i class="fa-solid fa-chart-column mr-1"></i> Chart will render here
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Two smaller charts -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                <!-- User Distribution -->
-                <div class="glass-card p-6">
+                <!-- User Distribution Donut -->
+                <div class="glass-card p-6" style="border-radius:24px;">
                     <div class="mb-5">
-                        <h3 class="font-display text-base font-700"
+                        <h3 class="font-display text-base font-bold"
                             style="font-family:'Syne',sans-serif; font-weight:700; color:#F0F6F2;">
                             User Distribution
                         </h3>
-                        <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.45);">
+                        <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.5);">
                             Students vs Contributors vs Admins
                         </p>
                     </div>
-
-                    <div class="chart-placeholder" style="height:200px; position:relative;">
-                        <div id="usersChart" class="w-full h-full"></div>
-                        {{!-- decorative donut hint --}}
-                        <div class="absolute inset-0 flex flex-col items-center justify-center gap-2 pointer-events-none">
-                            <div style="
-                            width:80px; height:80px;
-                            border-radius:50%;
-                            border: 10px solid transparent;
-                            border-top-color: #6EE7B7;
-                            border-right-color: #67E8F9;
-                            border-bottom-color: #C084FC;
-                            opacity:.35;
-                            "></div>
-                            <p class="text-xs" style="color:rgba(255,255,255,0.3); letter-spacing:.05em;">
-                                <i class="fa-solid fa-chart-pie mr-1"></i> Chart will render here
-                            </p>
-                        </div>
+                    <div style="height:220px;">
+                        <div id="usersChart" style="width:100%; height:100%;"></div>
                     </div>
-
-                    <div class="flex justify-around mt-4 text-xs">
-                        <span class="flex items-center gap-1.5" style="color:rgba(255,255,255,0.55);">
-                            <span class="w-2.5 h-2.5 rounded-full" style="background:#6EE7B7;"></span>Students
-                        </span>
-                        <span class="flex items-center gap-1.5" style="color:rgba(255,255,255,0.55);">
-                            <span class="w-2.5 h-2.5 rounded-full" style="background:#67E8F9;"></span>Contributors
-                        </span>
-                        <span class="flex items-center gap-1.5" style="color:rgba(255,255,255,0.55);">
-                            <span class="w-2.5 h-2.5 rounded-full" style="background:#C084FC;"></span>Admins
-                        </span>
+                    <div class="flex justify-center gap-6 mt-5 text-xs" style="color:rgba(255,255,255,0.6);">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full" style="background:#6EE7B7;"></span>
+                            Students
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full" style="background:#67E8F9;"></span>
+                            Contributors
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full" style="background:#C084FC;"></span>
+                            Admins
+                        </div>
                     </div>
                 </div>
 
-                <!-- Roadmap Activity -->
+                <!-- Roadmap Activity Bar -->
                 <div class="glass-card p-6">
                     <div class="mb-5">
-                        <h3 class="font-display text-base font-700"
+                        <h3 class="font-display text-base font-bold"
                             style="font-family:'Syne',sans-serif; font-weight:700; color:#F0F6F2;">
                             Roadmap Activity
                         </h3>
@@ -686,29 +556,13 @@
                             Most active roadmaps &amp; specializations
                         </p>
                     </div>
-
-                    <div class="chart-placeholder" style="height:200px; position:relative;">
-                        <div id="roadmapChart" class="w-full h-full"></div>
-                        <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 pointer-events-none">
-                            <div class="fake-bars" style="height:55px;">
-                                <span style="height:40%; width:18px; border-radius:4px 4px 0 0; background:rgba(167,139,250,0.3);"></span>
-                                <span style="height:80%; width:18px; background:rgba(167,139,250,0.45);"></span>
-                                <span style="height:55%; width:18px; background:rgba(167,139,250,0.3);"></span>
-                                <span style="height:100%; width:18px; background:rgba(167,139,250,0.5);"></span>
-                                <span style="height:65%; width:18px; background:rgba(167,139,250,0.35);"></span>
-                            </div>
-                            <p class="text-xs" style="color:rgba(255,255,255,0.3); letter-spacing:.05em;">
-                                <i class="fa-solid fa-chart-bar mr-1"></i> Chart will render here
-                            </p>
-                        </div>
+                    <div style="height:220px;">
+                        <div id="roadmapChart" style="width:100%; height:100%;"></div>
                     </div>
-
                     <div class="flex justify-around mt-4 text-xs">
                         <span class="flex items-center gap-1.5" style="color:rgba(255,255,255,0.55);">
-                            <span class="w-2.5 h-2.5 rounded-sm" style="background:#A78BFA;"></span>Enrollments
-                        </span>
-                        <span class="flex items-center gap-1.5" style="color:rgba(255,255,255,0.55);">
-                            <span class="w-2.5 h-2.5 rounded-sm" style="background:#C084FC;"></span>Completions
+                            <span class="w-2.5 h-2.5 rounded-sm" style="background:#A78BFA;"></span>
+                            Activity
                         </span>
                     </div>
                 </div>
@@ -734,35 +588,40 @@
                 </a>
 
                 <a asp-controller="Admin" asp-action="ContributorRequests" class="action-card">
-                    <div class="action-icon" style="background:rgba(252,211,77,0.08); border-color:rgba(252,211,77,0.2); color:#FCD34D;">
+                    <div class="action-icon"
+                         style="background:rgba(252,211,77,0.08); border-color:rgba(252,211,77,0.2); color:#FCD34D;">
                         <i class="fa-solid fa-user-clock"></i>
                     </div>
                     <span class="text-sm font-medium" style="color:#E2E8F0;">Contributor Requests</span>
                 </a>
 
                 <a asp-controller="Admin" asp-action="Roadmaps" class="action-card">
-                    <div class="action-icon" style="background:rgba(167,139,250,0.08); border-color:rgba(167,139,250,0.2); color:#A78BFA;">
+                    <div class="action-icon"
+                         style="background:rgba(167,139,250,0.08); border-color:rgba(167,139,250,0.2); color:#A78BFA;">
                         <i class="fa-solid fa-map-location-dot"></i>
                     </div>
                     <span class="text-sm font-medium" style="color:#E2E8F0;">Manage Roadmaps</span>
                 </a>
 
                 <a asp-controller="Admin" asp-action="Courses" class="action-card">
-                    <div class="action-icon" style="background:rgba(103,232,249,0.08); border-color:rgba(103,232,249,0.2); color:#67E8F9;">
+                    <div class="action-icon"
+                         style="background:rgba(103,232,249,0.08); border-color:rgba(103,232,249,0.2); color:#67E8F9;">
                         <i class="fa-solid fa-book-open-reader"></i>
                     </div>
                     <span class="text-sm font-medium" style="color:#E2E8F0;">Manage Courses</span>
                 </a>
 
                 <a asp-controller="Admin" asp-action="ContactMessages" class="action-card">
-                    <div class="action-icon" style="background:rgba(252,165,165,0.08); border-color:rgba(252,165,165,0.2); color:#FCA5A5;">
+                    <div class="action-icon"
+                         style="background:rgba(252,165,165,0.08); border-color:rgba(252,165,165,0.2); color:#FCA5A5;">
                         <i class="fa-solid fa-envelope-open-text"></i>
                     </div>
                     <span class="text-sm font-medium" style="color:#E2E8F0;">Contact Messages</span>
                 </a>
 
                 <a asp-controller="Admin" asp-action="Analytics" class="action-card">
-                    <div class="action-icon" style="background:rgba(52,211,153,0.08); border-color:rgba(52,211,153,0.2); color:#34D399;">
+                    <div class="action-icon"
+                         style="background:rgba(52,211,153,0.08); border-color:rgba(52,211,153,0.2); color:#34D399;">
                         <i class="fa-solid fa-chart-mixed"></i>
                     </div>
                     <span class="text-sm font-medium" style="color:#E2E8F0;">Analytics</span>
@@ -772,7 +631,7 @@
         </section>
 
 
-        <!-- ── 5. RECENT ACTIVITY  +  PENDING QUEUE ── -->
+        <!-- ── 5. RECENT ACTIVITY + PENDING QUEUE ── -->
         <section class="grid grid-cols-1 lg:grid-cols-5 gap-4">
 
             <!-- Recent Activity (wider) -->
@@ -789,10 +648,7 @@
                     </a>
                 </div>
 
-                <!-- Activity rows -->
                 <div>
-
-                    <!-- Row 1 -->
                     <div class="activity-row">
                         <div class="activity-dot" style="background:rgba(110,231,183,0.1); color:#6EE7B7;">
                             <i class="fa-solid fa-user-plus text-xs"></i>
@@ -806,7 +662,6 @@
                         <span class="text-xs flex-shrink-0" style="color:rgba(255,255,255,0.35);">2 min ago</span>
                     </div>
 
-                    <!-- Row 2 -->
                     <div class="activity-row">
                         <div class="activity-dot" style="background:rgba(252,211,77,0.1); color:#FCD34D;">
                             <i class="fa-solid fa-map text-xs"></i>
@@ -820,7 +675,6 @@
                         <span class="text-xs flex-shrink-0" style="color:rgba(255,255,255,0.35);">15 min ago</span>
                     </div>
 
-                    <!-- Row 3 -->
                     <div class="activity-row">
                         <div class="activity-dot" style="background:rgba(103,232,249,0.1); color:#67E8F9;">
                             <i class="fa-solid fa-envelope text-xs"></i>
@@ -834,7 +688,6 @@
                         <span class="text-xs flex-shrink-0" style="color:rgba(255,255,255,0.35);">42 min ago</span>
                     </div>
 
-                    <!-- Row 4 -->
                     <div class="activity-row">
                         <div class="activity-dot" style="background:rgba(167,139,250,0.1); color:#A78BFA;">
                             <i class="fa-solid fa-book text-xs"></i>
@@ -848,7 +701,6 @@
                         <span class="text-xs flex-shrink-0" style="color:rgba(255,255,255,0.35);">1 hr ago</span>
                     </div>
 
-                    <!-- Row 5 -->
                     <div class="activity-row">
                         <div class="activity-dot" style="background:rgba(52,211,153,0.1); color:#34D399;">
                             <i class="fa-solid fa-circle-check text-xs"></i>
@@ -862,7 +714,6 @@
                         <span class="text-xs flex-shrink-0" style="color:rgba(255,255,255,0.35);">3 hrs ago</span>
                     </div>
 
-                    <!-- Row 6 -->
                     <div class="activity-row">
                         <div class="activity-dot" style="background:rgba(252,165,165,0.1); color:#FCA5A5;">
                             <i class="fa-solid fa-ban text-xs"></i>
@@ -875,7 +726,6 @@
                         </div>
                         <span class="text-xs flex-shrink-0" style="color:rgba(255,255,255,0.35);">5 hrs ago</span>
                     </div>
-
                 </div>
             </div>
 
@@ -891,7 +741,6 @@
 
                 <div class="space-y-3 flex-1">
 
-                    <!-- Pending item -->
                     <div class="rounded-xl p-3.5 flex items-center gap-3"
                          style="background:rgba(252,211,77,0.05); border:1px solid rgba(252,211,77,0.12);">
                         <div class="icon-orb w-10 h-10"
@@ -911,7 +760,6 @@
                         </a>
                     </div>
 
-                    <!-- Pending roadmaps -->
                     <div class="rounded-xl p-3.5 flex items-center gap-3"
                          style="background:rgba(167,139,250,0.05); border:1px solid rgba(167,139,250,0.12);">
                         <div class="icon-orb w-10 h-10"
@@ -931,7 +779,6 @@
                         </a>
                     </div>
 
-                    <!-- Unread messages -->
                     <div class="rounded-xl p-3.5 flex items-center gap-3"
                          style="background:rgba(103,232,249,0.05); border:1px solid rgba(103,232,249,0.12);">
                         <div class="icon-orb w-10 h-10"
@@ -953,7 +800,6 @@
 
                 </div>
 
-                <!-- CTA -->
                 <div class="mt-5 pt-4" style="border-top:1px solid rgba(255,255,255,0.07);">
                     <a asp-controller="Admin" asp-action="Analytics"
                        class="btn btn-stumap btn-sm w-full rounded-xl">
@@ -982,3 +828,77 @@
     </main>
 
 </body>
+
+<!-- ── CHARTS SCRIPTS ── -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+    // ── Donut Chart: User Distribution ──
+    const studentCount     = @ViewBag.StudentCount;
+    const contributorCount = @ViewBag.ContributorCount;
+    const adminCount       = @ViewBag.AdminCount;
+
+    new ApexCharts(document.querySelector("#usersChart"), {
+    series: [studentCount, contributorCount, adminCount],
+    chart: {
+    type: "donut",
+    height: 220,
+    toolbar: { show: false },
+    background: "transparent"
+    },
+    labels: ["Students", "Contributors", "Admins"],
+    colors: ["#6EE7B7", "#67E8F9", "#C084FC"],
+    legend: { show: false },
+    stroke: { width: 0 },
+    dataLabels: { enabled: false },
+    plotOptions: {
+    pie: {
+    donut: {
+    size: "72%",
+    labels: {
+    show: true,
+    total: {
+    show: true,
+    label: "Users",
+    color: "#ffffff",
+    formatter: () => studentCount + contributorCount + adminCount
+    }
+    }
+    }
+    }
+    },
+    tooltip: { theme: "dark" }
+    }).render();
+
+    // ── Bar Chart: Roadmap Activity ──
+    const roadmaps        = @Html.Raw(Json.Serialize(ViewBag.RoadMapTitles));
+    const specializations = @Html.Raw(Json.Serialize(ViewBag.SpecializationsTitles));
+    const labels          = [...roadmaps, ...specializations];
+    const values          = labels.map(() => Math.floor(Math.random() * 100) + 1);
+
+    new ApexCharts(document.querySelector("#roadmapChart"), {
+    series: [{ name: "Activity", data: values }],
+    chart: {
+    type: "bar",
+    height: 220,
+    toolbar: { show: false },
+    background: "transparent"
+    },
+    colors: ["#A78BFA"],
+    plotOptions: {
+    bar: { horizontal: true, borderRadius: 6 }
+    },
+    dataLabels: { enabled: false },
+    xaxis: {
+    categories: labels,
+    labels: { style: { colors: "#BDBDBD", fontSize: "11px" } }
+    },
+    yaxis: {
+    labels: { style: { colors: "#D1D5DB" } }
+    },
+    grid: { borderColor: "rgba(255,255,255,0.08)" },
+    tooltip: { theme: "dark" }
+    }).render();
+
+    });
+</script>

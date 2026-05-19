@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using StuMap.Managers;
 
 namespace StuMap.Controllers
@@ -8,19 +9,50 @@ namespace StuMap.Controllers
         //Course
         ICourseManager courseManager;
         IRoadmapManager roadmapManager;
+        UserManager<IdentityUser> _userManger;
+        ISpecializationManager specializationManager;
 
-      
-
-        public DashboardController(ICourseManager courseManager, IRoadmapManager roadmapManager)
+        public DashboardController(ICourseManager courseManager, IRoadmapManager roadmapManager, UserManager<IdentityUser> userManger, ISpecializationManager specializationManager)
         {
             this.courseManager = courseManager;
             this.roadmapManager = roadmapManager;
+            _userManger = userManger;
+            this.specializationManager = specializationManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            ViewBag.Course = courseManager.GetAll();
-            ViewBag.RoadMaps= roadmapManager.GetAll();
+            var courses = courseManager.GetAll();
+            var roadMaps = roadmapManager.GetAll();
+            var users = _userManger.Users.ToList();
+            var Specializations = specializationManager.GetAll();
+
+            var roadmapStatusData = roadMaps.Select(r => new {
+                Title = r.Title,
+                IsApproved = r.IsApproved
+            }).ToList();
+
+
+            var RoadMapTitles = roadMaps.Select(x => x.Title).ToList();
+            var SpecializationsTitles= Specializations.Select(s=> s.Name).ToList();
+
+            var admins = await _userManger.GetUsersInRoleAsync("Admin");
+            var contributors = await _userManger.GetUsersInRoleAsync("Contributor");
+            var Students = await _userManger.GetUsersInRoleAsync("Student");
+            
+
+            ViewBag.Course = courses;
+            ViewBag.RoadMaps = roadMaps;
+            ViewBag.RoadMapTitles = RoadMapTitles;
+            ViewBag.RoadmapStatusData = roadmapStatusData;
+            ViewBag.SpecializationsTitles = SpecializationsTitles;
+
+            ViewBag.UsersCount = users.Count-admins.Count;
+            ViewBag.AdminCount = admins.Count;
+            ViewBag.ContributorCount = contributors.Count;
+            ViewBag.StudentCount = Students.Count;
+
+
             return View();
         }
     }
