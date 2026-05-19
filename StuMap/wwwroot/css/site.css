@@ -23,8 +23,10 @@
     --color-success-content: oklch(98% 0.01 140);
     --color-warning: oklch(80% 0.25 80);
     --color-warning-content: oklch(20% 0.05 80);
-    --color-error: oklch(65% 0.3 30);
-    --color-error-content: oklch(98% 0.01 30);
+    --color-error: oklch(60% 0.28 25);
+    --color-error-content: oklch(98% 0.01 25);
+    --color-danger: rgba(220, 38, 38, 1);
+    --color-danger-content: rgba(255, 255, 255, 1);
     /* border radius */
     --radius-selector: 1rem;
     --radius-field: 0.25rem;

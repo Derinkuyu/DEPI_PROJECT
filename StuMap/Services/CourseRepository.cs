@@ -45,7 +45,7 @@ namespace StuMap.Services
                 oldCourse.Title = entity.Title;
                 oldCourse.Description = entity.Description;
                 oldCourse.ContributorId = entity.ContributorId;
-                oldCourse.IsApproved = entity.IsApproved;
+                oldCourse.Status = entity.Status;
                 oldCourse.DateCreated = entity.DateCreated;
                 oldCourse.Materials = entity.Materials;
                 context.Courses.Update(oldCourse);

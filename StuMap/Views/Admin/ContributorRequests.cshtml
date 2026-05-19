@@ -1,0 +1,280 @@
+﻿@model IEnumerable<ContributorRequestDto>
+
+@{
+    ViewData["Title"] = "ContributorRequests";
+}
+
+<div class="space-y-6">
+
+    <!-- Header -->
+    <div class="flex flex-col gap-2 mx-4">
+
+        <h1 class="text-3xl font-bold text-base-content">
+            Contributor Requests
+        </h1>
+
+        <p class="max-w-3xl text-sm text-[var(--color-primary-content-para)] md:text-base">
+            Review contributor applications, verify certificates, and approve or reject requests.
+        </p>
+
+    </div>
+
+    <!-- Toolbar -->
+    <div class="flex flex-col gap-4 rounded-[var(--radius-box)] border border-base-300 bg-base-200 p-4 lg:flex-row lg:items-center lg:justify-between">
+
+        <!-- Left -->
+        <div class="flex flex-col gap-3 md:flex-row md:flex-wrap md:items-center">
+
+            <!-- Search -->
+            <label class="input rounded-full bg-base-300 border-none w-200 h-15 ">
+                <svg class="h-[1em] opacity-50 mx-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g stroke-linejoin="round"
+                           stroke-linecap="round"
+                           stroke-width="2.5"
+                           fill="none"
+                           stroke="currentColor">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </g>
+                </svg>
+
+                <input type="search"
+                       required
+                       placeholder="Search Contributors..."
+                       class="border-none" />
+            </label>
+
+            <!-- Specialization Filter -->
+            <select class="select select-bordered border-base-300 bg-base-100">
+                <option selected disabled>Specialization</option>
+                <option>Frontend</option>
+                <option>Backend</option>
+                <option>AI</option>
+                <option>Cybersecurity</option>
+            </select>
+
+            <!-- Status Filter -->
+            <select class="select select-bordered border-base-300 bg-base-100">
+                <option selected disabled>Status</option>
+                <option>Pending</option>
+                <option>Approved</option>
+                <option>Rejected</option>
+            </select>
+
+            <!-- Date Filter -->
+            <select class="select select-bordered border-base-300 bg-base-100">
+                <option selected disabled>Date</option>
+                <option>Newest</option>
+                <option>Oldest</option>
+            </select>
+
+        </div>
+
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto rounded-[var(--radius-box)] border border-base-300 bg-base-200">
+
+        <table class="table">
+
+            <!-- Head -->
+            <thead>
+
+                <tr class="text-xs uppercase tracking-wide text-[var(--color-primary-content-para)]">
+
+                    <th>
+                        <input type="checkbox"
+                               class="checkbox checkbox-sm" />
+                    </th>
+
+                    <th>
+                        Contributor ↕
+                    </th>
+
+                    <th>
+                        Email ↕
+                    </th>
+
+                    <th>
+                        Specialization ↕
+                    </th>
+
+                    <th>
+                        Status ↕
+                    </th>
+
+                    <th>
+                        Request Date ↕
+                    </th>
+
+                    <th class="text-center">
+                        Actions
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <!-- Body -->
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr class="transition-colors hover:bg-base-300">
+
+                        <!-- Checkbox -->
+                        <td>
+                            <input type="checkbox"
+                                   class="checkbox checkbox-sm" />
+                        </td>
+
+                        <!-- Contributor -->
+                        <td>
+
+                            <div class="flex items-center gap-3">
+
+                                <div>
+                                    <div class="font-medium text-base-content">
+                                        @item.FullName
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <!-- Email -->
+                        <td class="text-sm text-[var(--color-primary-content-para)]">
+                            @item.Email
+                        </td>
+
+                        <!-- Specialization -->
+                        <td>
+                            <span class="badge badge-outline">
+                                @item.Specialization
+                            </span>
+                        </td>
+
+                        <!-- Status -->
+                        <td>
+
+                            @if (item.Status == ContributorStatus.Pending)
+                            {
+                                <span class="badge badge-warning text-black">
+                                    Pending
+                                </span>
+                            }
+                            else if (item.Status == ContributorStatus.Approved)
+                            {
+                                <span class="badge badge-success text-black">
+                                    Approved
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-error">
+                                    Rejected
+                                </span>
+                            }
+
+                        </td>
+
+                        <!-- Request Date -->
+                        <td class="text-sm text-[var(--color-primary-content-para)]">
+                            @item.RequestDate?.ToString("MMM dd, yyyy")
+                        </td>
+
+                        <!-- Actions -->
+                        <td>
+
+                            <div class="flex items-center justify-center gap-2 flex-wrap">
+
+                                <!-- Details -->
+                                <a asp-action="ContributorDetails"
+                                       asp-controller="Admin"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-sm btn-primary">
+                                    Details
+                                </a>
+
+                                <!-- Certificate -->
+                                <a href="@item.CertificatePath"
+                                       target="_blank"
+                                       class="btn btn-sm btn-outline">
+                                    Certificate
+                                </a>
+
+                                <!-- Approve -->
+                                @if (item.Status == ContributorStatus.Pending)
+                                {
+                                    <a asp-action="ApproveContributor"
+                                           asp-controller="Admin"
+                                           asp-route-id="@item.Id"
+                                           class="btn btn-sm btn-success text-black">
+                                        Approve
+                                    </a>
+
+                                    <button class="btn btn-sm btn-error"
+                                            onclick="document.getElementById('reject-modal-@item.Id').showModal()">
+                                        Reject
+                                    </button>
+                                }
+
+                            </div>
+
+                            <!-- Reject Modal -->
+                            <dialog id="reject-modal-@item.Id" class="modal">
+
+                                <div class="modal-box bg-base-200">
+
+                                    <h3 class="text-lg font-bold mb-4">
+                                        Reject Contributor
+                                    </h3>
+
+                                    <form asp-action="RejectContributor"
+                                          asp-controller="Admin"
+                                          method="post"
+                                          class="space-y-4">
+
+                                        <input type="hidden"
+                                               name="id"
+                                               value="@item.Id" />
+
+                                        <textarea name="reason"
+                                                  class="textarea textarea-bordered w-full"
+                                                  placeholder="Enter rejection reason..."
+                                                  required></textarea>
+
+                                        <div class="modal-action">
+
+                                            <button type="submit"
+                                                    class="btn btn-error">
+                                                Reject
+                                            </button>
+
+                                            <button type="button"
+                                                    class="btn"
+                                                    onclick="document.getElementById('reject-modal-@item.Id').close()">
+                                                Cancel
+                                            </button>
+
+                                        </div>
+
+                                    </form>
+
+                                </div>
+
+                            </dialog>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
