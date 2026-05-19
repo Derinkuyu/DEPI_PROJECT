@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace StuMap.Models
+﻿namespace StuMap.Models
 {
     public class Material
     {
@@ -16,7 +14,7 @@ namespace StuMap.Models
 
         // Material Creator
         public string? ContributorId { get; set; }
-        public IdentityUser? Contributor { get; set; }
+        public ApplicationUser? Contributor { get; set; }
 
         // Material Course
         public int? CourseId { get; set; }

@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using StuMap.DataSeeding;
 using StuMap.Models;
 namespace StuMap.Context
 {
-    public class AppDbContext : IdentityDbContext<IdentityUser>
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public AppDbContext() { }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
@@ -41,6 +40,8 @@ namespace StuMap.Context
 
             modelBuilder.ApplyConfiguration(new MaterialSeedConfiguration());
 
+            modelBuilder.ApplyConfiguration(new RoadmapSeedConfiguration());
+            modelBuilder.ApplyConfiguration(new CourseRoadmapSeedConfiguration());
 
             //    //modelBuilder.Entity<User>().UseTptMappingStrategy();
 
@@ -49,10 +50,10 @@ namespace StuMap.Context
             //    //    .WithOne(e => e.User)
             //    //    .HasForeignKey(e => e.UserId);
 
-            //    modelBuilder.Entity<Contributor>()
-            //        .HasMany(e => e.Certificates)
-            //        .WithOne(e => e.Contributor)
-            //        .HasForeignKey(e => e.ContributorId);
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany<Certificate>()
+                .WithOne(e => e.Contributor)
+                .HasForeignKey(e => e.ContributorId);
 
             modelBuilder.Entity<Roadmap>()
                 .HasOne(e => e.Specialization)

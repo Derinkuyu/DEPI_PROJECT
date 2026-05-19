@@ -97,146 +97,6 @@ namespace StuMap.Migrations
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("RoadmapId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("RoadmapId");
-
-                    b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "E2E368AB-8D20-401B-826A-F591202E3D19",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "E2E368AB-8D20-401B-826A-F591202E3D19",
-                            Email = "frankofoedu@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "FRANKOFOEDU@GMAIL.COM",
-                            NormalizedUserName = "FRANK",
-                            PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "E2E368AB-8D20-401B-826A-F591202E3D19",
-                            TwoFactorEnabled = false,
-                            UserName = "Frank"
-                        },
-                        new
-                        {
-                            Id = "E746D970-DB04-4D42-9493-9173C7D13EE9",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "E746D970-DB04-4D42-9493-9173C7D13EE9",
-                            Email = "amiraofoedu@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "AMIRAOFOEDU@GMAIL.COM",
-                            NormalizedUserName = "AMIRA",
-                            PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "E746D970-DB04-4D42-9493-9173C7D13EE9",
-                            TwoFactorEnabled = false,
-                            UserName = "Amira"
-                        },
-                        new
-                        {
-                            Id = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
-                            Email = "faridaofoedu@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "FARIDAOFOEDU@GMAIL.COM",
-                            NormalizedUserName = "FARIDA",
-                            PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
-                            TwoFactorEnabled = false,
-                            UserName = "Farida"
-                        },
-                        new
-                        {
-                            Id = "074B369D-5560-4ADA-99D2-F8AECF1E2423",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "074B369D-5560-4ADA-99D2-F8AECF1E2423",
-                            Email = "aadmin@stumap.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "AADMIN@STUMAP.COM",
-                            NormalizedUserName = "AADMIN@STUMAP.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "074B369D-5560-4ADA-99D2-F8AECF1E2423",
-                            TwoFactorEnabled = false,
-                            UserName = "aadmin@stumap.com"
-                        });
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -340,6 +200,177 @@ namespace StuMap.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("StuMap.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("RoadmapId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("RoadmapId");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            Country = "Egypt",
+                            DateOfBirth = new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Email = "frankofoedu@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Frank",
+                            LastName = "Sinatra",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "FRANKOFOEDU@GMAIL.COM",
+                            NormalizedUserName = "FRANKOFOEDU@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            TwoFactorEnabled = false,
+                            UserName = "frankofoedu@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            Country = "Egypt",
+                            DateOfBirth = new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Email = "amiraofoedu@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Amira",
+                            LastName = "Abdelaziz",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "AMIRAOFOEDU@GMAIL.COM",
+                            NormalizedUserName = "AMIRAOFOEDU@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            TwoFactorEnabled = false,
+                            UserName = "amiraofoedu@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            Country = "Egypt",
+                            DateOfBirth = new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Email = "faridaofoedu@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Farida",
+                            LastName = "Mohammed",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "FARIDAOFOEDU@GMAIL.COM",
+                            NormalizedUserName = "FARIDAOFOEDU@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            TwoFactorEnabled = false,
+                            UserName = "faridaofoedu@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "074B369D-5560-4ADA-99D2-F8AECF1E2423",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "074B369D-5560-4ADA-99D2-F8AECF1E2423",
+                            Country = "Egypt",
+                            DateOfBirth = new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Email = "aadmin@stumap.com",
+                            EmailConfirmed = true,
+                            FirstName = "admin",
+                            LastName = "admin",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "AADMIN@STUMAP.COM",
+                            NormalizedUserName = "AADMIN@STUMAP.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "074B369D-5560-4ADA-99D2-F8AECF1E2423",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@stumap.com"
+                        });
+                });
+
             modelBuilder.Entity("StuMap.Models.Certificate", b =>
                 {
                     b.Property<int>("Id")
@@ -424,9 +455,6 @@ namespace StuMap.Migrations
                     b.Property<bool?>("IsApproved")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("RoadmapId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -434,8 +462,6 @@ namespace StuMap.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ContributorId");
-
-                    b.HasIndex("RoadmapId");
 
                     b.ToTable("Courses");
 
@@ -487,6 +513,48 @@ namespace StuMap.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("CourseRoadmaps");
+
+                    b.HasData(
+                        new
+                        {
+                            RoadmapId = 1,
+                            CourseId = 1
+                        },
+                        new
+                        {
+                            RoadmapId = 1,
+                            CourseId = 2
+                        },
+                        new
+                        {
+                            RoadmapId = 1,
+                            CourseId = 3
+                        },
+                        new
+                        {
+                            RoadmapId = 1,
+                            CourseId = 4
+                        },
+                        new
+                        {
+                            RoadmapId = 2,
+                            CourseId = 1
+                        },
+                        new
+                        {
+                            RoadmapId = 2,
+                            CourseId = 2
+                        },
+                        new
+                        {
+                            RoadmapId = 2,
+                            CourseId = 3
+                        },
+                        new
+                        {
+                            RoadmapId = 2,
+                            CourseId = 4
+                        });
                 });
 
             modelBuilder.Entity("StuMap.Models.Enrollment", b =>
@@ -745,7 +813,6 @@ namespace StuMap.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsApproved")
@@ -765,6 +832,28 @@ namespace StuMap.Migrations
                     b.HasIndex("SpecializationId");
 
                     b.ToTable("Roadmaps");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Web development is the process of designing, building, and maintaining websites and web applications, combining both creative design and technical programming to deliver functional, user-friendly digital experiences. It includes front-end (what users see), back-end (server, database, logic), and full-stack (both sides) development",
+                            IsApproved = false,
+                            SpecializationId = 1,
+                            Title = "Web development"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Frontend development focuses on everything the user sees and interacts with in the browser. It’s about turning design mockups (like the Figma prototype you have open) into functional, responsive, and engaging web pages.",
+                            IsApproved = false,
+                            SpecializationId = 2,
+                            Title = "Frontend Path"
+                        });
                 });
 
             modelBuilder.Entity("StuMap.Models.Specialization", b =>
@@ -817,16 +906,9 @@ namespace StuMap.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.HasOne("StuMap.Models.Roadmap", null)
-                        .WithMany("Students")
-                        .HasForeignKey("RoadmapId");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("StuMap.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -835,7 +917,7 @@ namespace StuMap.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("StuMap.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -850,7 +932,7 @@ namespace StuMap.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("StuMap.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -859,16 +941,23 @@ namespace StuMap.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("StuMap.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("StuMap.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("StuMap.Models.Roadmap", null)
+                        .WithMany("Students")
+                        .HasForeignKey("RoadmapId");
+                });
+
             modelBuilder.Entity("StuMap.Models.Certificate", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Contributor")
+                    b.HasOne("StuMap.Models.ApplicationUser", "Contributor")
                         .WithMany()
                         .HasForeignKey("ContributorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -879,7 +968,7 @@ namespace StuMap.Migrations
 
             modelBuilder.Entity("StuMap.Models.Contact", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("StuMap.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -890,13 +979,9 @@ namespace StuMap.Migrations
 
             modelBuilder.Entity("StuMap.Models.Course", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Contributor")
+                    b.HasOne("StuMap.Models.ApplicationUser", "Contributor")
                         .WithMany()
                         .HasForeignKey("ContributorId");
-
-                    b.HasOne("StuMap.Models.Roadmap", null)
-                        .WithMany("Courses")
-                        .HasForeignKey("RoadmapId");
 
                     b.Navigation("Contributor");
                 });
@@ -928,7 +1013,7 @@ namespace StuMap.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Student")
+                    b.HasOne("StuMap.Models.ApplicationUser", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -941,7 +1026,7 @@ namespace StuMap.Migrations
 
             modelBuilder.Entity("StuMap.Models.Material", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Contributor")
+                    b.HasOne("StuMap.Models.ApplicationUser", "Contributor")
                         .WithMany()
                         .HasForeignKey("ContributorId");
 
@@ -964,7 +1049,7 @@ namespace StuMap.Migrations
 
             modelBuilder.Entity("StuMap.Models.Roadmap", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Contributor")
+                    b.HasOne("StuMap.Models.ApplicationUser", "Contributor")
                         .WithMany()
                         .HasForeignKey("ContributorId");
 
@@ -992,8 +1077,6 @@ namespace StuMap.Migrations
             modelBuilder.Entity("StuMap.Models.Roadmap", b =>
                 {
                     b.Navigation("CourseRoadmaps");
-
-                    b.Navigation("Courses");
 
                     b.Navigation("Enrollments");
 

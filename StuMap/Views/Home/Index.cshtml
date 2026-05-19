@@ -1,8 +1,1078 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html lang="en" data-theme="mytheme">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StuMap</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <style>
+ 
+
+        /* NAV */
+        .nav-wrap {
+        padding: 14px 24px;
+        }
+
+        .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 28px;
+        background: var(--color-base-200);
+        border: 0.5px solid var(--color-base-300);
+        border-radius: 14px;
+        max-width: 1060px;
+        margin: 0 auto;
+        }
+
+        .nav-logo {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--color-base-content);
+        }
+
+        .nav-links {
+        display: flex;
+        gap: 26px;
+        }
+
+        .nav-links a {
+        font-size: 13px;
+        color: var(--color-primary-content);
+        text-decoration: none;
+        opacity: 0.7;
+        }
+
+        .nav-links a:hover {
+        opacity: 1;
+        color: var(--color-base-content);
+        }
+
+        .nav-actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        }
+
+        .btn-ghost-custom {
+        background: transparent;
+        border: none;
+        color: var(--color-primary-content);
+        font-size: 13px;
+        cursor: pointer;
+        padding: 6px 12px;
+        transition: color 0.2s;
+        }
+
+        .btn-ghost-custom:hover {
+        color: var(--color-base-content);
+        }
+
+        .btn-signup {
+        background: var(--color-primary);
+        border: none;
+        color: var(--color-primary-content);
+        font-size: 13px;
+        cursor: pointer;
+        padding: 8px 18px;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: opacity 0.2s, transform 0.15s;
+        }
+
+        .btn-signup:hover {
+        opacity: 0.85;
+        transform: translateY(-2px);
+        }
+
+        .btn-signup:active {
+        transform: translateY(0);
+        }
+
+        /* HERO */
+        .hero {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 60px 48px 50px;
+        max-width: 1060px;
+        margin: 0 auto;
+        gap: 40px;
+        }
+
+        .hero-left {
+        flex: 1;
+        }
+
+        .hero-badge {
+        display: inline-block;
+        border: 1px solid var(--color-primary);
+        color: var(--color-primary);
+        font-size: 10px;
+        letter-spacing: 2px;
+        padding: 5px 14px;
+        border-radius: 5px;
+        margin-bottom: 24px;
+        font-weight: 600;
+        }
+
+        .hero-left h1 {
+        font-size: 54px;
+        font-weight: 800;
+        line-height: 1.08;
+        color: var(--color-base-content);
+        margin-bottom: 18px;
+        letter-spacing: -1px;
+        }
+
+        .hero-left h1 .accent {
+        color: var(--color-primary);
+        }
+
+        .hero-left p {
+        font-size: 14px;
+        color: var(--color-primary-content);
+        opacity: 0.6;
+        line-height: 1.65;
+        margin-bottom: 36px;
+        max-width: 340px;
+        }
+
+        .hero-btns {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        }
+
+        .btn-explore {
+        background: transparent;
+        border: 1.5px solid var(--color-primary);
+        color: var(--color-base-content);
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        padding: 12px 24px;
+        border-radius: 9px;
+        transition: background 0.25s, transform 0.15s;
+        }
+
+        .btn-explore:hover {
+        background: var(--color-primary);
+        transform: translateY(-2px);
+        }
+
+        .btn-explore:active {
+        transform: translateY(0);
+        }
+
+        .btn-started {
+        background: var(--color-base-300);
+        border: 1.5px solid var(--color-base-300);
+        color: var(--color-base-content);
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        padding: 12px 24px;
+        border-radius: 9px;
+        transition: background 0.25s, transform 0.15s;
+        }
+
+        .btn-started:hover {
+        opacity: 0.8;
+        transform: translateY(-2px);
+        }
+
+        .btn-started:active {
+        transform: translateY(0);
+        }
+
+        /* HERO CARD */
+        .hero-card {
+        background: var(--color-base-200);
+        border: 0.5px solid var(--color-base-300);
+        border-radius: 16px;
+        padding: 18px;
+        width: 300px;
+        flex-shrink: 0;
+        margin-top: 10px;
+        }
+
+        .hc-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+        }
+
+        .hc-avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--color-base-300);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        }
+
+        .hc-info {
+        flex: 1;
+        }
+
+        .hc-title {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--color-base-content);
+        }
+
+        .hc-sub {
+        font-size: 10px;
+        color: var(--color-primary-content);
+        opacity: 0.5;
+        }
+
+        .hc-dots {
+        display: flex;
+        gap: 4px;
+        margin-left: auto;
+        }
+
+        .hc-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        }
+
+        .r-items {
+        position: relative;
+        }
+
+        .r-items::before {
+        content: '';
+        position: absolute;
+        left: 14px;
+        top: 20px;
+        bottom: 20px;
+        width: 1px;
+        background: var(--color-base-300);
+        z-index: 0;
+        }
+
+        .r-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        margin-bottom: 6px;
+        position: relative;
+        z-index: 1;
+        }
+
+        .r-item.done-item {
+        background: var(--color-base-300);
+        }
+
+        .r-item.prog-item {
+        background: var(--color-base-200);
+        border: 0.5px solid var(--color-primary);
+        }
+
+        .r-item.lock-item {
+        opacity: 0.35;
+        }
+
+        .r-circle {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        flex-shrink: 0;
+        margin-top: 1px;
+        }
+
+        .r-circle.done {
+        background: var(--color-success);
+        color: var(--color-success-content);
+        }
+
+        .r-circle.prog {
+        background: var(--color-primary);
+        color: var(--color-primary-content);
+        }
+
+        .r-circle.lock {
+        background: var(--color-base-300);
+        color: var(--color-base-content);
+        opacity: 0.4;
+        }
+
+        .r-body {
+        flex: 1;
+        }
+
+        .r-name {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--color-base-content);
+        margin-bottom: 2px;
+        }
+
+        .r-desc {
+        font-size: 10px;
+        color: var(--color-primary-content);
+        opacity: 0.5;
+        }
+
+        .r-prog-bar {
+        height: 2.5px;
+        background: var(--color-base-300);
+        border-radius: 2px;
+        margin-top: 5px;
+        }
+
+        .r-prog-fill {
+        height: 2.5px;
+        background: var(--color-primary);
+        border-radius: 2px;
+        width: 55%;
+        }
+
+        .r-badge {
+        font-size: 9px;
+        background: var(--color-primary);
+        color: var(--color-primary-content);
+        padding: 2px 8px;
+        border-radius: 4px;
+        white-space: nowrap;
+        margin-top: 2px;
+        }
+
+        /* SECTIONS */
+        .sec-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--color-base-content);
+        text-align: center;
+        margin-bottom: 10px;
+        }
+
+        .sec-sub {
+        font-size: 13px;
+        color: var(--color-primary-content);
+        opacity: 0.6;
+        text-align: center;
+        margin-bottom: 40px;
+        line-height: 1.6;
+        }
+
+        /* ROADMAPS */
+        .roadmaps-section {
+        padding: 60px 48px;
+        max-width: 1060px;
+        margin: 0 auto;
+        }
+
+        .rm-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        }
+
+        .rm-card {
+        background: var(--color-base-200);
+        border: 0.5px solid var(--color-base-300);
+        border-radius: 12px;
+        padding: 20px;
+        border-top: 2px solid transparent;
+        transition: transform 0.2s, background 0.2s;
+        }
+
+        .rm-card:hover {
+        transform: translateY(-4px);
+        background: var(--color-base-300);
+        }
+
+        .rm-card.c1 {
+        border-top-color: var(--color-info);
+        }
+
+        .rm-card.c2 {
+        border-top-color: var(--color-primary);
+        }
+
+        .rm-card.c3 {
+        border-top-color: var(--color-success);
+        }
+
+        .rm-card.c4 {
+        border-top-color: var(--color-warning);
+        }
+
+        .rm-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        background: var(--color-base-300);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 14px;
+        font-size: 16px;
+        }
+
+        .rm-card h3 {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--color-base-content);
+        margin-bottom: 8px;
+        }
+
+        .rm-card p {
+        font-size: 11px;
+        color: var(--color-primary-content);
+        opacity: 0.6;
+        line-height: 1.55;
+        margin-bottom: 18px;
+        }
+
+        .rm-link {
+        font-size: 10px;
+        color: var(--color-primary-content);
+        opacity: 0.6;
+        letter-spacing: 0.8px;
+        font-weight: 600;
+        border-top: 0.5px solid var(--color-base-300);
+        padding-top: 14px;
+        display: block;
+        text-decoration: none;
+        transition: color 0.2s, opacity 0.2s;
+        }
+
+        .rm-link:hover {
+        color: var(--color-primary);
+        opacity: 1;
+        }
+
+        /* CTA */
+        .cta-wrap {
+        padding: 0 48px;
+        max-width: 1060px;
+        margin: 0 auto 60px;
+        }
+
+        .cta-bar {
+        border-radius: 14px;
+        padding: 26px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        background: var(--color-base-200);
+        }
+
+        .cta-bar::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 14px;
+        padding: 1px;
+        background: linear-gradient(90deg, var(--color-info), var(--color-primary), var(--color-success));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        }
+
+        .cta-bar h2 {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--color-base-content);
+        margin-bottom: 4px;
+        }
+
+        .cta-bar p {
+        font-size: 12px;
+        color: var(--color-primary-content);
+        opacity: 0.6;
+        }
+
+        .btn-assess {
+        background: transparent;
+        border: 0.5px solid var(--color-primary);
+        color: var(--color-primary);
+        font-size: 12px;
+        cursor: pointer;
+        padding: 11px 22px;
+        border-radius: 8px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        transition: background 0.2s, transform 0.15s;
+        }
+
+        .btn-assess:hover {
+        background: var(--color-primary);
+        color: var(--color-primary-content);
+        transform: translateY(-2px);
+        }
+
+        .btn-assess:active {
+        transform: translateY(0);
+        }
+
+        /* COURSES */
+        .courses-section {
+        padding: 0 48px 60px;
+        max-width: 1060px;
+        margin: 0 auto;
+        }
+
+        .cr-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 14px;
+        }
+
+        .cr-card {
+        background: var(--color-base-200);
+        border: 0.5px solid var(--color-base-300);
+        border-radius: 12px;
+        padding: 18px 16px;
+        transition: transform 0.2s, background 0.2s;
+        }
+
+        .cr-card:hover {
+        transform: translateY(-4px);
+        background: var(--color-base-300);
+        }
+
+        .cr-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 14px;
+        font-size: 17px;
+        background: var(--color-base-300);
+        }
+
+        .cr-card h4 {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--color-base-content);
+        margin-bottom: 6px;
+        }
+
+        .cr-card p {
+        font-size: 11px;
+        color: var(--color-primary-content);
+        opacity: 0.55;
+        line-height: 1.45;
+        margin-bottom: 16px;
+        }
+
+        .cr-btn {
+        font-size: 10px;
+        color: var(--color-primary-content);
+        opacity: 0.6;
+        border-top: 0.5px solid var(--color-base-300);
+        padding-top: 12px;
+        display: block;
+        text-decoration: none;
+        transition: color 0.2s, opacity 0.2s;
+        }
+
+        .cr-btn:hover {
+        color: var(--color-primary);
+        opacity: 1;
+        }
+
+        /* WHY */
+        .why-section {
+        padding: 40px 48px 60px;
+        max-width: 1060px;
+        margin: 0 auto;
+        display: flex;
+        gap: 50px;
+        align-items: center;
+        }
+
+        .why-left {
+        background: var(--color-base-200);
+        border: 0.5px solid var(--color-base-300);
+        border-radius: 16px;
+        padding: 16px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        flex-shrink: 0;
+        width: 270px;
+        }
+
+        .why-mini {
+        background: var(--color-base-100);
+        border: 0.5px solid var(--color-base-300);
+        border-radius: 10px;
+        padding: 12px 14px;
+        transition: transform 0.2s, background 0.2s;
+        }
+
+        .why-mini:hover {
+        transform: translateY(-3px);
+        background: var(--color-base-200);
+        }
+
+        .wm-top {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 6px;
+        }
+
+        .wm-icon {
+        font-size: 12px;
+        }
+
+        .wm-label {
+        font-size: 9px;
+        color: var(--color-primary-content);
+        opacity: 0.5;
+        letter-spacing: 0.8px;
+        }
+
+        .wm-val {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--color-base-content);
+        }
+
+        .why-right {
+        flex: 1;
+        }
+
+        .why-right h2 {
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--color-base-content);
+        margin-bottom: 26px;
+        }
+
+        .why-item {
+        display: flex;
+        gap: 14px;
+        margin-bottom: 22px;
+        }
+
+        .wi-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--color-base-300);
+        border: 0.5px solid var(--color-base-300);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 13px;
+        }
+
+        .wi-text h4 {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--color-base-content);
+        margin-bottom: 4px;
+        }
+
+        .wi-text p {
+        font-size: 12px;
+        color: var(--color-primary-content);
+        opacity: 0.55;
+        line-height: 1.55;
+        }
+
+        /* CONTACT */
+        .contact-section {
+        padding: 40px 48px 60px;
+        max-width: 1060px;
+        margin: 0 auto;
+        text-align: center;
+        }
+
+        .ct-cards {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+        margin-top: 34px;
+        }
+
+        .ct-card {
+        background: var(--color-base-200);
+        border: 0.5px solid var(--color-base-300);
+        border-radius: 12px;
+        padding: 22px 28px;
+        min-width: 170px;
+        transition: transform 0.2s, background 0.2s;
+        }
+
+        .ct-card:hover {
+        transform: translateY(-4px);
+        background: var(--color-base-300);
+        }
+
+        .ct-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: var(--color-base-300);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 12px;
+        font-size: 16px;
+        }
+
+        .ct-card h4 {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--color-base-content);
+        margin-bottom: 6px;
+        }
+
+        .ct-card p {
+        font-size: 11px;
+        color: var(--color-primary-content);
+        opacity: 0.6;
+        }
+
+        .soc-row {
+        display: flex;
+        gap: 6px;
+        justify-content: center;
+        margin-top: 8px;
+        }
+
+        .soc-btn {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--color-base-300);
+        border: 0.5px solid var(--color-base-300);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+        color: var(--color-primary-content);
+        }
+
+        /* FOOTER */
+        footer {
+        border-top: 0.5px solid var(--color-base-300);
+        padding: 28px 48px;
+        max-width: 1060px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        }
+
+        .f-logo {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--color-base-content);
+        margin-bottom: 6px;
+        }
+
+        .f-sub {
+        font-size: 11px;
+        color: var(--color-primary-content);
+        opacity: 0.35;
+        max-width: 180px;
+        line-height: 1.5;
+        }
+
+        .f-links {
+        display: flex;
+        gap: 36px;
+        }
+
+        .f-col {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        }
+
+        .f-col a {
+        font-size: 11px;
+        color: var(--color-primary-content);
+        opacity: 0.4;
+        text-decoration: none;
+        }
+
+        .f-col a:hover {
+        opacity: 0.8;
+        }
+
+        .f-copy {
+        font-size: 10px;
+        color: var(--color-primary-content);
+        opacity: 0.3;
+        text-align: right;
+        align-self: flex-end;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <div class="nav-wrap">
+        <nav class="nav">
+            <div class="nav-logo">StuMap</div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Roadmaps</a>
+                <a href="#">Courses</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-ghost-custom btn-ghost">Login</button>
+                <button class="btn-signup btn btn-primary btn-sm">Sign Up</button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-left">
+            <div class="hero-badge">THE FUTURE OF LEARNING</div>
+            <h1>Learn Smarter<br>with <span class="accent">Structured</span><br>Roadmaps</h1>
+            <p>Stop wasting time searching. Follow clear learning paths with curated resources, all in one place.</p>
+            <div class="hero-btns">
+                <button class="btn-explore">Explore Roadmaps</button>
+                <button class="btn-started">Get Started</button>
+            </div>
+        </div>
+        <div class="hero-card">
+            <div class="hc-header">
+                <div class="hc-avatar">☁</div>
+                <div class="hc-info">
+                    <div class="hc-title">Cloud Architecture</div>
+                    <div class="hc-sub">24 Steps • Mastery Level</div>
+                </div>
+                <div class="hc-dots">
+                    <div class="hc-dot" style="background:#e05555"></div>
+                    <div class="hc-dot" style="background:#e0a020"></div>
+                    <div class="hc-dot" style="background:#40a060"></div>
+                </div>
+            </div>
+            <div class="r-items">
+                <div class="r-item done-item">
+                    <div class="r-circle done">✓</div>
+                    <div class="r-body">
+                        <div class="r-name">Foundations of Cloud</div>
+                        <div class="r-desc">Core concepts and service models</div>
+                    </div>
+                </div>
+                <div class="r-item prog-item">
+                    <div class="r-circle prog">●</div>
+                    <div class="r-body">
+                        <div class="r-name">Network Design</div>
+                        <div class="r-prog-bar"><div class="r-prog-fill"></div></div>
+                    </div>
+                    <div class="r-badge">IN PROGRESS</div>
+                </div>
+                <div class="r-item lock-item">
+                    <div class="r-circle lock">○</div>
+                    <div class="r-body">
+                        <div class="r-name">Security Best Practices</div>
+                        <div class="r-desc">Identity management and encryption</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ROADMAPS -->
+    <div class="roadmaps-section">
+        <div class="sec-title">Explore Learning Roadmaps</div>
+        <div class="sec-sub">Choose your path and start your journey step by step. Our curated tracks are<br>designed by industry experts to lead you to mastery.</div>
+        <div class="rm-grid">
+            <div class="rm-card c1">
+                <div class="rm-icon">🖥</div>
+                <h3>Frontend</h3>
+                <p>Learn how to build modern user interfaces using HTML, CSS, and JavaScript.</p>
+                <a href="#" class="rm-link">VIEW ROADMAP →</a>
+            </div>
+            <div class="rm-card c2">
+                <div class="rm-icon">🗄</div>
+                <h3>Backend</h3>
+                <p>Understand server-side development, databases, and APIs to power the web.</p>
+                <a href="#" class="rm-link">VIEW ROADMAP →</a>
+            </div>
+            <div class="rm-card c3">
+                <div class="rm-icon">📱</div>
+                <h3>Mobile</h3>
+                <p>Create high-performance mobile apps using modern frameworks and tools.</p>
+                <a href="#" class="rm-link">VIEW ROADMAP →</a>
+            </div>
+            <div class="rm-card c4">
+                <div class="rm-icon">🤖</div>
+                <h3>AI</h3>
+                <p>Dive into artificial intelligence, machine learning, and data science.</p>
+                <a href="#" class="rm-link">VIEW ROADMAP →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-wrap">
+        <div class="cta-bar">
+            <div>
+                <h2>Can't decide?</h2>
+                <p>Take our career assessment to find your perfect path.</p>
+            </div>
+            <button class="btn-assess">START ASSESSMENT</button>
+        </div>
+    </div>
+
+    <!-- COURSES -->
+    <div class="text-center" style="padding: 0 48px 16px; max-width:1060px; margin: 0 auto;">
+        <div class="sec-title">Popular Courses</div>
+        <div class="sec-sub">Step into the luminescent path of modern technology. Our curated courses<br>guide you through the digital nebula from fundamentals to mastery.</div>
+    </div>
+    <div class="courses-section">
+        <div class="cr-grid">
+            <div class="cr-card">
+                <div class="cr-icon">💻</div>
+                <h4>HTML Basics</h4>
+                <p>Learn the foundation of web development with HTML.</p>
+                <a href="#" class="cr-btn">Start Learning →</a>
+            </div>
+            <div class="cr-card">
+                <div class="cr-icon">⚛</div>
+                <h4>React Basics</h4>
+                <p>Build dynamic user interfaces with React.</p>
+                <a href="#" class="cr-btn">Start Learning →</a>
+            </div>
+            <div class="cr-card">
+                <div class="cr-icon">🎨</div>
+                <h4>CSS Fundamentals</h4>
+                <p>Style and layout modern websites with CSS.</p>
+                <a href="#" class="cr-btn">Start Learning →</a>
+            </div>
+            <div class="cr-card">
+                <div class="cr-icon">⚙</div>
+                <h4>JavaScript Essentials</h4>
+                <p>Add interactivity and logic to your web apps.</p>
+                <a href="#" class="cr-btn">Start Learning →</a>
+            </div>
+            <div class="cr-card">
+                <div class="cr-icon">⚛</div>
+                <h4>React Basics</h4>
+                <p>Build dynamic user interfaces with React.</p>
+                <a href="#" class="cr-btn">Start Learning →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- WHY -->
+    <div class="why-section">
+        <div class="why-left">
+            <div class="why-mini">
+                <div class="wm-top"><span class="wm-icon">✓</span><span class="wm-label">COMPLETED</span></div>
+                <div class="wm-val">Web Architect</div>
+            </div>
+            <div class="why-mini">
+                <div class="wm-top"><span class="wm-icon">↗</span><span class="wm-label">PROGRESS</span></div>
+                <div class="wm-val">Expert Level</div>
+            </div>
+            <div class="why-mini">
+                <div class="wm-top"><span class="wm-icon">🚀</span><span class="wm-label">WITH</span></div>
+                <div class="wm-val">Fast-Track</div>
+            </div>
+            <div class="why-mini">
+                <div class="wm-top"><span class="wm-icon">👥</span><span class="wm-label">COMMUNITY</span></div>
+                <div class="wm-val">12k Students</div>
+            </div>
+        </div>
+        <div class="why-right">
+            <h2>Why Choose StuMap?</h2>
+            <div class="why-item">
+                <div class="wi-icon">🔗</div>
+                <div class="wi-text">
+                    <h4>Non-Linear Learning</h4>
+                    <p>Unlike traditional platforms, we offer flexible roadmaps that adapt to your specific goals and existing knowledge.</p>
+                </div>
+            </div>
+            <div class="why-item">
+                <div class="wi-icon">✦</div>
+                <div class="wi-text">
+                    <h4>Luminescent Insights</h4>
+                    <p>Gain clarity through deep-dive sessions and real-world project scenarios designed for immediate application.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="contact-section">
+        <div class="sec-title">Have Questions? Get in Touch!</div>
+        <div class="sec-sub">Whether you're looking for technical support, mentorship opportunities,<br>or corporate training solutions, our team is here to guide your path.</div>
+        <div class="ct-cards">
+            <div class="ct-card">
+                <div class="ct-icon">✉</div>
+                <h4>Email</h4>
+                <p>contact@yourdomain.com</p>
+            </div>
+            <div class="ct-card">
+                <div class="ct-icon">📞</div>
+                <h4>Phone</h4>
+                <p>+1 (123) 456-7890</p>
+            </div>
+            <div class="ct-card">
+                <div class="ct-icon">↗</div>
+                <h4>Follow Us</h4>
+                <div class="soc-row">
+                    <div class="soc-btn">G</div>
+                    <div class="soc-btn">in</div>
+                    <div class="soc-btn">X</div>
+                    <div class="soc-btn">yt</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div>
+            <div class="f-logo">StuMap</div>
+            <div class="f-sub">Building the world's most accessible architecture for lifelong learning.</div>
+        </div>
+        <div class="f-links">
+            <div class="f-col">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="f-col">
+                <a href="#">Cookie Policy</a>
+                <a href="#">Support</a>
+            </div>
+        </div>
+        <div class="f-copy">© 2026 StuMap Learning Architecture. All rights reserved.</div>
+    </footer>
+
+</body>
+</html>
+
