@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StuMap.Managers;
+using StuMap.Models;
 
 namespace StuMap.Controllers
 {
@@ -9,10 +10,10 @@ namespace StuMap.Controllers
         //Course
         ICourseManager courseManager;
         IRoadmapManager roadmapManager;
-        UserManager<IdentityUser> _userManger;
+        UserManager<ApplicationUser> _userManger;
         ISpecializationManager specializationManager;
 
-        public DashboardController(ICourseManager courseManager, IRoadmapManager roadmapManager, UserManager<IdentityUser> userManger, ISpecializationManager specializationManager)
+        public DashboardController(ICourseManager courseManager, IRoadmapManager roadmapManager, UserManager<ApplicationUser> userManger, ISpecializationManager specializationManager)
         {
             this.courseManager = courseManager;
             this.roadmapManager = roadmapManager;
