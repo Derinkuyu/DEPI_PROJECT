@@ -88,18 +88,23 @@ $($password).on('input', function () {
     };
     function updateRequirementUi(elementId, isPassed) {
         const $el = $(`#${elementId}`);
-        const $icon = $el.find('.status-icon');
+        const $icon = $el.find('.status');
 
         if (isPassed) {
             $el.removeClass('text-gray-500 text-red-500').addClass('text-green-600 font-medium');
-            $icon.text('✅');
+
+            $icon.addClass('status-success');
+            $icon.removeClass('status-error');
         } else {
             if (value.length === 0) {
                 $el.removeClass('text-green-600 text-red-500').addClass('text-gray-500');
+                $icon.removeClass('status-error');
+                $icon.removeClass('status-success');
             } else {
                 $el.removeClass('text-gray-500 text-green-600').addClass('text-red-500');
+                $icon.addClass('status-error');
+                $icon.removeClass('status-success');
             }
-            $icon.text('❌');
         }
     }
     updateRequirementUi('req-length', rules.length);
