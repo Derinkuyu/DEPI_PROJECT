@@ -17,7 +17,7 @@ namespace StuMap.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.7")
+                .HasAnnotation("ProductVersion", "10.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -47,6 +47,29 @@ namespace StuMap.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "E2845098-5312-4925-94B7-2ED3664CA318",
+                            ConcurrencyStamp = "E2845098-5312-4925-94B7-2ED3664CA318",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "CB821695-B43A-41B9-8490-15A250D25FB5",
+                            ConcurrencyStamp = "CB821695-B43A-41B9-8490-15A250D25FB5",
+                            Name = "Student",
+                            NormalizedName = "STUDENT"
+                        },
+                        new
+                        {
+                            Id = "2C4560E3-B816-43E5-8DA9-15C94336DC72",
+                            ConcurrencyStamp = "2C4560E3-B816-43E5-8DA9-15C94336DC72",
+                            Name = "Contributor",
+                            NormalizedName = "CONTRIBUTOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -134,6 +157,28 @@ namespace StuMap.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "074B369D-5560-4ADA-99D2-F8AECF1E2423",
+                            RoleId = "E2845098-5312-4925-94B7-2ED3664CA318"
+                        },
+                        new
+                        {
+                            UserId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            RoleId = "CB821695-B43A-41B9-8490-15A250D25FB5"
+                        },
+                        new
+                        {
+                            UserId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            RoleId = "2C4560E3-B816-43E5-8DA9-15C94336DC72"
+                        },
+                        new
+                        {
+                            UserId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            RoleId = "2C4560E3-B816-43E5-8DA9-15C94336DC72"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -238,6 +283,92 @@ namespace StuMap.Migrations
                     b.HasIndex("RoadmapId");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            Country = "Egypt",
+                            DateOfBirth = new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Email = "frankofoedu@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Frank",
+                            LastName = "Sinatra",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "FRANKOFOEDU@GMAIL.COM",
+                            NormalizedUserName = "FRANKOFOEDU@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            TwoFactorEnabled = false,
+                            UserName = "frankofoedu@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            Country = "Egypt",
+                            DateOfBirth = new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Email = "amiraofoedu@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Amira",
+                            LastName = "Abdelaziz",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "AMIRAOFOEDU@GMAIL.COM",
+                            NormalizedUserName = "AMIRAOFOEDU@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            TwoFactorEnabled = false,
+                            UserName = "amiraofoedu@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            Country = "Egypt",
+                            DateOfBirth = new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Email = "faridaofoedu@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Farida",
+                            LastName = "Mohammed",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "FARIDAOFOEDU@GMAIL.COM",
+                            NormalizedUserName = "FARIDAOFOEDU@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            TwoFactorEnabled = false,
+                            UserName = "faridaofoedu@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "074B369D-5560-4ADA-99D2-F8AECF1E2423",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "074B369D-5560-4ADA-99D2-F8AECF1E2423",
+                            Country = "Egypt",
+                            DateOfBirth = new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Email = "aadmin@stumap.com",
+                            EmailConfirmed = true,
+                            FirstName = "admin",
+                            LastName = "admin",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "AADMIN@STUMAP.COM",
+                            NormalizedUserName = "AADMIN@STUMAP.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "074B369D-5560-4ADA-99D2-F8AECF1E2423",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@stumap.com"
+                        });
                 });
 
             modelBuilder.Entity("StuMap.Models.Certificate", b =>
@@ -324,9 +455,6 @@ namespace StuMap.Migrations
                     b.Property<bool?>("IsApproved")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("RoadmapId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -335,9 +463,98 @@ namespace StuMap.Migrations
 
                     b.HasIndex("ContributorId");
 
-                    b.HasIndex("RoadmapId");
-
                     b.ToTable("Courses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Learn the absolute basics of building web pages. Master the structure of a website using text elements, hyperlinks, forms, images, and semantic tags that help search engines understand your content.",
+                            Title = "Introduction to HTML5"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            DateCreated = new DateTime(2026, 5, 16, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Transform plain text into beautiful, styled web pages. Discover colors, custom fonts, borders, margins, padding, and how to use selectors to target and style specific elements across your site.",
+                            Title = "Introduction to CSS3"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            DateCreated = new DateTime(2026, 5, 15, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Learn how to make your websites look perfect on any screen size. Master modern layouts using CSS Flexbox and Grid, and use media queries to automatically adapt designs for mobile phones, tablets, and desktops.",
+                            Title = "Creating Responsive Web Designs"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            DateCreated = new DateTime(2026, 5, 14, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Bring your static web pages to life with interactivity. Learn the fundamentals of programming—like variables, functions, and events—to handle user clicks, toggle menus, and create dynamic content.",
+                            Title = "Basic JavaScript for the Web"
+                        });
+                });
+
+            modelBuilder.Entity("StuMap.Models.CourseRoadmap", b =>
+                {
+                    b.Property<int>("RoadmapId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoadmapId", "CourseId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("CourseRoadmaps");
+
+                    b.HasData(
+                        new
+                        {
+                            RoadmapId = 1,
+                            CourseId = 1
+                        },
+                        new
+                        {
+                            RoadmapId = 1,
+                            CourseId = 2
+                        },
+                        new
+                        {
+                            RoadmapId = 1,
+                            CourseId = 3
+                        },
+                        new
+                        {
+                            RoadmapId = 1,
+                            CourseId = 4
+                        },
+                        new
+                        {
+                            RoadmapId = 2,
+                            CourseId = 1
+                        },
+                        new
+                        {
+                            RoadmapId = 2,
+                            CourseId = 2
+                        },
+                        new
+                        {
+                            RoadmapId = 2,
+                            CourseId = 3
+                        },
+                        new
+                        {
+                            RoadmapId = 2,
+                            CourseId = 4
+                        });
                 });
 
             modelBuilder.Entity("StuMap.Models.Enrollment", b =>
@@ -402,6 +619,129 @@ namespace StuMap.Migrations
                     b.HasIndex("MaterialTypeId");
 
                     b.ToTable("Materials");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            CourseId = 1,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "An authoritative, text-based guide by MDN Web Docs outlining elements, tags, attributes, and formatting requirements for standard web documents.",
+                            MaterialTypeId = 1,
+                            Title = "MDN Web Docs: Basic HTML Syntax",
+                            Url = "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Basic_HTML_syntax"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            CourseId = 1,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "An interactive web-based sandbox tool from W3Schools allowing you to write basic markup and instantly preview rendered headings, links, and text formatting.",
+                            MaterialTypeId = 1,
+                            Title = "W3Schools: HTML Tutorial",
+                            Url = "https://www.w3schools.com/Html/"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            CourseId = 1,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "A comprehensive, four-hour structural video layout tutorial hosted on YouTube via freeCodeCamp designed to advance beginners through core content tagging.",
+                            MaterialTypeId = 3,
+                            Title = "freeCodeCamp: Learn HTML Full Tutorial for Beginners",
+                            Url = "https://www.youtube.com/watch?v=kUMe1FH4CHE"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            CourseId = 2,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "A foundational guide on MDN Web Docs detailing cascade inheritance, standard syntax declarations, color applications, and fundamental font properties.",
+                            MaterialTypeId = 1,
+                            Title = "MDN Web Docs: CSS First Steps",
+                            Url = "https://developer.mozilla.org/en-US/docs/Web/CSS"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            CourseId = 2,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "A focused structural design video playlist from freeCodeCamp demonstrating visual layout selectors, custom borders, elements padding, and style rules.",
+                            MaterialTypeId = 3,
+                            Title = "freeCodeCamp: CSS Tutorial – Full Course for Beginners",
+                            Url = "https://www.youtube.com/watch?v=OXGznpKZ_sA"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            CourseId = 2,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "A modular web text environment via W3Schools with quick templates, text-align rules, custom backgrounds, and step-by-step styling exercises.",
+                            MaterialTypeId = 1,
+                            Title = "W3Schools: Online CSS Tutorials",
+                            Url = "https://www.w3schools.com/css/"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            CourseId = 3,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "An intensive project-based video on YouTube via SuperSimpleDev/freeCodeCamp mapping responsive website components and complex grid layouts.",
+                            MaterialTypeId = 3,
+                            Title = "freeCodeCamp: HTML & CSS Full Course - Beginner to Pro",
+                            Url = "https://www.youtube.com/watch?v=G3e-cpL7ofc"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            CourseId = 3,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "An instructional web framework guide by W3Schools showcasing dynamic viewport adjustments and screen-fluid grid column behaviors.",
+                            MaterialTypeId = 1,
+                            Title = "W3Schools: Build Responsive Sites with W3.CSS",
+                            Url = "https://www.w3schools.com/css/"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            CourseId = 4,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "A technical deployment article from MDN Web Docs explaining script tag execution order, variable linkage, and element handling scripts.",
+                            MaterialTypeId = 1,
+                            Title = "MDN Web Docs: Adding JavaScript to an HTML File",
+                            Url = "https://developer.mozilla.org/en-US/docs/Web/HTML"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            CourseId = 4,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "A comprehensive foundational video course on YouTube via freeCodeCamp exploring programmatic statements, custom functions, and interactive button bindings.",
+                            MaterialTypeId = 3,
+                            Title = "freeCodeCamp: Learn JavaScript Full Course for Beginners",
+                            Url = "https://www.youtube.com/c/Freecodecamp"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            CourseId = 4,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "A live programming sandbox on W3Schools providing quick snippets to modify document style properties dynamically via user clicks.",
+                            MaterialTypeId = 1,
+                            Title = "W3Schools: JavaScript Interactive Reference",
+                            Url = "https://www.w3schools.com/js/"
+                        });
                 });
 
             modelBuilder.Entity("StuMap.Models.MaterialType", b =>
@@ -419,6 +759,43 @@ namespace StuMap.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MaterialTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Title = "Article"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Title = "Paper"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Title = "Video"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Title = "Image"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Title = "Book"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Title = "Exam"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Title = "Other"
+                        });
                 });
 
             modelBuilder.Entity("StuMap.Models.Roadmap", b =>
@@ -436,7 +813,6 @@ namespace StuMap.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsApproved")
@@ -456,6 +832,28 @@ namespace StuMap.Migrations
                     b.HasIndex("SpecializationId");
 
                     b.ToTable("Roadmaps");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Web development is the process of designing, building, and maintaining websites and web applications, combining both creative design and technical programming to deliver functional, user-friendly digital experiences. It includes front-end (what users see), back-end (server, database, logic), and full-stack (both sides) development",
+                            IsApproved = false,
+                            SpecializationId = 1,
+                            Title = "Web development"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Frontend development focuses on everything the user sees and interacts with in the browser. It’s about turning design mockups (like the Figma prototype you have open) into functional, responsive, and engaging web pages.",
+                            IsApproved = false,
+                            SpecializationId = 2,
+                            Title = "Frontend Path"
+                        });
                 });
 
             modelBuilder.Entity("StuMap.Models.Specialization", b =>
@@ -477,6 +875,26 @@ namespace StuMap.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Specializations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Computer Science studies how computers work, focusing on algorithms, data, and problem‑solving. It blends theory and practice to build systems like AI, databases, and operating systems.",
+                            Name = "Computer Science"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Information Technology applies computer systems to manage and secure data. It covers networks, servers, and user support, ensuring organizations run smoothly with reliable tech.",
+                            Name = "Information Technology"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Software Engineering designs and builds software using structured methods. It emphasizes quality, scalability, and teamwork across the full lifecycle—from planning to maintenance.",
+                            Name = "Software Engineering"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -565,11 +983,24 @@ namespace StuMap.Migrations
                         .WithMany()
                         .HasForeignKey("ContributorId");
 
-                    b.HasOne("StuMap.Models.Roadmap", "Roadmap")
-                        .WithMany("Courses")
-                        .HasForeignKey("RoadmapId");
-
                     b.Navigation("Contributor");
+                });
+
+            modelBuilder.Entity("StuMap.Models.CourseRoadmap", b =>
+                {
+                    b.HasOne("StuMap.Models.Course", "Course")
+                        .WithMany("CourseRoadmaps")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StuMap.Models.Roadmap", "Roadmap")
+                        .WithMany("CourseRoadmaps")
+                        .HasForeignKey("RoadmapId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
 
                     b.Navigation("Roadmap");
                 });
@@ -633,6 +1064,8 @@ namespace StuMap.Migrations
 
             modelBuilder.Entity("StuMap.Models.Course", b =>
                 {
+                    b.Navigation("CourseRoadmaps");
+
                     b.Navigation("Materials");
                 });
 
@@ -643,7 +1076,7 @@ namespace StuMap.Migrations
 
             modelBuilder.Entity("StuMap.Models.Roadmap", b =>
                 {
-                    b.Navigation("Courses");
+                    b.Navigation("CourseRoadmaps");
 
                     b.Navigation("Enrollments");
 

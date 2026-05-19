@@ -1,0 +1,74 @@
+﻿@model List<Roadmap>
+
+@* 
+
+
+@foreach (var roadmap in Model)
+{
+    <div class="roadmap">
+        <h2>@roadmap.Title</h2>
+        <p>@roadmap.Description</p>
+        <ul>
+            @foreach (var item in roadmap.CourseRoadmaps)
+            {
+                <li>@item.Course.Title</li>
+            }
+        </ul>
+    </div>
+} *@
+
+<section class="mx-6 my-8 flex flex-col justify-between gap-6">
+    <div class="flex flex-col justify-start">
+        <p class="text-4xl font-semibold ">Explore All Courses</p>
+        <p class="text-xl text-primary-content-para w-200 my-2">
+            Step into the luminescent path of modern technology. Our curated courses
+            guide you through the digital nebula from fundamentals to mastery.
+        </p>
+    </div>
+    <label class="input rounded-full bg-base-300 border-none w-200 h-15 ">
+        <svg class="h-[1em] opacity-50 mx-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g stroke-linejoin="round"
+                   stroke-linecap="round"
+                   stroke-width="2.5"
+                   fill="none"
+                   stroke="currentColor">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+            </g>
+        </svg>
+        <input type="search" required placeholder="Search Roadmaps..." class="border-none" />
+    </label>
+    <form class="my-2">
+
+    @foreach (var spec in ViewBag.Specializations)
+    {
+            <input class="btn rounded-full" type="checkbox" name="frameworks" value="@spec.Id" aria-label="@spec.Name" />
+    }
+        <input class="btn btn-square rounded-full" type="reset" value="×" />
+    </form>
+
+<div class="flex flex-col gap-10 w-full my-4">
+
+            @foreach (var roadmap in Model)
+        {
+            <div class="card w-96 bg-base-2 00 border-1 border-neutral card-lg shadow-sm w-full transition duration-300 ease-in-out hover:shadow-lg dark:hover:shadow-white/30">
+                <div class="card-body flex flex-col gap-3">
+                    <div class="badge badge-primary uppercase">@roadmap.Specialization.Name</div>
+                    <p class="text-3xl card-title font-normal">@roadmap.Title</p>
+                    <p class="text-l text-primary-content-para  w-200 ">@roadmap.Description</p>
+                    <div class="flex items-baseline">
+                        <div class="badge badge-soft badge-success px-6 py-4"> <i class="fa-solid fa-graduation-cap"></i> @roadmap.CourseRoadmaps.Count() Courses</div>
+                        <div class="uppercase ml-4 text-primary-content-para  tracking-widest text-sm">
+                            <i class="fa-regular fa-user"></i> @roadmap.Contributor.FirstName @roadmap.Contributor.LastName
+                        </div>
+                    </div>
+                    <div class="my-4">
+                        <button class="btn btn-outline btn-primary rounded-full btn-lg hover:bg-linear-(--gradient-btn)">View Roadmap</button>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+
+    </section>

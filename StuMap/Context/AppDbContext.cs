@@ -40,6 +40,8 @@ namespace StuMap.Context
 
             modelBuilder.ApplyConfiguration(new MaterialSeedConfiguration());
 
+            modelBuilder.ApplyConfiguration(new RoadmapSeedConfiguration());
+            modelBuilder.ApplyConfiguration(new CourseRoadmapSeedConfiguration());
 
             //    //modelBuilder.Entity<User>().UseTptMappingStrategy();
 
