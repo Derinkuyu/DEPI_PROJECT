@@ -12,20 +12,27 @@
     <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
     @* <link rel="stylesheet" href="~/StuMap.styles.css" asp-append-version="true" /> *@
 </head>
 <body>
-    <header>
-        <div class="navbar bg-base-100 shadow-sm">
-            <div class="navbar-start">
-                <a href="/" class="btn btn-ghost text-xl">StuMap</a>
-            </div>
 
-            <div class="navbar-end">
+    <div class="nav-wrap">
+        <nav class="nav">
+            <div class="nav-logo">StuMap</div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Roadmaps</a>
+                <a href="#">Courses</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="nav-actions">
                 @if (SignInManager.IsSignedIn(User))
                 {
                     <div class="dropdown dropdown-end">
-                        <div tabindex="0" role="button" class="btn btn-outline rounded-field">@User.FindFirst("FirstName")?.Value @User.FindFirst("LastName")?.Value</div>
+                        <div tabindex="0" role="button" class="btn-ghost-custom btn-ghost">@User.FindFirst("FirstName")?.Value @User.FindFirst("LastName")?.Value</div>
                         <ul tabindex="-1"
                             class="menu dropdown-content bg-base-200 rounded-box z-1 mt-4 w-52 p-2 shadow-sm">
                             <li>
@@ -47,30 +54,40 @@
                     <div class="nav-item">
                         <a asp-controller="Authentication"
                                asp-action="Logout"
-                               class="nav-link btn btn-link border-0">
+                               class="btn-signup btn btn-primary btn-sm">
                             Logout
                         </a>
                     </div>
                 }
-                else
-                {
-                    <div class="nav-item">
-                        <a class="nav-link " asp-controller="Authentication" asp-action="Login">Login</a>
-                    </div>
+                    else
+                    { 
+                    <a asp-controller="Authentication" asp-action="Login" class="btn-ghost-custom btn-ghost">Login</a>
+                <a asp-controller="Authentication" asp-action="Register" class="btn-signup btn btn-primary btn-sm">Register</a>
                 }
             </div>
-        </div>
-    </header>
-
+        </nav>
+    </div>
     <main role="main">
         @RenderBody()
     </main>
-
-    <footer class="border-top footer text-muted d-flex justify-content-center mt-3">
-        <div class="container d-flex justify-content-center mt-3">
-            &copy; 2026 - StuMap - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer>
+        <div>
+            <div class="f-logo">StuMap</div>
+            <div class="f-sub">Building the world's most accessible architecture for lifelong learning.</div>
         </div>
+        <div class="f-links">
+            <div class="f-col">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="f-col">
+                <a href="#">Cookie Policy</a>
+                <a href="#">Support</a>
+            </div>
+        </div>
+        <div class="f-copy">© 2026 StuMap Learning Architecture. All rights reserved.</div>
     </footer>
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
