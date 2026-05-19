@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public required string Title { get; set; }
-        public string Description { get; set; } = string.Empty;
+        public string? Description { get; set; }
 
         // Roadmap Creator
         public string? ContributorId { get; set; }
@@ -18,17 +18,16 @@
         //public List<string> Tags { get; set; } = [];
 
         // Roadmap Enrollments
-        public ICollection<ApplicationUser> Students { get; set; } = [];
-        public ICollection<Enrollment> Enrollments { get; set; } = [];
+        public virtual List<ApplicationUser>? Students { get; set; }
+        public virtual List<Enrollment>? Enrollments { get; set; }
 
         public DateTime DateCreated { get; set; } = DateTime.Now;
 
         // required for admin approval before being displayed on the site
-        public bool IsApproved { get; set; } = false;
+        public bool IsApproved { get; set; }
 
         // todo: how to show roadmap plan?
 
-        public ICollection<Course> Courses { get; set; } = [];
         public virtual List<CourseRoadmap>? CourseRoadmaps { get; set; }
     }
 }
