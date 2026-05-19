@@ -3,6 +3,7 @@ using StuMap.Context;
 using StuMap.DTO.Authentication;
 using StuMap.Models;
 
+
 namespace StuMap.Services.Authentication
 {
     public class AuthenticationService(
@@ -67,6 +68,10 @@ namespace StuMap.Services.Authentication
                 LastName = signupDto.LName,
                 Country = signupDto.Country,
                 DateOfBirth = DateTime.SpecifyKind(signupDto.DateOfBirth, DateTimeKind.Utc),
+                CreatedAt = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc),
+                IsContributorRequest = signupDto is ContributorSignUpDto ? true : false,
+                RequestDate = signupDto is ContributorSignUpDto ? DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc) : null,
+                ContributorStatus = signupDto is ContributorSignUpDto ? Models.Enums.ContributorStatus.Pending : null
             };
 
             Console.WriteLine($"Creating User with Id: {newUser.Id}");

@@ -1,4 +1,6 @@
-﻿namespace StuMap.Models
+﻿using StuMap.Models.Enums;
+
+namespace StuMap.Models
 {
     public class Course
     {
@@ -19,7 +21,7 @@
         public DateTime DateCreated { get; set; } = DateTime.Now;
 
         // required for admin approval before being displayed on the site
-        public bool? IsApproved { get; set; }
+        public CourseStatus Status { get; set; } = CourseStatus.Pending;
         public virtual List<CourseRoadmap>? CourseRoadmaps { get; set; }
 
     }

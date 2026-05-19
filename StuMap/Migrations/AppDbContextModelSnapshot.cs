@@ -208,13 +208,22 @@ namespace StuMap.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("CertificatePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ContributorStatus")
+                        .HasColumnType("int");
+
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
@@ -229,6 +238,12 @@ namespace StuMap.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsBlocked")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsContributorRequest")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -257,10 +272,19 @@ namespace StuMap.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("RejectionReason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RequestDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("RoadmapId")
                         .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Specialization")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -290,11 +314,15 @@ namespace StuMap.Migrations
                             Id = "E2E368AB-8D20-401B-826A-F591202E3D19",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            ContributorStatus = 2,
                             Country = "Egypt",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Email = "frankofoedu@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Frank",
+                            IsBlocked = false,
+                            IsContributorRequest = true,
                             LastName = "Sinatra",
                             LockoutEnabled = false,
                             NormalizedEmail = "FRANKOFOEDU@GMAIL.COM",
@@ -311,11 +339,15 @@ namespace StuMap.Migrations
                             Id = "E746D970-DB04-4D42-9493-9173C7D13EE9",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            ContributorStatus = 2,
                             Country = "Egypt",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Email = "amiraofoedu@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Amira",
+                            IsBlocked = false,
+                            IsContributorRequest = true,
                             LastName = "Abdelaziz",
                             LockoutEnabled = false,
                             NormalizedEmail = "AMIRAOFOEDU@GMAIL.COM",
@@ -332,11 +364,15 @@ namespace StuMap.Migrations
                             Id = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            ContributorStatus = 2,
                             Country = "Egypt",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Email = "faridaofoedu@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Farida",
+                            IsBlocked = false,
+                            IsContributorRequest = true,
                             LastName = "Mohammed",
                             LockoutEnabled = false,
                             NormalizedEmail = "FARIDAOFOEDU@GMAIL.COM",
@@ -353,11 +389,15 @@ namespace StuMap.Migrations
                             Id = "074B369D-5560-4ADA-99D2-F8AECF1E2423",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "074B369D-5560-4ADA-99D2-F8AECF1E2423",
+                            ContributorStatus = 2,
                             Country = "Egypt",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Email = "aadmin@stumap.com",
                             EmailConfirmed = true,
                             FirstName = "admin",
+                            IsBlocked = false,
+                            IsContributorRequest = true,
                             LastName = "admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "AADMIN@STUMAP.COM",
@@ -383,7 +423,6 @@ namespace StuMap.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ContributorId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DateIssued")
@@ -452,8 +491,8 @@ namespace StuMap.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsApproved")
-                        .HasColumnType("bit");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -472,6 +511,7 @@ namespace StuMap.Migrations
                             ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
                             DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Description = "Learn the absolute basics of building web pages. Master the structure of a website using text elements, hyperlinks, forms, images, and semantic tags that help search engines understand your content.",
+                            Status = 2,
                             Title = "Introduction to HTML5"
                         },
                         new
@@ -480,6 +520,7 @@ namespace StuMap.Migrations
                             ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
                             DateCreated = new DateTime(2026, 5, 16, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Description = "Transform plain text into beautiful, styled web pages. Discover colors, custom fonts, borders, margins, padding, and how to use selectors to target and style specific elements across your site.",
+                            Status = 2,
                             Title = "Introduction to CSS3"
                         },
                         new
@@ -488,6 +529,7 @@ namespace StuMap.Migrations
                             ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
                             DateCreated = new DateTime(2026, 5, 15, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Description = "Learn how to make your websites look perfect on any screen size. Master modern layouts using CSS Flexbox and Grid, and use media queries to automatically adapt designs for mobile phones, tablets, and desktops.",
+                            Status = 2,
                             Title = "Creating Responsive Web Designs"
                         },
                         new
@@ -496,6 +538,7 @@ namespace StuMap.Migrations
                             ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
                             DateCreated = new DateTime(2026, 5, 14, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Description = "Bring your static web pages to life with interactivity. Learn the fundamentals of programming—like variables, functions, and events—to handle user clicks, toggle menus, and create dynamic content.",
+                            Status = 2,
                             Title = "Basic JavaScript for the Web"
                         });
                 });
@@ -959,9 +1002,7 @@ namespace StuMap.Migrations
                 {
                     b.HasOne("StuMap.Models.ApplicationUser", "Contributor")
                         .WithMany()
-                        .HasForeignKey("ContributorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ContributorId");
 
                     b.Navigation("Contributor");
                 });
@@ -981,7 +1022,8 @@ namespace StuMap.Migrations
                 {
                     b.HasOne("StuMap.Models.ApplicationUser", "Contributor")
                         .WithMany()
-                        .HasForeignKey("ContributorId");
+                        .HasForeignKey("ContributorId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Contributor");
                 });
@@ -1032,7 +1074,8 @@ namespace StuMap.Migrations
 
                     b.HasOne("StuMap.Models.Course", "Course")
                         .WithMany("Materials")
-                        .HasForeignKey("CourseId");
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("StuMap.Models.MaterialType", "MaterialType")
                         .WithMany("Materials")
@@ -1051,7 +1094,8 @@ namespace StuMap.Migrations
                 {
                     b.HasOne("StuMap.Models.ApplicationUser", "Contributor")
                         .WithMany()
-                        .HasForeignKey("ContributorId");
+                        .HasForeignKey("ContributorId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("StuMap.Models.Specialization", "Specialization")
                         .WithMany("Roadmaps")

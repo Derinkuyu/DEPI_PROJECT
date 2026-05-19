@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StuMap.API;
 using StuMap.Context;
+using StuMap.Managers;
 using StuMap.Models;
+using StuMap.Services;
 using StuMap.Services.Authentication;
 
 namespace StuMap
@@ -91,6 +93,8 @@ namespace StuMap
             builder.Services.AddScoped<Managers.IMaterialManager, Services.MaterialRepository>();
             builder.Services.AddScoped<Managers.ICertificateManager, Services.CertificateRepository>();
             builder.Services.AddScoped<Managers.IMaterialTypeManager, Services.MaterialTypeRepository>();
+            builder.Services.AddScoped<Managers.IUserManager, Services.UserRepository>();
+            builder.Services.AddScoped<IContributorManager, ContributorRepository>();
         }
     }
 }

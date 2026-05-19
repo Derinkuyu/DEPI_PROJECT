@@ -1,0 +1,305 @@
+﻿@model IEnumerable<UserDto>
+
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<div class="space-y-6">
+
+    <!-- Header -->
+    <div class="flex flex-col gap-2 mx-4">
+
+        <h1 class="text-3xl font-bold text-base-content">
+            User Management
+        </h1>
+
+        <p class="max-w-3xl text-sm text-[var(--color-primary-content-para)] md:text-base">
+            Manage all users in one place. Control access, assign roles, and monitor activity across your platform.
+        </p>
+
+    </div>
+
+    <!-- Toolbar -->
+    <div class="flex flex-col gap-4 rounded-[var(--radius-box)] border border-base-300 bg-base-200 p-4 lg:flex-row lg:items-center lg:justify-between">
+
+        <!-- Left -->
+        <div class="flex flex-col gap-3 md:flex-row md:flex-wrap md:items-center">
+
+            <!-- Search -->
+            <label class="input rounded-full bg-base-300 border-none w-200 h-15 ">
+                <svg class="h-[1em] opacity-50 mx-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g stroke-linejoin="round"
+                           stroke-linecap="round"
+                           stroke-width="2.5"
+                           fill="none"
+                           stroke="currentColor">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </g>
+                </svg>
+                <input type="search" required placeholder="Search Users..." class="border-none" />
+            </label>
+
+            <!-- Role Filter -->
+            <select class="select select-bordered border-base-300 bg-base-100">
+                <option selected disabled>Role</option>
+                <option>Admin</option>
+                <option>User</option>
+                <option>Coordinator</option>
+            </select>
+
+            <!-- Status Filter -->
+            <select class="select select-bordered border-base-300 bg-base-100">
+                <option selected disabled>Status</option>
+                <option>Active</option>
+                <option>Blocked</option>
+            </select>
+
+            <!-- Date Filter -->
+            <select class="select select-bordered border-base-300 bg-base-100">
+                <option selected disabled>Date</option>
+                <option>Newest</option>
+                <option>Oldest</option>
+            </select>
+
+        </div>
+
+        <!-- Right -->
+        @* <div class="flex items-center gap-3">
+
+            <button class="btn btn-outline border-base-300">
+                Export
+            </button>
+
+            <a href="#"
+                   class="btn border-0 text-base-100"
+                   style="background: linear-gradient(var(--gradient-btn));">
+
+                + Add User
+
+            </a>
+
+        </div> *@
+
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto rounded-[var(--radius-box)] border border-base-300 bg-base-200">
+
+        <table class="table">
+
+            <!-- Head -->
+            <thead>
+
+                <tr class="text-xs uppercase tracking-wide text-[var(--color-primary-content-para)]">
+
+                    <th scope="col">
+                        <input type="checkbox"
+                               class="checkbox checkbox-sm" />
+                    </th>
+
+                    <th scope="col">
+                        Full Name ↕
+                    </th>
+
+                    <th scope="col">
+                        Email ↕
+                    </th>
+
+                    <th scope="col">
+                        Status ↕
+                    </th>
+
+                    <th scope="col">
+                        Created At ↕
+                    </th>
+
+                    <th scope="col" class="text-center">
+                        Actions
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <!-- Body -->
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr class="transition-colors hover:bg-base-300">
+
+                        <!-- Checkbox -->
+                        <td>
+                            <input type="checkbox"
+                                   class="checkbox checkbox-sm" />
+                        </td>
+
+                        <!-- Name -->
+                        <td>
+
+                            <div class="flex items-center gap-3">
+
+                                @* <!-- Avatar -->
+                                <div class="avatar">
+
+                                    <div class="w-8 rounded-full">
+
+                                        <img src="https://i.pravatar.cc/32?u=@item.Email"
+                                             alt="@item.FullName Avatar" />
+
+                                    </div>
+
+                                </div> *@
+
+                                <!-- Name -->
+                                <div class="font-medium text-base-content">
+                                    @item.FullName
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <!-- Email -->
+                        <td class="text-sm text-[var(--color-primary-content-para)]">
+                            @item.Email
+                        </td>
+
+                        <!-- Status -->
+                        <td>
+
+                            @if (item.IsBlocked)
+                            {
+                                <span class="badge badge-error">
+                                    Blocked
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-primary">
+                                    Active
+                                </span>
+                            }
+
+                        </td>
+
+                        <!-- Created -->
+                        <td class="text-sm text-[var(--color-primary-content-para)]">
+                            @item.CreatedAt.ToString("MMM dd, yyyy")
+                        </td>
+
+                        <!-- Actions -->
+                        <td>
+
+                            <div class="flex items-center justify-center gap-2">
+
+                                <!-- Details -->
+                                <a asp-action="Details"
+                                       asp-controller="Admin"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-sm btn-primary "
+                                       aria-label="View User Details">
+                                    Details
+                                </a>
+
+                                <!-- Block / Unblock -->
+                                @if (item.IsBlocked)
+                                {
+                                    <a asp-action="Unblock"
+                                           asp-controller="Admin"
+                                           asp-route-id="@item.Id"
+                                           class="btn btn-ghost btn-sm btn-warning"
+                                           aria-label="Unblock User">
+                                        Unblock
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-action="Block"
+                                           asp-controller="Admin"
+                                           asp-route-id="@item.Id"
+                                           class="btn btn-sm btn-warning"
+                                           aria-label="Block User">
+                                        Block
+                                    </a>
+                                }
+
+                                <!-- Delete -->
+                                <a asp-action="Delete"
+                                       asp-controller="Admin"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-sm btn-info"
+                                       aria-label="Delete User">
+                                    Delete
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+
+        <!-- Left -->
+        <div class="flex items-center gap-3 text-sm">
+
+            <span class="text-[var(--color-primary-content-para)]">
+                Rows per page
+            </span>
+
+            <select class="select select-bordered select-sm border-base-300 bg-base-100">
+                <option selected>10</option>
+            </select>
+
+            <span class="text-[var(--color-primary-content-para)]">
+                of @Model.Count() rows
+            </span>
+
+        </div>
+
+        <!-- Right -->
+        <div class="join">
+
+            <button class="join-item btn btn-ghost">
+                «
+            </button>
+
+            <button class="join-item btn btn-ghost">
+                ‹
+            </button>
+
+            <button class="join-item btn btn-primary">
+                1
+            </button>
+
+            <button class="join-item btn btn-ghost">
+                2
+            </button>
+
+            <button class="join-item btn btn-ghost">
+                3
+            </button>
+
+            <button class="join-item btn btn-ghost">
+                ›
+            </button>
+
+            <button class="join-item btn btn-ghost">
+                »
+            </button>
+
+        </div>
+
+    </div>
+
+</div>

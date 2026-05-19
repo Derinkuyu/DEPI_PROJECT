@@ -6,7 +6,7 @@
         public required string Title { get; set; }
 
         // Certificate Holder
-        public string ContributorId { get; set; }
+        public string? ContributorId { get; set; }
         public ApplicationUser? Contributor { get; set; }
 
         // todo: date uploaded to site or date issued by issuer?
