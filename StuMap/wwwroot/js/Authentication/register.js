@@ -46,7 +46,8 @@ $.ajax({
 
         // Append each country to the dropdown
         countries.forEach(country => {
-            $select.append(`<option value="${country.cca2}">${country.name.common}</option>`);
+            //$select.append(`<option value="${country.cca2}">${country.name.common}</option>`);
+            $select.append(`<option value="${country.name.common}">${country.name.common}</option>`);
         });
     },
     error: function () {
@@ -74,12 +75,13 @@ function checkPasswordMatch() {
     }
 }
 
-$('#password').on('input', function () {
+$($password).on('input', function () {
     const value = $(this).val();
 
     const rules = {
         length: value.length >= 8,
         uppercase: /[A-Z]/.test(value),
+        lowercase: /[a-z]/.test(value),
         number: /[0-9]/.test(value),
     };
     function updateRequirementUi(elementId, isPassed) {
@@ -100,9 +102,10 @@ $('#password').on('input', function () {
     }
     updateRequirementUi('req-length', rules.length);
     updateRequirementUi('req-uppercase', rules.uppercase);
+    updateRequirementUi('req-lowercase', rules.lowercase);
     updateRequirementUi('req-number', rules.number);
 
-    if (rules.length && rules.uppercase && rules.number) {
+    if (rules.length && rules.uppercase && rules.number && rules.lowercase) {
         this.setCustomValidity("");
     } else {
         this.setCustomValidity("Password does not meet requirements");
@@ -232,6 +235,7 @@ function goToForm(form) {
             .removeClass('hidden')
             .addClass(`opacity-0 ${enterClass}`);
 
+        // Trigger the entrance animation smoothly
         setTimeout(() => {
             $targetForm
                 .removeClass(`opacity-0 ${enterClass}`)

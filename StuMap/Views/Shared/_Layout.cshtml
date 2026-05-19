@@ -10,11 +10,11 @@
     <script type="importmap"></script>
     @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
     <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> 
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     @* <link rel="stylesheet" href="~/StuMap.styles.css" asp-append-version="true" /> *@
 </head>
-<body >
+<body>
     <header>
         <div class="navbar bg-base-100 shadow-sm">
             <div class="navbar-start">
@@ -24,13 +24,32 @@
             <div class="navbar-end">
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <div class="nav-item">
-                        <span class="nav-link">Hello, @User.FindFirst("FirstName")?.Value @User.FindFirst("LastName")?.Value</span>
+                    <div class="dropdown dropdown-end">
+                        <div tabindex="0" role="button" class="btn btn-outline rounded-field">@User.FindFirst("FirstName")?.Value @User.FindFirst("LastName")?.Value</div>
+                        <ul tabindex="-1"
+                            class="menu dropdown-content bg-base-200 rounded-box z-1 mt-4 w-52 p-2 shadow-sm">
+                            <li>
+                                <a asp-controller="Account"
+                                       asp-action="Edit">
+                                    Account
+                                </a>
+                            </li>
+                            <li><a>Profile</a></li>
+                            <li>
+                                <a asp-controller="Authentication"
+                                       asp-action="Logout">
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
                     </div>
+                    
                     <div class="nav-item">
-                        <form asp-controller="Authentication" asp-action="Logout" method="post" class="form-inline">
-                            <button type="submit" class="nav-link btn btn-link border-0">Logout</button>
-                        </form>
+                        <a asp-controller="Authentication"
+                               asp-action="Logout"
+                               class="nav-link btn btn-link border-0">
+                            Logout
+                        </a>
                     </div>
                 }
                 else
@@ -43,9 +62,9 @@
         </div>
     </header>
 
-        <main role="main">
-            @RenderBody()
-        </main>
+    <main role="main">
+        @RenderBody()
+    </main>
 
     <footer class="border-top footer text-muted">
         <div class="container">

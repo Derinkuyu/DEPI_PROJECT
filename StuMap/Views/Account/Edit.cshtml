@@ -1,0 +1,173 @@
+﻿@using StuMap.ViewModels.Account
+@{
+    ViewData["Title"] = "Profile";
+}
+
+@model EditViewModel;
+
+<div class="mx-20 mt-10">
+    @if (TempData["SaveError"] != null)
+    {
+        <div role="alert" class="alert alert-error my-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="keep-line-breaks">@TempData["SaveError"]</span>
+        </div>
+    }
+    else if (TempData["SaveSuccess"] != null)
+    {
+        <div role="alert" class="alert alert-success my-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="keep-line-breaks">@TempData["SaveSuccess"]</span>
+        </div>
+    }
+
+    
+    <div class="flex items-start gap-4 ">
+        <div class="w-sm h-auto flex-col flex bg-card gap-5 p-10 bg-gray-800">
+            <a asp-controller="Account"
+                   asp-action="Edit"
+                   asp-route-form="profile"
+                   class="btn @(ViewBag.form == "profile" ? "btn-primary" : "btn-ghost") justify-start ">
+                Profile
+            </a>
+            <a asp-controller="Account"
+                   asp-action="Edit"
+                   asp-route-form="account"
+                   class="btn @(ViewBag.form == "account" ? "btn-primary" : "btn-ghost") justify-start ">
+                Account
+            </a>
+        </div>
+        <div class="w-full flex-col flex bg-card gap-5 p-10 bg-gray-700">
+            @if (ViewBag.form == "profile")
+            {
+                <form asp-controller="Account" asp-action="EditProfile" method="post"
+                      class="space-y-4 p-6 transition-all duration-300 opacity-100 translate-x-0">
+                    <legend class="fieldset-legend text-5xl">PROFILE</legend>
+
+                    <fieldset class="fieldset flex validator flex-row gap-5">
+                        <fieldset class="fieldset validator w-full">
+                            <label for="fName" class="label">First Name</label>
+                            <input id="fName" type="text" name="fName" required
+                                   placeholder="First Name"
+                                   pattern="^[A-Za-z][A-Za-z'\- ]*[A-Za-z]$"
+                                   minlength="2"
+                                   maxlength="50"
+                                   class="mt-2 input validator w-full"
+                                   value=@Model.FName />
+                        </fieldset>
+                        <fieldset class="fieldset validator w-full">
+                            <label for="lName" class="label">Last Name</label>
+                            <input id="lName" type="text" name="lName" required
+                                   placeholder="Last Name"
+                                   pattern="^[A-Za-z][A-Za-z'\- ]*[A-Za-z]$"
+                                   minlength="2"
+                                   maxlength="50"
+                                   class="mt-2 input validator w-full"
+                                   value=@Model.LName />
+                        </fieldset>
+                    </fieldset>
+                    <p class="validator-hint hidden">
+                        Must be at least 2 characters. Letters, spaces, hyphens, and apostrophes only.
+                    </p>
+            
+                    <fieldset class="fieldset">
+                        <label for="birthdate" class="label">Date of Birth</label>
+                        <input id="birthdate" type="date"
+                               disabled
+                               placeholder="Date of Birth"
+                               min="1900-01-01"
+                               class="mt-2 input validator w-full"
+                               value=@Model.DateOfBirth />
+                    </fieldset>
+           
+                    <fieldset class="fieldset">
+                        <label for="phone" class="label w-full">Phone Number</label>
+                        <input id="phone" type="tel" name="phone"
+                               placeholder="Phone Number"
+                               value=@Model.Phone
+                               class="mt-2 input validator w-full" />
+                    </fieldset>
+
+                    <fieldset class="fieldset">
+                        <label for="country"><span class="label">Please choose your country</span></label>
+                        <select id="country" name="country" class="select mt-2 validator w-full" required>
+                            <option id="acc-country" selected value="@Model.Country">@Model.Country</option>
+                        </select>
+                    </fieldset>
+
+                    <div class="flex justify-center">
+                        <button class="btn btn-primary w-sm" type="submit">Save Changes</button>
+                    </div>
+                </form>
+            }
+            else if (ViewBag.form == "account")
+            {
+                <form asp-controller="Account" asp-action="EditAccount" method="post"
+                      class="space-y-4 p-6 transition-all duration-300 opacity-100 translate-x-0">
+
+                    <legend class="fieldset-legend text-5xl">ACCOUNT</legend>
+
+                    <fieldset class="fieldset">
+                        <label for="email" class="label">Email address</label>
+                        <input id="email" type="email"
+                               disabled
+                               placeholder="example@site.com"
+                               class="mt-2 input validator w-full"
+                               value=@Model.Email />
+                    </fieldset>
+                    <fieldset class="fieldset">
+                        <label for="currentPassword" class="label">Current Password</label>
+                        <input id="currentPassword" type="password" name="currentPassword" required
+                               min="8"
+                               value=""
+                               autocomplete="off"
+                               autocorrect="off"
+                               placeholder="Current Password"
+                               class="mt-2 input validator w-full" />
+                    </fieldset>
+                    <fieldset class="fieldset">
+                        <label for="newpassword" class="label">New Password</label>
+                        <input id="newpassword" type="password" name="newpassword" required
+                               placeholder="New Password"
+                               min="8"
+                               class="mt-2 input validator w-full" />
+                        <div class="mt-2 flex flex-col gap-1 text-xs text-gray-500">
+                            <div id="req-length" class="flex items-center gap-1 transition-colors duration-200">
+                                <span class="status-icon">❌</span> At least 8 characters
+                            </div>
+                            <div id="req-lowercase" class="flex items-center gap-1 transition-colors duration-200">
+                                <span class="status-icon">❌</span> At least 1 lowercase letter
+                            </div>
+                            <div id="req-uppercase" class="flex items-center gap-1 transition-colors duration-200">
+                                <span class="status-icon">❌</span> At least 1 uppercase letter
+                            </div>
+                            <div id="req-number" class="flex items-center gap-1 transition-colors duration-200">
+                                <span class="status-icon">❌</span> At least 1 number
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="fieldset">
+                        <label for="confirmPassword" class="label">Confirm Password</label>
+                        <input id="confirmPassword" type="password" name="confirmPassword" required
+                               min="8"
+                               placeholder="Confirm Password"
+                               class="mt-2 input validator w-full" />
+                    </fieldset>
+                    <div class="flex justify-center">
+                        <button class="btn btn-primary w-sm" type="submit">Save Changes</button>
+                    </div>
+                </form>
+            }
+            
+        </div>
+    </div>
+   
+</div>
+@section Scripts {
+    <script src="~/js/Account/account-edit.js"></script>
+}
