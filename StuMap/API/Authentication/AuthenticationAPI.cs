@@ -24,7 +24,17 @@ namespace StuMap.API
         public async Task<IActionResult> Login([FromBody] LoginDto data)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                               .Select(e => e.ErrorMessage);
+
+                string errMsg = "Login Failed.";
+                foreach (var error in errors)
+                {
+                    errMsg += $"\n{error}";
+                }
+                return BadRequest(new { success = false, message = errMsg });
+            }
 
             var (success, message) = await authenticationService.Login(data);
 

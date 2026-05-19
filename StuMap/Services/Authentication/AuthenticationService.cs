@@ -41,19 +41,25 @@ namespace StuMap.Services.Authentication
 
         public async Task<(bool success, string message)> Login(LoginDto loginDto)
         {
-            var result = await signInManager.PasswordSignInAsync(
-            userName: loginDto.Email,
-            password: loginDto.Password,
-            isPersistent: true,
-            lockoutOnFailure: false
-            );
-
-            if (result.Succeeded)
+            try
             {
-                return (true, "Logged In Successfuly");
-            }
+                var result = await signInManager.PasswordSignInAsync(
+                      userName: loginDto.Email,
+                      password: loginDto.Password,
+                      isPersistent: true,
+                      lockoutOnFailure: false
+                      );
 
-            return (false, "Logged In Failed!\nPlease check your email or password.");
+                if (result.Succeeded)
+                {
+                    return (true, "Logged In Successfuly");
+                }
+                return (false, "Login Failed.\nPlease check your email or password.");
+            }
+            catch (Exception)
+            {
+                return (false, "Internal Error.");
+            }
         }
 
         public async Task<(bool success, string[] messages)> Signup(SignupDto signupDto)

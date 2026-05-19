@@ -55,6 +55,10 @@ async function performLogin() {
 
     } catch (err) {
         console.log("Error happened during login.\n" + err)
+        $(`#login-error`).removeAttr(`hidden`);
+        $(`#login-error`).text(function (index) {
+            return `Internal Error. Please try again later.`;
+        });
     }
     loginBtnTxt.textContent = "Sign in";
     loginSpinner.classList.add('hidden');
