@@ -39,9 +39,6 @@ namespace StuMap.API
         [HttpPost("signup")]
         public async Task<IActionResult> Signup([FromBody] SignupDto signupDto)
         {
-            Console.WriteLine($"Sign Up Request From : {signupDto.Email}");
-            Console.WriteLine($"DoB: {signupDto.DateOfBirth}");
-
             if (!ModelState.IsValid)
             {
                 Console.WriteLine($"Reporting Errors:");
@@ -49,20 +46,33 @@ namespace StuMap.API
                 var errors = ModelState.Values.SelectMany(v => v.Errors)
                                                .Select(e => e.ErrorMessage);
 
+
                 foreach (var error in errors)
                 {
                     Console.WriteLine($"[MODELSTATE ERROR] {error}");
                 }
-                return BadRequest(ModelState);
+                return BadRequest(new
+                {
+                    success = false,
+                    messages = errors.ToArray(),
+                });
             }
 
-            if (await authenticationService.Signup(signupDto))
+            var (success, messages) = await authenticationService.Signup(signupDto);
+            if (success)
                 return Ok(new
                 {
-                    success = true
+                    success,
+                    messages
                 });
-
-            return BadRequest();
+            else
+            {
+                return BadRequest(new
+                {
+                    success,
+                    messages
+                });
+            }
         }
     }
 }

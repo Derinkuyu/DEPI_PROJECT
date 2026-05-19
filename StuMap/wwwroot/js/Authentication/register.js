@@ -2,6 +2,8 @@
 const $registerForm = $(`#form-2`);
 const $password = $(`#password`);
 const $confirmPassword = $(`#confirmPassword`);
+const $signupAlert = $(`#sigup-errors-alert`);
+const $signupErrors = $(`#sigup-errors`);
 
 let currentForm = 1;
 
@@ -117,6 +119,8 @@ $($password).on('input', function () {
 
 //#region Sign Up
 async function signup() {
+    $($signupAlert).attr(`hidden`, `hidden`);
+
     const accType = Object.fromEntries(new FormData($accountTypeForm[0]));
 
     if (accType[`account-type`] == `Contributor` && $(`.certificate-item`).length == 0) {
@@ -176,6 +180,12 @@ async function signup() {
             }
         } else {
             console.log("signup failed")
+            const result = await response.json();
+            //console.log(result[`messages`]);
+
+            $signupErrors.text(result[`messages`].join('\n'));
+            $($signupAlert).removeAttr(`hidden`);
+            $signupAlert[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     } catch (err) {
         console.log("Error happened during signup.\n" + err)
@@ -210,6 +220,7 @@ async function showRegisterationForm(accountType) {
 }
 
 function goToForm(form) {
+    $($signupAlert).attr(`hidden`, `hidden`);
 
     const $currentForm = $(`[data-form="${currentForm}"]`);
     const $targetForm = $(`[data-form="${form}"]`);

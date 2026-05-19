@@ -56,7 +56,7 @@ namespace StuMap.Services.Authentication
             return (false, "Logged In Failed!\nPlease check your email or password.");
         }
 
-        public async Task<bool> Signup(SignupDto signupDto)
+        public async Task<(bool success, string[] messages)> Signup(SignupDto signupDto)
         {
             ApplicationUser newUser = new()
             {
@@ -113,12 +113,12 @@ namespace StuMap.Services.Authentication
                         catch (Exception)
                         {
                             await userManager.DeleteAsync(newUser);
-                            return false;
+                            return (false, new string[] { "An error occured during sign up, please try again later." });
                         }
                         break;
                 }
 
-                return true;
+                return (true, new string[] { "Success." });
             }
             Console.WriteLine($"Failed to Create User with Id: {newUser.Id}");
             foreach (var error in result.Errors)
@@ -126,7 +126,7 @@ namespace StuMap.Services.Authentication
                 Console.WriteLine($"[IDENTITY ERROR] Code: {error.Code} | Description: {error.Description}");
             }
 
-            return false;
+            return (false, result.Errors.Select(x => x.Description).ToArray());
         }
 
     }
