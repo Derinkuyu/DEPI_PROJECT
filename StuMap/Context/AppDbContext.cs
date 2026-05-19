@@ -21,7 +21,8 @@ namespace StuMap.Context
         public virtual DbSet<Material> Materials { get; set; }
         public virtual DbSet<MaterialType> MaterialTypes { get; set; }
         public virtual DbSet<Enrollment> Enrollments { get; set; }
-        public virtual DbSet<CourseRoadmap>CourseRoadmaps { get; set; }
+        public virtual DbSet<CourseRoadmap> CourseRoadmaps { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -35,7 +36,7 @@ namespace StuMap.Context
             modelBuilder.ApplyConfiguration(new SpecializationSeedConfiguration());
 
             modelBuilder.ApplyConfiguration(new IdentityUserRoleSeedConfiguration());
-            
+
             modelBuilder.ApplyConfiguration(new CourseSeedConfiguration());
 
             modelBuilder.ApplyConfiguration(new MaterialSeedConfiguration());
@@ -60,22 +61,25 @@ namespace StuMap.Context
                 .WithMany(e => e.Roadmaps)
                 .HasForeignKey(e => e.SpecializationId);
 
-            
+
 
             modelBuilder.Entity<Roadmap>()
                 .HasOne(e => e.Contributor)
                 .WithMany()
-                .HasForeignKey(e => e.ContributorId);
+                .HasForeignKey(e => e.ContributorId)
+                .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Course>()
                 .HasOne(e => e.Contributor)
                 .WithMany()
-                .HasForeignKey(e => e.ContributorId);
+                .HasForeignKey(e => e.ContributorId)
+                .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Course>()
                 .HasMany(e => e.Materials)
                 .WithOne(e => e.Course)
-                .HasForeignKey(e => e.CourseId);
+                .HasForeignKey(e => e.CourseId)
+            .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Material>()
                 .HasOne(e => e.Contributor)

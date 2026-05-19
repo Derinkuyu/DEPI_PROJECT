@@ -1,0 +1,242 @@
+﻿@model UserDetailsDto
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<div class="space-y-6">
+
+    <!-- Back Button -->
+    <div class="space-x-5">
+        <a asp-action="Index" asp-controller="Admin"
+               class="inline-flex items-center gap-2 whitespace-nowrap text-sm text-[var(--color-primary-content-para)] transition hover:text-base-content">
+
+            Back to users
+        </a>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="flex flex-col gap-6 rounded-[var(--radius-box)] border border-base-300 bg-base-200 p-6 lg:flex-row lg:items-start lg:justify-between">
+
+        <!-- Left -->
+        <div class="flex items-center gap-5">
+
+            <!-- Avatar -->
+            @* <div class="avatar">
+
+                <div class="w-20 rounded-full ring ring-primary ring-offset-2 ring-offset-base-200">
+
+                    <img src="https://i.pravatar.cc/100?u=@Model.Email"
+                         alt="@Model.FullName Avatar" />
+
+                </div>
+
+            </div> *@
+
+            <!-- User Info -->
+            <div class="space-y-2">
+
+                <h1 class="text-3xl font-bold text-base-content mb-1">
+                    @Model.FullName
+                </h1>
+                 
+                <div class="space-y-1">
+
+                    <p class="text-sm text-[var(--color-primary-content-para)]">
+                        @@@(Model.Email.Split('@')[0])
+                    </p>
+
+                    <p class="text-sm text-[var(--color-primary-content-para)]">
+                        @Model.Email
+                    </p>
+
+                </div>
+
+                <!-- Badges -->
+                <div class="flex flex-wrap items-center gap-2 pt-1">
+
+                    <span class="badge badge-primary px-4 py-3">
+                        @Model.Role
+                    </span>
+
+                    @if (Model.IsBlocked)
+                    {
+                        <span class="badge badge-error px-4 py-3">
+                            Blocked
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-success px-4 py-3 text-black">
+                            Active
+                        </span>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-wrap items-center gap-3">
+
+            @if (Model.IsBlocked)
+            {
+                <a asp-action="Unblock"
+                asp-controller="Admin"
+                       asp-route-id="@Model.Id"
+                       class="btn btn-outline border-success text-success hover:bg-success hover:text-success-content">
+
+                    Unblock User
+
+                </a>
+            }
+            else
+            {
+                <a asp-action="Block"
+                       asp-controller="Admin"
+                       asp-route-id="@Model.Id"
+                       class="btn btn-outline border-warning text-warning hover:bg-warning hover:text-warning-content">
+
+                    Block User
+
+                </a>
+            }
+
+            <a asp-action="Delete"
+                   asp-controller="Admin"
+                   asp-route-id="@Model.Id"
+                   class="btn btn-outline border-error text-error hover:bg-error hover:text-error-content">
+
+                Delete User
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Info Card -->
+    <div class="rounded-[var(--radius-box)] border border-base-300 bg-base-200 p-6 mb-3">
+
+        <!-- Header -->
+        <div class="mb-6 flex items-center justify-between mb-3">
+
+            <div>
+
+                <h2 class="text-xl font-semibold text-base-content">
+                    User Information
+                </h2>
+
+                <p class="mt-1 text-sm text-[var(--color-primary-content-para)]">
+                    Complete account details and metadata.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Grid -->
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+
+            <!-- Email -->
+            <div class="space-y-2">
+
+                <p class="text-sm font-medium text-[var(--color-primary-content-para)]">
+                    Email
+                </p>
+
+                <div class="rounded-[var(--radius-field)] border border-base-300 bg-base-100 px-4 py-3 text-base-content">
+                    @Model.Email
+                </div>
+
+            </div>
+
+            <!-- Username -->
+            <div class="space-y-2">
+
+                <p class="text-sm font-medium text-[var(--color-primary-content-para)]">
+                    Username
+                </p>
+
+                <div class="rounded-[var(--radius-field)] border border-base-300 bg-base-100 px-4 py-3 text-base-content">
+                    @@@(Model.Email.Split('@')[0])
+                </div>
+
+            </div>
+
+            <!-- Phone -->
+            <div class="space-y-2">
+
+                <p class="text-sm font-medium text-[var(--color-primary-content-para)]">
+                    Phone Number
+                </p>
+
+                <div class="rounded-[var(--radius-field)] border border-base-300 bg-base-100 px-4 py-3 text-base-content">
+
+                    @(string.IsNullOrEmpty(Model.PhoneNumber)
+                        ? "Not Provided"
+                        : Model.PhoneNumber)
+
+                </div>
+
+            </div>
+
+            <!-- Role -->
+            <div class="space-y-2">
+
+                <p class="text-sm font-medium text-[var(--color-primary-content-para)]">
+                    Role
+                </p>
+
+                <div class="rounded-[var(--radius-field)] border border-base-300 bg-base-100 px-4 py-3 text-base-content">
+                    @Model.Role
+                </div>
+
+            </div>
+
+            <!-- Status -->
+            <div class="space-y-2">
+
+                <p class="text-sm font-medium text-[var(--color-primary-content-para)]">
+                    Status
+                </p>
+
+                <div class="rounded-[var(--radius-field)] border border-base-300 bg-base-100 px-4 py-3">
+
+                    @if (Model.IsBlocked)
+                    {
+                        <span class="badge badge-error">
+                            Blocked
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-success">
+                            Active
+                        </span>
+                    }
+
+                </div>
+
+            </div>
+
+            <!-- Joined Date -->
+            <div class="space-y-2">
+
+                <p class="text-sm font-medium text-[var(--color-primary-content-para)]">
+                    Joined Date
+                </p>
+
+                <div class="rounded-[var(--radius-field)] border border-base-300 bg-base-100 px-4 py-3 text-base-content">
+                    @Model.CreatedAt.ToString("MMMM dd, yyyy")
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
