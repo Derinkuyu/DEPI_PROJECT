@@ -22,6 +22,7 @@ namespace StuMap.Context
         public virtual DbSet<MaterialType> MaterialTypes { get; set; }
         public virtual DbSet<Enrollment> Enrollments { get; set; }
         public virtual DbSet<CourseRoadmap> CourseRoadmaps { get; set; }
+        public virtual DbSet<CourseEnrollment> CourseEnrollments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,6 +44,7 @@ namespace StuMap.Context
 
             modelBuilder.ApplyConfiguration(new RoadmapSeedConfiguration());
             modelBuilder.ApplyConfiguration(new CourseRoadmapSeedConfiguration());
+            modelBuilder.ApplyConfiguration(new CourseEnrollmentSeedConfiguration());
 
             //    //modelBuilder.Entity<User>().UseTptMappingStrategy();
 
@@ -89,7 +91,8 @@ namespace StuMap.Context
                 .HasKey(e => new { e.RoadmapId, e.StudentId });
             modelBuilder.Entity<CourseRoadmap>()
               .HasKey(e => new { e.RoadmapId, e.CourseId });
-
+            modelBuilder.Entity<CourseEnrollment>()
+              .HasKey(e => new { e.CourseId, e.StudentId });
             //modelBuilder.Entity<Student>()
             //    .HasMany(e => e.Roadmaps)
             //    .WithMany(e => e.Students)

@@ -2,10 +2,11 @@
 using Microsoft.IdentityModel.Tokens;
 using StuMap.Managers;
 using StuMap.Models;
+using System.Security.Claims;
 
 namespace StuMap.Controllers
 {
-    public class CourseController(ICourseManager courseRepo, IMaterialTypeManager materialTypeRepo, IMaterialManager materialRepo) : Controller
+    public class CourseController(ICourseManager courseRepo, IMaterialTypeManager materialTypeRepo, IMaterialManager materialRepo , ICourseEnrollmentManager courseEnrollmentManager) : Controller
     {
         public IActionResult Index()
         {
@@ -37,6 +38,16 @@ namespace StuMap.Controllers
 
         public IActionResult Details(int id)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId != null)
+            {
+                bool isStudent = User.IsInRole("Student");
+                if (isStudent)
+                {
+                    ViewBag.IsStudent = true;
+                    ViewBag.IsEnrolled = courseEnrollmentManager.IsEnrolled(userId , id);
+                }
+            }
             return View(courseRepo.GetById(id));
         }
     }

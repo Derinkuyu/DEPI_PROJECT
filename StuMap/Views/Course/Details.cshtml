@@ -11,13 +11,52 @@
 } *@
 
 <section class="px-12 my-8 ">
-    <div class="grid grid-cols-4  ">
-        <p class="col-1 text-4xl font-semibold col-span-4"><i class="fa-solid fa-angle-right "></i> @Model.Title </p>
-       
-        <p class=" text-xl text-primary-content col-span-3 my-4">
+    <div class="grid grid-cols-4">
+        <p class="col-1 text-4xl font-semibold col-span-4">
+            <i class="fa-solid fa-angle-right"></i> @Model.Title
+        </p>
+
+        <p class="text-xl text-primary-content col-span-3 my-4">
             @Model.Description
         </p>
-        <div class=" col-2 col-span-3 text-xl badge badge-dash badge-primary p-5 self-start"><i class="fa-solid fa-circle-user"></i> @Model.Contributor.UserName</div>
+
+        <div class="flex gap-2 col-span-4">
+            <div class="text-xl badge badge-dash badge-primary p-5 self-start">
+                <i class="fa-solid fa-circle-user"></i> @Model.Contributor.UserName
+            </div>
+
+            @if(ViewBag.IsStudent == true)
+            {
+                <a asp-controller="Student"
+                       asp-action="GetEnrolledCourses"
+                       class="btn btn-neutral btn-outline btn-primary text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
+                    View My Courses
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </a>
+                if(ViewBag.IsEnrolled == false)
+                {
+                    <a asp-controller="Student"
+                           asp-action="AddCourseFromDetails"
+                       asp-route-id="@Model.Id"
+                           class="btn btn-primary btn-outline text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
+						Add To My Courses
+                    </a>
+				}
+                else
+                {
+                    <a asp-controller="Student"
+                           asp-action="RemoveCourseFromDetails"
+                           asp-route-id="@Model.Id"
+                           class="btn btn-neutral btn-outline btn-warning text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
+						Remove From My Courses
+                    </a>
+				}
+ 
+            } 
+        </div>
+    </div>
+
+
         <div class=" col-1 col-span-4 divider"></div>
         <p class="col-1 text-4xl font-semibold "> <i class="fa-solid fa-angle-right"></i> All Materials </p>
         <div id="all-accordions" class="col-span-4 my-6  ">

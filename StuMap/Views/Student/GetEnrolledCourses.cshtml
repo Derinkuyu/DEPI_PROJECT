@@ -1,0 +1,69 @@
+﻿@model List<Course>
+
+<section class="mx-6 my-8 ">
+    <div class="flex flex-col justify-center items-center">
+        <p class="text-4xl font-semibold ">My Courses</p>
+    </div>
+
+    @if(!Model.Any())
+    {
+        <div class="flex flex-col justify-center items-center mt-12">
+            <p class="text-2xl text-primary-content">You are not enrolled in any courses yet.</p>
+            <a asp-controller="Course"
+                   asp-action="Index"
+                   class="btn btn-primary text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
+				Explore Courses
+            </a>
+        </div>
+	}
+	else
+    {   
+        <div class="grid grid-cols-3 gap-x-8 gap-y-10 my-12">
+
+    @foreach (var course in Model)
+    {
+        <div class="hover-3d">
+            <div class="card h-70 bg-base-300 border-primary-content rounded-2xl">
+                <div class="card-body flex flex-col">
+
+                            <h1 class="card-title text-2xl">
+                                @course.Title
+                            </h1>
+                            <div class="badge badge-secondary ">By @course.Contributor.FirstName</div>
+
+                            <div>
+                                <p class="text-base/7 text-primary-content h-17 overflow-hidden py-2  ">@course.Description </p>
+                                <span>...</span>
+                            </div>                            
+                            
+                            <!-- Buttons -->
+                            <div class="flex gap-2 items-center w-full mt-auto">
+
+                                <!-- Details Button -->
+                                <a asp-controller="Course"
+                                       asp-action="Details"
+                                       asp-route-id="@course.Id"
+                                       class="btn btn-primary btn-outline text-base-content grow rounded-full flex items-center justify-center gap-2 h-12">
+                                    More Details
+                                    <i class="fa-solid fa-arrow-right-long"></i>
+                                </a>
+
+                                <!-- Delete Button -->
+                                <a asp-controller="Student"
+                                       asp-action="RemoveCourse"
+                                       asp-route-id="@course.Id"
+                                       class="btn btn-neutral btn-outline rounded-full w-12 h-12 flex items-center justify-center">
+                                    ✕
+                                </a>
+
+                            </div>
+
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+    }
+</section>
+
