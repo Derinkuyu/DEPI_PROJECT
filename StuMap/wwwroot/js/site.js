@@ -188,3 +188,18 @@ closeBtn.addEventListener("click", () => {
 
 
 )
+///////////////////////////////////////////////////////////////////////
+function filterFunction() {
+    const courseSearch = document.getElementById("course-search");
+    const filter = courseSearch.value.toUpperCase();
+    const coursesDropdown = document.getElementById("courses-dropdown");
+    const a = coursesDropdown.getElementsByTagName("a");
+    for (let i = 0; i < a.length; i++) {
+        txtValue = a[i].textContent || a[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            a[i].style.display = "";
+        } else {
+            a[i].style.display = "none";
+        }
+    }
+}

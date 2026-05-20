@@ -3,7 +3,7 @@ using StuMap.Managers;
 
 namespace StuMap.Controllers
 {
-    public class RoadmapController(ICourseManager courseRepo, IMaterialTypeManager materialTypeRepo, IMaterialManager materialRepo,IRoadmapManager roadmapRepo,ISpecializationManager specializationRepo) : Controller
+    public class RoadmapController(ICourseManager courseRepo, IMaterialTypeManager materialTypeRepo, IMaterialManager materialRepo, IRoadmapManager roadmapRepo, ISpecializationManager specializationRepo) : Controller
     {
         public IActionResult Index()
         {
@@ -18,6 +18,11 @@ namespace StuMap.Controllers
             var roadmap = roadmapRepo.GetById(id);
             return View(roadmap);
         }
-
+        public IActionResult New()
+        {
+            var courses = courseRepo.GetAll();
+            ViewBag.courses = courses;
+            return View();
+        }
     }
 }
