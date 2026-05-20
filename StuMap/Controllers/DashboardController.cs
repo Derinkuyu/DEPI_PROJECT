@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StuMap.Managers;
 using StuMap.Models;
 
 namespace StuMap.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DashboardController : Controller
     { 
         //Course
@@ -12,13 +14,15 @@ namespace StuMap.Controllers
         IRoadmapManager roadmapManager;
         UserManager<ApplicationUser> _userManger;
         ISpecializationManager specializationManager;
+        IContributorManager contributorManager;
 
-        public DashboardController(ICourseManager courseManager, IRoadmapManager roadmapManager, UserManager<ApplicationUser> userManger, ISpecializationManager specializationManager)
+        public DashboardController(ICourseManager courseManager, IRoadmapManager roadmapManager, UserManager<ApplicationUser> userManger, ISpecializationManager specializationManager, IContributorManager contributorManager)
         {
             this.courseManager = courseManager;
             this.roadmapManager = roadmapManager;
             _userManger = userManger;
             this.specializationManager = specializationManager;
+            this.contributorManager = contributorManager;
         }
 
         public async Task<IActionResult> Index()
@@ -27,6 +31,7 @@ namespace StuMap.Controllers
             var roadMaps = roadmapManager.GetAll();
             var users = _userManger.Users.ToList();
             var Specializations = specializationManager.GetAll();
+            var ContributorRequests= contributorManager.GetPendingRequests();
 
             var roadmapStatusData = roadMaps.Select(r => new {
                 Title = r.Title,
@@ -52,6 +57,7 @@ namespace StuMap.Controllers
             ViewBag.AdminCount = admins.Count;
             ViewBag.ContributorCount = contributors.Count;
             ViewBag.StudentCount = Students.Count;
+            ViewBag.ContributorRequests = ContributorRequests.Count;
 
 
             return View();
