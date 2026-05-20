@@ -1,0 +1,124 @@
+﻿@model List<Contact>
+
+<div class="flex flex-col justify-center items-center">
+    <p class="text-4xl font-semibold ">My Tickets</p>
+</div>
+<section class="mx-6 my-8 p-5">
+    <div class="grid grid-cols-3 gap-x-8 gap-y-10 my-12">
+        @* add card  *@
+        <div></div>
+        <a href="#" class="hover-3d cursor-pointer mx-3 col-start-2" onclick="New_Card.showModal()">
+            <div class="card h-70 card-dash bg-base-300 border-primary-content rounded-2xl">
+                <div class="card-body flex justify-center ">
+                    <div class="flex flex-col items-center justify-center text-primary-content">
+                        <p class="text-4xl py-2 flex-grow-0">New Ticket</p>
+                        <i class="fa-solid fa-plus text-4xl py-2"></i>
+                    </div>
+
+                </div>
+            </div>
+            <div></div>
+            </a>
+    </div>
+
+    <div class="grid grid-cols-3 gap-x-8 gap-y-10 my-12">
+        @foreach (var ticket in Model)
+        {
+            <div class="hover-3d">
+                <div class="card h-70 bg-base-300 border-primary-content rounded-2xl">
+                    <div class="card-body flex flex-col">
+
+                        <h1 class="card-title text-2xl">
+                            @ticket.Subject
+                        </h1>
+
+                        <div>
+                            <p class="text-base/7 text-primary-content h-17 overflow-hidden py-2 ">@ticket.Body </p>
+                        </div>
+                            
+                        <!-- Buttons -->
+                        <div class="flex gap-2 items-center w-full mt-auto">
+
+                            <!-- Details Button -->
+                            <a onclick="showTicketDetails('@ticket.Id', '@ticket.Subject', '@ticket.Body')"
+                                   class="btn btn-primary btn-outline text-base-content grow rounded-full flex items-center justify-center gap-2 h-12">
+                                Details
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+
+
+
+
+
+<!-- Modal for add Ticket -->
+<!-- You can open the modal using ID.showModal() method -->
+<dialog id="New_Card" class="modal">
+    <div class="modal-box">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="text-lg font-bold">Ticket</h3>
+
+        <form asp-controller="Contact" asp-action="NewTicket" method="post" class="w-full">
+            <div class="flex min-h-screen items-center justify-center">
+                <fieldset class="fieldset w-full max-w-lg">
+                    <legend class="fieldset-legend">Subject</legend>
+                    <div>
+                        <input type="text" name="Subject" placeholder="Subject" class="input input-secondary w-full" />
+                    </div>
+                    <legend class="fieldset-legend">Content</legend>
+                    <textarea class="textarea w-full h-64" name="Body" placeholder="Content"></textarea>
+                    <div class="flex justify-center">
+                        <button class="btn btn-outline btn-primary">Submit</button>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+</dialog>
+
+
+<!-- Modal for Ticket Details -->
+<!-- You can open the modal using ID.showModal() method -->
+<dialog id="ticket_details" class="modal">
+    <div class="modal-box">
+        <h3 class="text-lg font-bold">Ticket</h3>
+
+        <form class="w-full">
+            <div class="flex min-h-screen items-center justify-center">
+                <fieldset class="fieldset w-full max-w-lg">
+                    <legend class="fieldset-legend">Subject</legend>
+                    <input id="modal_subject" type="text" name="Subject" readonly class="input input-secondary w-full" />
+                    <legend class="fieldset-legend">Content</legend>
+                    <textarea id="modal_body" class="textarea w-full" name="Body" readonly
+                            style="max-height: 15rem; overflow-y: auto; resize: none;"
+                            oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"></textarea>
+                    <div class="flex justify-center">
+                        <button class="btn btn-outline btn-primary">Close</button>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+</dialog>
+
+
+<script>
+        function showTicketDetails(id, subject, body) {
+        document.getElementById('modal_subject').value = subject;
+    
+        const textarea = document.getElementById('modal_body');
+        textarea.value = body;
+        textarea.style.height = 'auto';
+        textarea.style.height = Math.min(textarea.scrollHeight, 240) + 'px';
+        document.getElementById('ticket_details').showModal();
+    }
+</script>

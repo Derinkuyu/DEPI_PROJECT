@@ -12,9 +12,14 @@ namespace StuMap.Services
         {
             this.context = context;
         }
+
         public List<Contact> GetAll()
         {
             return context.Contacts.Include(c => c.User).ToList();
+        }
+        public List<Contact> GetAll(string userId)
+        {
+            return context.Contacts.Include(c => c.User).Where(c => c.UserId == userId).OrderByDescending(e => e.DateSent).ToList();
         }
 
         public Contact GetById(int id)

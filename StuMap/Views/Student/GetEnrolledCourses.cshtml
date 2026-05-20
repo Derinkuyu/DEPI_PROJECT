@@ -20,50 +20,50 @@
     {   
         <div class="grid grid-cols-3 gap-x-8 gap-y-10 my-12">
 
-    @foreach (var course in Model)
-    {
-        <div class="hover-3d">
-            <div class="card h-70 bg-base-300 border-primary-content rounded-2xl">
-                <div class="card-body flex flex-col">
+        @foreach (var course in Model)
+        {
+            <div class="hover-3d">
+                <div class="card h-70 bg-base-300 border-primary-content rounded-2xl">
+                    <div class="card-body flex flex-col">
 
-                            <h1 class="card-title text-2xl">
-                                @course.Title
-                            </h1>
-                            <div class="badge badge-secondary ">By @course.Contributor.FirstName</div>
+                                <h1 class="card-title text-2xl">
+                                    @course.Title
+                                </h1>
+                                <div class="badge badge-secondary ">By @course.Contributor.FirstName</div>
 
-                            <div>
-                                <p class="text-base/7 text-primary-content h-17 overflow-hidden py-2  ">@course.Description </p>
-                                <span>...</span>
-                            </div>                            
+                                <div>
+                                    <p class="text-base/7 text-primary-content h-17 overflow-hidden py-2  ">@course.Description </p>
+                                    <span>...</span>
+                                </div>                            
                             
-                            <!-- Buttons -->
-                            <div class="flex gap-2 items-center w-full mt-auto">
+                                <!-- Buttons -->
+                                <div class="flex gap-2 items-center w-full mt-auto">
 
-                                <!-- Details Button -->
-                                <a asp-controller="Course"
-                                       asp-action="Details"
-                                       asp-route-id="@course.Id"
-                                       class="btn btn-primary btn-outline text-base-content grow rounded-full flex items-center justify-center gap-2 h-12">
-                                    More Details
-                                    <i class="fa-solid fa-arrow-right-long"></i>
-                                </a>
+                                    <!-- Details Button -->
+                                    <a asp-controller="Course"
+                                           asp-action="Details"
+                                           asp-route-id="@course.Id"
+                                           class="btn btn-primary btn-outline text-base-content grow rounded-full flex items-center justify-center gap-2 h-12">
+                                        More Details
+                                        <i class="fa-solid fa-arrow-right-long"></i>
+                                    </a>
 
-                                <!-- Delete Button -->
-                                <a asp-controller="Student"
-                                       asp-action="RemoveCourse"
-                                       asp-route-id="@course.Id"
-                                       class="btn btn-neutral btn-outline rounded-full w-12 h-12 flex items-center justify-center">
-                                    ✕
-                                </a>
+                                    <!-- Delete Button -->
+                                    <a asp-controller="Student"
+                                           asp-action="RemoveCourse"
+                                           asp-route-id="@course.Id"
+                                           class="btn btn-neutral btn-outline rounded-full w-12 h-12 flex items-center justify-center">
+                                        ✕
+                                    </a>
 
-                            </div>
+                                </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
 
-</div>
-    }
+    </div>
+ }
 </section>
 

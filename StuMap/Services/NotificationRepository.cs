@@ -27,7 +27,7 @@ namespace StuMap.Services
         }
         public void AddDeviceToken(string userId, string deviceToken)
         {
-            var exists = context.UsersDeviceTokens.Any(x => x.UserId == userId && x.DeviceToken == deviceToken);
+            var exists = IsTokenExists(userId , deviceToken);
             if (!exists)
             {
                 context.UsersDeviceTokens.Add(new UserDeviceToken
@@ -41,16 +41,28 @@ namespace StuMap.Services
         }
         public async Task SendNotificationAsync(string deviceToken, string title, string body)
         {
-            var message = new Message
+            if (string.IsNullOrEmpty(deviceToken)) return;
+
+            try
             {
-                Token = deviceToken,
-                Notification = new Notification
+                var message = new Message
                 {
-                    Title = title,
-                    Body = body
-                }
-            };
-            await FirebaseMessaging.DefaultInstance.SendAsync(message);
+                    Token = deviceToken,
+                    Notification = new Notification
+                    {
+                        Title = title,
+                        Body = body
+                    }
+                };
+                await FirebaseMessaging.DefaultInstance.SendAsync(message);
+            }
+            catch (FirebaseMessagingException ex) when (ex.MessagingErrorCode == MessagingErrorCode.InvalidArgument
+                                          || ex.MessagingErrorCode == MessagingErrorCode.Unregistered)
+            {
+                context.UsersDeviceTokens.RemoveRange(
+               context.UsersDeviceTokens.Where(x => x.DeviceToken == deviceToken));
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

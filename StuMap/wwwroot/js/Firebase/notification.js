@@ -16,7 +16,7 @@ export async function getDeviceToken() {
     const permission = await Notification.requestPermission();
     if (permission === "granted") {
         const token = await getToken(messaging, {
-            vapidKey: "BAw9XLvqV2ElvZeJnvlzYYQ0IForA7ANo5Qz2gDGzbFfRbwEqXCH3VvlFsX7_67dWLs8vX8iH9IO-xnl554OSrM"
+            vapidKey: "BLyYoiyoTXoSb4l5REnZHxx0Fo_UH14WKdnx-URuKjmm8ryH6d7__ngrWfkq6PkFzzHfeMIBc15OLeJLfnp2VE4"
         });
         return token;
     }
