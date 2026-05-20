@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StuMap.Context;
+using StuMap.DTO.Admin;
 using StuMap.Managers;
 using StuMap.Models;
+using StuMap.Models.Enums;
 
 namespace StuMap.Services
 {
@@ -63,5 +65,152 @@ namespace StuMap.Services
             }
             return 0;
         }
+        /*--------------------------------------------------------------------------------*/
+        /////For Course Mangement
+        /*--------------------------------------------------------------------------------*/
+        public List<CourseRequestDto> GetPendingCourses()
+        {
+            return context.Courses
+                .Where(c =>
+                    c.Status == CourseStatus.Pending ||
+                    c.Status == CourseStatus.UpdatedPending)
+                .Select(c => new CourseRequestDto
+                {
+                    Id = c.Id,
+
+                    Title = c.Title,
+
+                    ContributorName =
+                        c.Contributor != null
+                            ? $"{c.Contributor.FirstName} {c.Contributor.LastName}"
+                            : "Unknown Contributor",
+
+                    RoadmapName = c.CourseRoadmaps!
+                        .Select(r => r.Roadmap.Title)
+                        .FirstOrDefault(),
+
+                    MaterialsCount = c.Materials.Count(),
+
+                    Status = c.Status,
+
+                    SubmittedAt = c.SubmittedAt
+                })
+                .ToList();
+        }
+        /*--------------------------------------------------------------------------------*/
+        public List<CourseRequestDto> GetAllCourses()
+        {
+            return context.Courses
+                .Where(c => !c.IsDeleted)
+                .Select(c => new CourseRequestDto
+                {
+                    Id = c.Id,
+
+                    Title = c.Title,
+
+                    ContributorName =
+                        c.Contributor != null
+                            ? $"{c.Contributor.FirstName} {c.Contributor.LastName}"
+                            : "Unknown Contributor",
+
+                    RoadmapName = c.CourseRoadmaps!
+                        .Select(r => r.Roadmap.Title)
+                        .FirstOrDefault(),
+
+                    MaterialsCount = c.Materials.Count(),
+
+                    Status = c.Status,
+
+                    SubmittedAt = c.SubmittedAt
+                })
+                .ToList();
+        }
+        /*--------------------------------------------------------------------------------*/
+        public CourseDetailsDto GetCourseById(int id)
+        {
+            var course = context.Courses
+                .Include(c => c.Contributor)
+                .Include(c => c.Materials)
+                .Include(c => c.CourseRoadmaps!)
+                    .ThenInclude(cr => cr.Roadmap)
+                .FirstOrDefault(c => c.Id == id);
+
+            if (course == null)
+                return null;
+
+            return new CourseDetailsDto
+            {
+                Id = course.Id,
+                Title = course.Title,
+                Description = course.Description,
+                ContributorName = $"{course.Contributor.FirstName} {course.Contributor.LastName}" ?? "Unknown Contributor",
+                ContributorEmail = course.Contributor?.Email ?? "No Email",
+                RoadmapName = course.CourseRoadmaps?.Select(r => r.Roadmap.Title).FirstOrDefault(),
+                Status = course.Status,
+                RejectionReason = course.RejectionReason,
+                DateCreated = course.DateCreated,
+                SubmittedAt = course.SubmittedAt,
+                ApprovedAt = course.ApprovedAt,
+                MaterialsCount = course.Materials.Count(),
+                Materials = course.Materials
+                    .Select(m => new MaterialDto
+                    {
+                        Id = m.Id,
+                        Title = m.Title,
+                        Description = m.Description,
+                        Url = m.Url,
+                        MaterialType = m.MaterialType?.Title ?? string.Empty
+                    })
+                    .ToList()
+            };
+        }
+        /*--------------------------------------------------------------------------------*/
+        public void ApproveCourse(int id)
+        {
+            var course = context.Courses
+                .FirstOrDefault(c => c.Id == id);
+
+            if (course != null)
+            {
+                course.Status = CourseStatus.Approved;
+
+                course.ApprovedAt = DateTime.Now;
+
+                course.RejectionReason = null;
+
+                context.SaveChanges();
+            }
+        }
+        /*--------------------------------------------------------------------------------*/
+        public void RejectCourse(int id, string reason)
+        {
+            var course = context.Courses
+                .FirstOrDefault(c => c.Id == id);
+
+            if (course != null)
+            {
+                course.Status = CourseStatus.Rejected;
+
+                course.RejectionReason = reason;
+
+                context.SaveChanges();
+            }
+        }
+        /*--------------------------------------------------------------------------------*/
+        public void DeleteCourse(int id)
+        {
+            var course = context.Courses
+                .FirstOrDefault(c => c.Id == id);
+
+            if (course != null)
+            {
+                course.IsDeleted = true;
+
+                context.SaveChanges();
+            }
+        }
+
+        /*--------------------------------------------------------------------------------*/
+
     }
 }

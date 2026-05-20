@@ -35,6 +35,13 @@ namespace StuMap.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
+        [Route("AccessDenied")]
+        public IActionResult AccessDenied()
+        {
+            return View("AccessDenied");
+        }
+
         [Authorize]
         [Route("Test")]
         public IActionResult Test()

@@ -1,6 +1,6 @@
 ﻿namespace StuMap.Models.Enums
 {
-    public enum CourseStatus
+    public enum RoadmapStatus
     {
         Rejected,
         Approved,

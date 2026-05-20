@@ -1,4 +1,6 @@
-﻿namespace StuMap.Models
+﻿using StuMap.Models.Enums;
+
+namespace StuMap.Models
 {
     public class Roadmap
     {
@@ -29,5 +31,18 @@
         // todo: how to show roadmap plan?
 
         public virtual List<CourseRoadmap>? CourseRoadmaps { get; set; }
+
+        /*------------------------------------------------------------------------------*/
+        //////For Manage RoadMap
+        /*------------------------------------------------------------------------------*/
+        public RoadmapStatus Status { get; set; }
+
+        public string? RejectionReason { get; set; }
+
+        public DateTime SubmittedAt { get; set; }
+
+        public DateTime? ApprovedAt { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

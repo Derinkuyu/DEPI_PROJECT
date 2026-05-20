@@ -25,6 +25,11 @@ namespace StuMap.Services
         {
             throw new NotImplementedException();
         }
+        public int InsertRange(List<CourseRoadmap> courseRoadmaps)
+        {
+            context.CourseRoadmaps.AddRange(courseRoadmaps);
+            return context.SaveChanges();
+        }
 
         public int Update(int id, CourseRoadmap entity)
         {

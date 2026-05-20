@@ -32,6 +32,7 @@ namespace StuMap
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/login";
+                options.AccessDeniedPath= "/AccessDenied";
             });
             AddServices(builder);
 
@@ -82,21 +83,19 @@ namespace StuMap
 
 
             // Models and Repositories Injection
-            //builder.Services.AddScoped<Managers.IAdminManager, Services.AdminRepository>();
-            builder.Services.AddScoped<Managers.IContactManager, Services.ContactRepository>();
-            builder.Services.AddScoped<Managers.ICourseManager, Services.CourseRepository>();
-            builder.Services.AddScoped<Managers.IEnrollmentManager, Services.EnrollmentRepository>();
-            builder.Services.AddScoped<Managers.IRoadmapManager, Services.RoadmapRepository>();
-            builder.Services.AddScoped<Managers.ISpecializationManager, Services.SpecializationRepository>();
-            //builder.Services.AddScoped<Managers.IStudentManager, Services.StudentRepository>();
-            //builder.Services.AddScoped<Managers.IContributorManager, Services.ContributorRepository>();
-            builder.Services.AddScoped<Managers.IMaterialManager, Services.MaterialRepository>();
-            builder.Services.AddScoped<Managers.ICertificateManager, Services.CertificateRepository>();
-            builder.Services.AddScoped<Managers.IMaterialTypeManager, Services.MaterialTypeRepository>();
-            builder.Services.AddScoped<Managers.IUserManager, Services.UserRepository>();
+            builder.Services.AddScoped<IContactManager, ContactRepository>();
+            builder.Services.AddScoped<ICourseManager, CourseRepository>();
+            builder.Services.AddScoped<IEnrollmentManager, EnrollmentRepository>();
+            builder.Services.AddScoped<IRoadmapManager, RoadmapRepository>();
+            builder.Services.AddScoped<ISpecializationManager, SpecializationRepository>();
+            builder.Services.AddScoped<IMaterialManager, MaterialRepository>();
+            builder.Services.AddScoped<ICertificateManager, CertificateRepository>();
+            builder.Services.AddScoped<IMaterialTypeManager, MaterialTypeRepository>();
+            builder.Services.AddScoped<IUserManager, UserRepository>();
             builder.Services.AddScoped<IContributorManager, ContributorRepository>();
             builder.Services.AddScoped<ICourseEnrollmentManager, CourseEnrollmentRepository>();
             builder.Services.AddScoped<INotificationManager, NotificationRepository>();
+            builder.Services.AddScoped<ICourseRoadmapManager, CourseRoadmapRepository>();
 
         }
     }

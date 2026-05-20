@@ -1,36 +1,61 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
+﻿
 <section class="mx-6 my-8 flex flex-col justify-between gap-6 p-5">
-    @* <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-        <div id="myDropdown" class="dropdown-content">
-            <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-            <a href="#about">About</a>
-            <a href="#base">Base</a>
-            <a href="#blog">Blog</a>
-            <a href="#contact">Contact</a>
-            <a href="#custom">Custom</a>
-            <a href="#support">Support</a>
-            <a href="#tools">Tools</a>
-        </div>
-    </div> *@
-    <div class="dropdown">
-        <div tabindex="0" role="button" class="btn w-full">
-            <input type="text" placeholder="Search for a course" id="course-search" onkeyup="filterFunction()" class="focus:outline-0 w-full" />
-            </div>
+    <div class="flex flex-col justify-center items-center">
+        <p class="text-4xl font-semibold ">Add New Roadmap</p>
+        <p class="text-xl text-primary-content w-200 text-center my-2">
+            Guide Others To There Goals And Make An Impact Into The World 
+        </p>
+        
+        <form id="add-roadmap-course"class="w-full p-5 flex flex-col gap-6" asp-action="AddNew" asp-controller="Roadmap" method="get">
+            <label class="floating-label " >
+                <span>Roadmap Title</span>
+                <input type="text" placeholder="Roadmap Title" name="RoadmapTitle" class="input input-lg w-full h-15" required />
+            </label>
+            <label class="floating-label ">
+                <span>Roadmap Description</span>
+                <input type="text" placeholder="Roadmap Description" name="RoadmapDescription" class="input input-lg w-full h-50" required />
+            </label>
+            <label class="select w-full h-15">
+                <span class="label text-lg">Roadmap Specialization</span>
+                <select class=" select-lg" name="specialization" required>
+                    @foreach (var sp in ViewBag.specialization)
+                        {
+                            <option value="@sp.Id">@sp.Name</option>
+                        }
+                    </select>
+            </label>
+            <div class="dropdown w-full">
+                <div tabindex="0" role="button" class="btn w-full h-15">
+                    <i class="fa-solid fa-magnifying-glass ml-4 text-primary-content-para"></i>  <input type="text" placeholder="Search for a course" id="course-search" onkeyup="filterFunction()" class="focus:outline-0 w-full h-15 text-lg" />
+                </div>
        
-        <ul id="courses-dropdown"  tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm w-full">
-            @foreach (var course in ViewBag.courses)
-            {
-                <li class="w-full">
-                    <a> @course.Title <div class="badge badge-soft badge-accent"> <i class="fa-regular fa-user"></i>@course.Contributor.FirstName @course.Contributor.LastName</div></a>
-                    
-                    </li>
-            }
-        </ul>
-    </div>
+                <ul id="courses-dropdown" tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm w-full ">
+                    @foreach (var course in ViewBag.courses)
+                    {
+                        <li class="w-full">
+                            <a class="text-lg" onclick="AddDropdownCourse(@course.Id,event)"> @course.Title <div class="badge badge-soft badge-accent"> <i class="fa-regular fa-user"></i>@course.Contributor.FirstName @course.Contributor.LastName</div></a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div id="timeline" class="timelinec mx-12 ">
+                @{
+                    int count = 0;
+                }
+                @* repeated *@
+                    @* <div class="timelinec-step">
+                        <div class="dotc text-xl font-bold">1</div>
+                        <div class="flex items-baseline gap-8 mb-2">
+                            <p class="text-2xl font-semibold " > course.Title</p>
+                            <div class="uppercase  text-l text-primary-content-para tracking-widest"> <i class="fa-regular fa-user"></i> course.Contributor.FirstName course.Contributor.LastName</div>
+                        </div>
+                    </div> *@
+                @* repeated *@
+                
+            </div>
+            <div class="text-center">
+            <button id="add-roadmap-btn"type="submit" class="btn btn-xl rounded-xl animated-background bg-linear-220 from-base-100 via-primary to-base-100 w-50" disabled> Add Roadmap</button>
+            </div>
+        </form>
+       
 </section>

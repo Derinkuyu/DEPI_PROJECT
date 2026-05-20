@@ -1,0 +1,390 @@
+﻿@model IEnumerable<RoadmapRequestDto>
+
+@{
+    ViewData["Title"] = "Roadmap Requests";
+}
+
+<section class="rounded-xl px-8 py-6 my-8 mx-8 animated-background bg-linear-220 from-base-100 via-base-200 to-base-300">
+
+    <!-- Header -->
+    <div class="flex flex-col gap-3 mb-8">
+
+        <div class="flex items-center justify-between flex-wrap gap-4">
+
+            <div>
+                <h1 class="text-4xl font-semibold">
+                    <i class="fa-solid fa-diagram-project mx-1 text-primary"></i>
+                    Roadmap Requests
+                </h1>
+
+                <p class="text-primary-content-para text-lg mt-2 max-w-3xl">
+                    Review roadmap submissions from contributors and approve or reject requests.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Toolbar -->
+    <div class="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between rounded-xl bg-base-100 border border-base-300 p-5 mb-8">
+
+        <!-- Left -->
+        <div class="flex flex-col md:flex-row flex-wrap gap-3">
+
+            <!-- Search -->
+            <label class="input rounded-full bg-base-200 border-none w-96 h-14">
+
+                <svg class="h-[1em] opacity-50 mx-2"
+                     xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 24 24">
+
+                    <g stroke-linejoin="round"
+                       stroke-linecap="round"
+                       stroke-width="2.5"
+                       fill="none"
+                       stroke="currentColor">
+
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+
+                    </g>
+
+                </svg>
+
+                <input type="search"
+                       placeholder="Search Roadmaps..."
+                       class="border-none" />
+
+            </label>
+
+            <!-- Specialization -->
+            <select class="select select-bordered bg-base-200 border-base-300">
+
+                <option selected disabled>
+                    Specialization
+                </option>
+
+                <option>
+                    Frontend
+                </option>
+
+                <option>
+                    Backend
+                </option>
+
+                <option>
+                    AI
+                </option>
+
+                <option>
+                    Cybersecurity
+                </option>
+
+            </select>
+
+            <!-- Status -->
+            <select class="select select-bordered bg-base-200 border-base-300">
+
+                <option selected disabled>
+                    Status
+                </option>
+
+                <option>
+                    Pending
+                </option>
+
+                <option>
+                    Approved
+                </option>
+
+                <option>
+                    Rejected
+                </option>
+
+                <option>
+                    Updated Request
+                </option>
+
+            </select>
+
+            <!-- Sort -->
+            <select class="select select-bordered bg-base-200 border-base-300">
+
+                <option selected disabled>
+                    Sort By
+                </option>
+
+                <option>
+                    Newest
+                </option>
+
+                <option>
+                    Oldest
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto rounded-xl border border-base-300 bg-base-100">
+
+        <table class="table">
+
+            <!-- Head -->
+            <thead>
+
+                <tr class="uppercase text-xs tracking-widest text-primary-content-para">
+
+                    <th>
+                        <input type="checkbox"
+                               class="checkbox checkbox-sm" />
+                    </th>
+
+                    <th>
+                        Roadmap ↕
+                    </th>
+
+                    <th>
+                        Contributor ↕
+                    </th>
+
+                    <th>
+                        Specialization ↕
+                    </th>
+
+                    <th>
+                        Courses ↕
+                    </th>
+
+                    <th>
+                        Status ↕
+                    </th>
+
+                    <th>
+                        Submitted ↕
+                    </th>
+
+                    <th class="text-center">
+                        Actions
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <!-- Body -->
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr class="hover:bg-base-200 transition-all duration-200">
+
+                        <!-- Checkbox -->
+                        <td>
+                            <input type="checkbox"
+                                   class="checkbox checkbox-sm" />
+                        </td>
+
+                        <!-- Roadmap -->
+                        <td>
+
+                            <div class="flex flex-col gap-1">
+
+                                <span class="font-semibold text-base-content text-base">
+                                    @item.Name
+                                </span>
+
+                            </div>
+
+                        </td>
+
+                        <!-- Contributor -->
+                        <td>
+
+                            <div class="flex flex-col">
+
+                                <span class="font-medium">
+                                    @item.ContributorName
+                                </span>
+
+                            </div>
+
+                        </td>
+
+                        <!-- Specialization -->
+                        <td>
+
+                            <span class="badge badge-outline badge-primary px-4 py-3">
+
+                                @item.Specialization
+
+                            </span>
+
+                        </td>
+
+                        <!-- Courses -->
+                        <td>
+
+                            <div class="uppercase text-success tracking-widest text-sm font-semibold">
+
+                                <i class="fa-solid fa-graduation-cap"></i>
+
+                                @item.CoursesCount Courses
+
+                            </div>
+
+                        </td>
+
+                        <!-- Status -->
+                        <td>
+
+                            @if (item.Status == RoadmapStatus.Pending)
+                            {
+                                <span class="badge badge-warning text-black px-4 py-3">
+                                    Pending
+                                </span>
+                            }
+                            else if (item.Status == RoadmapStatus.Approved)
+                            {
+                                <span class="badge badge-success text-black px-4 py-3">
+                                    Approved
+                                </span>
+                            }
+                            else if (item.Status == RoadmapStatus.UpdatedPending)
+                            {
+                                <span class="badge badge-info px-4 py-3">
+                                    Updated Request
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-error px-4 py-3">
+                                    Rejected
+                                </span>
+                            }
+
+                        </td>
+
+                        <!-- Submitted -->
+                        <td class="text-primary-content-para text-sm">
+
+                            @item.SubmittedAt.ToString("MMM dd, yyyy")
+
+                        </td>
+
+                        <!-- Actions -->
+                        <td>
+
+                            <div class="flex items-center justify-center gap-2 flex-wrap">
+
+                                <!-- Details -->
+                                <a asp-action="RoadmapDetails"
+                                   asp-controller="Admin"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-primary">
+
+                                    Details
+
+                                </a>
+
+                                <!-- Approve -->
+                                @if (item.Status == RoadmapStatus.Pending ||
+                               item.Status == RoadmapStatus.UpdatedPending)
+                                {
+                                    <a asp-action="ApproveRoadmap"
+                                       asp-controller="Admin"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-sm btn-success text-black">
+
+                                        Approve
+
+                                    </a>
+
+                                    <!-- Reject -->
+                                    <button class="btn btn-sm btn-error"
+                                            onclick="document.getElementById('reject-modal-@item.Id').showModal()">
+
+                                        Reject
+
+                                    </button>
+                                }
+
+                                <!-- Delete -->
+                                <a asp-action="DeleteRoadmap"
+                                   asp-controller="Admin"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-outline btn-error">
+
+                                    Delete
+
+                                </a>
+
+                            </div>
+
+                            <!-- Reject Modal -->
+                            <dialog id="reject-modal-@item.Id"
+                                    class="modal">
+
+                                <div class="modal-box bg-base-100">
+
+                                    <h3 class="text-xl font-semibold mb-4">
+
+                                        Reject Roadmap Request
+
+                                    </h3>
+
+                                    <form asp-action="RejectRoadmap"
+                                          asp-controller="Admin"
+                                          method="post"
+                                          class="space-y-4">
+
+                                        <input type="hidden"
+                                               name="id"
+                                               value="@item.Id" />
+
+                                        <textarea name="reason"
+                                                  class="textarea textarea-bordered w-full h-32"
+                                                  placeholder="Enter rejection reason..."
+                                                  required></textarea>
+
+                                        <div class="modal-action">
+
+                                            <button type="submit"
+                                                    class="btn btn-error">
+
+                                                Reject
+
+                                            </button>
+
+                                            <button type="button"
+                                                    class="btn"
+                                                    onclick="document.getElementById('reject-modal-@item.Id').close()">
+
+                                                Cancel
+
+                                            </button>
+
+                                        </div>
+
+                                    </form>
+
+                                </div>
+
+                            </dialog>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
