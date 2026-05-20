@@ -47,7 +47,8 @@ namespace StuMap.Services
         public int Insert(Roadmap entity)
         {
             context.Roadmaps.Add(entity);
-            return context.SaveChanges();
+            context.SaveChanges();
+            return entity.Id;
         }
 
 
