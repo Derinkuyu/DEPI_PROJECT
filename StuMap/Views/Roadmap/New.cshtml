@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<section class="mx-6 my-8 flex flex-col justify-between gap-6 p-5">
+    @* <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+        <div id="myDropdown" class="dropdown-content">
+            <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+            <a href="#about">About</a>
+            <a href="#base">Base</a>
+            <a href="#blog">Blog</a>
+            <a href="#contact">Contact</a>
+            <a href="#custom">Custom</a>
+            <a href="#support">Support</a>
+            <a href="#tools">Tools</a>
+        </div>
+    </div> *@
+    <div class="dropdown">
+        <div tabindex="0" role="button" class="btn w-full">
+            <input type="text" placeholder="Search for a course" id="course-search" onkeyup="filterFunction()" class="focus:outline-0 w-full" />
+            </div>
+       
+        <ul id="courses-dropdown"  tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm w-full">
+            @foreach (var course in ViewBag.courses)
+            {
+                <li class="w-full">
+                    <a> @course.Title <div class="badge badge-soft badge-accent"> <i class="fa-regular fa-user"></i>@course.Contributor.FirstName @course.Contributor.LastName</div></a>
+                    
+                    </li>
+            }
+        </ul>
+    </div>
+</section>
