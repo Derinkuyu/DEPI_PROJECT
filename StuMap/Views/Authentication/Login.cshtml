@@ -10,6 +10,7 @@
 
     <div class="w-sm w-auto">
         <form id="loginForm" class="space-y-6">
+            <input type="hidden" id="deviceToken" name="DeviceToken" />
 
             <fieldset class="fieldset">
                 <label for="email" class="label">Email address</label>
@@ -51,5 +52,5 @@
 
 
 @section Scripts {
-    <script src="~/js/Authentication/login.js"></script>
+    <script type="module" src="~/js/Authentication/login.js"></script>
 }

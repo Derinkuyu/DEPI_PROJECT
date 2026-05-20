@@ -23,6 +23,7 @@ namespace StuMap.Context
         public virtual DbSet<Enrollment> Enrollments { get; set; }
         public virtual DbSet<CourseRoadmap> CourseRoadmaps { get; set; }
         public virtual DbSet<CourseEnrollment> CourseEnrollments { get; set; }
+        public virtual DbSet<UserDeviceToken> UsersDeviceTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

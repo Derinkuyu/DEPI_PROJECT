@@ -430,3 +430,5 @@ FodyWeavers.xsd
 #Migrations
 /StuMap/Migrations/*
 
+# private key for notification
+firebase-adminsdk.json
