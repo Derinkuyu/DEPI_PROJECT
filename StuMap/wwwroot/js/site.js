@@ -26,7 +26,14 @@ const closeBtn = document.getElementById("close-btn")
  
 let accNew = null;
 
-let count =1
+let count = 1
+
+let countSteps = 1
+const addRoadmapCourse = document.getElementById("add-roadmap-course")
+
+const timeline = document.getElementById("timeline")
+
+const addRoadmapBtn = document.getElementById("add-roadmap-btn")
 
 nextBtn.addEventListener("click", () => {
     if (prevBtn.hidden) {
@@ -202,4 +209,21 @@ function filterFunction() {
             a[i].style.display = "none";
         }
     }
+}
+/////////////////////////////////////////////
+
+function AddDropdownCourse(id, event) {
+
+    console.log(id, event.target.innerHTML)
+    const singleInput = `<input name="course" value="${id}" hidden />`
+    const singleStep = `<div class="timelinec-step">
+                        <div class="dotc text-xl font-bold">${countSteps}</div>
+                        <div class="flex items-baseline gap-8 mb-2">
+                           ${event.target.innerHTML}                       </div>
+                    </div>`
+    addRoadmapCourse.insertAdjacentHTML('beforeend', singleInput);
+    timeline.insertAdjacentHTML('beforeend', singleStep);
+    event.target.remove()
+    countSteps++
+    addRoadmapBtn.disabled=false
 }
