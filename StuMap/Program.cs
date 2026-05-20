@@ -32,6 +32,7 @@ namespace StuMap
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/login";
+                options.AccessDeniedPath= "/AccessDenied";
             });
             AddServices(builder);
 
