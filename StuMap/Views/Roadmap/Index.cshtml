@@ -17,12 +17,12 @@
     </div>
 } *@
 
-<section class="mx-6 my-8 flex flex-col justify-between gap-6">
+<section class="mx-6 my-8 flex flex-col justify-between gap-6 p-5">
     <div class="flex flex-col justify-start">
-        <p class="text-4xl font-semibold ">Explore All Courses</p>
+        <p class="text-4xl font-semibold ">Explore Learning Roadmaps</p>
         <p class="text-xl text-primary-content-para w-200 my-2">
-            Step into the luminescent path of modern technology. Our curated courses
-            guide you through the digital nebula from fundamentals to mastery.
+            Choose your path and start your journey step by step. Our curated tracks are
+            designed by industry experts to lead you to mastery.
         </p>
     </div>
     <label class="input rounded-full bg-base-300 border-none w-200 h-15 ">
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <div class="my-4">
-                        <button class="btn btn-outline btn-primary rounded-full btn-lg hover:bg-linear-(--gradient-btn)">View Roadmap</button>
+                        <a asp-action="Details" asp-controller="Roadmap" asp-route-id="@roadmap.Id" class="btn btn-outline btn-primary rounded-full btn-lg hover:bg-linear-(--gradient-btn)">View Roadmap</a>
                     </div>
                 </div>
             </div>

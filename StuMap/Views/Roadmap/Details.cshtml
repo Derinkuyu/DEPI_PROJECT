@@ -1,0 +1,61 @@
+﻿@model Roadmap
+
+
+<section class="rounded-xl px-12 my-8 mx-8 p-5 animated-background bg-linear-220 from-base-100 via-base-200 to-base-300">
+    <div class="flex flex-col justify-start p-5 gap-3">
+        <p class="text-4xl font-semibold my-2"><i class="fa-solid fa-play mx-1"></i> @Model.Title</p>
+        <p class="text-xl text-primary-content-para w-220 my-2">
+            @Model.Description
+        </p>
+        <div class="flex  justify-start gap-5">
+            <div class="uppercase text-success tracking-widest text-sm"> <i class="fa-solid fa-graduation-cap"></i> @Model.CourseRoadmaps.Count() Courses</div>
+            <div class="uppercase text-primary tracking-widest text-sm">
+                <i class="fa-regular fa-user"></i> @Model.Contributor.FirstName @Model.Contributor.LastName
+            </div>
+            <div class="uppercase text-secondary tracking-widest text-sm">
+                <i class="fa-solid fa-layer-group"></i> @Model.Specialization.Name
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div id="Courses" class="flex flex-col gap-6">
+            <p class="text-3xl font-semibold ">Explore Courses</p>
+            
+            <div class="timelinec mx-12 ">
+                @{
+                    int count = 0;
+                }
+                @foreach (var course in Model.CourseRoadmaps)
+                {
+                    count++;
+                    <div class="timelinec-step">
+                        <div class="dotc text-xl font-bold">@count</div>
+                        <div class="flex items-baseline gap-8 mb-2">
+                            <p class="text-2xl font-semibold ">@course.Course.Title</p>
+                            <div class="uppercase  text-l text-primary-content-para tracking-widest"> <i class="fa-regular fa-user"></i> @course.Course.Contributor.FirstName @course.Course.Contributor.LastName</div>
+                        </div>
+                            <p class="text-l text-primary-content-para ">
+                                @course.Course.Description
+                            </p>
+                     <div class="flex flex-col gap-4 my-4">
+                            <p class="text-xl font-semibold ">Sources</p>
+                            <ul class=" ml-6">
+                            @foreach (var material in course.Course.Materials)
+                            {
+                                    <li>
+                                        <div class="tooltip  tooltip-right" data-tip="@material.Description">
+                                        <a class="link link-hover link-secondary" target="_blank" href="@material.Url"><i class="fa-solid fa-link mr-2"></i> @material.Title</a>
+                                            <div class="badge badge-soft badge-warning ml-4">@ViewBag.materialType[material.MaterialTypeId]</div>
+                                    </div>    
+                                    </li>
+                            }
+                            </ul>
+
+                     </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+</section>

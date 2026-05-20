@@ -15,12 +15,12 @@ namespace StuMap.Services
 
         public List<Roadmap> GetAll()
         {
-            return context.Roadmaps.Include(r => r.Specialization).Include(r => r.Contributor).Include(r => r.CourseRoadmaps).ThenInclude(cr => cr.Course).ToList();
+            return context.Roadmaps.Include(r => r.Specialization).Include(r => r.Contributor).Include(r => r.CourseRoadmaps).ThenInclude(cr => cr.Course).ThenInclude(c=>c.Materials).ThenInclude(c=>c.Contributor).ToList();
         }
 
         public Roadmap GetById(int id)
         {
-            return context.Roadmaps.Include(r => r.Specialization).Include(r => r.Contributor).Include(r => r.CourseRoadmaps).ThenInclude(cr => cr.Course).FirstOrDefault(r => r.Id == id);
+            return context.Roadmaps.Include(r => r.Specialization).Include(r => r.Contributor).Include(r => r.CourseRoadmaps).ThenInclude(cr => cr.Course).ThenInclude(c => c.Materials).ThenInclude(c => c.Contributor).FirstOrDefault(r => r.Id == id);
         }
 
         public int Insert(Roadmap entity)
