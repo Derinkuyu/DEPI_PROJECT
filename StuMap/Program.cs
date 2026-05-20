@@ -96,6 +96,8 @@ namespace StuMap
             builder.Services.AddScoped<Managers.IUserManager, Services.UserRepository>();
             builder.Services.AddScoped<IContributorManager, ContributorRepository>();
             builder.Services.AddScoped<ICourseEnrollmentManager, CourseEnrollmentRepository>();
+            builder.Services.AddScoped<INotificationManager, NotificationRepository>();
+
         }
     }
 }

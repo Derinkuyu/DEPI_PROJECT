@@ -1,4 +1,7 @@
-﻿console.log("this script is a test, Hello World!");
+﻿import { getDeviceToken } from '/js/Firebase/notification.js';
+
+
+console.log("this script is a test, Hello World!");
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -25,6 +28,8 @@ async function performLogin() {
 
     $(`#login-error`).attr(`hidden`,`hidden`);
 
+    const deviceToken = await getDeviceToken();
+    console.log("Device Token:", deviceToken);
 
     try {
         const response = await fetch('/api/auth/login', {
@@ -33,7 +38,8 @@ async function performLogin() {
             body: JSON.stringify(
                 {
                     email: email,
-                    password: pass
+                    password: pass,
+                    deviceToken: deviceToken
                 })
         });
 

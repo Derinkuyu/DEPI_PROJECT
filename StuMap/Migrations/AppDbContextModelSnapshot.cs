@@ -543,6 +543,44 @@ namespace StuMap.Migrations
                         });
                 });
 
+            modelBuilder.Entity("StuMap.Models.CourseEnrollment", b =>
+                {
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("DateEnrolled")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("CourseId", "StudentId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("CourseEnrollments");
+
+                    b.HasData(
+                        new
+                        {
+                            CourseId = 1,
+                            StudentId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            CourseId = 2,
+                            StudentId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            CourseId = 3,
+                            StudentId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
             modelBuilder.Entity("StuMap.Models.CourseRoadmap", b =>
                 {
                     b.Property<int>("RoadmapId")
@@ -940,6 +978,32 @@ namespace StuMap.Migrations
                         });
                 });
 
+            modelBuilder.Entity("StuMap.Models.UserDeviceToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeviceToken")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UsersDeviceTokens");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -1028,6 +1092,25 @@ namespace StuMap.Migrations
                     b.Navigation("Contributor");
                 });
 
+            modelBuilder.Entity("StuMap.Models.CourseEnrollment", b =>
+                {
+                    b.HasOne("StuMap.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StuMap.Models.ApplicationUser", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Student");
+                });
+
             modelBuilder.Entity("StuMap.Models.CourseRoadmap", b =>
                 {
                     b.HasOne("StuMap.Models.Course", "Course")
@@ -1104,6 +1187,17 @@ namespace StuMap.Migrations
                     b.Navigation("Contributor");
 
                     b.Navigation("Specialization");
+                });
+
+            modelBuilder.Entity("StuMap.Models.UserDeviceToken", b =>
+                {
+                    b.HasOne("StuMap.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("StuMap.Models.Course", b =>

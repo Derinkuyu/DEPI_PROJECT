@@ -10,5 +10,7 @@ namespace StuMap.DTO.Authentication
         [Required]
         [DataType(DataType.Password)]
         public required string Password { get; set; }
+
+        public string ?DeviceToken { get; set; }
     }
 }

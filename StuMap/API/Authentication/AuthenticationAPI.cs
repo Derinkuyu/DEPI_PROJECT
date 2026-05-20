@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StuMap.DTO.Authentication;
+using StuMap.Managers;
+using StuMap.Models;
 using StuMap.Services.Authentication;
 
 namespace StuMap.API
@@ -9,7 +11,7 @@ namespace StuMap.API
     [Route("api/auth")]
     [ApiController]
     public class AuthenticationAPI(
-        IAuthenticationService authenticationService) : ControllerBase
+        IAuthenticationService authenticationService , INotificationManager notificationManager , UserManager<ApplicationUser> userManager) : ControllerBase
     {
 
         [HttpGet("logout")]
@@ -40,6 +42,12 @@ namespace StuMap.API
 
             if (success)
             {
+                if (!string.IsNullOrEmpty(data.DeviceToken))
+                {
+                    var user = await userManager.FindByEmailAsync(data.Email);
+                    notificationManager.AddDeviceToken(user.Id, data.DeviceToken);
+                }
+
                 return Ok(new { success, message });
             }
             return Unauthorized(new { success, message });
