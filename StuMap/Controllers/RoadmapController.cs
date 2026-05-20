@@ -11,5 +11,13 @@ namespace StuMap.Controllers
             var road = roadmapRepo.GetAll();
             return View(road);
         }
+        public IActionResult Details(int id)
+        {
+            Dictionary<int, string> materialType = materialTypeRepo.GetAll().ToDictionary(x => x.Id, x => x.Title);
+            ViewBag.materialType = materialType;
+            var roadmap = roadmapRepo.GetById(id);
+            return View(roadmap);
+        }
+
     }
 }

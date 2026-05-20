@@ -55,7 +55,50 @@
         }
     }
 }
+
 .keep-line-breaks {
     white-space: pre-line;
 }
 
+.animated-background {
+    background-size: 400%;
+    -webkit-animation: animation 10s ease infinite;
+    -moz-animation: animation 10s ease infinite;
+    animation: animation 10s ease infinite;
+}
+
+@keyframes animation {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+
+.timelinec {
+    position: relative;
+    max-width: 700px;
+    width: 100%;
+    padding-left: 30px;
+    border-left: 8px solid var(--color-base-300);
+}
+
+.timelinec-step {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.dotc {
+    text-align:center;
+    position: absolute;
+    left: -50px;
+    top: 4px;
+    width: 30px;
+    height: 30px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--color-primary);
+}
