@@ -5,7 +5,7 @@ using StuMap.Managers;
 
 namespace StuMap.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         /*------------------------------------------------------------------------------------*/

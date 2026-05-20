@@ -92,7 +92,6 @@
     <div class="modal-box">
         <h3 class="text-lg font-bold">Ticket</h3>
 
-        <form class="w-full">
             <div class="flex min-h-screen items-center justify-center">
                 <fieldset class="fieldset w-full max-w-lg">
                     <legend class="fieldset-legend">Subject</legend>
@@ -102,11 +101,10 @@
                             style="max-height: 15rem; overflow-y: auto; resize: none;"
                             oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"></textarea>
                     <div class="flex justify-center">
-                        <button class="btn btn-outline btn-primary">Close</button>
+                        <button class="btn btn-outline btn-primary" onclick="ticket_details.close()">Close</button>
                     </div>
                 </fieldset>
             </div>
-        </form>
     </div>
 </dialog>
 
