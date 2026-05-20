@@ -1,0 +1,338 @@
+﻿@model List<CourseRequestDto>
+
+@{
+    ViewData["Title"] = "Course Requests";
+}
+
+<section class="mx-6 my-8 p-5">
+
+    <!-- Header -->
+    <div class="flex flex-col justify-center items-center text-center">
+
+        <p class="text-4xl font-semibold">
+            Course Approval Requests
+        </p>
+
+        <p class="text-xl text-primary-content w-200 my-2">
+            Review contributor submitted courses, inspect learning materials,
+            and approve or reject educational content before publishing.
+        </p>
+
+    </div>
+
+    <!-- Filters -->
+    <div class="flex flex-wrap items-center justify-between gap-4 my-10">
+
+        <!-- Search -->
+        <label class="input input-bordered rounded-full w-96">
+
+            <i class="fa-solid fa-magnifying-glass opacity-70"></i>
+
+            <input type="text"
+                   class="grow"
+                   placeholder="Search Courses..." />
+
+        </label>
+
+        <!-- Right Controls -->
+        <div class="flex flex-wrap gap-3">
+
+            <!-- Status -->
+            <select class="select select-bordered">
+
+                <option disabled selected>
+                    Status
+                </option>
+
+                <option>
+                    Pending
+                </option>
+
+                <option>
+                    Approved
+                </option>
+
+                <option>
+                    Rejected
+                </option>
+
+                <option>
+                    Updated Request
+                </option>
+
+            </select>
+
+            <!-- Sort -->
+            <select class="select select-bordered">
+
+                <option disabled selected>
+                    Sort By
+                </option>
+
+                <option>
+                    Newest
+                </option>
+
+                <option>
+                    Oldest
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <!-- Courses Grid -->
+    <div class="grid grid-cols-3 gap-x-8 gap-y-10 my-12">
+
+        @foreach (var course in Model)
+        {
+            <div class="hover-3d cursor-pointer mx-3">
+
+                <!-- Card -->
+                <div class="card h-[28rem] bg-base-300 border border-base-300 rounded-2xl">
+
+                    <div class="card-body flex flex-col justify-between gap-4">
+
+                        <!-- Top -->
+                        <div class="space-y-4">
+
+                            <!-- Title -->
+                            <div class="space-y-2">
+
+                                <div class="flex items-start justify-between gap-3">
+
+                                    <h2 class="card-title text-2xl leading-snug">
+
+                                        @course.Title
+
+                                    </h2>
+
+                                    @if (course.Status == CourseStatus.Pending)
+                                    {
+                                        <div class="badge badge-warning text-black whitespace-nowrap">
+
+                                            Pending
+
+                                        </div>
+                                    }
+                                    else if (course.Status == CourseStatus.Approved)
+                                    {
+                                        <div class="badge badge-success text-black whitespace-nowrap">
+
+                                            Approved
+
+                                        </div>
+                                    }
+                                    else if (course.Status == CourseStatus.UpdatedPending)
+                                    {
+                                        <div class="badge badge-info whitespace-nowrap">
+
+                                            Updated
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="badge badge-error whitespace-nowrap">
+
+                                            Rejected
+
+                                        </div>
+                                    }
+
+                                </div>
+
+                                <div class="badge badge-secondary">
+
+                                    By @course.ContributorName
+
+                                </div>
+
+                            </div>
+
+                            <!-- Roadmap -->
+                            <div class="flex items-center gap-2 text-primary-content">
+
+                                <i class="fa-solid fa-diagram-project"></i>
+
+                                <span>
+
+                                    @(string.IsNullOrEmpty(course.RoadmapName)
+                                        ? "No Roadmap Assigned"
+                                        : course.RoadmapName)
+
+                                </span>
+
+                            </div>
+
+                            <!-- Materials -->
+                            <div class="flex items-center gap-2 text-success">
+
+                                <i class="fa-solid fa-book-open"></i>
+
+                                <span class="font-semibold">
+
+                                    @course.MaterialsCount Materials
+
+                                </span>
+
+                            </div>
+
+                            <!-- Submitted -->
+                            <div class="flex items-center gap-2 text-primary-content">
+
+                                <i class="fa-solid fa-calendar"></i>
+
+                                <span>
+
+                                    @course.SubmittedAt.ToString("MMM dd, yyyy")
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex flex-col gap-3">
+
+                            <!-- Details -->
+                            <a asp-controller="Admin"
+                               asp-action="CourseDetails"
+                               asp-route-id="@course.Id"
+                               class="btn btn-primary btn-outline rounded-full">
+
+                                More Details
+
+                                <i class="fa-solid fa-arrow-right-long"></i>
+
+                            </a>
+
+                            <!-- Approval Actions -->
+                            @if (course.Status == CourseStatus.Pending ||
+                           course.Status == CourseStatus.UpdatedPending)
+                            {
+                                <div class="flex gap-2">
+
+                                    <!-- Approve -->
+                                    <a asp-controller="Admin"
+                                       asp-action="ApproveCourse"
+                                       asp-route-id="@course.Id"
+                                       class="btn btn-success text-black flex-1">
+
+                                        <i class="fa-solid fa-check"></i>
+
+                                        Approve
+
+                                    </a>
+
+                                    <!-- Reject -->
+                                    <button class="btn btn-error flex-1"
+                                            onclick="document.getElementById('reject-modal-@course.Id').showModal()">
+
+                                        <i class="fa-solid fa-xmark"></i>
+
+                                        Reject
+
+                                    </button>
+
+                                </div>
+                            }
+
+                            <!-- Delete -->
+                            <a asp-controller="Admin"
+                               asp-action="DeleteCourse"
+                               asp-route-id="@course.Id"
+                               class="btn btn-outline btn-error rounded-full">
+
+                                <i class="fa-solid fa-trash"></i>
+
+                                Delete Course
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- 3D Effect Divs -->
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+
+            </div>
+
+            <!-- Reject Modal -->
+            <dialog id="reject-modal-@course.Id"
+                    class="modal">
+
+                <div class="modal-box w-11/12 max-w-2xl">
+
+                    <h3 class="font-bold text-2xl mb-6">
+
+                        Reject Course Submission
+
+                    </h3>
+
+                    <form asp-controller="Admin"
+                          asp-action="RejectCourse"
+                          method="post"
+                          class="space-y-6">
+
+                        <input type="hidden"
+                               name="id"
+                               value="@course.Id" />
+
+                        <div class="space-y-2">
+
+                            <label class="font-medium">
+
+                                Rejection Reason
+
+                            </label>
+
+                            <textarea name="reason"
+                                      class="textarea textarea-bordered w-full h-40"
+                                      placeholder="Explain why the course was rejected..."
+                                      required></textarea>
+
+                        </div>
+
+                        <div class="modal-action">
+
+                            <button type="submit"
+                                    class="btn btn-error">
+
+                                Reject Course
+
+                            </button>
+
+                            <button type="button"
+                                    class="btn"
+                                    onclick="document.getElementById('reject-modal-@course.Id').close()">
+
+                                Cancel
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </dialog>
+        }
+
+    </div>
+
+</section>

@@ -481,6 +481,9 @@ namespace StuMap.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime?>("ApprovedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ContributorId")
                         .HasColumnType("nvarchar(450)");
 
@@ -491,8 +494,20 @@ namespace StuMap.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastUpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RejectionReason")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("SubmittedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -511,7 +526,9 @@ namespace StuMap.Migrations
                             ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
                             DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Description = "Learn the absolute basics of building web pages. Master the structure of a website using text elements, hyperlinks, forms, images, and semantic tags that help search engines understand your content.",
+                            IsDeleted = false,
                             Status = 2,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Introduction to HTML5"
                         },
                         new
@@ -520,7 +537,9 @@ namespace StuMap.Migrations
                             ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
                             DateCreated = new DateTime(2026, 5, 16, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Description = "Transform plain text into beautiful, styled web pages. Discover colors, custom fonts, borders, margins, padding, and how to use selectors to target and style specific elements across your site.",
+                            IsDeleted = false,
                             Status = 2,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Introduction to CSS3"
                         },
                         new
@@ -529,7 +548,9 @@ namespace StuMap.Migrations
                             ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
                             DateCreated = new DateTime(2026, 5, 15, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Description = "Learn how to make your websites look perfect on any screen size. Master modern layouts using CSS Flexbox and Grid, and use media queries to automatically adapt designs for mobile phones, tablets, and desktops.",
+                            IsDeleted = false,
                             Status = 2,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Creating Responsive Web Designs"
                         },
                         new
@@ -538,8 +559,48 @@ namespace StuMap.Migrations
                             ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
                             DateCreated = new DateTime(2026, 5, 14, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Description = "Bring your static web pages to life with interactivity. Learn the fundamentals of programming—like variables, functions, and events—to handle user clicks, toggle menus, and create dynamic content.",
+                            IsDeleted = false,
                             Status = 2,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Basic JavaScript for the Web"
+                        });
+                });
+
+            modelBuilder.Entity("StuMap.Models.CourseEnrollment", b =>
+                {
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("DateEnrolled")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("CourseId", "StudentId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("CourseEnrollments");
+
+                    b.HasData(
+                        new
+                        {
+                            CourseId = 1,
+                            StudentId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            CourseId = 2,
+                            StudentId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            CourseId = 3,
+                            StudentId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -849,6 +910,9 @@ namespace StuMap.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime?>("ApprovedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ContributorId")
                         .HasColumnType("nvarchar(450)");
 
@@ -861,8 +925,20 @@ namespace StuMap.Migrations
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RejectionReason")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("SpecializationId")
                         .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SubmittedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -884,7 +960,10 @@ namespace StuMap.Migrations
                             DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Description = "Web development is the process of designing, building, and maintaining websites and web applications, combining both creative design and technical programming to deliver functional, user-friendly digital experiences. It includes front-end (what users see), back-end (server, database, logic), and full-stack (both sides) development",
                             IsApproved = false,
+                            IsDeleted = false,
                             SpecializationId = 1,
+                            Status = 0,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Web development"
                         },
                         new
@@ -894,7 +973,10 @@ namespace StuMap.Migrations
                             DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Description = "Frontend development focuses on everything the user sees and interacts with in the browser. It’s about turning design mockups (like the Figma prototype you have open) into functional, responsive, and engaging web pages.",
                             IsApproved = false,
+                            IsDeleted = false,
                             SpecializationId = 2,
+                            Status = 0,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Frontend Path"
                         });
                 });
@@ -1026,6 +1108,25 @@ namespace StuMap.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Contributor");
+                });
+
+            modelBuilder.Entity("StuMap.Models.CourseEnrollment", b =>
+                {
+                    b.HasOne("StuMap.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StuMap.Models.ApplicationUser", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("StuMap.Models.CourseRoadmap", b =>

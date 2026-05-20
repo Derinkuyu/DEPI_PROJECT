@@ -1,0 +1,496 @@
+﻿@model CourseDetailsDto
+
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<section class="px-12 my-8 p-5">
+
+    <!-- Back Button -->
+    <div class="mb-6">
+
+        <a asp-action="CourseRequests"
+           asp-controller="Admin"
+           class="inline-flex items-center gap-2 whitespace-nowrap text-sm text-[var(--color-primary-content-para)] transition hover:text-base-content">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to course requests
+
+        </a>
+
+    </div>
+
+    <!-- Hero Section -->
+    <div class="grid grid-cols-4 gap-6">
+
+        <!-- Left -->
+        <div class="col-span-3 space-y-4">
+
+            <!-- Title -->
+            <p class="text-4xl font-semibold">
+
+                <i class="fa-solid fa-angle-right"></i>
+
+                @Model.Title
+
+            </p>
+
+            <!-- Description -->
+            <p class="text-xl text-primary-content leading-9">
+
+                @Model.Description
+
+            </p>
+
+            <!-- Contributor + Roadmap -->
+            <div class="flex flex-wrap gap-3">
+
+                <!-- Contributor -->
+                <div class="text-xl badge badge-dash badge-primary p-5">
+
+                    <i class="fa-solid fa-circle-user"></i>
+
+                    @Model.ContributorName
+
+                </div>
+
+                <!-- Roadmap -->
+                @if (!string.IsNullOrEmpty(Model.RoadmapName))
+                {
+                    <div class="text-xl badge badge-outline badge-secondary p-5">
+
+                        <i class="fa-solid fa-diagram-project"></i>
+
+                        @Model.RoadmapName
+
+                    </div>
+                }
+
+                <!-- Materials -->
+                <div class="text-xl badge badge-outline badge-success p-5">
+
+                    <i class="fa-solid fa-book-open"></i>
+
+                    @Model.MaterialsCount Materials
+
+                </div>
+
+            </div>
+
+            <!-- Status -->
+            <div class="flex flex-wrap gap-3">
+
+                @if (Model.Status == CourseStatus.Pending)
+                {
+                    <div class="badge badge-warning text-black badge-lg">
+
+                        Pending
+
+                    </div>
+                }
+                else if (Model.Status == CourseStatus.Approved)
+                {
+                    <div class="badge badge-success text-black badge-lg">
+
+                        Approved
+
+                    </div>
+                }
+                else if (Model.Status == CourseStatus.UpdatedPending)
+                {
+                    <div class="badge badge-info badge-lg">
+
+                        Updated Request
+
+                    </div>
+                }
+                else
+                {
+                    <div class="badge badge-error badge-lg">
+
+                        Rejected
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+        <!-- Right Actions -->
+        <div class="flex flex-col gap-4 items-stretch">
+
+            @if (Model.Status == CourseStatus.Pending ||
+           Model.Status == CourseStatus.UpdatedPending)
+            {
+                <!-- Approve -->
+                <a asp-action="ApproveCourse"
+                   asp-controller="Admin"
+                   asp-route-id="@Model.Id"
+                   class="btn btn-success text-black rounded-full h-14">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Approve Course
+
+                </a>
+
+                <!-- Reject -->
+                <button class="btn btn-error rounded-full h-14"
+                        onclick="document.getElementById('reject-modal').showModal()">
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                    Reject Course
+
+                </button>
+            }
+
+            <!-- Delete -->
+            <a asp-action="DeleteCourse"
+               asp-controller="Admin"
+               asp-route-id="@Model.Id"
+               class="btn btn-outline btn-error rounded-full h-14">
+
+                <i class="fa-solid fa-trash"></i>
+
+                Delete Course
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Divider -->
+    <div class="divider my-10"></div>
+
+    <!-- Information Card -->
+    <div class="rounded-2xl border border-base-300 bg-base-100 p-8 mb-10">
+
+        <!-- Header -->
+        <div class="mb-8">
+
+            <h2 class="text-3xl font-semibold">
+
+                Course Information
+
+            </h2>
+
+            <p class="text-primary-content mt-2">
+
+                Review contributor information and course moderation metadata.
+
+            </p>
+
+        </div>
+
+        <!-- Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Contributor -->
+            <div class="space-y-2">
+
+                <p class="text-sm text-primary-content font-medium">
+
+                    Contributor
+
+                </p>
+
+                <div class="rounded-xl bg-base-200 border border-base-300 p-4">
+
+                    @Model.ContributorName
+
+                </div>
+
+            </div>
+
+            <!-- Email -->
+            <div class="space-y-2">
+
+                <p class="text-sm text-primary-content font-medium">
+
+                    Contributor Email
+
+                </p>
+
+                <div class="rounded-xl bg-base-200 border border-base-300 p-4">
+
+                    @Model.ContributorEmail
+
+                </div>
+
+            </div>
+
+            <!-- Status -->
+            <div class="space-y-2">
+
+                <p class="text-sm text-primary-content font-medium">
+
+                    Approval Status
+
+                </p>
+
+                <div class="rounded-xl bg-base-200 border border-base-300 p-4">
+
+                    @if (Model.Status == CourseStatus.Pending)
+                    {
+                        <span class="badge badge-warning text-black">
+                            Pending
+                        </span>
+                    }
+                    else if (Model.Status == CourseStatus.Approved)
+                    {
+                        <span class="badge badge-success text-black">
+                            Approved
+                        </span>
+                    }
+                    else if (Model.Status == CourseStatus.UpdatedPending)
+                    {
+                        <span class="badge badge-info">
+                            Updated Request
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-error">
+                            Rejected
+                        </span>
+                    }
+
+                </div>
+
+            </div>
+
+            <!-- Materials -->
+            <div class="space-y-2">
+
+                <p class="text-sm text-primary-content font-medium">
+
+                    Materials Count
+
+                </p>
+
+                <div class="rounded-xl bg-base-200 border border-base-300 p-4">
+
+                    @Model.MaterialsCount Materials
+
+                </div>
+
+            </div>
+
+            <!-- Submitted -->
+            <div class="space-y-2">
+
+                <p class="text-sm text-primary-content font-medium">
+
+                    Submitted At
+
+                </p>
+
+                <div class="rounded-xl bg-base-200 border border-base-300 p-4">
+
+                    @Model.SubmittedAt.ToString("MMMM dd, yyyy")
+
+                </div>
+
+            </div>
+
+            <!-- Approved -->
+            <div class="space-y-2">
+
+                <p class="text-sm text-primary-content font-medium">
+
+                    Approved At
+
+                </p>
+
+                <div class="rounded-xl bg-base-200 border border-base-300 p-4">
+
+                    @(Model.ApprovedAt == null
+                        ? "Not Approved Yet"
+                        : Model.ApprovedAt.Value.ToString("MMMM dd, yyyy"))
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Rejection Reason -->
+        @if (!string.IsNullOrEmpty(Model.RejectionReason))
+        {
+            <div class="mt-8">
+
+                <div class="space-y-2">
+
+                    <p class="text-sm text-error font-medium">
+
+                        Rejection Reason
+
+                    </p>
+
+                    <div class="rounded-xl border border-error bg-error/10 p-5">
+
+                        @Model.RejectionReason
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+    <!-- Materials Section -->
+    <p class="text-4xl font-semibold mb-8">
+
+        <i class="fa-solid fa-angle-right"></i>
+
+        All Materials
+
+    </p>
+
+    <div id="all-accordions"
+         class="space-y-4">
+
+        @{
+            int count = 0;
+        }
+
+        @foreach (var item in Model.Materials)
+        {
+            count++;
+
+            <details class="collapse collapse-arrow bg-base-100 border border-base-300"
+                     open>
+
+                <input type="radio"
+                       name="materials-accordion"
+                       hidden />
+
+                <!-- Header -->
+                <summary class="collapse-title font-semibold text-xl flex items-center gap-3">
+
+                    <span>
+
+                        #@count @item.Title
+
+                    </span>
+
+                    <div class="badge badge-soft badge-warning">
+
+                        @item.MaterialType
+
+                    </div>
+
+                </summary>
+
+                <!-- Body -->
+                <div class="collapse-content text-sm flex flex-col mx-6 my-4">
+
+                    <ul class="list-disc space-y-4">
+
+                        <!-- Description -->
+                        <li>
+
+                            <span class="font-semibold text-xl">
+
+                                Description
+
+                            </span>
+
+                            <p class="text-xl text-primary-content mt-2">
+
+                                @item.Description
+
+                            </p>
+
+                        </li>
+
+                        <!-- URL -->
+                        <li>
+
+                            <a class="link link-info text-xl"
+                               href="@item.Url"
+                               target="_blank">
+
+                                Click Here To Explore
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </details>
+        }
+
+    </div>
+
+</section>
+
+<!-- Reject Modal -->
+<dialog id="reject-modal"
+        class="modal">
+
+    <div class="modal-box w-11/12 max-w-2xl">
+
+        <h3 class="font-bold text-2xl mb-6">
+
+            Reject Course Submission
+
+        </h3>
+
+        <form asp-controller="Admin"
+              asp-action="RejectCourse"
+              method="post"
+              class="space-y-6">
+
+            <input type="hidden"
+                   name="id"
+                   value="@Model.Id" />
+
+            <div class="space-y-2">
+
+                <label class="font-medium">
+
+                    Rejection Reason
+
+                </label>
+
+                <textarea name="reason"
+                          class="textarea textarea-bordered w-full h-40"
+                          placeholder="Explain why the course was rejected..."
+                          required></textarea>
+
+            </div>
+
+            <div class="modal-action">
+
+                <button type="submit"
+                        class="btn btn-error">
+
+                    Reject Course
+
+                </button>
+
+                <button type="button"
+                        class="btn"
+                        onclick="document.getElementById('reject-modal').close()">
+
+                    Cancel
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</dialog>

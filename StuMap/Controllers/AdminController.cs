@@ -11,11 +11,20 @@ namespace StuMap.Controllers
         /*------------------------------------------------------------------------------------*/
         private readonly IUserManager _userManager;
         private readonly IContributorManager _contributorManager;
+        private readonly IRoadmapManager _roadmapManager;
+        private readonly ICourseManager _courseManager;
+
         /*------------------------------------------------------------------------------------*/
-        public AdminController(IUserManager userManager, IContributorManager contributorManager)
+        public AdminController(
+            IUserManager userManager, 
+            IContributorManager contributorManager, 
+            IRoadmapManager roadmapManager, 
+            ICourseManager courseManager)
         {
             _userManager = userManager;
             _contributorManager = contributorManager;
+            _roadmapManager = roadmapManager;
+            _courseManager = courseManager;
         }
         /*------------------------------------------------------------------------------------*/
         /////////// Users Management
@@ -89,6 +98,81 @@ namespace StuMap.Controllers
             return RedirectToAction("ContributorRequests");
         }
         /*------------------------------------------------------------------------------------*/
+        //////////// Roadmaps Management
+        /*------------------------------------------------------------------------------------*/
+        public IActionResult RoadmapRequests()
+        {
+            var roadmaps = _roadmapManager.GetPendingRoadmaps();
+
+            return View(roadmaps);
+        }
+        /*------------------------------------------------------------------------------------*/
+        public IActionResult RoadmapDetails(int id)
+        {
+            var roadmap = _roadmapManager.GetRoadmapById(id);
+
+            return View(roadmap);
+        }
+        /*------------------------------------------------------------------------------------*/
+        public IActionResult ApproveRoadmap(int id)
+        {
+            _roadmapManager.ApproveRoadmap(id);
+
+            return RedirectToAction("RoadmapRequests");
+        }
+        /*------------------------------------------------------------------------------------*/
+        [HttpPost]
+        public IActionResult RejectRoadmap(int id, string reason)
+        {
+            _roadmapManager.RejectRoadmap(id, reason);
+
+            return RedirectToAction("RoadmapRequests");
+        }
+        /*------------------------------------------------------------------------------------*/
+        public IActionResult DeleteRoadmap(int id)
+        {
+            _roadmapManager.DeleteRoadmap(id);
+
+            return RedirectToAction("RoadmapRequests");
+        }
+        /*------------------------------------------------------------------------------------*/
+        //////////// Course Management
+        /*------------------------------------------------------------------------------------*/
+        public IActionResult CourseRequests()
+        {
+            var courses = _courseManager.GetPendingCourses();
+
+            return View(courses);
+        }
+        /*------------------------------------------------------------------------------------*/
+        public IActionResult CourseDetails(int id)
+        {
+            var course = _courseManager.GetCourseById(id);
+
+            return View(course);
+        }
+        /*------------------------------------------------------------------------------------*/
+        public IActionResult ApproveCourse(int id)
+        {
+            _courseManager.ApproveCourse(id);
+
+            return RedirectToAction("CourseRequests");
+        }
+        /*------------------------------------------------------------------------------------*/
+        [HttpPost]
+        public IActionResult RejectCourse(int id, string reason)
+        {
+            _courseManager.RejectCourse(id, reason);
+
+            return RedirectToAction("CourseRequests");
+        }
+        /*------------------------------------------------------------------------------------*/
+        public IActionResult DeleteCourse(int id)
+        {
+            _courseManager.DeleteCourse(id);
+
+            return RedirectToAction("CourseRequests");
+        }
         /*------------------------------------------------------------------------------------*/
     }
 }

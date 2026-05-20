@@ -1,0 +1,530 @@
+﻿@model RoadmapDetailsDto
+
+@{
+    ViewData["Title"] = "Roadmap Details";
+}
+
+<section class="rounded-xl px-8 py-6 my-8 mx-8 animated-background bg-linear-220 from-base-100 via-base-200 to-base-300">
+
+    <!-- Back Button -->
+    <div class="mb-6">
+
+        <a asp-action="RoadmapRequests"
+           asp-controller="Admin"
+           class="inline-flex items-center gap-2 whitespace-nowrap text-sm text-[var(--color-primary-content-para)] transition hover:text-base-content">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to roadmap requests
+
+        </a>
+
+    </div>
+
+    <!-- Hero Section -->
+    <div class="flex flex-col lg:flex-row gap-6 lg:items-start lg:justify-between rounded-xl border border-base-300 bg-base-100 p-8 mb-8">
+
+        <!-- Left -->
+        <div class="space-y-4">
+
+            <!-- Title -->
+            <div>
+
+                <h1 class="text-4xl font-semibold text-base-content">
+
+                    <i class="fa-solid fa-diagram-project text-primary mr-2"></i>
+
+                    @Model.Name
+
+                </h1>
+
+                <p class="text-primary-content-para text-lg mt-2">
+
+                    Submitted by
+                    <span class="font-medium text-base-content">
+                        @Model.ContributorName
+                    </span>
+
+                </p>
+
+            </div>
+
+            <!-- Badges -->
+            <div class="flex flex-wrap gap-3">
+
+                <!-- Specialization -->
+                <span class="badge badge-outline badge-primary px-4 py-4">
+
+                    @Model.Specialization
+
+                </span>
+
+                <!-- Status -->
+                @if (Model.Status == RoadmapStatus.Pending)
+                {
+                    <span class="badge badge-warning text-black px-4 py-4">
+                        Pending
+                    </span>
+                }
+                else if (Model.Status == RoadmapStatus.Approved)
+                {
+                    <span class="badge badge-success text-black px-4 py-4">
+                        Approved
+                    </span>
+                }
+                else if (Model.Status == RoadmapStatus.UpdatedPending)
+                {
+                    <span class="badge badge-info px-4 py-4">
+                        Updated Request
+                    </span>
+                }
+                else
+                {
+                    <span class="badge badge-error px-4 py-4">
+                        Rejected
+                    </span>
+                }
+
+            </div>
+
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-wrap items-center gap-3">
+
+            @if (Model.Status == RoadmapStatus.Pending ||
+           Model.Status == RoadmapStatus.UpdatedPending)
+            {
+                <!-- Approve -->
+                <a asp-action="ApproveRoadmap"
+                   asp-controller="Admin"
+                   asp-route-id="@Model.Id"
+                   class="btn btn-success text-black">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Approve Roadmap
+
+                </a>
+
+                <!-- Reject -->
+                <button class="btn btn-error"
+                        onclick="document.getElementById('reject-modal').showModal()">
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                    Reject Roadmap
+
+                </button>
+            }
+
+            <!-- Delete -->
+            <a asp-action="DeleteRoadmap"
+               asp-controller="Admin"
+               asp-route-id="@Model.Id"
+               class="btn btn-outline btn-error">
+
+                <i class="fa-solid fa-trash"></i>
+
+                Delete Roadmap
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Information Card -->
+    <div class="rounded-xl border border-base-300 bg-base-100 p-8 mb-8">
+
+        <!-- Header -->
+        <div class="mb-8">
+
+            <h2 class="text-2xl font-semibold text-base-content">
+
+                Roadmap Information
+
+            </h2>
+
+            <p class="text-primary-content-para mt-2">
+
+                Complete roadmap submission details and approval metadata.
+
+            </p>
+
+        </div>
+
+        <!-- Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Roadmap Name -->
+            <div class="space-y-2">
+
+                <p class="text-sm font-medium text-primary-content-para">
+
+                    Roadmap Name
+
+                </p>
+
+                <div class="rounded-xl border border-base-300 bg-base-200 px-4 py-4">
+
+                    @Model.Name
+
+                </div>
+
+            </div>
+
+            <!-- Specialization -->
+            <div class="space-y-2">
+
+                <p class="text-sm font-medium text-primary-content-para">
+
+                    Specialization
+
+                </p>
+
+                <div class="rounded-xl border border-base-300 bg-base-200 px-4 py-4">
+
+                    @Model.Specialization
+
+                </div>
+
+            </div>
+
+            <!-- Contributor -->
+            <div class="space-y-2">
+
+                <p class="text-sm font-medium text-primary-content-para">
+
+                    Contributor
+
+                </p>
+
+                <div class="rounded-xl border border-base-300 bg-base-200 px-4 py-4">
+
+                    @Model.ContributorName
+
+                </div>
+
+            </div>
+
+            <!-- Contributor Email -->
+            <div class="space-y-2">
+
+                <p class="text-sm font-medium text-primary-content-para">
+
+                    Contributor Email
+
+                </p>
+
+                <div class="rounded-xl border border-base-300 bg-base-200 px-4 py-4">
+
+                    @Model.ContributorEmail
+
+                </div>
+
+            </div>
+
+            <!-- Status -->
+            <div class="space-y-2">
+
+                <p class="text-sm font-medium text-primary-content-para">
+
+                    Approval Status
+
+                </p>
+
+                <div class="rounded-xl border border-base-300 bg-base-200 px-4 py-4">
+
+                    @if (Model.Status == RoadmapStatus.Pending)
+                    {
+                        <span class="badge badge-warning text-black">
+                            Pending
+                        </span>
+                    }
+                    else if (Model.Status == RoadmapStatus.Approved)
+                    {
+                        <span class="badge badge-success text-black">
+                            Approved
+                        </span>
+                    }
+                    else if (Model.Status == RoadmapStatus.UpdatedPending)
+                    {
+                        <span class="badge badge-info">
+                            Updated Request
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-error">
+                            Rejected
+                        </span>
+                    }
+
+                </div>
+
+            </div>
+
+            <!-- Submitted Date -->
+            <div class="space-y-2">
+
+                <p class="text-sm font-medium text-primary-content-para">
+
+                    Submitted At
+
+                </p>
+
+                <div class="rounded-xl border border-base-300 bg-base-200 px-4 py-4">
+
+                    @Model.SubmittedAt.ToString("MMMM dd, yyyy")
+
+                </div>
+
+            </div>
+
+            <!-- Approved Date -->
+            <div class="space-y-2 md:col-span-2">
+
+                <p class="text-sm font-medium text-primary-content-para">
+
+                    Approved At
+
+                </p>
+
+                <div class="rounded-xl border border-base-300 bg-base-200 px-4 py-4">
+
+                    @(Model.ApprovedAt == null
+                        ? "Not Approved Yet"
+                        : Model.ApprovedAt.Value.ToString("MMMM dd, yyyy"))
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Rejection Reason -->
+        @if (!string.IsNullOrEmpty(Model.RejectionReason))
+        {
+            <div class="mt-8">
+
+                <div class="space-y-2">
+
+                    <p class="text-sm font-medium text-error">
+
+                        Rejection Reason
+
+                    </p>
+
+                    <div class="rounded-xl border border-error bg-error/10 px-4 py-4">
+
+                        @Model.RejectionReason
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+    <!-- Description -->
+    <div class="rounded-xl border border-base-300 bg-base-100 p-8 mb-8">
+
+        <!-- Header -->
+        <div class="mb-6">
+
+            <h2 class="text-2xl font-semibold text-base-content">
+
+                Roadmap Description
+
+            </h2>
+
+            <p class="text-primary-content-para mt-2">
+
+                Contributor roadmap overview and learning objectives.
+
+            </p>
+
+        </div>
+
+        <!-- Content -->
+        <div class="prose max-w-none text-base-content">
+
+            @Model.Description
+
+        </div>
+
+    </div>
+
+    <!-- Courses -->
+    <div class="rounded-xl border border-base-300 bg-base-100 p-8">
+
+        <!-- Header -->
+        <div class="mb-6 flex items-center justify-between flex-wrap gap-4">
+
+            <div>
+
+                <h2 class="text-2xl font-semibold text-base-content">
+
+                    Roadmap Courses
+
+                </h2>
+
+                <p class="text-primary-content-para mt-2">
+
+                    Courses included inside this roadmap.
+
+                </p>
+
+            </div>
+
+            <div class="badge badge-primary badge-lg">
+
+                @Model.Courses.Count Courses
+
+            </div>
+
+        </div>
+
+        <!-- Table -->
+        <div class="overflow-x-auto rounded-xl border border-base-300">
+
+            <table class="table">
+
+                <!-- Head -->
+                <thead>
+
+                    <tr class="uppercase text-xs tracking-widest text-primary-content-para">
+
+                        <th>
+                            #
+                        </th>
+
+                        <th>
+                            Course Name
+                        </th>
+
+                        <th class="text-center">
+                            Actions
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <!-- Body -->
+                <tbody>
+
+                    @{
+                        int index = 1;
+                    }
+
+                    @foreach (var course in Model.Courses)
+                    {
+                        <tr class="hover:bg-base-200 transition-all duration-200">
+
+                            <!-- Number -->
+                            <td class="font-medium">
+
+                                @index
+
+                            </td>
+
+                            <!-- Name -->
+                            <td>
+
+                                <div class="font-medium text-base-content">
+
+                                    @course.Title
+
+                                </div>
+
+                            </td>
+
+                            <!-- Actions -->
+                            <td>
+
+                                <div class="flex items-center justify-center">
+
+                                    <a asp-action="Details"
+                                       asp-controller="Course"
+                                       asp-route-id="@course.Id"
+                                       class="btn btn-sm btn-outline btn-primary">
+
+                                        <i class="fa-solid fa-eye"></i>
+
+                                        View Course
+
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        index++;
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Reject Modal -->
+<dialog id="reject-modal"
+        class="modal">
+
+    <div class="modal-box bg-base-100">
+
+        <h3 class="text-xl font-semibold mb-4">
+
+            Reject Roadmap Request
+
+        </h3>
+
+        <form asp-action="RejectRoadmap"
+              asp-controller="Admin"
+              method="post"
+              class="space-y-4">
+
+            <input type="hidden"
+                   name="id"
+                   value="@Model.Id" />
+
+            <textarea name="reason"
+                      class="textarea textarea-bordered w-full h-32"
+                      placeholder="Enter rejection reason..."
+                      required></textarea>
+
+            <div class="modal-action">
+
+                <button type="submit"
+                        class="btn btn-error">
+
+                    Reject
+
+                </button>
+
+                <button type="button"
+                        class="btn"
+                        onclick="document.getElementById('reject-modal').close()">
+
+                    Cancel
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</dialog>
