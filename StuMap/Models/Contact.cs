@@ -1,4 +1,6 @@
-﻿namespace StuMap.Models
+﻿using StuMap.Models.Enums;
+
+namespace StuMap.Models
 {
     public class Contact
     {
@@ -8,6 +10,7 @@
         public string Subject { get; set; } = string.Empty;
         public string Body { get; set; } = string.Empty;
         public DateTime DateSent { get; set; } = DateTime.Now;
+        public TicketStatus Status { get; set; } = TicketStatus.Pending;
 
         // todo: how will replies be handled?
 
