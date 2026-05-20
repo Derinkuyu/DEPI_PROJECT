@@ -1,75 +1,51 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StuMap.Managers;
 using StuMap.Models;
 using System.Security.Claims;
 
 namespace StuMap.Controllers
 {
-    public class StudentController : Controller
+    [Authorize(Roles = "Student")]
+    public class StudentController(ICourseEnrollmentManager courseEnrollmentManager) : Controller
     {
-        ICourseEnrollmentManager courseEnrollmentManager;
-        //INotificationManager notificationManager;
-        public StudentController(ICourseEnrollmentManager courseEnrollmentManager )//, INotificationManager notificationManager)
-        {
-            this.courseEnrollmentManager = courseEnrollmentManager;
-            //this.notificationManager = notificationManager;
-        }
         public IActionResult GetEnrolledCourses()
         {
-            //StudentId will be changed after auth stuf
-            var stuId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if(string.IsNullOrEmpty(stuId ))
-            {
-                //  I should go to login page
-                return RedirectToAction("Login", "Authentication");
-            }
+            string stuId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+
             var courses = courseEnrollmentManager.GetCoursesForStudent(stuId);
             return View(courses);
         }
         public IActionResult RemoveCourse(int id)
         {
-            var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (studentId == null)
-            {
-                //  I should go to login page
-                return RedirectToAction("Login", "Authentication");
-            }
+            var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+
             courseEnrollmentManager.Delete(id, studentId);
-            return RedirectToAction("GetEnrolledCourses", new { id = studentId });
+            return RedirectToAction("GetEnrolledCourses");
         }
         public IActionResult RemoveCourseFromDetails(int id)
         {
-            var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (studentId == null)
-            {
-                //  I should go to login page
-                return RedirectToAction("Login", "Authentication");
-            }
+            var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+
             courseEnrollmentManager.Delete(id, studentId);
-            return RedirectToAction("Details" , "Course" , new { id = id });
+            return RedirectToAction("Details", "Course", new { id });
         }
         public IActionResult AddCourseFromDetails(int id)
         {
-            var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (studentId == null)
-            {
-                return RedirectToAction("Login", "Authentication");
-            }
+            var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+
             courseEnrollmentManager.Insert(new CourseEnrollment { CourseId = id, StudentId = studentId });
-            return RedirectToAction("Details", "Course", new { id = id });
+            return RedirectToAction("Details", "Course", new { id });
         }
-        public IActionResult EnrollToCourse()
-        {
-            var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (studentId == null)
-            {
-                //  I should go to login page
-                return RedirectToAction("Login", "Authentication");
-            }
-            var courseId = int.Parse(Request.Query["courseId"]);
-            courseEnrollmentManager.Insert(new CourseEnrollment { CourseId = courseId, StudentId = studentId });
-            return RedirectToAction("GetEnrolledCourses", new { id = studentId });
-        }
+
+        //public IActionResult EnrollToCourse()
+        //{
+        //    var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        //    var courseId = int.Parse(Request.Query["courseId"]);
+        //    courseEnrollmentManager.Insert(new CourseEnrollment { CourseId = courseId, StudentId = studentId });
+        //    return RedirectToAction("GetEnrolledCourses", new { id = studentId });
+        //}
 
         //public IActionResult Contact()
         //{

@@ -21,7 +21,7 @@
 
         <div class="flex gap-2 col-span-4">
             <div class="text-xl badge badge-dash badge-primary p-5 self-start">
-                <i class="fa-solid fa-circle-user"></i> @Model.Contributor.UserName
+                <i class="fa-solid fa-circle-user"></i> @Model.Contributor?.UserName
             </div>
 
             @if(ViewBag.IsStudent == true)
