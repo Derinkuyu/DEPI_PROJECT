@@ -1,7 +1,7 @@
-﻿@model List<CourseRequestDto>
+﻿@model List<Contact>
 
 @{
-    ViewData["Title"] = "Course Requests";
+    ViewData["Title"] = "Ticket Requests";
 }
 
 <section class="mx-6 my-8 p-5">
@@ -10,12 +10,12 @@
     <div class="flex flex-col justify-center items-center text-center">
 
         <p class="text-4xl font-semibold">
-            Course Approval Requests
+            Support Ticket Requests
         </p>
 
         <p class="text-xl text-primary-content w-200 my-2">
-            Review contributor submitted courses, inspect learning materials,
-            and approve or reject educational content before publishing.
+            Review user submitted support tickets, investigate reported issues,
+            and manage platform communication requests.
         </p>
 
     </div>
@@ -30,7 +30,7 @@
 
             <input type="text"
                    class="grow"
-                   placeholder="Search Courses..." />
+                   placeholder="Search Tickets..." />
 
         </label>
 
@@ -49,32 +49,28 @@
                 </option>
 
                 <option>
-                    Approved
+                    Considered
                 </option>
 
                 <option>
-                    Rejected
-                </option>
-
-                <option>
-                    Updated Request
+                    Denied
                 </option>
 
             </select>
 
-            <!-- Sort -->
+            <!-- Read -->
             <select class="select select-bordered">
 
                 <option disabled selected>
-                    Sort By
+                    Read Status
                 </option>
 
                 <option>
-                    Newest
+                    Read
                 </option>
 
                 <option>
-                    Oldest
+                    Unread
                 </option>
 
             </select>
@@ -83,33 +79,34 @@
 
     </div>
 
-    <!-- Courses Grid -->
+    <!-- Tickets Grid -->
     <div class="grid grid-cols-3 gap-x-8 gap-y-10 my-12">
 
-        @foreach (var course in Model)
+        @foreach (var ticket in Model)
         {
             <div class="hover-3d cursor-pointer mx-3">
 
                 <!-- Card -->
-                <div class="card h-[28rem] bg-base-300 border border-base-300 rounded-2xl">
+                <div class="card h-[30rem] bg-base-300 border border-base-300 rounded-2xl">
 
                     <div class="card-body flex flex-col justify-between gap-4">
 
                         <!-- Top -->
                         <div class="space-y-4">
 
-                            <!-- Title -->
-                            <div class="space-y-2">
+                            <!-- Subject -->
+                            <div class="space-y-3">
 
                                 <div class="flex items-start justify-between gap-3">
 
                                     <h2 class="card-title text-2xl leading-snug">
 
-                                        @course.Title
+                                        @ticket.Subject
 
                                     </h2>
 
-                                    @if (course.Status == CourseStatus.Pending)
+                                    <!-- Status -->
+                                    @if (ticket.Status == StuMap.Models.Enums.TicketStatus.Pending)
                                     {
                                         <div class="badge badge-warning text-black whitespace-nowrap">
 
@@ -117,19 +114,11 @@
 
                                         </div>
                                     }
-                                    else if (course.Status == CourseStatus.Approved)
+                                    else if (ticket.Status == StuMap.Models.Enums.TicketStatus.Considered)
                                     {
                                         <div class="badge badge-success text-black whitespace-nowrap">
 
-                                            Approved
-
-                                        </div>
-                                    }
-                                    else if (course.Status == CourseStatus.UpdatedPending)
-                                    {
-                                        <div class="badge badge-info whitespace-nowrap">
-
-                                            Updated
+                                            Considered
 
                                         </div>
                                     }
@@ -137,57 +126,71 @@
                                     {
                                         <div class="badge badge-error whitespace-nowrap">
 
-                                            Rejected
+                                            Denied
 
                                         </div>
                                     }
 
                                 </div>
 
+                                <!-- User -->
                                 <div class="badge badge-secondary">
 
-                                    By @course.ContributorName
+                                    By @ticket.User?.UserName
 
                                 </div>
 
                             </div>
 
-                            <!-- Roadmap -->
-                            <div class="flex items-center gap-2 text-primary-content">
+                            <!-- Message Preview -->
+                            <div>
 
-                                <i class="fa-solid fa-diagram-project"></i>
+                                <p class="text-base/7 text-primary-content h-28 overflow-hidden">
 
-                                <span>
+                                    @ticket.Body
 
-                                    @(string.IsNullOrEmpty(course.RoadmapName)
-                                        ? "No Roadmap Assigned"
-                                        : course.RoadmapName)
+                                </p>
 
+                                <span class="text-primary-content">
+                                    ...
                                 </span>
 
                             </div>
 
-                            <!-- Materials -->
-                            <div class="flex items-center gap-2 text-success">
+                            <!-- Read Status -->
+                            <div class="flex items-center gap-2">
 
-                                <i class="fa-solid fa-book-open"></i>
+                                @if (ticket.IsRead)
+                                {
+                                    <div class="badge badge-info gap-2">
 
-                                <span class="font-semibold">
+                                        <i class="fa-solid fa-envelope-open"></i>
 
-                                    @course.MaterialsCount Materials
+                                        Read
 
-                                </span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="badge badge-outline badge-warning gap-2">
+
+                                        <i class="fa-solid fa-envelope"></i>
+
+                                        Unread
+
+                                    </div>
+                                }
 
                             </div>
 
-                            <!-- Submitted -->
+                            <!-- Date -->
                             <div class="flex items-center gap-2 text-primary-content">
 
                                 <i class="fa-solid fa-calendar"></i>
 
                                 <span>
 
-                                    @course.SubmittedAt.ToString("MMM dd, yyyy")
+                                    @ticket.DateSent.ToString("MMM dd, yyyy")
 
                                 </span>
 
@@ -200,8 +203,8 @@
 
                             <!-- Details -->
                             <a asp-controller="Admin"
-                               asp-action="CourseDetails"
-                               asp-route-id="@course.Id"
+                               asp-action="TicketDetails"
+                               asp-route-id="@ticket.Id"
                                class="btn btn-primary btn-outline rounded-full">
 
                                 More Details
@@ -211,26 +214,23 @@
                             </a>
 
                             <!-- Approval Actions -->
-                            @if (course.Status == CourseStatus.Pending ||
-                           course.Status == CourseStatus.UpdatedPending)
+                            @if (ticket.Status == StuMap.Models.Enums.TicketStatus.Pending)
                             {
                                 <div class="flex gap-2">
 
-                                    <!-- Approve -->
-                                    <a asp-controller="Admin"
-                                       asp-action="ApproveCourse"
-                                       asp-route-id="@course.Id"
-                                       class="btn btn-success text-black flex-1">
+                                    <!-- Accept -->
+                                    <button class="btn btn-success text-black flex-1"
+                                            onclick="document.getElementById('accept-modal-@ticket.Id').showModal()">
 
                                         <i class="fa-solid fa-check"></i>
 
-                                        Approve
+                                        Accept
 
-                                    </a>
+                                    </button>
 
                                     <!-- Reject -->
                                     <button class="btn btn-error flex-1"
-                                            onclick="document.getElementById('reject-modal-@course.Id').showModal()">
+                                            onclick="document.getElementById('reject-modal-@ticket.Id').showModal()">
 
                                         <i class="fa-solid fa-xmark"></i>
 
@@ -243,13 +243,13 @@
 
                             <!-- Delete -->
                             <a asp-controller="Admin"
-                               asp-action="DeleteCourse"
-                               asp-route-id="@course.Id"
+                               asp-action="DeleteTicket"
+                               asp-route-id="@ticket.Id"
                                class="btn btn-outline btn-error rounded-full">
 
                                 <i class="fa-solid fa-trash"></i>
 
-                                Delete Course
+                                Delete Ticket
 
                             </a>
 
@@ -271,26 +271,87 @@
 
             </div>
 
-            <!-- Reject Modal -->
-            <dialog id="reject-modal-@course.Id"
+            <!-- Accept Modal -->
+            <dialog id="accept-modal-@ticket.Id"
                     class="modal">
 
                 <div class="modal-box w-11/12 max-w-2xl">
 
                     <h3 class="font-bold text-2xl mb-6">
 
-                        Reject Course Submission
+                        Accept Ticket
 
                     </h3>
 
                     <form asp-controller="Admin"
-                          asp-action="RejectCourse"
+                          asp-action="AcceptTicket"
                           method="post"
                           class="space-y-6">
 
                         <input type="hidden"
                                name="id"
-                               value="@course.Id" />
+                               value="@ticket.Id" />
+
+                        <div class="space-y-2">
+
+                            <label class="font-medium">
+
+                                Reply Message
+
+                            </label>
+
+                            <textarea name="reply"
+                                      class="textarea textarea-bordered w-full h-40"
+                                      placeholder="Write your response to the user..."
+                                      required></textarea>
+
+                        </div>
+
+                        <div class="modal-action">
+
+                            <button type="submit"
+                                    class="btn btn-success text-black">
+
+                                Accept Ticket
+
+                            </button>
+
+                            <button type="button"
+                                    class="btn"
+                                    onclick="document.getElementById('accept-modal-@ticket.Id').close()">
+
+                                Cancel
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </dialog>
+
+            <!-- Reject Modal -->
+            <dialog id="reject-modal-@ticket.Id"
+                    class="modal">
+
+                <div class="modal-box w-11/12 max-w-2xl">
+
+                    <h3 class="font-bold text-2xl mb-6">
+
+                        Reject Ticket
+
+                    </h3>
+
+                    <form asp-controller="Admin"
+                          asp-action="RejectTicket"
+                          method="post"
+                          class="space-y-6">
+
+                        <input type="hidden"
+                               name="id"
+                               value="@ticket.Id" />
 
                         <div class="space-y-2">
 
@@ -302,7 +363,7 @@
 
                             <textarea name="reason"
                                       class="textarea textarea-bordered w-full h-40"
-                                      placeholder="Explain why the course was rejected..."
+                                      placeholder="Explain why the ticket was rejected..."
                                       required></textarea>
 
                         </div>
@@ -312,13 +373,13 @@
                             <button type="submit"
                                     class="btn btn-error">
 
-                                Reject Course
+                                Reject Ticket
 
                             </button>
 
                             <button type="button"
                                     class="btn"
-                                    onclick="document.getElementById('reject-modal-@course.Id').close()">
+                                    onclick="document.getElementById('reject-modal-@ticket.Id').close()">
 
                                 Cancel
 

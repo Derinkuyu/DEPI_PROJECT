@@ -451,12 +451,28 @@ namespace StuMap.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AdminReply")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Body")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime>("DateSent")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RejectionReason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RepliedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("Subject")
                         .IsRequired()
@@ -471,6 +487,58 @@ namespace StuMap.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Contacts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Body = "I am having trouble understanding the material in the course.",
+                            DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            IsRead = false,
+                            Status = 2,
+                            Subject = "Issue with course content",
+                            UserId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Body = "I would like to see a dark mode option in the app.",
+                            DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            IsRead = false,
+                            Status = 0,
+                            Subject = "Feature request",
+                            UserId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Body = "The app crashes when I try to access my profile.",
+                            DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            IsRead = false,
+                            Status = 1,
+                            Subject = "Bug report",
+                            UserId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Body = "I can not accesss my saved Roadmaps.",
+                            DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            IsRead = false,
+                            Status = 1,
+                            Subject = "Access Roadmap",
+                            UserId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Body = "I am having trouble understanding the material in the course.",
+                            DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            IsRead = false,
+                            Status = 2,
+                            Subject = "Issue with course content",
+                            UserId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89"
+                        });
                 });
 
             modelBuilder.Entity("StuMap.Models.Course", b =>
