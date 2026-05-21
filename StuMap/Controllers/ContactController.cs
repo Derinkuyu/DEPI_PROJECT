@@ -11,12 +11,11 @@ namespace StuMap.Controllers
     [Authorize]
     public class ContactController : Controller
     {
-        INotificationManager notificationManager;
+        //INotificationManager notificationManager;
         IContactManager contactManager;
         UserManager<ApplicationUser> userManager;
-        public ContactController(INotificationManager notificationManager, IContactManager contactManager, UserManager<ApplicationUser> userManager)
+        public ContactController( IContactManager contactManager, UserManager<ApplicationUser> userManager)
         {
-            this.notificationManager = notificationManager;
             this.contactManager = contactManager;
             this.userManager = userManager;
         }
@@ -43,10 +42,8 @@ namespace StuMap.Controllers
 
             var admin = await userManager.GetUsersInRoleAsync("Admin");
             var adminId = admin.FirstOrDefault()?.Id;
-            var adminDeviceToken = notificationManager.GetDeviceToken(adminId);
             string title = "New Ticket";
             string body = $"A new ticket has been created. Subject: {contact.Subject}";
-            await notificationManager.SendNotificationAsync(adminDeviceToken, title, body);
 
             return RedirectToAction("GetAllTickets");
         }
