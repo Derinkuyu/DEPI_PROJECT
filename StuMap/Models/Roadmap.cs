@@ -35,7 +35,7 @@ namespace StuMap.Models
         /*------------------------------------------------------------------------------*/
         //////For Manage RoadMap
         /*------------------------------------------------------------------------------*/
-        public RoadmapStatus Status { get; set; }
+        public RoadmapStatus Status { get; set; }= RoadmapStatus.Pending;
 
         public string? RejectionReason { get; set; }
 

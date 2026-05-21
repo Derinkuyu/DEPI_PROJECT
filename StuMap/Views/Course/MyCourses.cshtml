@@ -1,0 +1,59 @@
+﻿@model List<Course>
+<section class="mx-6 my-8 p-5">
+    <div class="flex flex-col justify-start items-center">
+        <p class="text-4xl font-semibold ">Explore Your Courses</p>
+        <p class="text-xl text-primary-content w-200 text-center my-2">
+            Step into the luminescent path of modern technology. Our curated courses
+            guide you through the digital nebula from fundamentals to mastery.
+        </p>
+    </div>
+<div class="overflow-x-auto my-6 text-center w-full flex justify-center">
+        <table class="table border-1 rounded-sm border-primary-content-para w-220">
+        <!-- head -->
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                    <th>Details</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+                @{
+                    int count = 0;
+                
+                }
+                @foreach(var course in Model)
+          {
+                    count++;
+                    <tr class="hover:bg-base-300">
+                <td>@count</td>
+                <td>@course.Title</td>
+                <td > <a class="btn btn-outline btn-primary"asp-action="Details" asp-controller="Course" asp-route-id="@course.Id">Details</a></td>
+                             @if (course.Status==CourseStatus.Approved) { 
+                        <td><div class="badge badge-soft badge-success">
+                            Approved
+</div>                            </td>
+                        }
+                        else if (course.Status == CourseStatus.Rejected)
+                        {
+                            <td>
+                                <div class="badge badge-soft badge-error">
+                                    Rejected
+                                </div>
+                            </td>
+                        }
+                        else if (course.Status == CourseStatus.Pending)
+                        {
+                            <td>
+                                <div class="badge badge-soft badge-primary">
+                                    Pending
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                }
+        </tbody>
+    </table>
+</div>
+</section>

@@ -994,7 +994,7 @@ namespace StuMap.Migrations
                             IsApproved = false,
                             IsDeleted = false,
                             SpecializationId = 1,
-                            Status = 0,
+                            Status = 2,
                             SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Web development"
                         },
@@ -1007,7 +1007,7 @@ namespace StuMap.Migrations
                             IsApproved = false,
                             IsDeleted = false,
                             SpecializationId = 2,
-                            Status = 0,
+                            Status = 2,
                             SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Frontend Path"
                         });

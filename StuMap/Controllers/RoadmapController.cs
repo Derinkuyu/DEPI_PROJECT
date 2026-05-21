@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using StuMap.Managers;
 using StuMap.Models;
+using StuMap.Models.Enums;
 using System.Security.Claims;
 
 namespace StuMap.Controllers
@@ -11,7 +12,7 @@ namespace StuMap.Controllers
         public IActionResult Index()
         {
             ViewBag.Specializations = specializationRepo.GetAll();
-            var road = roadmapRepo.GetAll();
+            var road = roadmapRepo.GetAll().Where(x=>x.Status==RoadmapStatus.Approved).ToList();
             return View(road);
         }
         public IActionResult Details(int id)
@@ -34,7 +35,7 @@ namespace StuMap.Controllers
         [Authorize(Roles = "Contributor")]
         public IActionResult New()
         {
-            var courses = courseRepo.GetAll();
+            var courses = courseRepo.GetAll().Where(x => x.Status == CourseStatus.Approved).ToList();
             ViewBag.courses = courses;
             ViewBag.specialization = specializationRepo.GetAll();
             return View();
@@ -45,7 +46,7 @@ namespace StuMap.Controllers
             var QString = Request.Query;
             //ContributorId Added manually
             //ContributorId will be changed after auth stuf
-            string conId = "E2E368AB-8D20-401B-826A-F591202E3D19";
+            string conId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var newRoadmap = new Roadmap { Title = QString["RoadmapTitle"], Description = QString["RoadmapDescription"], ContributorId = conId, SpecializationId = int.Parse(QString["specialization"]) };
             var newRoadmapId = roadmapRepo.Insert(newRoadmap);
             List<CourseRoadmap> courseRoadmaps = Request.Query["course"]
@@ -55,6 +56,13 @@ namespace StuMap.Controllers
             return RedirectToAction("Index");
             //ViewBag.data = courseRoadmaps;
             //return View();
+
+        }
+        public IActionResult MyRoadmaps()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userRoadmaps = roadmapRepo.GetAll().Where(x => x.ContributorId == userId).ToList();
+            return View(userRoadmaps);
 
         }
     }
