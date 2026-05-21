@@ -13,6 +13,8 @@
     </div>
     <div class="grid grid-cols-3 gap-x-8 gap-y-10 my-12">
     @* add card  *@
+        @if (User.IsInRole("Contributor"))
+    {
         <a href="#" class="hover-3d cursor-pointer mx-3" onclick="my_modal_3.showModal()">
         <div class="card h-80 card-dash bg-base-300 border-primary-content rounded-2xl">
             <div class="card-body flex justify-center ">
@@ -34,7 +36,7 @@
         <div></div>
         <div></div>
 </a>
-      
+        }
     @foreach (var course in Model)
     {
 
@@ -45,8 +47,11 @@
                     <h1 class="card-title text-2xl">
                         @course.Title
                     </h1>
-                            <div class="badge badge-secondary ">By @course.Contributor.FirstName</div>
-                       <div>
+                    <div>
+                            <div class="badge badge-soft badge-warning px-6 py-4"><i class="fa-regular fa-user"></i> @course.Contributor.FirstName @course.Contributor.LastName </div>
+                        <div class="badge badge-soft badge-success px-6 py-4"> <i class="fa-solid fa-graduation-cap"></i> @course.Materials.Count() Materials</div>
+                        </div>
+                        <div>
                             <p class="text-base/7 text-primary-content h-17 overflow-hidden py-2  ">@course.Description </p>
                             <span>...</span>
                         </div>

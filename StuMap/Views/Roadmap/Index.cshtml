@@ -10,9 +10,12 @@
             designed by industry experts to lead you to mastery.
              </p>
          </div>
+
+        @if(User.IsInRole("Contributor")){
         <div class="self-center text-center w-100">
             <a asp-controller="Roadmap" asp-action="New" class="btn btn-xl rounded-xl animated-background bg-linear-220 from-base-100 via-primary to-base-100">+ Add New RoadMap </a>
          </div>
+        }
     </div>
     <label class="input rounded-full bg-base-300 border-none w-200 h-15 ">
         <svg class="h-[1em] opacity-50 mx-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

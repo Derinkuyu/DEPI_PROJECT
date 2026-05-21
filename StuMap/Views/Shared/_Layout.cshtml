@@ -17,16 +17,124 @@
     @* <link rel="stylesheet" href="~/StuMap.styles.css" asp-append-version="true" /> *@
 </head>
 <body>
+    @if(User.IsInRole("Admin"))
+        {
+        <nav class="sticky top-0 z-50 border-b border-white/[0.07]"
+             style="background: rgba(13,17,23,0.85); backdrop-filter: blur(20px);">
+            <div class="max-w-screen-2xl mx-auto px-6 h-14 flex items-center justify-between">
 
-    <div class="nav-wrap">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center"
+                         style="background: linear-gradient(135deg,var(--color-primary),var(--color-secondary));">
+                        <i class="fa-solid fa-map-location-dot text-sm" style="color:#0D2B1F;"></i>
+                    </div>
+                    <span class="font-display font-700 text-base tracking-tight"
+                          style="color:#F0F6F2; font-weight:700;">
+                        Stu<span style="color:var(--color-primary);">Map</span>
+                    </span>
+                    <span class="hidden sm:inline-block text-xs px-2 py-0.5 rounded-full ml-1"
+                          style="  color:var(--color-primary); border:1px solid var(--color-primary);">
+                        Admin
+                    </span>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <div class="hidden sm:flex items-center gap-2 text-xs" style="color:rgba(255,255,255,0.45);">
+                        <div class="live-dot"></div>
+                        Live
+                    </div>
+
+                    <div class="dropdown dropdown-end">
+                        <button tabindex="0" class="btn btn-ghost btn-sm btn-circle relative">
+                            <i class="fa-regular fa-bell" style="color:rgba(255,255,255,0.6);"></i>
+                            <span class="absolute top-1 right-1 w-2 h-2 rounded-full" style="background:var(--color-primary);"></span>
+                        </button>
+                        <ul tabindex="0"
+                            class="dropdown-content z-50 menu p-3 shadow-2xl rounded-2xl w-72 mt-2"
+                            style="background:#161B22; border:1px solid rgba(255,255,255,0.08);">
+                            <li class="menu-title text-xs opacity-50 font-semibold uppercase tracking-widest mb-1">Notifications</li>
+                            <li>
+                                <a class="flex items-start gap-3 rounded-xl py-2 hover:bg-white/5">
+                                    <div class="activity-dot mt-0 flex-shrink-0"
+                                         style="  color:var(--color-primary);">
+                                        <i class="fa-solid fa-user-plus text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium" style="color:#E2E8F0;">New contributor request</p>
+                                        <p class="text-xs" style="color:rgba(255,255,255,0.4);">2 min ago</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="flex items-start gap-3 rounded-xl py-2 hover:bg-white/5">
+                                    <div class="activity-dot mt-0 flex-shrink-0"
+                                         style="background:rgba(252,211,77,0.1); color:#FCD34D;">
+                                        <i class="fa-solid fa-map text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium" style="color:#E2E8F0;">Roadmap awaiting approval</p>
+                                        <p class="text-xs" style="color:rgba(255,255,255,0.4);">15 min ago</p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown dropdown-end">
+                        <div tabindex="0" role="button"
+                             class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-sm font-bold"
+                             style="background:linear-gradient(135deg,var(--color-primary),var(--color-secondary)); color:#0D2B1F; ">
+                            A
+                        </div>
+                        <ul tabindex="0"
+                            class="dropdown-content z-50 menu p-3 shadow-2xl rounded-2xl w-52 mt-2"
+                            style="background:#161B22; border:1px solid rgba(255,255,255,0.08);">
+                            <li class="px-2 pb-2 border-b mb-1" style="border-color:rgba(255,255,255,0.07);">
+                                <p class="font-semibold text-sm" style="color:#E2E8F0;">Administrator</p>
+                                <p class="text-xs" style="color:rgba(255,255,255,0.4);">admin@stumap.io</p>
+                            </li>
+                            <li>
+                                <a asp-controller="Admin" asp-action="Profile" class="rounded-xl hover:bg-white/5 text-sm">
+                                    <i class="fa-regular fa-user w-4"></i> Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Admin" asp-action="Settings" class="rounded-xl hover:bg-white/5 text-sm">
+                                    <i class="fa-solid fa-gear w-4"></i> Settings
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Authentication" asp-action="Logout" class="rounded-xl text-sm" style="color:#FCA5A5;">
+                                    <i class="fa-solid fa-right-from-bracket w-4"></i> Sign Out
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        }
+        else
+        {
+        <div class="nav-wrap">
         <nav class="nav">
-            <div class="nav-logo">StuMap</div>
+            <div class="nav-logo"> 
+               <div class="flex gap-4 items-baseline">
+                <span class="w-8 h-8 rounded-lg flex items-center justify-center"
+                         style="background: linear-gradient(135deg,var(--color-primary),var(--color-secondary));">
+                        <i class="fa-solid fa-map-location-dot text-sm" style="color:#0D2B1F;"></i>
+                    </span>
+                    <span class="font-display font-700 text-base tracking-tight"
+                          style="color:#F0F6F2; font-weight:700;">
+                        Stu<span style="color:var(--color-primary);">Map</span>
+                    </div>
+                    </div>
             <div class="nav-links">
-                <a href="#">Home</a>
-                <a href="#">Roadmaps</a>
-                <a href="#">Courses</a>
-                <a href="#">About</a>
-                <a href="#">Contact</a>
+                        <a asp-action="Index" asp-controller="Home">Home</a>
+                        <a asp-action="Index" asp-controller="Roadmap">Roadmaps</a>
+                        <a asp-action="Index" asp-controller="Course">Courses</a>
+                @* <a asp-action="" asp-controller="" href="#">About</a> *@
+                @* <a asp-action="" asp-controller=""  href="#">Contact</a> *@
             </div>
             <div class="nav-actions">
                 @if (SignInManager.IsSignedIn(User))
@@ -67,6 +175,7 @@
             </div>
         </nav>
     </div>
+   }
     <main role="main">
         @RenderBody()
     </main>
@@ -91,6 +200,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
