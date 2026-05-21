@@ -1,55 +1,10 @@
 ﻿@model List<Course>
 @{
     ViewData["Title"] = "Admin Dashboard – StuMap";
-    Layout = null;
+    // Layout = null;
 }
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
     <style>
-        :root {
-        --stumap-accent: #6EE7B7;
-        --stumap-accent-soft: rgba(110, 231, 183, 0.12);
-        --stumap-accent-border: rgba(110, 231, 183, 0.25);
-        --stumap-warning: #FCD34D;
-        --stumap-info: #67E8F9;
-        --stumap-error: #FCA5A5;
-        --stumap-surface: rgba(255, 255, 255, 0.03);
-        --stumap-border: rgba(255, 255, 255, 0.07);
-        --stumap-text-muted: rgba(255, 255, 255, 0.45);
-        }
-
-        * {
-        box-sizing: border-box;
-        }
-
-        body {
-        font-family: 'DM Sans', sans-serif;
-        background: #0D1117;
-        color: #E2E8F0;
-        min-height: 100vh;
-        }
-
-        .font-display {
-        font-family: 'Syne', sans-serif;
-        }
-
-        .dashboard-bg {
-        background-color: #0D1117;
-        background-image: linear-gradient(rgba(110, 231, 183, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(110, 231, 183, 0.03) 1px, transparent 1px);
-        background-size: 40px 40px;
-        }
 
         .glass-card {
         background: rgba(255, 255, 255, 0.04);
@@ -169,16 +124,16 @@
         }
 
         .btn-stumap {
-        background: linear-gradient(135deg, #6EE7B7, #34D399);
+        background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
         color: #0D2B1F;
         border: none;
         font-weight: 600;
-        font-family: 'DM Sans', sans-serif;
+
         transition: all 0.2s ease;
         }
 
         .btn-stumap:hover {
-        background: linear-gradient(135deg, #34D399, #059669);
+        background: linear-gradient(135deg, var(--color-secondary), #059669);
         transform: translateY(-1px);
         box-shadow: 0 6px 20px rgba(52,211,153,0.35);
         }
@@ -199,7 +154,7 @@
         }
 
         .section-title {
-        font-family: 'Syne', sans-serif;
+      
         font-size: 1.05rem;
         font-weight: 700;
         color: #F0F6F2;
@@ -215,7 +170,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-        background: rgba(110,231,183,0.2);
+        background: var(--color-primary);
         border-radius: 4px;
         }
 
@@ -223,14 +178,14 @@
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        background: #6EE7B7;
-        box-shadow: 0 0 0 3px rgba(110,231,183,0.2);
+        background: var(--color-primary);
+        box-shadow: 0 0 0 3px var(--color-primary);
         animation: livePulse 2s ease infinite;
         }
 
         @@keyframes livePulse {
         0%, 100% {
-        box-shadow: 0 0 0 3px rgba(110,231,183,0.2);
+        box-shadow: 0 0 0 3px var(--color-primary);
         }
 
         50% {
@@ -247,9 +202,9 @@
         border-radius: 999px;
         font-size: 0.78rem;
         font-weight: 500;
-        background: rgba(110, 231, 183, 0.07);
-        border: 1px solid rgba(110, 231, 183, 0.18);
-        color: #6EE7B7;
+        background: rgba(183, 132, 255, 0.11);
+        border: 1px solid var(--color-primary);
+        color: var(--color-primary);
         transition: all 0.2s ease;
         cursor: default;
         }
@@ -262,9 +217,9 @@
         }
 
         .spec-tag:nth-child(3n+1) {
-        background: rgba(110, 231, 183, 0.07);
-        border-color: rgba(110, 231, 183, 0.18);
-        color: #6EE7B7;
+        /* background: rgba(110, 231, 183, 0.07); */
+        border-color: rgba(183, 132, 255, 0.486);
+        color: var(--color-primary);
         }
 
         .spec-tag:nth-child(3n+2) {
@@ -310,108 +265,9 @@
         }
         }
     </style>
-</head>
-
-<body class="dashboard-bg">
-
-    <!-- ══ TOP NAVBAR ══ -->
-    <nav class="sticky top-0 z-50 border-b border-white/[0.07]"
-         style="background: rgba(13,17,23,0.85); backdrop-filter: blur(20px);">
-        <div class="max-w-screen-2xl mx-auto px-6 h-14 flex items-center justify-between">
-
-            <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg flex items-center justify-center"
-                     style="background: linear-gradient(135deg,#6EE7B7,#34D399);">
-                    <i class="fa-solid fa-map-location-dot text-sm" style="color:#0D2B1F;"></i>
-                </div>
-                <span class="font-display font-700 text-base tracking-tight"
-                      style="color:#F0F6F2; font-family:'Syne',sans-serif; font-weight:700;">
-                    Stu<span style="color:#6EE7B7;">Map</span>
-                </span>
-                <span class="hidden sm:inline-block text-xs px-2 py-0.5 rounded-full ml-1"
-                      style="background:rgba(110,231,183,0.1); color:#6EE7B7; border:1px solid rgba(110,231,183,0.2);">
-                    Admin
-                </span>
-            </div>
-
-            <div class="flex items-center gap-3">
-                <div class="hidden sm:flex items-center gap-2 text-xs" style="color:rgba(255,255,255,0.45);">
-                    <div class="live-dot"></div>
-                    Live
-                </div>
-
-                <div class="dropdown dropdown-end">
-                    <button tabindex="0" class="btn btn-ghost btn-sm btn-circle relative">
-                        <i class="fa-regular fa-bell" style="color:rgba(255,255,255,0.6);"></i>
-                        <span class="absolute top-1 right-1 w-2 h-2 rounded-full" style="background:#6EE7B7;"></span>
-                    </button>
-                    <ul tabindex="0"
-                        class="dropdown-content z-50 menu p-3 shadow-2xl rounded-2xl w-72 mt-2"
-                        style="background:#161B22; border:1px solid rgba(255,255,255,0.08);">
-                        <li class="menu-title text-xs opacity-50 font-semibold uppercase tracking-widest mb-1">Notifications</li>
-                        <li>
-                            <a class="flex items-start gap-3 rounded-xl py-2 hover:bg-white/5">
-                                <div class="activity-dot mt-0 flex-shrink-0"
-                                     style="background:rgba(110,231,183,0.12); color:#6EE7B7;">
-                                    <i class="fa-solid fa-user-plus text-xs"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-medium" style="color:#E2E8F0;">New contributor request</p>
-                                    <p class="text-xs" style="color:rgba(255,255,255,0.4);">2 min ago</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="flex items-start gap-3 rounded-xl py-2 hover:bg-white/5">
-                                <div class="activity-dot mt-0 flex-shrink-0"
-                                     style="background:rgba(252,211,77,0.1); color:#FCD34D;">
-                                    <i class="fa-solid fa-map text-xs"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-medium" style="color:#E2E8F0;">Roadmap awaiting approval</p>
-                                    <p class="text-xs" style="color:rgba(255,255,255,0.4);">15 min ago</p>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="dropdown dropdown-end">
-                    <div tabindex="0" role="button"
-                         class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer text-sm font-bold"
-                         style="background:linear-gradient(135deg,#6EE7B7,#34D399); color:#0D2B1F; font-family:'Syne',sans-serif;">
-                        A
-                    </div>
-                    <ul tabindex="0"
-                        class="dropdown-content z-50 menu p-3 shadow-2xl rounded-2xl w-52 mt-2"
-                        style="background:#161B22; border:1px solid rgba(255,255,255,0.08);">
-                        <li class="px-2 pb-2 border-b mb-1" style="border-color:rgba(255,255,255,0.07);">
-                            <p class="font-semibold text-sm" style="color:#E2E8F0;">Administrator</p>
-                            <p class="text-xs" style="color:rgba(255,255,255,0.4);">admin@stumap.io</p>
-                        </li>
-                        <li>
-                            <a asp-controller="Admin" asp-action="Profile" class="rounded-xl hover:bg-white/5 text-sm">
-                                <i class="fa-regular fa-user w-4"></i> Profile
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Admin" asp-action="Settings" class="rounded-xl hover:bg-white/5 text-sm">
-                                <i class="fa-solid fa-gear w-4"></i> Settings
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Authentication" asp-action="Logout" class="rounded-xl text-sm" style="color:#FCA5A5;">
-                                <i class="fa-solid fa-right-from-bracket w-4"></i> Sign Out
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
 
     <!-- ══ MAIN CONTENT ══ -->
-    <main class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <main class="max-w-screen-2xl mx-10 px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
         <!-- ── 1. HEADER ── -->
         <section class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -419,18 +275,18 @@
                 <div class="breadcrumb-pill">
                     <i class="fa-solid fa-gauge-high text-xs"></i>
                     Dashboard
-                </div>
+                </div>  
                 <h1 class="font-display text-3xl sm:text-4xl font-800 leading-tight mt-1"
-                    style="font-family:'Syne',sans-serif; font-weight:800; color:#F0F6F2; letter-spacing:-0.02em;">
+                    style=" font-weight:800; color:#F0F6F2; letter-spacing:-0.02em;">
                     Welcome Back, Admin 👋
                 </h1>
                 <p class="text-sm" style="color:rgba(255,255,255,0.5);">
-                    Here's what's happening in <span style="color:#6EE7B7; font-weight:500;">StuMap</span> today.
+                    Here's what's happening in <span style="color:var(--color-primary); font-weight:500;">StuMap</span> today.
                 </p>
             </div>
 
             <div class="flex-shrink-0 glass-card px-5 py-3 flex items-center gap-3">
-                <i class="fa-regular fa-calendar-check" style="color:#6EE7B7;"></i>
+                <i class="fa-regular fa-calendar-check" style="color:var(--color-primary);"></i>
                 <div>
                     <p class="text-xs" style="color:rgba(255,255,255,0.4);">Today</p>
                     <p class="text-sm font-medium" style="color:#E2E8F0;">@DateTime.Now.ToString("dddd, MMM dd yyyy")</p>
@@ -447,17 +303,17 @@
                 <div class="stat-card p-5" style="--card-glow: rgba(110,231,183,0.08);">
                     <div class="flex items-start justify-between mb-4">
                         <div class="icon-orb"
-                             style="background:rgba(110,231,183,0.1); border:1px solid rgba(110,231,183,0.2); color:#6EE7B7;">
+                             style="  border:1px solid var(--color-primary); color:var(--color-primary);">
                             <i class="fa-solid fa-users"></i>
                         </div>
                         <span class="badge badge-sm"
-                              style="background:rgba(110,231,183,0.12); color:#6EE7B7; border:1px solid rgba(110,231,183,0.2);">
+                              style="  color:var(--color-primary); border:1px solid var(--color-primary);">
                             All Time
                         </span>
                     </div>
                     <p class="text-xs font-medium uppercase tracking-widest mb-1" style="color:rgba(255,255,255,0.4);">Total Users</p>
                     <p class="font-display text-4xl font-800 mb-3"
-                       style="font-family:'Syne',sans-serif; font-weight:800; color:#F0F6F2; letter-spacing:-0.03em;">
+                       style=" font-weight:800; color:#F0F6F2; letter-spacing:-0.03em;">
                         @ViewBag.UsersCount
                     </p>
                     <div class="flex gap-3 text-xs" style="color:rgba(255,255,255,0.5);">
@@ -483,7 +339,7 @@
                     </div>
                     <p class="text-xs font-medium uppercase tracking-widest mb-1" style="color:rgba(255,255,255,0.4);">Contributor Requests</p>
                     <p class="font-display text-4xl font-800 mb-3"
-                       style="font-family:'Syne',sans-serif; font-weight:800; color:#F0F6F2; letter-spacing:-0.03em;">
+                       style=" font-weight:800; color:#F0F6F2; letter-spacing:-0.03em;">
                         @ViewBag.ContributorRequests
                     </p>
                     <a asp-controller="Admin" asp-action="ContributorRequests"
@@ -508,7 +364,7 @@
                     </div>
                     <p class="text-xs font-medium uppercase tracking-widest mb-1" style="color:rgba(255,255,255,0.4);">Pending Roadmaps</p>
                     <p class="font-display text-4xl font-800 mb-3"
-                       style="font-family:'Syne',sans-serif; font-weight:800; color:#F0F6F2; letter-spacing:-0.03em;">
+                       style=" font-weight:800; color:#F0F6F2; letter-spacing:-0.03em;">
                         @ViewBag.RoadMaps.Count
                     </p>
                     <a asp-controller="Admin" asp-action="Roadmaprequests"
@@ -530,7 +386,7 @@
                     </div>
                     <p class="text-xs font-medium uppercase tracking-widest mb-1" style="color:rgba(255,255,255,0.4);">Pending Courses</p>
                     <p class="font-display text-4xl font-800 mb-3"
-                       style="font-family:'Syne',sans-serif; font-weight:800; color:#F0F6F2; letter-spacing:-0.03em;">
+                       style="font-weight:800; color:#F0F6F2; letter-spacing:-0.03em;">
                         @ViewBag.Course.Count
                     </p>
                     <a asp-controller="Admin" asp-action="CourseRequests"
@@ -549,7 +405,7 @@
         <section>
             <div class="flex items-center justify-between mb-4">
                 <h2 class="section-title flex items-center gap-2">
-                    <i class="fa-solid fa-chart-line" style="color:#6EE7B7; font-size:0.95rem;"></i>
+                    <i class="fa-solid fa-chart-line" style="color:var(--color-primary); font-size:0.95rem;"></i>
                     Analytics Overview
                 </h2>
                 <span class="text-xs" style="color:rgba(255,255,255,0.4);">Updated live</span>
@@ -561,7 +417,7 @@
                 <div class="glass-card p-6" style="border-radius:24px;">
                     <div class="mb-5">
                         <h3 class="font-display text-base font-bold"
-                            style="font-family:'Syne',sans-serif; font-weight:700; color:#F0F6F2;">
+                            style=" font-weight:700; color:#F0F6F2;">
                             User Distribution
                         </h3>
                         <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.5);">
@@ -573,7 +429,7 @@
                     </div>
                     <div class="flex justify-center gap-6 mt-5 text-xs" style="color:rgba(255,255,255,0.6);">
                         <div class="flex items-center gap-2">
-                            <span class="w-3 h-3 rounded-full" style="background:#6EE7B7;"></span>Students
+                            <span class="w-3 h-3 rounded-full" style="background:var(--color-primary);"></span>Students
                         </div>
                         <div class="flex items-center gap-2">
                             <span class="w-3 h-3 rounded-full" style="background:#67E8F9;"></span>Contributors
@@ -588,7 +444,7 @@
                 <div class="glass-card p-6" style="border-radius:24px;">
                     <div class="mb-5">
                         <h3 class="font-display text-base font-bold"
-                            style="font-family:'Syne',sans-serif; font-weight:700; color:#F0F6F2;">
+                            style=" font-weight:700; color:#F0F6F2;">
                             Roadmap Activity
                         </h3>
                         <p class="text-xs mt-0.5" style="color:rgba(255,255,255,0.45);">
@@ -600,7 +456,7 @@
                     </div>
                     <div class="flex justify-around mt-4 text-xs">
                         <span class="flex items-center gap-1.5" style="color:rgba(255,255,255,0.55);">
-                            <span class="w-2.5 h-2.5 rounded-sm" style="background:#6EE7B7;"></span>Approved
+                            <span class="w-2.5 h-2.5 rounded-sm" style="background:var(--color-primary);"></span>Approved
                         </span>
                         <span class="flex items-center gap-1.5" style="color:rgba(255,255,255,0.55);">
                             <span class="w-2.5 h-2.5 rounded-sm" style="background:#FCD34D;"></span>Pending
@@ -708,7 +564,7 @@
 
                 <a asp-controller="Admin" asp-action="Analytics" class="action-card">
                     <div class="action-icon"
-                         style="background:rgba(52,211,153,0.08); border-color:rgba(52,211,153,0.2); color:#34D399;">
+                         style="background:rgba(52,211,153,0.08); border-color:rgba(52,211,153,0.2); color:var(--color-secondary);">
                         <i class="fa-solid fa-chart-mixed"></i>
                     </div>
                     <span class="text-sm font-medium" style="color:#E2E8F0;">Analytics</span>
@@ -725,19 +581,19 @@
             <div class="glass-card p-6 lg:col-span-3">
                 <div class="flex items-center justify-between mb-5">
                     <h2 class="section-title flex items-center gap-2">
-                        <i class="fa-solid fa-clock-rotate-left" style="color:#6EE7B7; font-size:0.9rem;"></i>
+                        <i class="fa-solid fa-clock-rotate-left" style="color:var(--color-primary); font-size:0.9rem;"></i>
                         Recent Activity
                     </h2>
                     <a asp-controller="Admin" asp-action="ActivityLog"
                        class="text-xs font-medium hover:opacity-80 transition-opacity"
-                       style="color:#6EE7B7;">
+                       style="color:var(--color-primary);">
                         View all <i class="fa-solid fa-arrow-right ml-1 text-xs"></i>
                     </a>
                 </div>
 
                 <div>
                     <div class="activity-row">
-                        <div class="activity-dot" style="background:rgba(110,231,183,0.1); color:#6EE7B7;">
+                        <div class="activity-dot" style="  color:var(--color-primary);">
                             <i class="fa-solid fa-user-plus text-xs"></i>
                         </div>
                         <div class="flex-1 min-w-0">
@@ -781,7 +637,7 @@
                     </div>
 
                     <div class="activity-row">
-                        <div class="activity-dot" style="background:rgba(52,211,153,0.1); color:#34D399;">
+                        <div class="activity-dot" style="background:rgba(52,211,153,0.1); color:var(--color-secondary);">
                             <i class="fa-solid fa-circle-check text-xs"></i>
                         </div>
                         <div class="flex-1 min-w-0">
@@ -886,21 +742,9 @@
 
         </section>
 
-
-        <!-- ── FOOTER ── -->
-        <footer class="flex flex-col sm:flex-row items-center justify-between gap-2 pt-4"
-                style="border-top:1px solid rgba(255,255,255,0.06);">
-            <p class="text-xs" style="color:rgba(255,255,255,0.3);">
-                &copy; @DateTime.Now.Year
-                <span style="color:#6EE7B7; font-weight:500;">StuMap</span>
-                &mdash; Admin Panel
-            </p>
-            <p class="text-xs" style="color:rgba(255,255,255,0.25);">Version 1.0.0</p>
-        </footer>
-
     </main>
 
-</body>
+
 
 <!-- ── CHARTS SCRIPTS ── -->
 <script>
@@ -920,7 +764,7 @@
     background: "transparent"
     },
     labels: ["Students", "Contributors", "Admins"],
-    colors: ["#6EE7B7", "#67E8F9", "#C084FC"],
+    colors: ["var(--color-primary)", "#67E8F9", "#C084FC"],
     legend: { show: false },
     stroke: { width: 0 },
     dataLabels: { enabled: false },
@@ -962,7 +806,7 @@
     toolbar: { show: false },
     background: "transparent"
     },
-    colors: ["#6EE7B7", "#FCD34D"],
+    colors: ["var(--color-primary)", "#FCD34D"],
     plotOptions: {
     bar: {
     horizontal: true,

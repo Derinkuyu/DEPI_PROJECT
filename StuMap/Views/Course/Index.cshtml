@@ -12,44 +12,42 @@
         </p>
     </div>
     <div class="grid grid-cols-3 gap-x-8 gap-y-10 my-12">
-        @* add card  *@
+    @* add card  *@
         @if (User.IsInRole("Contributor"))
-        {
-            <a href="#" class="hover-3d cursor-pointer mx-3" onclick="my_modal_3.showModal()">
-                <div class="card h-80 card-dash bg-base-300 border-primary-content rounded-2xl">
-                    <div class="card-body flex justify-center ">
-                        <div class="flex flex-col items-center justify-center text-primary-content">
-                            <p class="text-4xl py-2 flex-grow-0">Add New Course</p>
-                            <i class="fa-solid fa-plus text-4xl py-2"></i>
-                        </div>
-
-                    </div>
+    {
+        <a href="#" class="hover-3d cursor-pointer mx-3" onclick="my_modal_3.showModal()">
+        <div class="card h-80 card-dash bg-base-300 border-primary-content rounded-2xl">
+            <div class="card-body flex justify-center ">
+                <div class="flex flex-col items-center justify-center text-primary-content">
+                    <p class="text-4xl py-2 flex-grow-0">Add New Course</p>
+                <i class="fa-solid fa-plus text-4xl py-2"></i>
                 </div>
     
-                <!-- 8 empty divs needed for the 3D effect -->
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </a>
+        <!-- 8 empty divs needed for the 3D effect -->
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+</a>
         }
-
-        
+    
         @foreach (var course in Model)
         {
 
             <a asp-controller="Course" asp-action="Details" asp-route-id="@course.Id" class="hover-3d cursor-pointer mx-3">
                 <div class="card h-80 bg-base-300 border-primary-content rounded-2xl">
                     <div class="card-body flex flex-col justify-evenly gap-3">
-                    
-                        <h1 class="card-title text-2xl">
-                            @course.Title
-                        </h1>
-                        <div class="badge badge-secondary ">By @course.Contributor?.FirstName</div>
+                    <h1 class="card-title text-2xl">
+                        @course.Title
+                    </h1>
+                    <div>
+                        <div class="badge badge-soft badge-warning px-6 py-4"><i class="fa-regular fa-user"></i> @course.Contributor.FirstName @course.Contributor.LastName </div>
+                        <div class="badge badge-soft badge-success px-6 py-4"> <i class="fa-solid fa-graduation-cap"></i> @course.Materials.Count() Materials</div>
+                        </div>
                         <div>
                             <p class="text-base/7 text-primary-content h-17 overflow-hidden py-2  ">@course.Description </p>
                             <span>...</span>

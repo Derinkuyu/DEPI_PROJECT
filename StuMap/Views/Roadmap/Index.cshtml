@@ -10,8 +10,8 @@
             designed by industry experts to lead you to mastery.
              </p>
          </div>
-          @if (User.IsInRole("Contributor"))
-        {
+
+        @if(User.IsInRole("Contributor")){
         <div class="self-center text-center w-100">
             <a asp-controller="Roadmap" asp-action="New" class="btn btn-xl rounded-xl animated-background bg-linear-220 from-base-100 via-primary to-base-100">+ Add New RoadMap </a>
          </div>
