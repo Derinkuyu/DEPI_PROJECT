@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StuMap.Managers;
 using StuMap.Models;
+using System.Security.Claims;
 
 namespace StuMap.Controllers
 {
-    public class RoadmapController(ICourseManager courseRepo, IMaterialTypeManager materialTypeRepo, IMaterialManager materialRepo, IRoadmapManager roadmapRepo, ISpecializationManager specializationRepo ,ICourseRoadmapManager courseRoadmapRepo) : Controller
+    public class RoadmapController(ICourseManager courseRepo, IMaterialTypeManager materialTypeRepo, IMaterialManager materialRepo, IRoadmapManager roadmapRepo, ISpecializationManager specializationRepo ,ICourseRoadmapManager courseRoadmapRepo , IRoadmapEnrollmentManager roadmapEnrollment) : Controller
     {
         public IActionResult Index()
         {
@@ -14,6 +15,16 @@ namespace StuMap.Controllers
         }
         public IActionResult Details(int id)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId != null)
+            {
+                bool isStudent = User.IsInRole("Student");
+                if (isStudent)
+                {
+                    ViewBag.IsStudent = true;
+                    ViewBag.IsEnrolled = roadmapEnrollment.IsEnrolled(userId, id);
+                }
+            }
             Dictionary<int, string> materialType = materialTypeRepo.GetAll().ToDictionary(x => x.Id, x => x.Title);
             ViewBag.materialType = materialType;
             var roadmap = roadmapRepo.GetById(id);

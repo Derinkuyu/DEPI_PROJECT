@@ -85,7 +85,7 @@ namespace StuMap
             // Models and Repositories Injection
             builder.Services.AddScoped<IContactManager, ContactRepository>();
             builder.Services.AddScoped<ICourseManager, CourseRepository>();
-            builder.Services.AddScoped<IEnrollmentManager, EnrollmentRepository>();
+            builder.Services.AddScoped<IRoadmapEnrollmentManager, RoadmapEnrollmentRepository>();
             builder.Services.AddScoped<IRoadmapManager, RoadmapRepository>();
             builder.Services.AddScoped<ISpecializationManager, SpecializationRepository>();
             builder.Services.AddScoped<IMaterialManager, MaterialRepository>();

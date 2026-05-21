@@ -21,7 +21,7 @@ namespace StuMap.Models
 
         // Roadmap Enrollments
         public virtual List<ApplicationUser>? Students { get; set; }
-        public virtual List<Enrollment>? Enrollments { get; set; }
+        public virtual List<RoadmapEnrollment>? Enrollments { get; set; }
 
         public DateTime DateCreated { get; set; } = DateTime.Now;
 

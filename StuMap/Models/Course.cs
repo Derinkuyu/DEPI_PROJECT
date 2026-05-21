@@ -15,6 +15,8 @@ namespace StuMap.Models
         // Course Roadmap
         public virtual ICollection<Material> Materials { get; set; } = [];
 
+        public virtual List<StudentRoadmapProgress>? StudentRoadmapProgress { get; set; }
+
         // todo: need to figure out if list works with EF Core
         //public List<string> Tags { get; set; } = [];
 

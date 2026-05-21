@@ -32,10 +32,10 @@ namespace StuMap.Controllers
             //{
             //    return View(ticket); 
             //}
-            var stuId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             contactManager.Insert(new Contact
             {
-                UserId = stuId,
+                UserId = userId,
                 Subject = contact.Subject,
                 Body = contact.Body,
                 DateSent = DateTime.Now
@@ -43,9 +43,10 @@ namespace StuMap.Controllers
 
             var admin = await userManager.GetUsersInRoleAsync("Admin");
             var adminId = admin.FirstOrDefault()?.Id;
+            var adminDeviceToken = notificationManager.GetDeviceToken(adminId);
             string title = "New Ticket";
-            string body = $"A new ticket has been created by student with ID: {stuId}. Subject: {contact.Subject}";
-            await notificationManager.SendNotificationAsync(adminId, title, body);
+            string body = $"A new ticket has been created. Subject: {contact.Subject}";
+            await notificationManager.SendNotificationAsync(adminDeviceToken, title, body);
 
             return RedirectToAction("GetAllTickets");
         }

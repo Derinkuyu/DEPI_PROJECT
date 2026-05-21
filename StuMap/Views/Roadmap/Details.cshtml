@@ -7,7 +7,7 @@
         <p class="text-xl text-primary-content-para w-220 my-2">
             @Model.Description
         </p>
-        <div class="flex  justify-start gap-5">
+        <div class="flex  justify-start gap-5 w-full">
             <div class="uppercase text-success tracking-widest text-sm"> <i class="fa-solid fa-graduation-cap"></i> @Model.CourseRoadmaps.Count() Courses</div>
             <div class="uppercase text-primary tracking-widest text-sm">
                 <i class="fa-regular fa-user"></i> @Model.Contributor.FirstName @Model.Contributor.LastName
@@ -16,6 +16,38 @@
                 <i class="fa-solid fa-layer-group"></i> @Model.Specialization.Name
             </div>
         </div>
+
+        <div class="flex justify-end gap-5 w-full">
+            @if (ViewBag.IsStudent != null && ViewBag.IsStudent == true)
+            {
+                <a asp-controller="Student"
+                        asp-action="GetEnrolledRoadmaps"
+                        class="btn btn-neutral btn-outline btn-primary text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
+                    View My Roadmaps
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </a>
+                if (ViewBag.IsEnrolled == false)
+                {
+                    <a asp-controller="Student"
+                            asp-action="AddRoadmapFromDetails"
+                            asp-route-id="@Model.Id"
+                            class="btn btn-primary btn-outline text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
+                        Add To My Roadmaps
+                    </a>
+                }
+                else
+                {
+                    <a asp-controller="Student"
+                            asp-action="RemoveRoadmapFromDetails"
+                            asp-route-id="@Model.Id"
+                            class="btn btn-neutral btn-outline btn-warning text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
+                        Remove From My Roadmaps
+                    </a>
+                }
+            }
+        </div>
+
+    </div>
         <div class="divider"></div>
         <div id="Courses" class="flex flex-col gap-6">
             <p class="text-3xl font-semibold ">Explore Courses</p>
@@ -55,7 +87,6 @@
                 }
             </div>
         </div>
-    </div>
 
 
 </section>

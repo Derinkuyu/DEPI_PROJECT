@@ -10,42 +10,60 @@ namespace StuMap.Controllers
     [Authorize(Roles = "Student")]
     public class StudentController : Controller
     {
-        ICourseEnrollmentManager courseEnrollmentManager;
-        INotificationManager notificationManager;
-        IContactManager contactManager;
-        UserManager<ApplicationUser> userManager;
-        public StudentController(ICourseEnrollmentManager courseEnrollmentManager , INotificationManager notificationManager , IContactManager contactManager , UserManager<ApplicationUser> userManager)
+        ICourseEnrollmentManager courseEnrollment;
+        IRoadmapEnrollmentManager roadmapEnrollment;
+        public StudentController(ICourseEnrollmentManager courseEnrollmentManager, IRoadmapEnrollmentManager roadmapEnrollmentManager)
         {
-            this.courseEnrollmentManager = courseEnrollmentManager;
-            this.notificationManager = notificationManager;
-            this.contactManager = contactManager;
-            this.userManager = userManager;
+            this.courseEnrollment = courseEnrollmentManager;
+            this.roadmapEnrollment = roadmapEnrollmentManager;
         }
         public IActionResult GetEnrolledCourses()
         {
-            //StudentId will be changed after auth stuf
             var stuId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var courses = courseEnrollmentManager.GetCoursesForStudent(stuId);
+            var courses = courseEnrollment.GetCoursesForStudent(stuId);
             return View(courses);
         }
         public IActionResult RemoveCourse(int id)
         {
             var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            courseEnrollmentManager.Delete(id, studentId);
+            courseEnrollment.Delete(id, studentId);
             return RedirectToAction("GetEnrolledCourses", new { id = studentId });
         }
         public IActionResult RemoveCourseFromDetails(int id)
         {
             var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            courseEnrollmentManager.Delete(id, studentId);
-            return RedirectToAction("Details" , "Course" , new { id = id });
+            courseEnrollment.Delete(id, studentId);
+            return RedirectToAction("Details", "Course", new { id = id });
         }
         public IActionResult AddCourseFromDetails(int id)
         {
             var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            courseEnrollmentManager.Insert(new CourseEnrollment { CourseId = id, StudentId = studentId });
+            courseEnrollment.Insert(new CourseEnrollment { CourseId = id, StudentId = studentId });
             return RedirectToAction("Details", "Course", new { id = id });
         }
-
+        public IActionResult GetEnrolledRoadmaps()
+        {
+            var stuId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var roadmaps = roadmapEnrollment.GetRoadmapsForStudent(stuId);
+            return View(roadmaps);
+        }
+        public IActionResult RemoveRoadmap(int id)     
+        {
+            var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            roadmapEnrollment.Delete(id, studentId);
+            return RedirectToAction("GetEnrolledRoadmaps", new { id = studentId });
+        }
+        public IActionResult RemoveRoadmapFromDetails(int id)
+        {
+            var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            roadmapEnrollment.Delete(id, studentId);
+            return RedirectToAction("Details", "Roadmap", new { id = id });
+        }
+        public IActionResult AddRoadmapFromDetails(int id)
+        {
+            var stuId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            roadmapEnrollment.Insert(new RoadmapEnrollment { RoadmapId = id, StudentId = stuId });
+            return RedirectToAction("Details", "Roadmap", new { id = id });
+        }
     }
 }

@@ -458,6 +458,9 @@ namespace StuMap.Migrations
                     b.Property<DateTime>("DateSent")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<string>("Subject")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -471,6 +474,53 @@ namespace StuMap.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Contacts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Body = "I am having trouble understanding the material in the course.",
+                            DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Status = 2,
+                            Subject = "Issue with course content",
+                            UserId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Body = "I would like to see a dark mode option in the app.",
+                            DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Status = 0,
+                            Subject = "Feature request",
+                            UserId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Body = "The app crashes when I try to access my profile.",
+                            DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Status = 1,
+                            Subject = "Bug report",
+                            UserId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Body = "I can not accesss my saved Roadmaps.",
+                            DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Status = 1,
+                            Subject = "Access Roadmap",
+                            UserId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Body = "I am having trouble understanding the material in the course.",
+                            DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Status = 2,
+                            Subject = "Issue with course content",
+                            UserId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89"
+                        });
                 });
 
             modelBuilder.Entity("StuMap.Models.Course", b =>
@@ -659,24 +709,6 @@ namespace StuMap.Migrations
                             RoadmapId = 2,
                             CourseId = 4
                         });
-                });
-
-            modelBuilder.Entity("StuMap.Models.Enrollment", b =>
-                {
-                    b.Property<int>("RoadmapId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StudentId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("DateEnrolled")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("RoadmapId", "StudentId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("Enrollments");
                 });
 
             modelBuilder.Entity("StuMap.Models.Material", b =>
@@ -981,6 +1013,24 @@ namespace StuMap.Migrations
                         });
                 });
 
+            modelBuilder.Entity("StuMap.Models.RoadmapEnrollment", b =>
+                {
+                    b.Property<int>("RoadmapId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("DateEnrolled")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("RoadmapId", "StudentId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("RoadmapEnrollment");
+                });
+
             modelBuilder.Entity("StuMap.Models.Specialization", b =>
                 {
                     b.Property<int>("Id")
@@ -1020,6 +1070,37 @@ namespace StuMap.Migrations
                             Description = "Software Engineering designs and builds software using structured methods. It emphasizes quality, scalability, and teamwork across the full lifecycle—from planning to maintenance.",
                             Name = "Software Engineering"
                         });
+                });
+
+            modelBuilder.Entity("StuMap.Models.StudentRoadmapProgress", b =>
+                {
+                    b.Property<int>("RoadmapId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("RoadmapEnrollmentRoadmapId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RoadmapEnrollmentStudentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("RoadmapId", "StudentId", "CourseId");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("RoadmapEnrollmentRoadmapId", "RoadmapEnrollmentStudentId");
+
+                    b.ToTable("RoadmapsProgresses");
                 });
 
             modelBuilder.Entity("StuMap.Models.UserDeviceToken", b =>
@@ -1174,25 +1255,6 @@ namespace StuMap.Migrations
                     b.Navigation("Roadmap");
                 });
 
-            modelBuilder.Entity("StuMap.Models.Enrollment", b =>
-                {
-                    b.HasOne("StuMap.Models.Roadmap", "Roadmap")
-                        .WithMany("Enrollments")
-                        .HasForeignKey("RoadmapId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StuMap.Models.ApplicationUser", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Roadmap");
-
-                    b.Navigation("Student");
-                });
-
             modelBuilder.Entity("StuMap.Models.Material", b =>
                 {
                     b.HasOne("StuMap.Models.ApplicationUser", "Contributor")
@@ -1233,6 +1295,56 @@ namespace StuMap.Migrations
                     b.Navigation("Specialization");
                 });
 
+            modelBuilder.Entity("StuMap.Models.RoadmapEnrollment", b =>
+                {
+                    b.HasOne("StuMap.Models.Roadmap", "Roadmap")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("RoadmapId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StuMap.Models.ApplicationUser", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Roadmap");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("StuMap.Models.StudentRoadmapProgress", b =>
+                {
+                    b.HasOne("StuMap.Models.Course", "Course")
+                        .WithMany("StudentRoadmapProgress")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StuMap.Models.Roadmap", "Roadmap")
+                        .WithMany()
+                        .HasForeignKey("RoadmapId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StuMap.Models.ApplicationUser", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StuMap.Models.RoadmapEnrollment", null)
+                        .WithMany("StudentRoadmapProgress")
+                        .HasForeignKey("RoadmapEnrollmentRoadmapId", "RoadmapEnrollmentStudentId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Roadmap");
+
+                    b.Navigation("Student");
+                });
+
             modelBuilder.Entity("StuMap.Models.UserDeviceToken", b =>
                 {
                     b.HasOne("StuMap.Models.ApplicationUser", "User")
@@ -1249,6 +1361,8 @@ namespace StuMap.Migrations
                     b.Navigation("CourseRoadmaps");
 
                     b.Navigation("Materials");
+
+                    b.Navigation("StudentRoadmapProgress");
                 });
 
             modelBuilder.Entity("StuMap.Models.MaterialType", b =>
@@ -1263,6 +1377,11 @@ namespace StuMap.Migrations
                     b.Navigation("Enrollments");
 
                     b.Navigation("Students");
+                });
+
+            modelBuilder.Entity("StuMap.Models.RoadmapEnrollment", b =>
+                {
+                    b.Navigation("StudentRoadmapProgress");
                 });
 
             modelBuilder.Entity("StuMap.Models.Specialization", b =>

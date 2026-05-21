@@ -7,11 +7,7 @@ namespace StuMap.Services
 {
     public class CourseEnrollmentRepository(AppDbContext context) : ICourseEnrollmentManager
     {
-        //public List<Course> GetAll(string studentId)
-        //{
-
-        //    context.CourseEnrollments.Where(s => s.StudentId == studentId).Select(Course)Include(e => e.Student).Include(e => e.CourseId).ToList();
-        //}
+      
         public List<Course> GetCoursesForStudent(string id)
         {
             var result = context.CourseEnrollments.Where(e => e.StudentId == id).Include(e => e.Course)
@@ -30,7 +26,6 @@ namespace StuMap.Services
             context.CourseEnrollments.Add(entity);
             return context.SaveChanges();
         }
-        //the enrollment mustn't be updated
 
         public int Delete(int courseid, string studentId)
         {

@@ -39,6 +39,11 @@ namespace StuMap.Services
                 context.SaveChanges();
             }
         }
+        public string GetDeviceToken(string userId)
+        {
+            var token = context.UsersDeviceTokens.Where(x => x.UserId == userId).Select(x => x.DeviceToken).FirstOrDefault();
+            return token;
+        }
         public async Task SendNotificationAsync(string deviceToken, string title, string body)
         {
             if (string.IsNullOrEmpty(deviceToken)) return;

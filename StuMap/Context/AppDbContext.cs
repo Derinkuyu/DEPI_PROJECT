@@ -20,10 +20,11 @@ namespace StuMap.Context
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Material> Materials { get; set; }
         public virtual DbSet<MaterialType> MaterialTypes { get; set; }
-        public virtual DbSet<Enrollment> Enrollments { get; set; }
+        public virtual DbSet<RoadmapEnrollment> RoadmapEnrollment { get; set; }
         public virtual DbSet<CourseRoadmap> CourseRoadmaps { get; set; }
         public virtual DbSet<CourseEnrollment> CourseEnrollments { get; set; }
         public virtual DbSet<UserDeviceToken> UsersDeviceTokens { get; set; }
+        public virtual DbSet<StudentRoadmapProgress> RoadmapsProgresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -89,12 +90,14 @@ namespace StuMap.Context
                 .HasOne(e => e.Contributor)
                 .WithMany()
                 .HasForeignKey(e => e.ContributorId);
-            modelBuilder.Entity<Enrollment>()
+            modelBuilder.Entity<RoadmapEnrollment>()
                 .HasKey(e => new { e.RoadmapId, e.StudentId });
             modelBuilder.Entity<CourseRoadmap>()
               .HasKey(e => new { e.RoadmapId, e.CourseId });
             modelBuilder.Entity<CourseEnrollment>()
               .HasKey(e => new { e.CourseId, e.StudentId });
+            modelBuilder.Entity<StudentRoadmapProgress>()
+              .HasKey(e => new { e.RoadmapId, e.StudentId , e.CourseId });
             //modelBuilder.Entity<Student>()
             //    .HasMany(e => e.Roadmaps)
             //    .WithMany(e => e.Students)
