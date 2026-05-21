@@ -4,87 +4,81 @@
     ViewData["Title"] = "User Management";
 }
 
-<div class="space-y-6">
+<section class="max-w-7xl mx-auto px-8 py-10 space-y-10">
 
     <!-- Header -->
-    <div class="flex flex-col gap-2 mx-4">
+    <div class="space-y-2">
 
-        <h1 class="text-3xl font-bold text-base-content">
+        <h1 class="text-4xl font-bold tracking-tight text-base-content">
             User Management
         </h1>
 
-        <p class="max-w-3xl text-sm text-[var(--color-primary-content-para)] md:text-base">
+        <p class="text-sm text-[var(--color-primary-content-para)] leading-7 max-w-3xl">
             Manage all users in one place. Control access, assign roles, and monitor activity across your platform.
         </p>
 
     </div>
 
     <!-- Toolbar -->
-    <div class="flex flex-col gap-4 rounded-[var(--radius-box)] border border-base-300 bg-base-200 p-4 lg:flex-row lg:items-center lg:justify-between">
+    <div class="flex flex-col gap-4 rounded-[var(--radius-box)] bg-base-200 p-6 lg:flex-row lg:items-center lg:justify-between">
 
-        <!-- Left -->
-        <div class="flex flex-col gap-3 md:flex-row md:flex-wrap md:items-center">
+        <!-- Filters -->
+        <div class="flex flex-col gap-4 md:flex-row md:flex-wrap md:items-center w-full">
 
             <!-- Search -->
-            <label class="input rounded-full bg-base-300 border-none w-200 h-15 ">
-                <svg class="h-[1em] opacity-50 mx-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <label class="input rounded-full bg-base-300 border-none w-full md:w-[320px] h-14 flex items-center">
+
+                <svg class="h-[1em] opacity-50 mx-2"
+                     xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 24 24">
+
                     <g stroke-linejoin="round"
-                           stroke-linecap="round"
-                           stroke-width="2.5"
-                           fill="none"
-                           stroke="currentColor">
+                       stroke-linecap="round"
+                       stroke-width="2.5"
+                       fill="none"
+                       stroke="currentColor">
+
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="m21 21-4.3-4.3"></path>
+
                     </g>
+
                 </svg>
-                <input type="search" required placeholder="Search Users..." class="border-none" />
+
+                <input type="search"
+                       placeholder="Search users..."
+                       class="bg-transparent border-none w-full outline-none" />
+
             </label>
 
-            <!-- Role Filter -->
-            <select class="select select-bordered border-base-300 bg-base-100">
-                <option selected disabled>Role</option>
+            <!-- Role -->
+            <select class="select select-bordered bg-base-100 border-base-300">
+                <option disabled selected>Role</option>
                 <option>Admin</option>
                 <option>User</option>
                 <option>Coordinator</option>
             </select>
 
-            <!-- Status Filter -->
-            <select class="select select-bordered border-base-300 bg-base-100">
-                <option selected disabled>Status</option>
+            <!-- Status -->
+            <select class="select select-bordered bg-base-100 border-base-300">
+                <option disabled selected>Status</option>
                 <option>Active</option>
                 <option>Blocked</option>
             </select>
 
-            <!-- Date Filter -->
-            <select class="select select-bordered border-base-300 bg-base-100">
-                <option selected disabled>Date</option>
+            <!-- Date -->
+            <select class="select select-bordered bg-base-100 border-base-300">
+                <option disabled selected>Date</option>
                 <option>Newest</option>
                 <option>Oldest</option>
             </select>
 
         </div>
 
-        <!-- Right -->
-        @* <div class="flex items-center gap-3">
-
-            <button class="btn btn-outline border-base-300">
-                Export
-            </button>
-
-            <a href="#"
-                   class="btn border-0 text-base-100"
-                   style="background: linear-gradient(var(--gradient-btn));">
-
-                + Add User
-
-            </a>
-
-        </div> *@
-
     </div>
 
     <!-- Table -->
-    <div class="overflow-x-auto rounded-[var(--radius-box)] border border-base-300 bg-base-200">
+    <div class="overflow-x-auto rounded-[var(--radius-box)] bg-base-200">
 
         <table class="table">
 
@@ -93,30 +87,15 @@
 
                 <tr class="text-xs uppercase tracking-wide text-[var(--color-primary-content-para)]">
 
-                    <th scope="col">
-                        <input type="checkbox"
-                               class="checkbox checkbox-sm" />
+                    <th>
+                        <input type="checkbox" class="checkbox checkbox-sm" />
                     </th>
 
-                    <th scope="col">
-                        Full Name ↕
-                    </th>
-
-                    <th scope="col">
-                        Email ↕
-                    </th>
-
-                    <th scope="col">
-                        Status ↕
-                    </th>
-
-                    <th scope="col">
-                        Created At ↕
-                    </th>
-
-                    <th scope="col" class="text-center">
-                        Actions
-                    </th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th class="text-center">Actions</th>
 
                 </tr>
 
@@ -127,38 +106,18 @@
 
                 @foreach (var item in Model)
                 {
-                    <tr class="transition-colors hover:bg-base-300">
+                    <tr class="hover:bg-base-300 transition-colors">
 
                         <!-- Checkbox -->
                         <td>
-                            <input type="checkbox"
-                                   class="checkbox checkbox-sm" />
+                            <input type="checkbox" class="checkbox checkbox-sm" />
                         </td>
 
                         <!-- Name -->
                         <td>
-
-                            <div class="flex items-center gap-3">
-
-                                @* <!-- Avatar -->
-                                <div class="avatar">
-
-                                    <div class="w-8 rounded-full">
-
-                                        <img src="https://i.pravatar.cc/32?u=@item.Email"
-                                             alt="@item.FullName Avatar" />
-
-                                    </div>
-
-                                </div> *@
-
-                                <!-- Name -->
-                                <div class="font-medium text-base-content">
-                                    @item.FullName
-                                </div>
-
+                            <div class="font-medium text-base-content">
+                                @item.FullName
                             </div>
-
                         </td>
 
                         <!-- Email -->
@@ -168,20 +127,14 @@
 
                         <!-- Status -->
                         <td>
-
                             @if (item.IsBlocked)
                             {
-                                <span class="badge badge-error">
-                                    Blocked
-                                </span>
+                                <span class="badge badge-error px-4 py-3">Blocked</span>
                             }
                             else
                             {
-                                <span class="badge badge-primary">
-                                    Active
-                                </span>
+                                <span class="badge badge-success text-black px-4 py-3">Active</span>
                             }
-
                         </td>
 
                         <!-- Created -->
@@ -191,51 +144,42 @@
 
                         <!-- Actions -->
                         <td>
-
                             <div class="flex items-center justify-center gap-2">
 
-                                <!-- Details -->
                                 <a asp-action="Details"
-                                       asp-controller="Admin"
-                                       asp-route-id="@item.Id"
-                                       class="btn btn-sm btn-primary "
-                                       aria-label="View User Details">
+                                   asp-controller="Admin"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-primary">
                                     Details
                                 </a>
 
-                                <!-- Block / Unblock -->
                                 @if (item.IsBlocked)
                                 {
                                     <a asp-action="Unblock"
-                                           asp-controller="Admin"
-                                           asp-route-id="@item.Id"
-                                           class="btn btn-ghost btn-sm btn-warning"
-                                           aria-label="Unblock User">
+                                       asp-controller="Admin"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-sm btn-success btn-outline">
                                         Unblock
                                     </a>
                                 }
                                 else
                                 {
                                     <a asp-action="Block"
-                                           asp-controller="Admin"
-                                           asp-route-id="@item.Id"
-                                           class="btn btn-sm btn-warning"
-                                           aria-label="Block User">
+                                       asp-controller="Admin"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-sm btn-warning btn-outline">
                                         Block
                                     </a>
                                 }
 
-                                <!-- Delete -->
                                 <a asp-action="Delete"
-                                       asp-controller="Admin"
-                                       asp-route-id="@item.Id"
-                                       class="btn btn-sm btn-info"
-                                       aria-label="Delete User">
+                                   asp-controller="Admin"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-error btn-outline">
                                     Delete
                                 </a>
 
                             </div>
-
                         </td>
 
                     </tr>
@@ -257,7 +201,7 @@
                 Rows per page
             </span>
 
-            <select class="select select-bordered select-sm border-base-300 bg-base-100">
+            <select class="select select-bordered select-sm bg-base-100 border-base-300">
                 <option selected>10</option>
             </select>
 
@@ -270,36 +214,16 @@
         <!-- Right -->
         <div class="join">
 
-            <button class="join-item btn btn-ghost">
-                «
-            </button>
-
-            <button class="join-item btn btn-ghost">
-                ‹
-            </button>
-
-            <button class="join-item btn btn-primary">
-                1
-            </button>
-
-            <button class="join-item btn btn-ghost">
-                2
-            </button>
-
-            <button class="join-item btn btn-ghost">
-                3
-            </button>
-
-            <button class="join-item btn btn-ghost">
-                ›
-            </button>
-
-            <button class="join-item btn btn-ghost">
-                »
-            </button>
+            <button class="join-item btn btn-ghost">«</button>
+            <button class="join-item btn btn-ghost">‹</button>
+            <button class="join-item btn btn-primary">1</button>
+            <button class="join-item btn btn-ghost">2</button>
+            <button class="join-item btn btn-ghost">3</button>
+            <button class="join-item btn btn-ghost">›</button>
+            <button class="join-item btn btn-ghost">»</button>
 
         </div>
 
     </div>
 
-</div>
+</section>

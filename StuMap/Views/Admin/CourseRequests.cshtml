@@ -200,9 +200,9 @@
 
                             <!-- Details -->
                             <a asp-controller="Admin"
-                                   asp-action="CourseDetails"
-                                   asp-route-id="@course.Id"
-                                   class="btn btn-primary btn-outline rounded-full">
+                               asp-action="CourseDetails"
+                               asp-route-id="@course.Id"
+                               class="btn btn-primary btn-outline rounded-full">
 
                                 More Details
 
@@ -214,56 +214,56 @@
                             <div class="flex gap-2">
                                 @if (course.Status == CourseStatus.Pending ||
                            course.Status == CourseStatus.UpdatedPending || course.Status == CourseStatus.Rejected)
-                            {
+                                {
 
                                     <!-- Approve -->
                                     <a asp-controller="Admin"
-                                           asp-action="ApproveCourse"
-                                           asp-route-id="@course.Id"
-                                           class="btn btn-success text-black flex-1">
+                                       asp-action="ApproveCourse"
+                                       asp-route-id="@course.Id"
+                                       class="btn btn-success text-black flex-1">
 
                                         <i class="fa-solid fa-check"></i>
 
                                         Approve
 
                                     </a>
-                                    }
-                                    @if (course.Status == CourseStatus.Pending ||
-                         course.Status == CourseStatus.UpdatedPending || course.Status == CourseStatus.Approved)
-                                    {
-                                        <!-- Reject -->
-                                        <button class="btn btn-error flex-1"
-                                                onclick="document.getElementById('reject-modal-@course.Id').showModal()">
+                                }
+                                @if (course.Status == CourseStatus.Pending ||
+                     course.Status == CourseStatus.UpdatedPending || course.Status == CourseStatus.Approved)
+                                {
+                                    <!-- Reject -->
+                                    <button class="btn btn-error flex-1"
+                                            onclick="document.getElementById('reject-modal-@course.Id').showModal()">
 
-                                            <i class="fa-solid fa-xmark"></i>
+                                        <i class="fa-solid fa-xmark"></i>
 
-                                            Reject
+                                        Reject
 
-                                        </button>
-                                    }
-
-                                    </div>
-
-                                <!-- Delete -->
-                                <a asp-controller="Admin"
-                                       asp-action="DeleteCourse"
-                                       asp-route-id="@course.Id"
-                                       class="btn btn-outline btn-error rounded-full">
-
-                                    <i class="fa-solid fa-trash"></i>
-
-                                    Delete Course
-
-                                </a>
+                                    </button>
+                                }
 
                             </div>
+
+                            <!-- Delete -->
+                            <a asp-controller="Admin"
+                               asp-action="DeleteCourse"
+                               asp-route-id="@course.Id"
+                               class="btn btn-outline btn-error rounded-full">
+
+                                <i class="fa-solid fa-trash"></i>
+
+                                Delete Course
+
+                            </a>
 
                         </div>
 
                     </div>
 
-                    <!-- 3D Effect Divs -->
-                    @* <div></div>
+                </div>
+
+                <!-- 3D Effect Divs -->
+                @* <div></div>
                 <div></div>
                 </div>
 
@@ -281,68 +281,68 @@
             </div>
 
 
-                <!-- Reject Modal -->
-                <dialog id="reject-modal-@course.Id"
-                        class="modal">
+            <!-- Reject Modal -->
+            <dialog id="reject-modal-@course.Id"
+                    class="modal">
 
-                    <div class="modal-box w-11/12 max-w-2xl">
+                <div class="modal-box w-11/12 max-w-2xl">
 
-                        <h3 class="font-bold text-2xl mb-6">
+                    <h3 class="font-bold text-2xl mb-6">
 
-                            Reject Course Submission
+                        Reject Course Submission
 
-                        </h3>
+                    </h3>
 
-                        <form asp-controller="Admin"
-                              asp-action="RejectCourse"
-                              method="post"
-                              class="space-y-6">
+                    <form asp-controller="Admin"
+                          asp-action="RejectCourse"
+                          method="post"
+                          class="space-y-6">
 
-                            <input type="hidden"
-                                   name="id"
-                                   value="@course.Id" />
+                        <input type="hidden"
+                               name="id"
+                               value="@course.Id" />
 
-                            <div class="space-y-2">
+                        <div class="space-y-2">
 
-                                <label class="font-medium">
+                            <label class="font-medium">
 
-                                    Rejection Reason
+                                Rejection Reason
 
-                                </label>
+                            </label>
 
-                                <textarea name="reason"
-                                          class="textarea textarea-bordered w-full h-40"
-                                          placeholder="Explain why the course was rejected..."
-                                          required></textarea>
+                            <textarea name="reason"
+                                      class="textarea textarea-bordered w-full h-40"
+                                      placeholder="Explain why the course was rejected..."
+                                      required></textarea>
 
-                            </div>
+                        </div>
 
-                            <div class="modal-action">
+                        <div class="modal-action">
 
-                                <button type="submit"
-                                        class="btn btn-error">
+                            <button type="submit"
+                                    class="btn btn-error">
 
-                                    Reject Course
+                                Reject Course
 
-                                </button>
+                            </button>
 
-                                <button type="button"
-                                        class="btn"
-                                        onclick="document.getElementById('reject-modal-@course.Id').close()">
+                            <button type="button"
+                                    class="btn"
+                                    onclick="document.getElementById('reject-modal-@course.Id').close()">
 
-                                    Cancel
+                                Cancel
 
-                                </button>
+                            </button>
 
-                            </div>
+                        </div>
 
-                        </form>
+                    </form>
 
-                    </div>
+                </div>
 
-                </dialog>
-            }
+            </dialog>
+        }
 
-        </div>
+    </div>
 
-    </section>
+</section>

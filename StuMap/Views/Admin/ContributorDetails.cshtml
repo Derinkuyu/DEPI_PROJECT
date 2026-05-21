@@ -4,14 +4,16 @@
     ViewData["Title"] = "Contributor Details";
 }
 
-<div class="space-y-6">
+<section class="max-w-7xl mx-auto px-8 py-10 space-y-10">
 
     <!-- Back Button -->
-    <div class="space-x-5">
+    <div>
 
         <a asp-action="ContributorRequests"
-               asp-controller="Admin"
-               class="inline-flex items-center gap-2 whitespace-nowrap text-sm text-[var(--color-primary-content-para)] transition hover:text-base-content">
+           asp-controller="Admin"
+           class="inline-flex items-center gap-2 whitespace-nowrap text-sm text-[var(--color-primary-content-para)] transition hover:text-base-content mb-2">
+
+            <i class="fa-solid fa-arrow-left"></i>
 
             Back to contributor requests
 
@@ -20,57 +22,73 @@
     </div>
 
     <!-- Hero Section -->
-    <div class="flex flex-col gap-6 rounded-[var(--radius-box)] border border-base-300 bg-base-200 p-6 lg:flex-row lg:items-start lg:justify-between">
+    <div class="flex flex-col gap-8 rounded-[var(--radius-box)] bg-base-200 p-8 lg:flex-row lg:items-start lg:justify-between">
 
         <!-- Left -->
-        <div class="flex items-center gap-5">
+        <div class="flex items-start gap-6">
 
             <!-- Contributor Info -->
-            <div class="space-y-2">
+            <div class="space-y-3">
 
-                <h1 class="text-3xl font-bold text-base-content mb-1">
+                <h1 class="text-4xl font-bold tracking-tight text-base-content">
+
                     @Model.FullName
+
                 </h1>
 
                 <div class="space-y-1">
 
                     <p class="text-sm text-[var(--color-primary-content-para)]">
+
                         @@@(Model.Email.Split('@')[0])
+
                     </p>
 
                     <p class="text-sm text-[var(--color-primary-content-para)]">
+
                         @Model.Email
+
                     </p>
 
                 </div>
 
                 <!-- Badges -->
-                <div class="flex flex-wrap items-center gap-2 pt-1">
+                <div class="flex flex-wrap items-center gap-3 pt-3">
 
                     <span class="badge badge-primary px-4 py-3">
+
                         Contributor
+
                     </span>
 
                     <span class="badge badge-outline px-4 py-3">
+
                         @Model.Specialization
+
                     </span>
 
                     @if (Model.Status == ContributorStatus.Pending)
                     {
                         <span class="badge badge-warning px-4 py-3 text-black">
+
                             Pending
+
                         </span>
                     }
                     else if (Model.Status == ContributorStatus.Approved)
                     {
                         <span class="badge badge-success px-4 py-3 text-black">
+
                             Approved
+
                         </span>
                     }
                     else
                     {
                         <span class="badge badge-error px-4 py-3">
+
                             Rejected
+
                         </span>
                     }
 
@@ -81,14 +99,14 @@
         </div>
 
         <!-- Actions -->
-        <div class="flex flex-wrap items-center gap-3">
+        <div class="flex flex-col sm:flex-row sm:flex-wrap gap-3 lg:justify-end">
 
             @if (Model.Status == ContributorStatus.Pending)
             {
                 <a asp-action="ApproveContributor"
-                       asp-controller="Admin"
-                       asp-route-id="@Model.Id"
-                       class="btn btn-success text-black">
+                   asp-controller="Admin"
+                   asp-route-id="@Model.Id"
+                   class="btn btn-success text-black">
 
                     Approve Contributor
 
@@ -96,13 +114,15 @@
 
                 <button class="btn btn-error"
                         onclick="document.getElementById('reject-modal').showModal()">
+
                     Reject Contributor
+
                 </button>
             }
 
             <a href="@Model.CertificatePath"
-                   target="_blank"
-                   class="btn btn-outline border-primary text-primary hover:bg-primary hover:text-primary-content">
+               target="_blank"
+               class="btn btn-outline btn-primary">
 
                 View Certificate
 
@@ -113,62 +133,72 @@
     </div>
 
     <!-- Contributor Information -->
-    <div class="rounded-[var(--radius-box)] border border-base-300 bg-base-200 p-6 mb-3">
+    <div class="rounded-[var(--radius-box)] bg-base-200 p-8 space-y-8">
 
         <!-- Header -->
-        <div class="mb-6 flex items-center justify-between mb-3">
+        <div class="space-y-2">
 
-            <div>
+            <h2 class="text-3xl font-semibold text-base-content">
 
-                <h2 class="text-xl font-semibold text-base-content">
-                    Contributor Information
-                </h2>
+                Contributor Information
 
-                <p class="mt-1 text-sm text-[var(--color-primary-content-para)]">
-                    Complete contributor account details and request metadata.
-                </p>
+            </h2>
 
-            </div>
+            <p class="text-[var(--color-primary-content-para)] leading-7">
+
+                Complete contributor account details and request metadata.
+
+            </p>
 
         </div>
 
         <!-- Grid -->
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
 
             <!-- Email -->
-            <div class="space-y-2">
+            <div class="space-y-3">
 
-                <p class="text-sm font-medium text-[var(--color-primary-content-para)]">
+                <p class="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary-content-para)]">
+
                     Email
+
                 </p>
 
-                <div class="rounded-[var(--radius-field)] border border-base-300 bg-base-100 px-4 py-3 text-base-content">
+                <div class="rounded-[var(--radius-field)] bg-base-100 px-4 py-3 text-base-content">
+
                     @Model.Email
+
                 </div>
 
             </div>
 
             <!-- Username -->
-            <div class="space-y-2">
+            <div class="space-y-3">
 
-                <p class="text-sm font-medium text-[var(--color-primary-content-para)]">
+                <p class="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary-content-para)]">
+
                     Username
+
                 </p>
 
-                <div class="rounded-[var(--radius-field)] border border-base-300 bg-base-100 px-4 py-3 text-base-content">
+                <div class="rounded-[var(--radius-field)] bg-base-100 px-4 py-3 text-base-content">
+
                     @@@(Model.Email.Split('@')[0])
+
                 </div>
 
             </div>
 
             <!-- Phone -->
-            <div class="space-y-2">
+            <div class="space-y-3">
 
-                <p class="text-sm font-medium text-[var(--color-primary-content-para)]">
+                <p class="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary-content-para)]">
+
                     Phone Number
+
                 </p>
 
-                <div class="rounded-[var(--radius-field)] border border-base-300 bg-base-100 px-4 py-3 text-base-content">
+                <div class="rounded-[var(--radius-field)] bg-base-100 px-4 py-3 text-base-content">
 
                     @(string.IsNullOrEmpty(Model.PhoneNumber)
                         ? "Not Provided"
@@ -179,43 +209,55 @@
             </div>
 
             <!-- Specialization -->
-            <div class="space-y-2">
+            <div class="space-y-3">
 
-                <p class="text-sm font-medium text-[var(--color-primary-content-para)]">
+                <p class="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary-content-para)]">
+
                     Specialization
+
                 </p>
 
-                <div class="rounded-[var(--radius-field)] border border-base-300 bg-base-100 px-4 py-3 text-base-content">
+                <div class="rounded-[var(--radius-field)] bg-base-100 px-4 py-3 text-base-content">
+
                     @Model.Specialization
+
                 </div>
 
             </div>
 
             <!-- Status -->
-            <div class="space-y-2">
+            <div class="space-y-3">
 
-                <p class="text-sm font-medium text-[var(--color-primary-content-para)]">
+                <p class="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary-content-para)]">
+
                     Request Status
+
                 </p>
 
-                <div class="rounded-[var(--radius-field)] border border-base-300 bg-base-100 px-4 py-3">
+                <div class="rounded-[var(--radius-field)] bg-base-100 px-4 py-3">
 
                     @if (Model.Status == ContributorStatus.Pending)
                     {
                         <span class="badge badge-warning text-black">
+
                             Pending
+
                         </span>
                     }
                     else if (Model.Status == ContributorStatus.Approved)
                     {
                         <span class="badge badge-success text-black">
+
                             Approved
+
                         </span>
                     }
                     else
                     {
                         <span class="badge badge-error">
+
                             Rejected
+
                         </span>
                     }
 
@@ -224,14 +266,18 @@
             </div>
 
             <!-- Request Date -->
-            <div class="space-y-2">
+            <div class="space-y-3">
 
-                <p class="text-sm font-medium text-[var(--color-primary-content-para)]">
+                <p class="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary-content-para)]">
+
                     Request Date
+
                 </p>
 
-                <div class="rounded-[var(--radius-field)] border border-base-300 bg-base-100 px-4 py-3 text-base-content">
+                <div class="rounded-[var(--radius-field)] bg-base-100 px-4 py-3 text-base-content">
+
                     @Model.RequestDate?.ToString("MMMM dd, yyyy")
+
                 </div>
 
             </div>
@@ -241,14 +287,18 @@
         <!-- Rejection Reason -->
         @if (!string.IsNullOrEmpty(Model.RejectionReason))
         {
-            <div class="mt-6 space-y-2">
+            <div class="pt-6 border-t border-base-300 space-y-3">
 
-                <p class="text-sm font-medium text-error">
+                <p class="text-sm font-semibold uppercase tracking-wide text-error">
+
                     Rejection Reason
+
                 </p>
 
-                <div class="rounded-[var(--radius-field)] border border-error bg-error/10 px-4 py-3 text-base-content">
+                <div class="rounded-[var(--radius-field)] bg-error/10 px-4 py-4 text-base-content leading-7">
+
                     @Model.RejectionReason
+
                 </div>
 
             </div>
@@ -256,28 +306,41 @@
 
     </div>
 
-</div>
+</section>
 
 <!-- Reject Modal -->
-<dialog id="reject-modal" class="modal">
+<dialog id="reject-modal"
+        class="modal">
 
-    <div class="modal-box bg-base-200">
+    <div class="modal-box bg-base-200 p-8 space-y-6">
 
-        <h3 class="text-lg font-bold mb-4">
-            Reject Contributor Request
-        </h3>
+        <div class="space-y-2">
+
+            <h3 class="text-2xl font-bold">
+
+                Reject Contributor Request
+
+            </h3>
+
+            <p class="text-[var(--color-primary-content-para)]">
+
+                Provide a clear reason for rejecting this contributor request.
+
+            </p>
+
+        </div>
 
         <form asp-action="RejectContributor"
               asp-controller="Admin"
               method="post"
-              class="space-y-4">
+              class="space-y-6">
 
             <input type="hidden"
                    name="id"
                    value="@Model.Id" />
 
             <textarea name="reason"
-                      class="textarea textarea-bordered w-full"
+                      class="textarea textarea-bordered w-full h-40"
                       placeholder="Enter rejection reason..."
                       required></textarea>
 
@@ -285,13 +348,17 @@
 
                 <button type="submit"
                         class="btn btn-error">
+
                     Reject
+
                 </button>
 
                 <button type="button"
                         class="btn"
                         onclick="document.getElementById('reject-modal').close()">
+
                     Cancel
+
                 </button>
 
             </div>

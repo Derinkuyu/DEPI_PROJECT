@@ -1,282 +1,448 @@
 ﻿@model IEnumerable<ContributorRequestDto>
 
 @{
-    ViewData["Title"] = "ContributorRequests";
+    ViewData["Title"] = "Contributor Requests";
 }
 
-<div class="space-y-6">
+<section class="max-w-7xl mx-auto px-8 py-10 space-y-10">
 
     <!-- Header -->
-    <div class="flex flex-col gap-2 mx-4">
+    <div class="space-y-3">
 
-        <h1 class="text-3xl font-bold text-base-content">
+        <h1 class="text-4xl font-bold tracking-tight text-base-content">
+
             Contributor Requests
+
         </h1>
 
-        <p class="max-w-3xl text-sm text-[var(--color-primary-content-para)] md:text-base">
-            Review contributor applications, verify certificates, and approve or reject requests.
+        <p class="max-w-3xl text-lg leading-8 text-[var(--color-primary-content-para)]">
+
+            Review contributor applications, verify certificates,
+            and approve or reject contributor requests.
+
         </p>
 
     </div>
 
     <!-- Toolbar -->
-    <div class="flex flex-col gap-4 rounded-[var(--radius-box)] border border-base-300 bg-base-200 p-4 lg:flex-row lg:items-center lg:justify-between">
+    <div class="rounded-[var(--radius-box)] bg-base-200 p-6">
 
-        <!-- Left -->
-        <div class="flex flex-col gap-3 md:flex-row md:flex-wrap md:items-center">
+        <div class="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
 
-            <!-- Search -->
-            <label class="input rounded-full bg-base-300 border-none w-200 h-15 ">
-                <svg class="h-[1em] opacity-50 mx-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <g stroke-linejoin="round"
+            <!-- Left -->
+            <div class="flex flex-col gap-4 lg:flex-row lg:flex-wrap lg:items-center">
+
+                <!-- Search -->
+                <label class="input rounded-full bg-base-100 border-none w-full lg:w-[28rem] h-14 shadow-sm">
+
+                    <svg class="h-[1em] opacity-50 mx-2"
+                         xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 24 24">
+
+                        <g stroke-linejoin="round"
                            stroke-linecap="round"
                            stroke-width="2.5"
                            fill="none"
                            stroke="currentColor">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.3-4.3"></path>
-                    </g>
-                </svg>
 
-                <input type="search"
-                       required
-                       placeholder="Search Contributors..."
-                       class="border-none" />
-            </label>
+                            <circle cx="11"
+                                    cy="11"
+                                    r="8"></circle>
 
-            <!-- Specialization Filter -->
-            <select class="select select-bordered border-base-300 bg-base-100">
-                <option selected disabled>Specialization</option>
-                <option>Frontend</option>
-                <option>Backend</option>
-                <option>AI</option>
-                <option>Cybersecurity</option>
-            </select>
+                            <path d="m21 21-4.3-4.3"></path>
 
-            <!-- Status Filter -->
-            <select class="select select-bordered border-base-300 bg-base-100">
-                <option selected disabled>Status</option>
-                <option>Pending</option>
-                <option>Approved</option>
-                <option>Rejected</option>
-            </select>
+                        </g>
 
-            <!-- Date Filter -->
-            <select class="select select-bordered border-base-300 bg-base-100">
-                <option selected disabled>Date</option>
-                <option>Newest</option>
-                <option>Oldest</option>
-            </select>
+                    </svg>
+
+                    <input type="search"
+                           placeholder="Search Contributors..."
+                           class="border-none bg-transparent" />
+
+                </label>
+
+                <!-- Filters -->
+                <div class="flex flex-wrap gap-3">
+
+                    <!-- Specialization -->
+                    <select class="select border-none bg-base-100 min-w-[12rem] shadow-sm">
+
+                        <option selected disabled>
+
+                            Specialization
+
+                        </option>
+
+                        <option>
+                            Frontend
+                        </option>
+
+                        <option>
+                            Backend
+                        </option>
+
+                        <option>
+                            AI
+                        </option>
+
+                        <option>
+                            Cybersecurity
+                        </option>
+
+                    </select>
+
+                    <!-- Status -->
+                    <select class="select border-none bg-base-100 min-w-[10rem] shadow-sm">
+
+                        <option selected disabled>
+
+                            Status
+
+                        </option>
+
+                        <option>
+                            Pending
+                        </option>
+
+                        <option>
+                            Approved
+                        </option>
+
+                        <option>
+                            Rejected
+                        </option>
+
+                    </select>
+
+                    <!-- Date -->
+                    <select class="select border-none bg-base-100 min-w-[10rem] shadow-sm">
+
+                        <option selected disabled>
+
+                            Date
+
+                        </option>
+
+                        <option>
+                            Newest
+                        </option>
+
+                        <option>
+                            Oldest
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
 
         </div>
 
     </div>
 
-    <!-- Table -->
-    <div class="overflow-x-auto rounded-[var(--radius-box)] border border-base-300 bg-base-200">
+    <!-- Table Section -->
+    <div class="rounded-[var(--radius-box)] bg-base-200 overflow-hidden">
 
-        <table class="table">
+        <!-- Table Header -->
+        <div class="flex items-center justify-between px-6 py-5 border-b border-base-300">
 
-            <!-- Head -->
-            <thead>
+            <div class="space-y-1">
 
-                <tr class="text-xs uppercase tracking-wide text-[var(--color-primary-content-para)]">
+                <h2 class="text-2xl font-semibold text-base-content">
 
-                    <th>
-                        <input type="checkbox"
-                               class="checkbox checkbox-sm" />
-                    </th>
+                    All Contributor Requests
 
-                    <th>
-                        Contributor ↕
-                    </th>
+                </h2>
 
-                    <th>
-                        Email ↕
-                    </th>
+                <p class="text-sm text-[var(--color-primary-content-para)]">
 
-                    <th>
-                        Specialization ↕
-                    </th>
+                    Manage contributor approvals and application reviews.
 
-                    <th>
-                        Status ↕
-                    </th>
+                </p>
 
-                    <th>
-                        Request Date ↕
-                    </th>
+            </div>
 
-                    <th class="text-center">
-                        Actions
-                    </th>
+            <div class="badge badge-primary badge-lg">
 
-                </tr>
+                @Model.Count() Requests
 
-            </thead>
+            </div>
 
-            <!-- Body -->
-            <tbody>
+        </div>
 
-                @foreach (var item in Model)
-                {
-                    <tr class="transition-colors hover:bg-base-300">
+        <!-- Table -->
+        <div class="overflow-x-auto">
 
-                        <!-- Checkbox -->
-                        <td>
+            <table class="table">
+
+                <!-- Head -->
+                <thead>
+
+                    <tr class="text-xs uppercase tracking-wider text-[var(--color-primary-content-para)]">
+
+                        <th class="px-6 py-5">
+
                             <input type="checkbox"
                                    class="checkbox checkbox-sm" />
-                        </td>
 
-                        <!-- Contributor -->
-                        <td>
+                        </th>
 
-                            <div class="flex items-center gap-3">
+                        <th>
 
-                                <div>
-                                    <div class="font-medium text-base-content">
+                            Contributor ↕
+
+                        </th>
+
+                        <th>
+
+                            Email ↕
+
+                        </th>
+
+                        <th>
+
+                            Specialization ↕
+
+                        </th>
+
+                        <th>
+
+                            Status ↕
+
+                        </th>
+
+                        <th>
+
+                            Request Date ↕
+
+                        </th>
+
+                        <th class="text-center">
+
+                            Actions
+
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <!-- Body -->
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr class="hover:bg-base-300/40 transition-colors">
+
+                            <!-- Checkbox -->
+                            <td class="px-6 py-5">
+
+                                <input type="checkbox"
+                                       class="checkbox checkbox-sm" />
+
+                            </td>
+
+                            <!-- Contributor -->
+                            <td>
+
+                                <div class="space-y-1">
+
+                                    <div class="font-semibold text-base-content">
+
                                         @item.FullName
+
                                     </div>
+
+                                    <div class="text-sm text-[var(--color-primary-content-para)]">
+
+                                        @@@(item.Email.Split('@')[0])
+
+                                    </div>
+
                                 </div>
 
-                            </div>
+                            </td>
 
-                        </td>
+                            <!-- Email -->
+                            <td class="text-sm text-[var(--color-primary-content-para)]">
 
-                        <!-- Email -->
-                        <td class="text-sm text-[var(--color-primary-content-para)]">
-                            @item.Email
-                        </td>
+                                @item.Email
 
-                        <!-- Specialization -->
-                        <td>
-                            <span class="badge badge-outline">
-                                @item.Specialization
-                            </span>
-                        </td>
+                            </td>
 
-                        <!-- Status -->
-                        <td>
+                            <!-- Specialization -->
+                            <td>
 
-                            @if (item.Status == ContributorStatus.Pending)
-                            {
-                                <span class="badge badge-warning text-black">
-                                    Pending
+                                <span class="badge badge-outline px-3 py-3">
+
+                                    @item.Specialization
+
                                 </span>
-                            }
-                            else if (item.Status == ContributorStatus.Approved)
-                            {
-                                <span class="badge badge-success text-black">
-                                    Approved
-                                </span>
-                            }
-                            else
-                            {
-                                <span class="badge badge-error">
-                                    Rejected
-                                </span>
-                            }
 
-                        </td>
+                            </td>
 
-                        <!-- Request Date -->
-                        <td class="text-sm text-[var(--color-primary-content-para)]">
-                            @item.RequestDate?.ToString("MMM dd, yyyy")
-                        </td>
+                            <!-- Status -->
+                            <td>
 
-                        <!-- Actions -->
-                        <td>
+                                @if (item.Status == ContributorStatus.Pending)
+                                {
+                                    <span class="badge badge-warning text-black px-3 py-3">
 
-                            <div class="flex items-center justify-center gap-2 flex-wrap">
+                                        Pending
 
-                                <!-- Details -->
-                                <a asp-action="ContributorDetails"
+                                    </span>
+                                }
+                                else if (item.Status == ContributorStatus.Approved)
+                                {
+                                    <span class="badge badge-success text-black px-3 py-3">
+
+                                        Approved
+
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-error px-3 py-3">
+
+                                        Rejected
+
+                                    </span>
+                                }
+
+                            </td>
+
+                            <!-- Request Date -->
+                            <td class="text-sm text-[var(--color-primary-content-para)] whitespace-nowrap">
+
+                                @item.RequestDate?.ToString("MMM dd, yyyy")
+
+                            </td>
+
+                            <!-- Actions -->
+                            <td>
+
+                                <div class="flex flex-wrap items-center justify-center gap-2">
+
+                                    <!-- Details -->
+                                    <a asp-action="ContributorDetails"
                                        asp-controller="Admin"
                                        asp-route-id="@item.Id"
                                        class="btn btn-sm btn-primary">
-                                    Details
-                                </a>
 
-                                <!-- Certificate -->
-                                <a href="@item.CertificatePath"
+                                        Details
+
+                                    </a>
+
+                                    <!-- Certificate -->
+                                    <a href="@item.CertificatePath"
                                        target="_blank"
-                                       class="btn btn-sm btn-outline">
-                                    Certificate
-                                </a>
+                                       class="btn btn-sm btn-outline btn-primary">
 
-                                <!-- Approve -->
-                                @if (item.Status == ContributorStatus.Pending || item.Status == ContributorStatus.Rejected)
-                                {
-                                    <a asp-action="ApproveContributor"
+                                        Certificate
+
+                                    </a>
+
+                                    <!-- Approve -->
+                                    @if (item.Status == ContributorStatus.Pending || item.Status == ContributorStatus.Rejected)
+                                    {
+                                        <a asp-action="ApproveContributor"
                                            asp-controller="Admin"
                                            asp-route-id="@item.Id"
                                            class="btn btn-sm btn-success text-black">
-                                        Approve
-                                    </a>
-                                }
-                                @if (item.Status == ContributorStatus.Pending || item.Status == ContributorStatus.Approved)
-                                {
-                                    <button class="btn btn-sm btn-error"
-                                            onclick="document.getElementById('reject-modal-@item.Id').showModal()">
-                                        Reject
-                                    </button>
-                                }
 
-                            </div>
+                                            Approve
 
-                            <!-- Reject Modal -->
-                            <dialog id="reject-modal-@item.Id" class="modal">
+                                        </a>
+                                    }
 
-                                <div class="modal-box bg-base-200">
+                                    <!-- Reject -->
+                                    @if (item.Status == ContributorStatus.Pending || item.Status == ContributorStatus.Approved)
+                                    {
+                                        <button class="btn btn-sm btn-error"
+                                                onclick="document.getElementById('reject-modal-@item.Id').showModal()">
 
-                                    <h3 class="text-lg font-bold mb-4">
-                                        Reject Contributor
-                                    </h3>
+                                            Reject
 
-                                    <form asp-action="RejectContributor"
-                                          asp-controller="Admin"
-                                          method="post"
-                                          class="space-y-4">
-
-                                        <input type="hidden"
-                                               name="id"
-                                               value="@item.Id" />
-
-                                        <textarea name="reason"
-                                                  class="textarea textarea-bordered w-full"
-                                                  placeholder="Enter rejection reason..."
-                                                  required></textarea>
-
-                                        <div class="modal-action">
-
-                                            <button type="submit"
-                                                    class="btn btn-error">
-                                                Reject
-                                            </button>
-
-                                            <button type="button"
-                                                    class="btn"
-                                                    onclick="document.getElementById('reject-modal-@item.Id').close()">
-                                                Cancel
-                                            </button>
-
-                                        </div>
-
-                                    </form>
+                                        </button>
+                                    }
 
                                 </div>
 
-                            </dialog>
+                                <!-- Reject Modal -->
+                                <dialog id="reject-modal-@item.Id"
+                                        class="modal">
 
-                        </td>
+                                    <div class="modal-box bg-base-200 p-8 space-y-6">
 
-                    </tr>
-                }
+                                        <!-- Header -->
+                                        <div class="space-y-2">
 
-            </tbody>
+                                            <h3 class="text-2xl font-bold">
 
-        </table>
+                                                Reject Contributor
+
+                                            </h3>
+
+                                            <p class="text-[var(--color-primary-content-para)]">
+
+                                                Provide a reason for rejecting this contributor request.
+
+                                            </p>
+
+                                        </div>
+
+                                        <!-- Form -->
+                                        <form asp-action="RejectContributor"
+                                              asp-controller="Admin"
+                                              method="post"
+                                              class="space-y-6">
+
+                                            <input type="hidden"
+                                                   name="id"
+                                                   value="@item.Id" />
+
+                                            <textarea name="reason"
+                                                      class="textarea textarea-bordered w-full h-40"
+                                                      placeholder="Enter rejection reason..."
+                                                      required></textarea>
+
+                                            <div class="modal-action">
+
+                                                <button type="submit"
+                                                        class="btn btn-error">
+
+                                                    Reject
+
+                                                </button>
+
+                                                <button type="button"
+                                                        class="btn"
+                                                        onclick="document.getElementById('reject-modal-@item.Id').close()">
+
+                                                    Cancel
+
+                                                </button>
+
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+
+                                </dialog>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
 
     </div>
 
-</div>
+</section>

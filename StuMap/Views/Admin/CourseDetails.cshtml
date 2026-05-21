@@ -4,14 +4,14 @@
     ViewData["Title"] = "Course Details";
 }
 
-<section class="px-12 my-8 p-5">
+<section class="max-w-7xl mx-auto px-8 py-10 space-y-10">
 
     <!-- Back Button -->
-    <div class="mb-6">
+    <div>
 
         <a asp-action="CourseRequests"
            asp-controller="Admin"
-           class="inline-flex items-center gap-2 whitespace-nowrap text-sm text-[var(--color-primary-content-para)] transition hover:text-base-content">
+           class="inline-flex items-center gap-2 whitespace-nowrap text-sm text-[var(--color-primary-content-para)] transition hover:text-base-content mb-2">
 
             <i class="fa-solid fa-arrow-left"></i>
 
@@ -22,32 +22,33 @@
     </div>
 
     <!-- Hero Section -->
-    <div class="grid grid-cols-4 gap-6">
+    <div class="flex flex-col gap-10 rounded-[var(--radius-box)] bg-base-200 p-8 xl:flex-row xl:items-start xl:justify-between">
 
         <!-- Left -->
-        <div class="col-span-3 space-y-4">
+        <div class="flex-1 space-y-6">
 
             <!-- Title -->
-            <p class="text-4xl font-semibold">
+            <div class="space-y-4">
 
-                <i class="fa-solid fa-angle-right"></i>
+                <h1 class="text-4xl font-bold tracking-tight text-base-content leading-tight">
 
-                @Model.Title
+                    @Model.Title
 
-            </p>
+                </h1>
 
-            <!-- Description -->
-            <p class="text-xl text-primary-content leading-9">
+                <p class="text-lg leading-8 text-[var(--color-primary-content-para)] max-w-4xl">
 
-                @Model.Description
+                    @Model.Description
 
-            </p>
+                </p>
 
-            <!-- Contributor + Roadmap -->
+            </div>
+
+            <!-- Meta Badges -->
             <div class="flex flex-wrap gap-3">
 
                 <!-- Contributor -->
-                <div class="text-xl badge badge-dash badge-primary p-5">
+                <div class="badge badge-primary px-5 py-4 gap-2">
 
                     <i class="fa-solid fa-circle-user"></i>
 
@@ -58,7 +59,7 @@
                 <!-- Roadmap -->
                 @if (!string.IsNullOrEmpty(Model.RoadmapName))
                 {
-                    <div class="text-xl badge badge-outline badge-secondary p-5">
+                    <div class="badge badge-outline badge-secondary px-5 py-4 gap-2">
 
                         <i class="fa-solid fa-diagram-project"></i>
 
@@ -68,7 +69,7 @@
                 }
 
                 <!-- Materials -->
-                <div class="text-xl badge badge-outline badge-success p-5">
+                <div class="badge badge-outline badge-success px-5 py-4 gap-2">
 
                     <i class="fa-solid fa-book-open"></i>
 
@@ -79,11 +80,11 @@
             </div>
 
             <!-- Status -->
-            <div class="flex flex-wrap gap-3">
+            <div class="flex flex-wrap gap-3 pt-2">
 
                 @if (Model.Status == CourseStatus.Pending)
                 {
-                    <div class="badge badge-warning text-black badge-lg">
+                    <div class="badge badge-warning badge-lg text-black px-4 py-4">
 
                         Pending
 
@@ -91,7 +92,7 @@
                 }
                 else if (Model.Status == CourseStatus.Approved)
                 {
-                    <div class="badge badge-success text-black badge-lg">
+                    <div class="badge badge-success badge-lg text-black px-4 py-4">
 
                         Approved
 
@@ -99,7 +100,7 @@
                 }
                 else if (Model.Status == CourseStatus.UpdatedPending)
                 {
-                    <div class="badge badge-info badge-lg">
+                    <div class="badge badge-info badge-lg px-4 py-4">
 
                         Updated Request
 
@@ -107,7 +108,7 @@
                 }
                 else
                 {
-                    <div class="badge badge-error badge-lg">
+                    <div class="badge badge-error badge-lg px-4 py-4">
 
                         Rejected
 
@@ -119,7 +120,7 @@
         </div>
 
         <!-- Right Actions -->
-        <div class="flex flex-col gap-4 items-stretch">
+        <div class="flex flex-row gap-4 w-50 xl:w-auto xl:min-w-[18rem]">
 
             @if (Model.Status == CourseStatus.Pending ||
            Model.Status == CourseStatus.UpdatedPending)
@@ -128,7 +129,7 @@
                 <a asp-action="ApproveCourse"
                    asp-controller="Admin"
                    asp-route-id="@Model.Id"
-                   class="btn btn-success text-black rounded-full h-14">
+                   class="btn btn-success text-black h-14">
 
                     <i class="fa-solid fa-check"></i>
 
@@ -137,7 +138,7 @@
                 </a>
 
                 <!-- Reject -->
-                <button class="btn btn-error rounded-full h-14"
+                <button class="btn btn-error h-14"
                         onclick="document.getElementById('reject-modal').showModal()">
 
                     <i class="fa-solid fa-xmark"></i>
@@ -151,7 +152,7 @@
             <a asp-action="DeleteCourse"
                asp-controller="Admin"
                asp-route-id="@Model.Id"
-               class="btn btn-outline btn-error rounded-full h-14">
+               class="btn btn-outline btn-error h-14">
 
                 <i class="fa-solid fa-trash"></i>
 
@@ -163,22 +164,19 @@
 
     </div>
 
-    <!-- Divider -->
-    <div class="divider my-10"></div>
-
-    <!-- Information Card -->
-    <div class="rounded-2xl border border-base-300 bg-base-100 p-8 mb-10">
+    <!-- Course Information -->
+    <div class="rounded-[var(--radius-box)] bg-base-200 p-8 space-y-8">
 
         <!-- Header -->
-        <div class="mb-8">
+        <div class="space-y-2">
 
-            <h2 class="text-3xl font-semibold">
+            <h2 class="text-3xl font-semibold text-base-content">
 
                 Course Information
 
             </h2>
 
-            <p class="text-primary-content mt-2">
+            <p class="text-[var(--color-primary-content-para)] leading-7">
 
                 Review contributor information and course moderation metadata.
 
@@ -187,18 +185,18 @@
         </div>
 
         <!-- Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
             <!-- Contributor -->
-            <div class="space-y-2">
+            <div class="space-y-3">
 
-                <p class="text-sm text-primary-content font-medium">
+                <p class="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary-content-para)]">
 
                     Contributor
 
                 </p>
 
-                <div class="rounded-xl bg-base-200 border border-base-300 p-4">
+                <div class="rounded-[var(--radius-field)] bg-base-100 px-4 py-4">
 
                     @Model.ContributorName
 
@@ -207,15 +205,15 @@
             </div>
 
             <!-- Email -->
-            <div class="space-y-2">
+            <div class="space-y-3">
 
-                <p class="text-sm text-primary-content font-medium">
+                <p class="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary-content-para)]">
 
                     Contributor Email
 
                 </p>
 
-                <div class="rounded-xl bg-base-200 border border-base-300 p-4">
+                <div class="rounded-[var(--radius-field)] bg-base-100 px-4 py-4">
 
                     @Model.ContributorEmail
 
@@ -224,38 +222,46 @@
             </div>
 
             <!-- Status -->
-            <div class="space-y-2">
+            <div class="space-y-3">
 
-                <p class="text-sm text-primary-content font-medium">
+                <p class="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary-content-para)]">
 
                     Approval Status
 
                 </p>
 
-                <div class="rounded-xl bg-base-200 border border-base-300 p-4">
+                <div class="rounded-[var(--radius-field)] bg-base-100 px-4 py-4">
 
                     @if (Model.Status == CourseStatus.Pending)
                     {
                         <span class="badge badge-warning text-black">
+
                             Pending
+
                         </span>
                     }
                     else if (Model.Status == CourseStatus.Approved)
                     {
                         <span class="badge badge-success text-black">
+
                             Approved
+
                         </span>
                     }
                     else if (Model.Status == CourseStatus.UpdatedPending)
                     {
                         <span class="badge badge-info">
+
                             Updated Request
+
                         </span>
                     }
                     else
                     {
                         <span class="badge badge-error">
+
                             Rejected
+
                         </span>
                     }
 
@@ -264,15 +270,15 @@
             </div>
 
             <!-- Materials -->
-            <div class="space-y-2">
+            <div class="space-y-3">
 
-                <p class="text-sm text-primary-content font-medium">
+                <p class="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary-content-para)]">
 
                     Materials Count
 
                 </p>
 
-                <div class="rounded-xl bg-base-200 border border-base-300 p-4">
+                <div class="rounded-[var(--radius-field)] bg-base-100 px-4 py-4">
 
                     @Model.MaterialsCount Materials
 
@@ -281,15 +287,15 @@
             </div>
 
             <!-- Submitted -->
-            <div class="space-y-2">
+            <div class="space-y-3">
 
-                <p class="text-sm text-primary-content font-medium">
+                <p class="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary-content-para)]">
 
                     Submitted At
 
                 </p>
 
-                <div class="rounded-xl bg-base-200 border border-base-300 p-4">
+                <div class="rounded-[var(--radius-field)] bg-base-100 px-4 py-4">
 
                     @Model.SubmittedAt.ToString("MMMM dd, yyyy")
 
@@ -298,15 +304,15 @@
             </div>
 
             <!-- Approved -->
-            <div class="space-y-2">
+            <div class="space-y-3">
 
-                <p class="text-sm text-primary-content font-medium">
+                <p class="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary-content-para)]">
 
                     Approved At
 
                 </p>
 
-                <div class="rounded-xl bg-base-200 border border-base-300 p-4">
+                <div class="rounded-[var(--radius-field)] bg-base-100 px-4 py-4">
 
                     @(Model.ApprovedAt == null
                         ? "Not Approved Yet"
@@ -321,21 +327,17 @@
         <!-- Rejection Reason -->
         @if (!string.IsNullOrEmpty(Model.RejectionReason))
         {
-            <div class="mt-8">
+            <div class="pt-6 border-t border-base-300 space-y-3">
 
-                <div class="space-y-2">
+                <p class="text-sm font-semibold uppercase tracking-wide text-error">
 
-                    <p class="text-sm text-error font-medium">
+                    Rejection Reason
 
-                        Rejection Reason
+                </p>
 
-                    </p>
+                <div class="rounded-[var(--radius-field)] bg-error/10 px-5 py-5 leading-7">
 
-                    <div class="rounded-xl border border-error bg-error/10 p-5">
-
-                        @Model.RejectionReason
-
-                    </div>
+                    @Model.RejectionReason
 
                 </div>
 
@@ -345,90 +347,106 @@
     </div>
 
     <!-- Materials Section -->
-    <p class="text-4xl font-semibold mb-8">
+    <div class="space-y-6">
 
-        <i class="fa-solid fa-angle-right"></i>
+        <!-- Header -->
+        <div class="space-y-2">
 
-        All Materials
+            <h2 class="text-3xl font-semibold text-base-content">
 
-    </p>
+                All Materials
 
-    <div id="all-accordions"
-         class="space-y-4">
+            </h2>
 
-        @{
-            int count = 0;
-        }
+            <p class="text-[var(--color-primary-content-para)]">
 
-        @foreach (var item in Model.Materials)
-        {
-            count++;
+                Explore all learning materials included in this course.
 
-            <details class="collapse collapse-arrow bg-base-100 border border-base-300"
-                     open>
+            </p>
 
-                <input type="radio"
-                       name="materials-accordion"
-                       hidden />
+        </div>
 
-                <!-- Header -->
-                <summary class="collapse-title font-semibold text-xl flex items-center gap-3">
+        <!-- Accordions -->
+        <div id="all-accordions"
+             class="space-y-5">
 
-                    <span>
+            @{
+                int count = 0;
+            }
 
-                        #@count @item.Title
+            @foreach (var item in Model.Materials)
+            {
+                count++;
 
-                    </span>
+                <details class="collapse collapse-arrow bg-base-200"
+                         open>
 
-                    <div class="badge badge-soft badge-warning">
+                    <input type="radio"
+                           name="materials-accordion"
+                           hidden />
 
-                        @item.MaterialType
+                    <!-- Header -->
+                    <summary class="collapse-title text-xl font-semibold flex items-center gap-3">
+
+                        <span>
+
+                            #@count @item.Title
+
+                        </span>
+
+                        <div class="badge badge-warning badge-soft">
+
+                            @item.MaterialType
+
+                        </div>
+
+                    </summary>
+
+                    <!-- Body -->
+                    <div class="collapse-content px-6 pb-6">
+
+                        <div class="space-y-6">
+
+                            <!-- Description -->
+                            <div class="space-y-3">
+
+                                <p class="text-sm font-semibold uppercase tracking-wide text-[var(--color-primary-content-para)]">
+
+                                    Description
+
+                                </p>
+
+                                <p class="text-lg leading-8 text-[var(--color-primary-content-para)]">
+
+                                    @item.Description
+
+                                </p>
+
+                            </div>
+
+                            <!-- URL -->
+                            <div>
+
+                                <a class="btn btn-outline btn-primary"
+                                   href="@item.Url"
+                                   target="_blank">
+
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                                    Open Material
+
+                                </a>
+
+                            </div>
+
+                        </div>
 
                     </div>
 
-                </summary>
+                </details>
+            }
 
-                <!-- Body -->
-                <div class="collapse-content text-sm flex flex-col mx-6 my-4">
-
-                    <ul class="list-disc space-y-4">
-
-                        <!-- Description -->
-                        <li>
-
-                            <span class="font-semibold text-xl">
-
-                                Description
-
-                            </span>
-
-                            <p class="text-xl text-primary-content mt-2">
-
-                                @item.Description
-
-                            </p>
-
-                        </li>
-
-                        <!-- URL -->
-                        <li>
-
-                            <a class="link link-info text-xl"
-                               href="@item.Url"
-                               target="_blank">
-
-                                Click Here To Explore
-
-                            </a>
-
-                        </li>
-
-                    </ul>
-
-                </div>
-
-            </details>
-        }
+        </div>
 
     </div>
 
@@ -438,14 +456,26 @@
 <dialog id="reject-modal"
         class="modal">
 
-    <div class="modal-box w-11/12 max-w-2xl">
+    <div class="modal-box bg-base-200 max-w-2xl p-8 space-y-6">
 
-        <h3 class="font-bold text-2xl mb-6">
+        <!-- Header -->
+        <div class="space-y-2">
 
-            Reject Course Submission
+            <h3 class="text-3xl font-bold">
 
-        </h3>
+                Reject Course Submission
 
+            </h3>
+
+            <p class="text-[var(--color-primary-content-para)]">
+
+                Provide a clear explanation for rejecting this course request.
+
+            </p>
+
+        </div>
+
+        <!-- Form -->
         <form asp-controller="Admin"
               asp-action="RejectCourse"
               method="post"
@@ -455,9 +485,9 @@
                    name="id"
                    value="@Model.Id" />
 
-            <div class="space-y-2">
+            <div class="space-y-3">
 
-                <label class="font-medium">
+                <label class="text-sm font-semibold uppercase tracking-wide">
 
                     Rejection Reason
 
