@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StuMap.Managers;
 using StuMap.Models;
 using System.Security.Claims;
 
 namespace StuMap.Controllers
 {
-    public class RoadmapController(ICourseManager courseRepo, IMaterialTypeManager materialTypeRepo, IMaterialManager materialRepo, IRoadmapManager roadmapRepo, ISpecializationManager specializationRepo ,ICourseRoadmapManager courseRoadmapRepo , IRoadmapEnrollmentManager roadmapEnrollment) : Controller
+    public class RoadmapController(ICourseManager courseRepo, IMaterialTypeManager materialTypeRepo, IMaterialManager materialRepo, IRoadmapManager roadmapRepo, ISpecializationManager specializationRepo, ICourseRoadmapManager courseRoadmapRepo, IRoadmapEnrollmentManager roadmapEnrollment) : Controller
     {
         public IActionResult Index()
         {
@@ -30,6 +31,7 @@ namespace StuMap.Controllers
             var roadmap = roadmapRepo.GetById(id);
             return View(roadmap);
         }
+        [Authorize(Roles = "Contributor")]
         public IActionResult New()
         {
             var courses = courseRepo.GetAll();
@@ -37,6 +39,7 @@ namespace StuMap.Controllers
             ViewBag.specialization = specializationRepo.GetAll();
             return View();
         }
+        [Authorize(Roles = "Contributor")]
         public IActionResult AddNew()
         {
             var QString = Request.Query;

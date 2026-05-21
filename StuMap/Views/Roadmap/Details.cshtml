@@ -18,75 +18,114 @@
         </div>
 
         <div class="flex justify-end gap-5 w-full">
-            @if (ViewBag.IsStudent != null && ViewBag.IsStudent == true)
+
+            @if (User.Identity?.IsAuthenticated ?? false)
             {
-                <a asp-controller="Student"
-                        asp-action="GetEnrolledRoadmaps"
-                        class="btn btn-neutral btn-outline btn-primary text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
+                @if (ViewBag.IsStudent != null && ViewBag.IsStudent == true)
+                {
+                    <a asp-controller="Student"
+                           asp-action="GetEnrolledRoadmaps"
+                           class="btn btn-neutral btn-outline btn-primary text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
+                        View My Roadmaps
+                        <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                    if (ViewBag.IsEnrolled == false)
+                    {
+                        <a asp-controller="Student"
+                               asp-action="AddRoadmapFromDetails"
+                               asp-route-id="@Model.Id"
+                               class="btn btn-primary btn-outline text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
+                            Add To My Roadmaps
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Student"
+                               asp-action="RemoveRoadmapFromDetails"
+                               asp-route-id="@Model.Id"
+                               class="btn btn-neutral btn-outline btn-warning text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
+                            Remove From My Roadmaps
+                        </a>
+                    }
+                }
+            }
+            else
+            {
+                <a onclick="openLoginModal()"
+                       class="btn btn-neutral btn-outline btn-primary text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
                     View My Roadmaps
                     <i class="fa-solid fa-arrow-right-long"></i>
                 </a>
-                if (ViewBag.IsEnrolled == false)
-                {
-                    <a asp-controller="Student"
-                            asp-action="AddRoadmapFromDetails"
-                            asp-route-id="@Model.Id"
-                            class="btn btn-primary btn-outline text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
-                        Add To My Roadmaps
-                    </a>
-                }
-                else
-                {
-                    <a asp-controller="Student"
-                            asp-action="RemoveRoadmapFromDetails"
-                            asp-route-id="@Model.Id"
-                            class="btn btn-neutral btn-outline btn-warning text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
-                        Remove From My Roadmaps
-                    </a>
-                }
+
+                <a onclick="openLoginModal()"
+                       class="btn btn-primary btn-outline text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
+                    Add To My Roadmaps
+                </a>
             }
+
+           
         </div>
 
     </div>
-        <div class="divider"></div>
-        <div id="Courses" class="flex flex-col gap-6">
-            <p class="text-3xl font-semibold ">Explore Courses</p>
+    <div class="divider"></div>
+    <div id="Courses" class="flex flex-col gap-6">
+        <p class="text-3xl font-semibold ">Explore Courses</p>
             
-            <div class="timelinec mx-12 ">
-                @{
-                    int count = 0;
-                }
-                @foreach (var course in Model.CourseRoadmaps)
-                {
-                    count++;
-                    <div class="timelinec-step">
-                        <div class="dotc text-xl font-bold">@count</div>
-                        <div class="flex items-baseline gap-8 mb-2">
-                            <p class="text-2xl font-semibold ">@course.Course.Title</p>
-                            <div class="uppercase  text-l text-primary-content-para tracking-widest"> <i class="fa-regular fa-user"></i> @course.Course.Contributor.FirstName @course.Course.Contributor.LastName</div>
-                        </div>
-                            <p class="text-l text-primary-content-para ">
-                                @course.Course.Description
-                            </p>
-                     <div class="flex flex-col gap-4 my-4">
+        <div class="timelinec mx-12 ">
+            @{
+                int count = 0;
+            }
+            @foreach (var course in Model.CourseRoadmaps)
+            {
+                count++;
+                <div class="timelinec-step">
+                    <div class="dotc text-xl font-bold">@count</div>
+                    <div class="flex items-baseline gap-8 mb-2">
+                        <p class="text-2xl font-semibold ">@course.Course.Title</p>
+                        <div class="uppercase  text-l text-primary-content-para tracking-widest"> <i class="fa-regular fa-user"></i> @course.Course.Contributor.FirstName @course.Course.Contributor.LastName</div>
+                    </div>
+                    <p class="text-l text-primary-content-para ">
+                        @course.Course.Description
+                    </p>
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        <div class="flex flex-col gap-4 my-4">
                             <p class="text-xl font-semibold ">Sources</p>
                             <ul class=" ml-6">
-                            @foreach (var material in course.Course.Materials)
-                            {
+                                @foreach (var material in course.Course.Materials)
+                                {
                                     <li>
                                         <div class="tooltip  tooltip-right" data-tip="@material.Description">
-                                        <a class="link link-hover link-secondary" target="_blank" href="@material.Url"><i class="fa-solid fa-link mr-2"></i> @material.Title</a>
+                                            <a class="link link-hover link-secondary" target="_blank" href="@material.Url"><i class="fa-solid fa-link mr-2"></i> @material.Title</a>
                                             <div class="badge badge-soft badge-warning ml-4">@ViewBag.materialType[material.MaterialTypeId]</div>
-                                    </div>    
+                                        </div>
                                     </li>
-                            }
+                                }
                             </ul>
 
-                     </div>
-                    </div>
-                }
+                        </div>
+                    }
+                    
+                </div>
+            }
+        </div>
+    </div>
+    <dialog id="login-modal" class="modal">
+        <div class="modal-box">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="text-lg font-bold">Account Required!</h3>
+            <p class="py-4">You need to login to access this.</p>
+            <div class="modal-action">
+                <form method="dialog">
+                    <button type="button" onclick="gotoLogin()" class="btn">Login</button>
+                </form>
             </div>
         </div>
-
+    </dialog>
 
 </section>
+@section Scripts {
+    <script src="~/js/Authentication/login-required.js"></script>
+}

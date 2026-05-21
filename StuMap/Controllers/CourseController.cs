@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using StuMap.Managers;
 using StuMap.Models;
@@ -6,14 +7,15 @@ using System.Security.Claims;
 
 namespace StuMap.Controllers
 {
-    public class CourseController(ICourseManager courseRepo, IMaterialTypeManager materialTypeRepo, IMaterialManager materialRepo , ICourseEnrollmentManager courseEnrollmentManager) : Controller
+    public class CourseController(ICourseManager courseRepo, IMaterialTypeManager materialTypeRepo, IMaterialManager materialRepo, ICourseEnrollmentManager courseEnrollmentManager) : Controller
     {
         public IActionResult Index()
         {
-            ViewBag.MaterialTypes= materialTypeRepo.GetAll();
+            ViewBag.MaterialTypes = materialTypeRepo.GetAll();
             return View(courseRepo.GetAll());
         }
 
+        [Authorize(Roles = "Contributor")]
         public IActionResult SaveCourseAndMaterial()
         {
             var QString = Request.Query;
@@ -21,8 +23,8 @@ namespace StuMap.Controllers
             //ContributorId Added manually
             //ContributorId will be changed after auth stuf
             string conId = "E2E368AB-8D20-401B-826A-F591202E3D19";
-            var newCourse = new Course{ Title = QString["CourseTitle"], Description = QString["CourseDescription"], ContributorId = conId };
-            var newCourseId=courseRepo.Insert(newCourse);
+            var newCourse = new Course { Title = QString["CourseTitle"], Description = QString["CourseDescription"], ContributorId = conId };
+            var newCourseId = courseRepo.Insert(newCourse);
 
             List<Material> newMaterials = [];
 
@@ -45,7 +47,7 @@ namespace StuMap.Controllers
                 if (isStudent)
                 {
                     ViewBag.IsStudent = true;
-                    ViewBag.IsEnrolled = courseEnrollmentManager.IsEnrolled(userId , id);
+                    ViewBag.IsEnrolled = courseEnrollmentManager.IsEnrolled(userId, id);
                 }
             }
             return View(courseRepo.GetById(id));

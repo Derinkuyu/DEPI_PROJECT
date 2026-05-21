@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
+@* can be removed ^*@
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +13,7 @@
     <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
+        
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
     @* <link rel="stylesheet" href="~/StuMap.styles.css" asp-append-version="true" /> *@
 </head>
@@ -20,7 +21,7 @@
 
     <div class="nav-wrap">
         <nav class="nav">
-            <div class="nav-logo">StuMap</div>
+            <a href="/" class="nav-logo">StuMap</a>
             <div class="nav-links">
                 <a href="#">Home</a>
                 <a href="#">Roadmaps</a>
@@ -29,7 +30,7 @@
                 <a href="#">Contact</a>
             </div>
             <div class="nav-actions">
-                @if (SignInManager.IsSignedIn(User))
+                @if (User.Identity?.IsAuthenticated ?? false)
                 {
                     <div class="dropdown dropdown-end">
                         <div tabindex="0" role="button" class="btn-ghost-custom btn-ghost">@User.FindFirst("FirstName")?.Value @User.FindFirst("LastName")?.Value</div>
@@ -41,7 +42,11 @@
                                     Account
                                 </a>
                             </li>
-                            <li><a>Profile</a></li>
+                            @if (User.IsInRole("Student"))
+                            {
+                                <li><a asp-controller="Student" asp-action="GetEnrolledCourses">My Courses</a></li>
+                                <li><a asp-controller="Student" asp-action="GetEnrolledRoadmaps">My Roadmaps</a></li>
+                            }
                             <li>
                                 <a asp-controller="Authentication"
                                        asp-action="Logout">
@@ -59,10 +64,10 @@
                         </a>
                     </div>
                 }
-                    else
-                    { 
+                else
+                {
                     <a asp-controller="Authentication" asp-action="Login" class="btn-ghost-custom btn-ghost">Login</a>
-                <a asp-controller="Authentication" asp-action="Register" class="btn-signup btn btn-primary btn-sm">Register</a>
+                    <a asp-controller="Authentication" asp-action="Register" class="btn-signup btn btn-primary btn-sm">Register</a>
                 }
             </div>
         </nav>

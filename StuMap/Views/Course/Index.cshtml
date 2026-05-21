@@ -12,60 +12,64 @@
         </p>
     </div>
     <div class="grid grid-cols-3 gap-x-8 gap-y-10 my-12">
-    @* add card  *@
-        <a href="#" class="hover-3d cursor-pointer mx-3" onclick="my_modal_3.showModal()">
-        <div class="card h-80 card-dash bg-base-300 border-primary-content rounded-2xl">
-            <div class="card-body flex justify-center ">
-                <div class="flex flex-col items-center justify-center text-primary-content">
-                    <p class="text-4xl py-2 flex-grow-0">Add New Course</p>
-                <i class="fa-solid fa-plus text-4xl py-2"></i>
+        @* add card  *@
+        @if (User.IsInRole("Contributor"))
+        {
+            <a href="#" class="hover-3d cursor-pointer mx-3" onclick="my_modal_3.showModal()">
+                <div class="card h-80 card-dash bg-base-300 border-primary-content rounded-2xl">
+                    <div class="card-body flex justify-center ">
+                        <div class="flex flex-col items-center justify-center text-primary-content">
+                            <p class="text-4xl py-2 flex-grow-0">Add New Course</p>
+                            <i class="fa-solid fa-plus text-4xl py-2"></i>
+                        </div>
+
+                    </div>
                 </div>
-
-            </div>
-    </div>
     
-        <!-- 8 empty divs needed for the 3D effect -->
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-</a>
-      
-    @foreach (var course in Model)
-    {
+                <!-- 8 empty divs needed for the 3D effect -->
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </a>
+        }
 
-        <a asp-controller="Course" asp-action="Details" asp-route-id="@course.Id"  class="hover-3d cursor-pointer mx-3">
-            <div class="card h-80 bg-base-300 border-primary-content rounded-2xl">
-                <div class="card-body flex flex-col justify-evenly gap-3">
+        
+        @foreach (var course in Model)
+        {
+
+            <a asp-controller="Course" asp-action="Details" asp-route-id="@course.Id" class="hover-3d cursor-pointer mx-3">
+                <div class="card h-80 bg-base-300 border-primary-content rounded-2xl">
+                    <div class="card-body flex flex-col justify-evenly gap-3">
                     
-                    <h1 class="card-title text-2xl">
-                        @course.Title
-                    </h1>
-                            <div class="badge badge-secondary ">By @course.Contributor.FirstName</div>
-                       <div>
+                        <h1 class="card-title text-2xl">
+                            @course.Title
+                        </h1>
+                        <div class="badge badge-secondary ">By @course.Contributor?.FirstName</div>
+                        <div>
                             <p class="text-base/7 text-primary-content h-17 overflow-hidden py-2  ">@course.Description </p>
                             <span>...</span>
                         </div>
-                        <button class=" btn btn-primary btn-outline text-base-content  h-15 rounded-full">More Details<i class="fa-solid fa-arrow-right-long"></i></button>
+                        <div class=" btn btn-primary btn-outline text-base-content  h-15 rounded-full">More Details<i class="fa-solid fa-arrow-right-long"></i></div>
+                    </div>
                 </div>
-            </div>
     
-            <!-- 8 empty divs needed for the 3D effect -->
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </a>
+                <!-- 8 empty divs needed for the 3D effect -->
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </a>
       
-    }
+        }
 
     
     </div>
@@ -83,22 +87,22 @@
         </form>
         <div class="text-center flex flex-col justify-center items-center gap-8">
             <ul class="steps w-11/12 max-w-5xl">
-            <li id="course-step"class="step step-primary">Course</li>
-            <li id="material-step"  class="step ">Materials</li>
-            <li id="revision-step"  class="step">Revision</li>
-        </ul>
+                <li id="course-step" class="step step-primary">Course</li>
+                <li id="material-step" class="step ">Materials</li>
+                <li id="revision-step" class="step">Revision</li>
+            </ul>
             <form id="course-material-form" asp-action="SaveCourseAndMaterial" asp-controller="Course" method="get">
                 <div id="course-details" class="flex flex-col gap-8">
-                <p class="text-4xl font-semibold ">Course Details</p>
-                <label class="floating-label">
-                         <span>Course Title</span>
+                    <p class="text-4xl font-semibold ">Course Details</p>
+                    <label class="floating-label">
+                        <span>Course Title</span>
                         <input required id="CourseTitle" name="CourseTitle" type="text" placeholder="Ex: HTML or Calculus" class="input input-lg w-150" />
                         <p id="warning-CourseTitle" class="text-left text-error mt-4" hidden>
-                           Required
+                            Required
                         </p>
-                </label>
-                <label class="floating-label">
-                    <span>Description</span>
+                    </label>
+                    <label class="floating-label">
+                        <span>Description</span>
                         <input required id="CourseDescription" name="CourseDescription" type="text" placeholder="Descripe The Course Content" class="input input-lg w-150 h-30" />
                         <p id="warning-CourseDescription" class="text-left text-error mt-4" hidden>
                             Required
@@ -108,50 +112,50 @@
                 </div>
                 <div id="material-details" class="flex flex-col gap-8" hidden>
                     <p class="text-4xl font-semibold ">Material Details</p>
-                    <div id="all-accordions"class="w-150 ">
+                    <div id="all-accordions" class="w-150 ">
                            
                         <div role="alert" class="alert alert-warning alert-soft flex justify-center">
                             <span class="text-xl"><i class="fa-solid fa-triangle-exclamation mx-4"></i>You Have 5 Materials Limit</span>
                         </div>
                         <details class="collapse bg-base-100 border border-base-300" name="my-accordion-det-1" open>
                             <summary id="summary-Material-1" class="collapse-title font-semibold text-center">#1 Material </summary>
-                                <div class="collapse-content text-sm flex flex-col gap-6">
+                            <div class="collapse-content text-sm flex flex-col gap-6">
                                 <div class="flex justify-between">
                                     <label class="floating-label">
                                         <span>Title</span>
-                                            <input required id="MaterialTitle-1" name="MaterialTitle-1" type="text" placeholder="mail@site.com" class="input input-md w-70" />
+                                        <input required id="MaterialTitle-1" name="MaterialTitle-1" type="text" placeholder="mail@site.com" class="input input-md w-70" />
                                         <p id="warning-MaterialTitle-1" class="text-left text-error mt-4" hidden>
                                             Required
                                         </p>
-                                        </label>
+                                    </label>
 
-                                        <select required class="select w-70" id="MaterialType-1" name="MaterialType-1">
-                                        @foreach(var item in ViewBag.MaterialTypes)
+                                    <select required class="select w-70" id="MaterialType-1" name="MaterialType-1">
+                                        @foreach (var item in ViewBag.MaterialTypes)
                                         {
-                                         <option value="@item.Id">@item.Title</option>
-                                        }                                       
+                                            <option value="@item.Id">@item.Title</option>
+                                        }
                                     </select>
                                     <p id="warning-MaterialType-1" class="text-left text-error mt-4" hidden>
                                         Required
                                     </p>
 
-                                    </div>
-                                    <label class="floating-label">
-                                        <span>Description</span>
-                                        <input required id="MaterialDescription-1" name="MaterialDescription-1" type="text" placeholder="mail@site.com" class="input input-md w-full" />
+                                </div>
+                                <label class="floating-label">
+                                    <span>Description</span>
+                                    <input required id="MaterialDescription-1" name="MaterialDescription-1" type="text" placeholder="mail@site.com" class="input input-md w-full" />
                                     <p id="warning-MaterialDescription-1" class="text-left text-error mt-4" hidden>
                                         Required
                                     </p>
-                                    </label>
-                                    <label class="input  input-md w-full">
-                                        <span class="label">https://</span>
-                                        <input required id="MaterialUrl-1" name="MaterialUrl-1" type="text" placeholder="URL" />
+                                </label>
+                                <label class="input  input-md w-full">
+                                    <span class="label">https://</span>
+                                    <input required id="MaterialUrl-1" name="MaterialUrl-1" type="text" placeholder="URL" />
                                     
-                                    </label>
+                                </label>
                                 <p id="warning-MaterialUrl-1" class="text-left text-error" hidden>
                                     Required
                                 </p>
-                                                             </div>
+                            </div>
                         </details>
                        
                     </div>
@@ -162,28 +166,28 @@
                     <p class="text-4xl font-semibold ">Revision</p>
                     <div class="w-150">
                         <div class="flex flex-col">
-                        <div class="flex text-2xl justify-between">
-                            <p >Course Title </p>
-                            <span id="get-course-title"></span>
+                            <div class="flex text-2xl justify-between">
+                                <p>Course Title </p>
+                                <span id="get-course-title"></span>
                                 
                             </div>
                          
                             <div class="flex text-2xl justify-between">
-                            <p>Course Description </p>
+                                <p>Course Description </p>
                                 <span id="get-course-desc"></span>
                             </div>
                         </div>
-                        </div>
-                        <div>
+                    </div>
+                    <div>
                     </div>
                 </div>
                 <div id="pagination-btns" class="join flex justify-center my-8">
                     <button type="button" id="prev-btn" class="join-item btn btn-outline w-50" hidden><i class="fa-solid fa-arrow-left-long"></i> Previous page</button>
-                    <button type="button" id="next-btn" class="join-item btn btn-outline w-50" >Next <i class="fa-solid fa-arrow-right-long"></i></button>
+                    <button type="button" id="next-btn" class="join-item btn btn-outline w-50">Next <i class="fa-solid fa-arrow-right-long"></i></button>
                     <button id="add-course-btn" class="join-item btn btn-outline w-50" type="submit" hidden>Add Course</button>
                 </div>
 
-</form>
+            </form>
         </div>
 
     </div>

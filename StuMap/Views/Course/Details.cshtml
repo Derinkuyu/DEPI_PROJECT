@@ -1,4 +1,4 @@
-﻿ @model Course
+﻿@model Course
 @* <p>@Model.Title</p>
 <p>@Model.Description</p>
 <p>@Model.Contributor.UserName</p>
@@ -23,66 +23,100 @@
             <div class="text-xl badge badge-dash badge-primary p-5 self-start">
                 <i class="fa-solid fa-circle-user"></i> @Model.Contributor?.UserName
             </div>
-
-            @if(ViewBag.IsStudent == true)
+            @if (User.Identity?.IsAuthenticated ?? false)
             {
-                <a asp-controller="Student"
-                       asp-action="GetEnrolledCourses"
+                @if (User.IsInRole("Student"))
+                {
+                    <a asp-controller="Student"
+                           asp-action="GetEnrolledCourses"
+                           class="btn btn-neutral btn-outline btn-primary text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
+                        View My Courses
+                        <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                    if (ViewBag.IsEnrolled == false)
+                    {
+                        <a asp-controller="Student"
+                               asp-action="AddCourseFromDetails"
+                               asp-route-id="@Model.Id"
+                               class="btn btn-primary btn-outline text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
+                            Add To My Courses
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Student"
+                               asp-action="RemoveCourseFromDetails"
+                               asp-route-id="@Model.Id"
+                               class="btn btn-neutral btn-outline btn-warning text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
+                            Remove From My Courses
+                        </a>
+                    }
+ 
+                }
+            }
+            else
+            {
+                <a onclick="openLoginModal()"
                        class="btn btn-neutral btn-outline btn-primary text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
                     View My Courses
                     <i class="fa-solid fa-arrow-right-long"></i>
                 </a>
-                if(ViewBag.IsEnrolled == false)
-                {
-                    <a asp-controller="Student"
-                           asp-action="AddCourseFromDetails"
-                           asp-route-id="@Model.Id"
-                           class="btn btn-primary btn-outline text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
-						Add To My Courses
-                    </a>
-				}
-                else
-                {
-                    <a asp-controller="Student"
-                           asp-action="RemoveCourseFromDetails"
-                           asp-route-id="@Model.Id"
-                           class="btn btn-neutral btn-outline btn-warning text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
-						Remove From My Courses
-                    </a>
-				}
- 
-            } 
+                <a onclick="openLoginModal()"
+                       class="btn btn-primary btn-outline text-base-content  rounded-full flex items-center justify-center gap-2 h-12">
+                    Add To My Courses
+                </a>
+            }
         </div>
     </div>
 
 
-        <div class=" col-1 col-span-4 divider"></div>
-        <p class="col-1 text-4xl font-semibold "> <i class="fa-solid fa-angle-right"></i> All Materials </p>
-        <div id="all-accordions" class="col-span-4 my-6  ">
-            @{
-                var count = 0;
-            }
-          @foreach (var item in Model.Materials)
-          {
-                count++;
+    <div class=" col-1 col-span-4 divider"></div>
+    <p class="col-1 text-4xl font-semibold "> <i class="fa-solid fa-angle-right"></i> All Materials </p>
+    <div id="all-accordions" class="col-span-4 my-6  ">
+        @{
+            var count = 0;
+        }
+        @foreach (var item in Model.Materials)
+        {
+            count++;
                     
-                <details class="collapse collapse-arrow bg-base-100 border border-base-300" name="my-accordion-det-1" open>
-                    <input type="radio" name="my-accordion-2" hidden/>
-                    <summary  class="collapse-title font-semibold text-xl">#@count @item.Title <div class="badge badge-soft badge-warning">@item.MaterialType.Title</div></summary>
-                    <div class="collapse-content text-sm flex flex-col mx-6 my-4">
-                        <ul class="list-disc">
-                            <li class="">
+            <details class="collapse collapse-arrow bg-base-100 border border-base-300" name="my-accordion-det-1" open>
+                <input type="radio" name="my-accordion-2" hidden />
+                <summary class="collapse-title font-semibold text-xl">#@count @item.Title <div class="badge badge-soft badge-warning">@item.MaterialType.Title</div></summary>
+                <div class="collapse-content text-sm flex flex-col mx-6 my-4">
+                    <ul class="list-disc">
+                        <li class="">
                             <span class="font-semibold text-xl">Description</span>
                             <p class="text-xl text-primary-content mb-4">@item.Description</p>
-                            </li>
+                        </li>
+                        @if (User.Identity?.IsAuthenticated ?? false)
+                        {
                             <li>
                                 <a class="link link-info text-xl" href="@item.Url" target=_blank>Click Here To Explore</a>
-                    </li>
+                            </li>
+                        }
                     </ul>
-                    </div>
-                </details>
-            }                       
+                </div>
+            </details>
+        }
+    </div>
+    
+    <dialog id="login-modal" class="modal">
+        <div class="modal-box">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="text-lg font-bold">Account Required!</h3>
+            <p class="py-4">You need to login to access this.</p>
+            <div class="modal-action">
+                <form method="dialog">
+                    <button type="button" onclick="gotoLogin()" class="btn">Login</button>
+                </form>
+            </div>
         </div>
+    </dialog>
 
-</div>
 </section>
+@section Scripts {
+    <script src="~/js/Authentication/login-required.js"></script>
+}
