@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StuMap.Managers;
+using StuMap.Models.Enums;
 
 namespace StuMap.Controllers
 {
@@ -13,18 +15,21 @@ namespace StuMap.Controllers
         private readonly IContributorManager _contributorManager;
         private readonly IRoadmapManager _roadmapManager;
         private readonly ICourseManager _courseManager;
+        private readonly IContactManager _contactManager;
 
         /*------------------------------------------------------------------------------------*/
         public AdminController(
             IUserManager userManager, 
             IContributorManager contributorManager, 
             IRoadmapManager roadmapManager, 
-            ICourseManager courseManager)
+            ICourseManager courseManager,
+            IContactManager contactManager)
         {
             _userManager = userManager;
             _contributorManager = contributorManager;
             _roadmapManager = roadmapManager;
             _courseManager = courseManager;
+            _contactManager = contactManager;
         }
         /*------------------------------------------------------------------------------------*/
         /////////// Users Management
@@ -175,6 +180,45 @@ namespace StuMap.Controllers
             _courseManager.DeleteCourse(id);
 
             return RedirectToAction("CourseRequests");
+        }
+        /*------------------------------------------------------------------------------------*/
+        ////////// Tickets Management
+        /*------------------------------------------------------------------------------------*/
+        public IActionResult TicketRequests()
+        {
+            var tickets = _contactManager.GetAll();
+            return View(tickets);
+        }
+        /*------------------------------------------------------------------------------------*/
+        // Ticket details view (uses ContactDetailsDto)
+        public IActionResult TicketDetails(int id)
+        {
+            var ticket = _contactManager.GetDetails(id);
+            if (ticket == null) return NotFound();
+            return View(ticket);
+        }
+        /*------------------------------------------------------------------------------------*/
+        // Accept a ticket and optionally send a reply (POST)
+        [HttpPost]
+        public IActionResult AcceptTicket(int id, string reply)
+        {
+            _contactManager.Accept(id, reply);
+            return RedirectToAction("TicketRequests");
+        }
+        /*------------------------------------------------------------------------------------*/
+        // Reject a ticket with reason (POST)
+        [HttpPost]
+        public IActionResult RejectTicket(int id, string reason)
+        {
+            _contactManager.Reject(id, reason);
+            return RedirectToAction("TicketRequests");
+        }
+        /*------------------------------------------------------------------------------------*/
+        // Delete ticket
+        public IActionResult DeleteTicket(int id)
+        {
+            _contactManager.Delete(id);
+            return RedirectToAction("TicketRequests");
         }
         /*------------------------------------------------------------------------------------*/
     }
