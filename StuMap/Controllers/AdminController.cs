@@ -71,7 +71,8 @@ namespace StuMap.Controllers
         /*------------------------------------------------------------------------------------*/
         public IActionResult ContributorRequests()
         {
-            var requests = _contributorManager.GetPendingRequests();
+            //var requests = _contributorManager.GetPendingRequests();
+            var requests = _contributorManager.GetAllContributors();
 
             return View(requests);
         }
@@ -102,7 +103,8 @@ namespace StuMap.Controllers
         /*------------------------------------------------------------------------------------*/
         public IActionResult RoadmapRequests()
         {
-            var roadmaps = _roadmapManager.GetPendingRoadmaps();
+            //var roadmaps = _roadmapManager.GetPendingRoadmaps();
+            var roadmaps = _roadmapManager.GetAllRoadmaps();
 
             return View(roadmaps);
         }
@@ -140,7 +142,8 @@ namespace StuMap.Controllers
         /*------------------------------------------------------------------------------------*/
         public IActionResult CourseRequests()
         {
-            var courses = _courseManager.GetPendingCourses();
+            //var courses = _courseManager.GetPendingCourses();
+            var courses = _courseManager.GetAllCourses();
 
             return View(courses);
         }

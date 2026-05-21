@@ -4,17 +4,18 @@
     <div class="flex justify-between">
         <div class="flex flex-col justify-start">
 
-             <p class="text-4xl font-semibold ">Explore Learning Roadmaps</p>
-             <p class="text-xl text-primary-content-para w-200 my-2">
-            Choose your path and start your journey step by step. Our curated tracks are
-            designed by industry experts to lead you to mastery.
-             </p>
-         </div>
+            <p class="text-4xl font-semibold ">Explore Learning Roadmaps</p>
+            <p class="text-xl text-primary-content-para w-200 my-2">
+                Choose your path and start your journey step by step. Our curated tracks are
+                designed by industry experts to lead you to mastery.
+            </p>
+        </div>
 
-        @if(User.IsInRole("Contributor")){
-        <div class="self-center text-center w-100">
-            <a asp-controller="Roadmap" asp-action="New" class="btn btn-xl rounded-xl animated-background bg-linear-220 from-base-100 via-primary to-base-100">+ Add New RoadMap </a>
-         </div>
+        @if (ViewBag.Approved)
+        {
+            <div class="self-center text-center w-100">
+                <a asp-controller="Roadmap" asp-action="New" class="btn btn-xl rounded-xl animated-background bg-linear-220 from-base-100 via-primary to-base-100">+ Add New RoadMap </a>
+            </div>
         }
     </div>
     <label class="input rounded-full bg-base-300 border-none w-200 h-15 ">
@@ -32,16 +33,16 @@
     </label>
     <form class="my-2">
 
-    @foreach (var spec in ViewBag.Specializations)
-    {
+        @foreach (var spec in ViewBag.Specializations)
+        {
             <input class="btn rounded-full" type="checkbox" name="frameworks" value="@spec.Id" aria-label="@spec.Name" />
-    }
+        }
         <input class="btn btn-square rounded-full" type="reset" value="×" />
     </form>
 
-<div class="flex flex-col gap-10 w-full my-4">
+    <div class="flex flex-col gap-10 w-full my-4">
 
-            @foreach (var roadmap in Model)
+        @foreach (var roadmap in Model)
         {
             <div class="card w-96 bg-base-2 00 border-1 border-neutral card-lg shadow-sm w-full transition duration-300 ease-in-out hover:shadow-lg dark:hover:shadow-white/30">
                 <div class="card-body flex flex-col gap-3">
@@ -63,4 +64,4 @@
         }
     </div>
 
-    </section>
+</section>

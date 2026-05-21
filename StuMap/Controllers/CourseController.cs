@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using StuMap.Managers;
@@ -8,11 +9,18 @@ using System.Security.Claims;
 
 namespace StuMap.Controllers
 {
-    public class CourseController(ICourseManager courseRepo, IMaterialTypeManager materialTypeRepo, IMaterialManager materialRepo, ICourseEnrollmentManager courseEnrollmentManager) : Controller
+    public class CourseController(ICourseManager courseRepo,
+        IMaterialTypeManager materialTypeRepo,
+        IMaterialManager materialRepo,
+        UserManager<ApplicationUser> userManager,
+        ICourseEnrollmentManager courseEnrollmentManager) : Controller
     {
         public IActionResult Index()
         {
             ViewBag.MaterialTypes = materialTypeRepo.GetAll() ;
+            ViewBag.Approved = User.IsInRole("Contributor") &&
+            userManager.GetUserAsync(User).Result?.ContributorStatus == ContributorStatus.Approved;
+
             return View(courseRepo.GetAll().Where(x => x.Status == CourseStatus.Approved).ToList());
         }
 

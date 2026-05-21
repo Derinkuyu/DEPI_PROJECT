@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StuMap.Managers;
 using StuMap.Models;
@@ -7,12 +8,23 @@ using System.Security.Claims;
 
 namespace StuMap.Controllers
 {
-    public class RoadmapController(ICourseManager courseRepo, IMaterialTypeManager materialTypeRepo, IMaterialManager materialRepo, IRoadmapManager roadmapRepo, ISpecializationManager specializationRepo, ICourseRoadmapManager courseRoadmapRepo, IRoadmapEnrollmentManager roadmapEnrollment) : Controller
+    public class RoadmapController(
+        ICourseManager courseRepo,
+        IMaterialTypeManager materialTypeRepo,
+        UserManager<ApplicationUser> userManager,
+        IRoadmapManager roadmapRepo,
+        ISpecializationManager specializationRepo,
+        ICourseRoadmapManager courseRoadmapRepo,
+        IRoadmapEnrollmentManager roadmapEnrollment) : Controller
     {
         public IActionResult Index()
         {
             ViewBag.Specializations = specializationRepo.GetAll();
-            var road = roadmapRepo.GetAll().Where(x=>x.Status==RoadmapStatus.Approved).ToList();
+            var road = roadmapRepo.GetAll().Where(x => x.Status == RoadmapStatus.Approved).ToList();
+
+            ViewBag.Approved = User.IsInRole("Contributor") &&
+                userManager.GetUserAsync(User).Result?.ContributorStatus == ContributorStatus.Approved;
+           
             return View(road);
         }
         public IActionResult Details(int id)

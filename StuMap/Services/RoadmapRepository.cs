@@ -7,15 +7,8 @@ using StuMap.Models.Enums;
 
 namespace StuMap.Services
 {
-    public class RoadmapRepository : IRoadmapManager
+    public class RoadmapRepository(AppDbContext context, ICourseManager courseRepository) : IRoadmapManager
     {
-        /*------------------------------------------------------------------------------*/
-        AppDbContext context;
-        /*------------------------------------------------------------------------------*/
-        public RoadmapRepository(AppDbContext context)
-        {
-            this.context = context;
-        }
 
         /*------------------------------------------------------------------------------*/
         public List<Roadmap> GetAll()
@@ -25,8 +18,8 @@ namespace StuMap.Services
                 .Include(r => r.Contributor)
                 .Include(r => r.CourseRoadmaps)
                 .ThenInclude(cr => cr.Course)
-                .ThenInclude(c=>c.Materials)
-                .ThenInclude(c=>c.Contributor)
+                .ThenInclude(c => c.Materials)
+                .ThenInclude(c => c.Contributor)
                 .ToList();
         }
 
@@ -155,7 +148,7 @@ namespace StuMap.Services
         /*------------------------------------------------------------------------------*/
         public void ApproveRoadmap(int id)
         {
-            var roadmap = context.Roadmaps
+            var roadmap = context.Roadmaps.Include(x => x.CourseRoadmaps)
                 .FirstOrDefault(r => r.Id == id);
 
             if (roadmap != null)
@@ -165,6 +158,16 @@ namespace StuMap.Services
                 roadmap.ApprovedAt = DateTime.Now;
 
                 roadmap.RejectionReason = null;
+                if (roadmap.CourseRoadmaps != null)
+                {
+                    foreach (var item in roadmap.CourseRoadmaps)
+                    {
+                        var course = courseRepository.GetById(item.CourseId);
+                        course?.Status = CourseStatus.Approved;
+                        course?.ApprovedAt = DateTime.UtcNow;
+                    }
+
+                }
 
                 context.SaveChanges();
             }

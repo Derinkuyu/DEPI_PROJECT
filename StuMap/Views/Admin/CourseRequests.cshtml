@@ -200,9 +200,9 @@
 
                             <!-- Details -->
                             <a asp-controller="Admin"
-                               asp-action="CourseDetails"
-                               asp-route-id="@course.Id"
-                               class="btn btn-primary btn-outline rounded-full">
+                                   asp-action="CourseDetails"
+                                   asp-route-id="@course.Id"
+                                   class="btn btn-primary btn-outline rounded-full">
 
                                 More Details
 
@@ -211,128 +211,131 @@
                             </a>
 
                             <!-- Approval Actions -->
-                            @if (course.Status == CourseStatus.Pending ||
-                           course.Status == CourseStatus.UpdatedPending)
+                            <div class="flex gap-2">
+                                @if (course.Status == CourseStatus.Pending ||
+                           course.Status == CourseStatus.UpdatedPending || course.Status == CourseStatus.Rejected)
                             {
-                                <div class="flex gap-2">
 
                                     <!-- Approve -->
                                     <a asp-controller="Admin"
-                                       asp-action="ApproveCourse"
-                                       asp-route-id="@course.Id"
-                                       class="btn btn-success text-black flex-1">
+                                           asp-action="ApproveCourse"
+                                           asp-route-id="@course.Id"
+                                           class="btn btn-success text-black flex-1">
 
                                         <i class="fa-solid fa-check"></i>
 
                                         Approve
 
                                     </a>
+                                    }
+                                    @if (course.Status == CourseStatus.Pending ||
+                         course.Status == CourseStatus.UpdatedPending || course.Status == CourseStatus.Approved)
+                                    {
+                                        <!-- Reject -->
+                                        <button class="btn btn-error flex-1"
+                                                onclick="document.getElementById('reject-modal-@course.Id').showModal()">
 
-                                    <!-- Reject -->
-                                    <button class="btn btn-error flex-1"
-                                            onclick="document.getElementById('reject-modal-@course.Id').showModal()">
+                                            <i class="fa-solid fa-xmark"></i>
 
-                                        <i class="fa-solid fa-xmark"></i>
+                                            Reject
 
-                                        Reject
+                                        </button>
+                                    }
 
-                                    </button>
+                                    </div>
 
-                                </div>
-                            }
+                                <!-- Delete -->
+                                <a asp-controller="Admin"
+                                       asp-action="DeleteCourse"
+                                       asp-route-id="@course.Id"
+                                       class="btn btn-outline btn-error rounded-full">
 
-                            <!-- Delete -->
-                            <a asp-controller="Admin"
-                               asp-action="DeleteCourse"
-                               asp-route-id="@course.Id"
-                               class="btn btn-outline btn-error rounded-full">
+                                    <i class="fa-solid fa-trash"></i>
 
-                                <i class="fa-solid fa-trash"></i>
+                                    Delete Course
 
-                                Delete Course
+                                </a>
 
-                            </a>
+                            </div>
 
                         </div>
 
                     </div>
 
-                </div>
-
-                <!-- 3D Effect Divs -->
+                    <!-- 3D Effect Divs -->
+                    @* <div></div>
                 <div></div>
                 <div></div>
                 <div></div>
                 <div></div>
                 <div></div>
                 <div></div>
-                <div></div>
-                <div></div>
-
-            </div>
-
-            <!-- Reject Modal -->
-            <dialog id="reject-modal-@course.Id"
-                    class="modal">
-
-                <div class="modal-box w-11/12 max-w-2xl">
-
-                    <h3 class="font-bold text-2xl mb-6">
-
-                        Reject Course Submission
-
-                    </h3>
-
-                    <form asp-controller="Admin"
-                          asp-action="RejectCourse"
-                          method="post"
-                          class="space-y-6">
-
-                        <input type="hidden"
-                               name="id"
-                               value="@course.Id" />
-
-                        <div class="space-y-2">
-
-                            <label class="font-medium">
-
-                                Rejection Reason
-
-                            </label>
-
-                            <textarea name="reason"
-                                      class="textarea textarea-bordered w-full h-40"
-                                      placeholder="Explain why the course was rejected..."
-                                      required></textarea>
-
-                        </div>
-
-                        <div class="modal-action">
-
-                            <button type="submit"
-                                    class="btn btn-error">
-
-                                Reject Course
-
-                            </button>
-
-                            <button type="button"
-                                    class="btn"
-                                    onclick="document.getElementById('reject-modal-@course.Id').close()">
-
-                                Cancel
-
-                            </button>
-
-                        </div>
-
-                    </form>
+                <div></div> *@
 
                 </div>
 
-            </dialog>
-        }
+                <!-- Reject Modal -->
+                <dialog id="reject-modal-@course.Id"
+                        class="modal">
 
-    </div>
+                    <div class="modal-box w-11/12 max-w-2xl">
 
-</section>
+                        <h3 class="font-bold text-2xl mb-6">
+
+                            Reject Course Submission
+
+                        </h3>
+
+                        <form asp-controller="Admin"
+                              asp-action="RejectCourse"
+                              method="post"
+                              class="space-y-6">
+
+                            <input type="hidden"
+                                   name="id"
+                                   value="@course.Id" />
+
+                            <div class="space-y-2">
+
+                                <label class="font-medium">
+
+                                    Rejection Reason
+
+                                </label>
+
+                                <textarea name="reason"
+                                          class="textarea textarea-bordered w-full h-40"
+                                          placeholder="Explain why the course was rejected..."
+                                          required></textarea>
+
+                            </div>
+
+                            <div class="modal-action">
+
+                                <button type="submit"
+                                        class="btn btn-error">
+
+                                    Reject Course
+
+                                </button>
+
+                                <button type="button"
+                                        class="btn"
+                                        onclick="document.getElementById('reject-modal-@course.Id').close()">
+
+                                    Cancel
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </dialog>
+            }
+
+        </div>
+
+    </section>

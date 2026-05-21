@@ -36,8 +36,10 @@ namespace StuMap.Services
 
         public List<ContributorRequestDto> GetAllContributors()
         {
-            return _context.Users
-                    .Where(u => (bool)u.IsContributorRequest)
+            // todo: make this async
+            var users = _userManager.GetUsersInRoleAsync("Contributor").Result;
+
+            return [.. users
                     .Select(u => new ContributorRequestDto
                     {
                         Id = u.Id,
@@ -45,10 +47,9 @@ namespace StuMap.Services
                         Email = u.Email,
                         Specialization = u.Specialization,
                         CertificatePath = u.CertificatePath,
-                        Status = (ContributorStatus)u.ContributorStatus,
+                        Status = (ContributorStatus)u.ContributorStatus!,
                         RequestDate = u.RequestDate
-                    })
-                    .ToList();
+                    })];
         }
 
         public ContributorDetailsDto GetContributorById(string id)

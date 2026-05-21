@@ -205,7 +205,7 @@
                                 </a>
 
                                 <!-- Approve -->
-                                @if (item.Status == ContributorStatus.Pending)
+                                @if (item.Status == ContributorStatus.Pending || item.Status == ContributorStatus.Rejected)
                                 {
                                     <a asp-action="ApproveContributor"
                                            asp-controller="Admin"
@@ -213,7 +213,9 @@
                                            class="btn btn-sm btn-success text-black">
                                         Approve
                                     </a>
-
+                                }
+                                @if (item.Status == ContributorStatus.Pending || item.Status == ContributorStatus.Approved)
+                                {
                                     <button class="btn btn-sm btn-error"
                                             onclick="document.getElementById('reject-modal-@item.Id').showModal()">
                                         Reject

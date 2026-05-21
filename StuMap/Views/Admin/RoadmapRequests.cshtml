@@ -40,10 +40,10 @@
                      viewBox="0 0 24 24">
 
                     <g stroke-linejoin="round"
-                       stroke-linecap="round"
-                       stroke-width="2.5"
-                       fill="none"
-                       stroke="currentColor">
+                           stroke-linecap="round"
+                           stroke-width="2.5"
+                           fill="none"
+                           stroke="currentColor">
 
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="m21 21-4.3-4.3"></path>
@@ -283,9 +283,9 @@
 
                                 <!-- Details -->
                                 <a asp-action="RoadmapDetails"
-                                   asp-controller="Admin"
-                                   asp-route-id="@item.Id"
-                                   class="btn btn-sm btn-primary">
+                                       asp-controller="Admin"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-sm btn-primary">
 
                                     Details
 
@@ -293,17 +293,20 @@
 
                                 <!-- Approve -->
                                 @if (item.Status == RoadmapStatus.Pending ||
-                               item.Status == RoadmapStatus.UpdatedPending)
+                               item.Status == RoadmapStatus.UpdatedPending || item.Status== RoadmapStatus.Rejected)
                                 {
                                     <a asp-action="ApproveRoadmap"
-                                       asp-controller="Admin"
-                                       asp-route-id="@item.Id"
-                                       class="btn btn-sm btn-success text-black">
+                                           asp-controller="Admin"
+                                           asp-route-id="@item.Id"
+                                           class="btn btn-sm btn-success text-black">
 
                                         Approve
 
                                     </a>
-
+                                }
+                                @if (item.Status == RoadmapStatus.Pending ||
+                              item.Status == RoadmapStatus.UpdatedPending || item.Status == RoadmapStatus.Approved)
+                                {
                                     <!-- Reject -->
                                     <button class="btn btn-sm btn-error"
                                             onclick="document.getElementById('reject-modal-@item.Id').showModal()">
@@ -315,9 +318,9 @@
 
                                 <!-- Delete -->
                                 <a asp-action="DeleteRoadmap"
-                                   asp-controller="Admin"
-                                   asp-route-id="@item.Id"
-                                   class="btn btn-sm btn-outline btn-error">
+                                       asp-controller="Admin"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-sm btn-outline btn-error">
 
                                     Delete
 

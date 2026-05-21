@@ -365,7 +365,7 @@
                     <p class="text-xs font-medium uppercase tracking-widest mb-1" style="color:rgba(255,255,255,0.4);">Pending Roadmaps</p>
                     <p class="font-display text-4xl font-800 mb-3"
                        style=" font-weight:800; color:#F0F6F2; letter-spacing:-0.03em;">
-                        @ViewBag.RoadMaps.Count
+                    @ViewBag.PendingRoadmapsCount
                     </p>
                     <a asp-controller="Admin" asp-action="Roadmaprequests"
                        class="btn btn-xs w-full rounded-xl font-semibold"
@@ -387,7 +387,7 @@
                     <p class="text-xs font-medium uppercase tracking-widest mb-1" style="color:rgba(255,255,255,0.4);">Pending Courses</p>
                     <p class="font-display text-4xl font-800 mb-3"
                        style="font-weight:800; color:#F0F6F2; letter-spacing:-0.03em;">
-                        @ViewBag.Course.Count
+                    @ViewBag.PendingCoursesCount
                     </p>
                     <a asp-controller="Admin" asp-action="CourseRequests"
                        class="btn btn-xs w-full rounded-xl font-semibold"

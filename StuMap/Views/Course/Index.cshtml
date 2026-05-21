@@ -13,7 +13,7 @@
     </div>
     <div class="grid grid-cols-3 gap-x-8 gap-y-10 my-12">
     @* add card  *@
-        @if (User.IsInRole("Contributor"))
+        @if (ViewBag.Approved)
     {
         <a href="#" class="hover-3d cursor-pointer mx-3" onclick="my_modal_3.showModal()">
         <div class="card h-80 card-dash bg-base-300 border-primary-content rounded-2xl">

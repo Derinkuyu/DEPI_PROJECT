@@ -8,7 +8,7 @@ namespace StuMap.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class DashboardController : Controller
-    { 
+    {
         //Course
         ICourseManager courseManager;
         IRoadmapManager roadmapManager;
@@ -31,21 +31,22 @@ namespace StuMap.Controllers
             var roadMaps = roadmapManager.GetAll();
             var users = _userManger.Users.ToList();
             var Specializations = specializationManager.GetAll();
-            var ContributorRequests= contributorManager.GetPendingRequests();
+            var Contributors = contributorManager.GetAllContributors();
 
-            var roadmapStatusData = roadMaps.Select(r => new {
+            var roadmapStatusData = roadMaps.Select(r => new
+            {
                 Title = r.Title,
                 IsApproved = r.IsApproved
             }).ToList();
 
 
             var RoadMapTitles = roadMaps.Select(x => x.Title).ToList();
-            var SpecializationsTitles= Specializations.Select(s=> s.Name).ToList();
+            var SpecializationsTitles = Specializations.Select(s => s.Name).ToList();
 
             var admins = await _userManger.GetUsersInRoleAsync("Admin");
             var contributors = await _userManger.GetUsersInRoleAsync("Contributor");
             var Students = await _userManger.GetUsersInRoleAsync("Student");
-            
+
 
             ViewBag.Course = courses;
             ViewBag.RoadMaps = roadMaps;
@@ -53,11 +54,18 @@ namespace StuMap.Controllers
             ViewBag.RoadmapStatusData = roadmapStatusData;
             ViewBag.SpecializationsTitles = SpecializationsTitles;
 
-            ViewBag.UsersCount = users.Count-admins.Count;
+            ViewBag.UsersCount = users.Count - admins.Count;
             ViewBag.AdminCount = admins.Count;
             ViewBag.ContributorCount = contributors.Count;
             ViewBag.StudentCount = Students.Count;
-            ViewBag.ContributorRequests = ContributorRequests.Count;
+
+            //ViewBag.ContributorRequests = ContributorRequests.Count;
+            ViewBag.ContributorRequests = Contributors.Count(x => x.Status == Models.Enums.ContributorStatus.Pending);
+
+            ViewBag.PendingRoadmapsCount = roadMaps.Count(x => x.Status == Models.Enums.RoadmapStatus.Pending ||
+            x.Status == Models.Enums.RoadmapStatus.UpdatedPending);
+            ViewBag.PendingCoursesCount = courses.Count(x => x.Status == Models.Enums.CourseStatus.Pending ||
+            x.Status == Models.Enums.CourseStatus.UpdatedPending);
 
 
             return View();
