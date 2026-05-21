@@ -34,10 +34,8 @@
         <div></div>
 </a>
         }
-    
         @foreach (var course in Model)
         {
-
             <a asp-controller="Course" asp-action="Details" asp-route-id="@course.Id" class="hover-3d cursor-pointer mx-3">
                 <div class="card h-80 bg-base-300 border-primary-content rounded-2xl">
                     <div class="card-body flex flex-col justify-evenly gap-3">
@@ -45,6 +43,7 @@
                         @course.Title
                     </h1>
                     <div>
+
                         <div class="badge badge-soft badge-warning px-6 py-4"><i class="fa-regular fa-user"></i> @course.Contributor.FirstName @course.Contributor.LastName </div>
                         <div class="badge badge-soft badge-success px-6 py-4"> <i class="fa-solid fa-graduation-cap"></i> @course.Materials.Count() Materials</div>
                         </div>
