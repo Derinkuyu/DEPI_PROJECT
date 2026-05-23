@@ -48,7 +48,53 @@ namespace StuMap.DataSeeding
                 {
                     RoadmapId = 2,
                     CourseId = 4
-                }
+                },
+                 new CourseRoadmap
+                 {
+                     RoadmapId = 4,
+                     CourseId = 5
+                 },
+                 new CourseRoadmap
+                 {
+                     RoadmapId = 4,
+                     CourseId = 6
+                 },
+                 new CourseRoadmap
+                 {
+                     RoadmapId = 5,
+                     CourseId = 12
+                 },
+                 new CourseRoadmap
+                 {
+                     RoadmapId = 5,
+                     CourseId = 7
+                 },
+                 new CourseRoadmap
+                 {
+                     RoadmapId = 6,
+                     CourseId = 1
+                 },
+                 new CourseRoadmap
+                 {
+                     RoadmapId = 6,
+                     CourseId = 2
+                 },
+                 new CourseRoadmap
+                 {
+                     RoadmapId = 6,
+                     CourseId = 3
+                 },
+                 new CourseRoadmap
+                 {
+                     RoadmapId = 6,
+                     CourseId = 4
+                 },
+                 new CourseRoadmap
+                 {
+                     RoadmapId = 6,
+                     CourseId = 8
+                 }
+                 
             );
         }
     }

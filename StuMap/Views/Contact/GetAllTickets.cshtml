@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div></div>
-            </a>
+        </a>
     </div>
 
     <div class="grid grid-cols-3 gap-x-8 gap-y-10 my-12">
@@ -35,12 +35,20 @@
                         <div>
                             <p class="text-base/7 text-primary-content h-17 overflow-hidden py-2 ">@ticket.Body </p>
                         </div>
-                            
+                        <div class="w-fit">
+                            <span class="px-3 py-1 rounded-full border text-sm font-medium
+                                @(ticket.Status == TicketStatus.Considered ? "text-success border-success" :
+                                                                ticket.Status == TicketStatus.Pending ? "text-warning border-warning" :
+                                                                ticket.Status == TicketStatus.Denied ? "text-error border-error" :
+                                                                "text-primary-content border-primary-content")">
+                                @ticket.Status
+                            </span>
+                        </div>
                         <!-- Buttons -->
                         <div class="flex gap-2 items-center w-full mt-auto">
 
                             <!-- Details Button -->
-                            <a onclick="showTicketDetails('@ticket.Id', '@ticket.Subject', '@ticket.Body')"
+                            <a onclick="showTicketDetails('@ticket.Id', '@ticket.Subject', '@ticket.Body', '@ticket.DateSent' , '@ticket.Status')"
                                    class="btn btn-primary btn-outline text-base-content grow rounded-full flex items-center justify-center gap-2 h-12">
                                 Details
                             </a>
@@ -68,7 +76,7 @@
         <h3 class="text-lg font-bold">Ticket</h3>
 
         <form asp-controller="Contact" asp-action="NewTicket" method="post" class="w-full">
-            <div class="flex min-h-screen items-center justify-center">
+            <div class="flex  items-center justify-center">
                 <fieldset class="fieldset w-full max-w-lg">
                     <legend class="fieldset-legend">Subject</legend>
                     <div>
@@ -92,31 +100,57 @@
     <div class="modal-box">
         <h3 class="text-lg font-bold">Ticket</h3>
 
-            <div class="flex min-h-screen items-center justify-center">
-                <fieldset class="fieldset w-full max-w-lg">
-                    <legend class="fieldset-legend">Subject</legend>
-                    <input id="modal_subject" type="text" name="Subject" readonly class="input input-secondary w-full" />
-                    <legend class="fieldset-legend">Content</legend>
-                    <textarea id="modal_body" class="textarea w-full" name="Body" readonly
-                            style="max-height: 15rem; overflow-y: auto; resize: none;"
-                            oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"></textarea>
-                    <div class="flex justify-center">
-                        <button class="btn btn-outline btn-primary" onclick="ticket_details.close()">Close</button>
+        <div class="flex items-center justify-center">
+            <fieldset class="fieldset w-full max-w-lg">
+                <legend class="fieldset-legend">Subject</legend>
+                <input id="modal_subject" type="text" name="Subject" readonly class="input input-secondary w-full" />
+                <legend class="fieldset-legend">Content</legend>
+                <textarea id="modal_body" class="textarea w-full" name="Body" readonly
+                          style="max-height: 15rem; overflow-y: auto; resize: none;"
+                          oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"></textarea>
+
+                <div class="flex items-center gap-4 mt-2">
+                    <div class="w-fit">
+                        <span id="modal_status" class="px-3 py-1 rounded-full border text-sm font-medium"></span>
                     </div>
-                </fieldset>
-            </div>
+                    <span id="modal_date" class="text-sm text-gray-400"></span>
+                </div>
+
+                <div class="flex justify-center mt-4">
+                    <button class="btn btn-outline btn-primary" onclick="ticket_details.close()">Close</button>
+                </div>
+            </fieldset>
+        </div>
     </div>
 </dialog>
 
-
 <script>
-        function showTicketDetails(id, subject, body) {
+    function showTicketDetails(id, subject, body, date, status) {
         document.getElementById('modal_subject').value = subject;
-    
+
         const textarea = document.getElementById('modal_body');
         textarea.value = body;
         textarea.style.height = 'auto';
         textarea.style.height = Math.min(textarea.scrollHeight, 240) + 'px';
+
+        // Status
+        const statusEl = document.getElementById('modal_status');
+        statusEl.textContent = status;
+        statusEl.className = 'px-3 py-1 rounded-full border text-sm font-medium';
+        if (status === 'Considered') {
+            statusEl.classList.add('text-success', 'border-success');
+        } else if (status === 'Pending') {
+            statusEl.classList.add('text-warning', 'border-warning');
+        } else if (status === 'Denied') {
+            statusEl.classList.add('text-error', 'border-error');
+        }
+
+        // Date
+        const dateEl = document.getElementById('modal_date');
+        dateEl.textContent = new Date(date).toLocaleDateString('en-GB', {
+            day: '2-digit', month: 'short', year: 'numeric'
+        });
+
         document.getElementById('ticket_details').showModal();
     }
 </script>

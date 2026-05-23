@@ -138,7 +138,7 @@
                         <a asp-action="Index" asp-controller="Roadmap">Roadmaps</a>
                         <a asp-action="Index" asp-controller="Course">Courses</a>
                 @* <a asp-action="" asp-controller="" href="#">About</a> *@
-                @* <a asp-action="" asp-controller=""  href="#">Contact</a> *@
+                    <a asp-action="GetAllTickets" asp-controller="Contact" >Contact</a>
             </div>
             <div class="nav-actions">
                 @if (User.Identity?.IsAuthenticated ?? false)

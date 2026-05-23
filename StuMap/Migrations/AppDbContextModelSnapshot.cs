@@ -314,50 +314,50 @@ namespace StuMap.Migrations
                             Id = "E2E368AB-8D20-401B-826A-F591202E3D19",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "E2E368AB-8D20-401B-826A-F591202E3D19",
-                            ContributorStatus = 2,
+                            ContributorStatus = 1,
                             Country = "Egypt",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Email = "frankofoedu@gmail.com",
+                            Email = "frankofoedu@contributor.com",
                             EmailConfirmed = true,
                             FirstName = "Frank",
                             IsBlocked = false,
                             IsContributorRequest = true,
                             LastName = "Sinatra",
                             LockoutEnabled = false,
-                            NormalizedEmail = "FRANKOFOEDU@GMAIL.COM",
-                            NormalizedUserName = "FRANKOFOEDU@GMAIL.COM",
+                            NormalizedEmail = "FRANKOFOEDU@CONTRIBUTOR.COM",
+                            NormalizedUserName = "FRANKOFOEDU@CONTRIBUTOR.COM",
                             PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "E2E368AB-8D20-401B-826A-F591202E3D19",
                             TwoFactorEnabled = false,
-                            UserName = "frankofoedu@gmail.com"
+                            UserName = "frankofoedu@contributor.com"
                         },
                         new
                         {
                             Id = "E746D970-DB04-4D42-9493-9173C7D13EE9",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "E746D970-DB04-4D42-9493-9173C7D13EE9",
-                            ContributorStatus = 2,
+                            ContributorStatus = 1,
                             Country = "Egypt",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Email = "amiraofoedu@gmail.com",
+                            Email = "amiraofoedu@contributor.com",
                             EmailConfirmed = true,
                             FirstName = "Amira",
                             IsBlocked = false,
                             IsContributorRequest = true,
                             LastName = "Abdelaziz",
                             LockoutEnabled = false,
-                            NormalizedEmail = "AMIRAOFOEDU@GMAIL.COM",
-                            NormalizedUserName = "AMIRAOFOEDU@GMAIL.COM",
+                            NormalizedEmail = "AMIRAOFOEDU@CONTRIBUTOR.COM",
+                            NormalizedUserName = "AMIRAOFOEDU@CONTRIBUTOR.COM",
                             PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "E746D970-DB04-4D42-9493-9173C7D13EE9",
                             TwoFactorEnabled = false,
-                            UserName = "amiraofoedu@gmail.com"
+                            UserName = "amiraofoedu@contributor.com"
                         },
                         new
                         {
@@ -408,6 +408,131 @@ namespace StuMap.Migrations
                             SecurityStamp = "074B369D-5560-4ADA-99D2-F8AECF1E2423",
                             TwoFactorEnabled = false,
                             UserName = "admin@stumap.com"
+                        },
+                        new
+                        {
+                            Id = "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5",
+                            ContributorStatus = 2,
+                            Country = "Egypt",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(2000, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "ahmed@student.com",
+                            EmailConfirmed = true,
+                            FirstName = "Ahmed",
+                            IsBlocked = false,
+                            IsContributorRequest = true,
+                            LastName = "Hassan",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "AHMED@STUDENT.COM",
+                            NormalizedUserName = "AHMED@STUDENT.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5",
+                            TwoFactorEnabled = false,
+                            UserName = "ahmed@student.com"
+                        },
+                        new
+                        {
+                            Id = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            ContributorStatus = 1,
+                            Country = "Egypt",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1995, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "sara@contributor.com",
+                            EmailConfirmed = true,
+                            FirstName = "Sara",
+                            IsBlocked = false,
+                            IsContributorRequest = true,
+                            LastName = "Ali",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "SARA@CONTRIBUTOR.COM",
+                            NormalizedUserName = "SARA@CONTRIBUTOR.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            TwoFactorEnabled = false,
+                            UserName = "sara@contributor.com"
+                        },
+                        new
+                        {
+                            Id = "B9ECCC1E-FF12-41D0-9BE9-83B8A57EB855",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "B9ECCC1E-FF12-41D0-9BE9-83B8A57EB855",
+                            ContributorStatus = 2,
+                            Country = "Egypt",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(2001, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "mohamed@student.com",
+                            EmailConfirmed = true,
+                            FirstName = "Mohamed",
+                            IsBlocked = false,
+                            IsContributorRequest = true,
+                            LastName = "Ibrahim",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "MOHAMED@STUDENT.COM",
+                            NormalizedUserName = "MOHAMED@STUDENT.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "B9ECCC1E-FF12-41D0-9BE9-83B8A57EB855",
+                            TwoFactorEnabled = false,
+                            UserName = "mohamed@student.com"
+                        },
+                        new
+                        {
+                            Id = "8CBAA357-F2D9-48FC-B4BC-27AD0BD7C1EB",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "8CBAA357-F2D9-48FC-B4BC-27AD0BD7C1EB",
+                            ContributorStatus = 2,
+                            Country = "Egypt",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1993, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "fatma@contributor.com",
+                            EmailConfirmed = true,
+                            FirstName = "Fatma",
+                            IsBlocked = false,
+                            IsContributorRequest = true,
+                            LastName = "Youssef",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "FATMA@CONTRIBUTOR.COM",
+                            NormalizedUserName = "FATMA@CONTRIBUTOR.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "8CBAA357-F2D9-48FC-B4BC-27AD0BD7C1EB",
+                            TwoFactorEnabled = false,
+                            UserName = "fatma@contributor.com"
+                        },
+                        new
+                        {
+                            Id = "E403198E-3791-46B5-8A8E-81F469A5B48E",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "E403198E-3791-46B5-8A8E-81F469A5B48E",
+                            ContributorStatus = 2,
+                            Country = "Egypt",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(2002, 9, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "omar@student.com",
+                            EmailConfirmed = true,
+                            FirstName = "Omar",
+                            IsBlocked = false,
+                            IsContributorRequest = true,
+                            LastName = "Khaled",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "OMAR@STUDENT.COM",
+                            NormalizedUserName = "OMAR@STUDENT.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "E403198E-3791-46B5-8A8E-81F469A5B48E",
+                            TwoFactorEnabled = false,
+                            UserName = "omar@student.com"
                         });
                 });
 
@@ -441,6 +566,89 @@ namespace StuMap.Migrations
                     b.HasIndex("ContributorId");
 
                     b.ToTable("Certificates");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Approved = true,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            DateIssued = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Title = "Frontend Development Certificate",
+                            Url = "https://example.com/certificates/frontend"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Approved = true,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            DateIssued = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Title = "Data Science Certificate",
+                            Url = "https://example.com/certificates/datascience"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Approved = true,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            DateIssued = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Title = "Cybersecurity Fundamentals",
+                            Url = "https://example.com/certificates/cybersecurity"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Approved = true,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            DateIssued = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Title = "Mobile App Development",
+                            Url = "https://example.com/certificates/mobile"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Approved = true,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            DateIssued = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Title = "Cloud Computing with Azure",
+                            Url = "https://example.com/certificates/cloud"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Approved = true,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            DateIssued = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Title = "Artificial Intelligence",
+                            Url = "https://example.com/certificates/ai"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Approved = true,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            DateIssued = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Title = "DevOps Practices",
+                            Url = "https://example.com/certificates/devops"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Approved = true,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            DateIssued = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Title = "Game Development with Unity",
+                            Url = "https://example.com/certificates/game"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Approved = true,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            DateIssued = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Title = "Networking Essentials",
+                            Url = "https://example.com/certificates/networking"
+                        });
                 });
 
             modelBuilder.Entity("StuMap.Models.Contact", b =>
@@ -595,7 +803,7 @@ namespace StuMap.Migrations
                             DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Description = "Learn the absolute basics of building web pages. Master the structure of a website using text elements, hyperlinks, forms, images, and semantic tags that help search engines understand your content.",
                             IsDeleted = false,
-                            Status = 2,
+                            Status = 1,
                             SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Introduction to HTML5"
                         },
@@ -606,7 +814,7 @@ namespace StuMap.Migrations
                             DateCreated = new DateTime(2026, 5, 16, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Description = "Transform plain text into beautiful, styled web pages. Discover colors, custom fonts, borders, margins, padding, and how to use selectors to target and style specific elements across your site.",
                             IsDeleted = false,
-                            Status = 2,
+                            Status = 1,
                             SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Introduction to CSS3"
                         },
@@ -617,7 +825,7 @@ namespace StuMap.Migrations
                             DateCreated = new DateTime(2026, 5, 15, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Description = "Learn how to make your websites look perfect on any screen size. Master modern layouts using CSS Flexbox and Grid, and use media queries to automatically adapt designs for mobile phones, tablets, and desktops.",
                             IsDeleted = false,
-                            Status = 2,
+                            Status = 1,
                             SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Creating Responsive Web Designs"
                         },
@@ -628,9 +836,97 @@ namespace StuMap.Migrations
                             DateCreated = new DateTime(2026, 5, 14, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Description = "Bring your static web pages to life with interactivity. Learn the fundamentals of programming—like variables, functions, and events—to handle user clicks, toggle menus, and create dynamic content.",
                             IsDeleted = false,
-                            Status = 2,
+                            Status = 1,
                             SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Basic JavaScript for the Web"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Learn Python basics, NumPy, and Pandas.",
+                            IsDeleted = false,
+                            Status = 1,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Python for Data Science"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Supervised and unsupervised learning algorithms.",
+                            IsDeleted = false,
+                            Status = 1,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Machine Learning Basics"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Network security, encryption, and ethical hacking.",
+                            IsDeleted = false,
+                            Status = 1,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Cybersecurity Fundamentals"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Cross-platform mobile apps using Flutter and Dart.",
+                            IsDeleted = false,
+                            Status = 1,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Mobile App Development with Flutter"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Learn Azure fundamentals and cloud-native services.",
+                            IsDeleted = false,
+                            Status = 1,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Cloud Computing with Azure"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Containerization, orchestration, and CI/CD pipelines.",
+                            IsDeleted = false,
+                            Status = 1,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "DevOps with Docker & Kubernetes"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Learn Unity basics and build interactive games.",
+                            IsDeleted = false,
+                            Status = 1,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Game Development with Unity"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Learn basics of network and Its layers",
+                            IsDeleted = false,
+                            Status = 1,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Network Essentials"
                         });
                 });
 
@@ -726,6 +1022,51 @@ namespace StuMap.Migrations
                         {
                             RoadmapId = 2,
                             CourseId = 4
+                        },
+                        new
+                        {
+                            RoadmapId = 4,
+                            CourseId = 5
+                        },
+                        new
+                        {
+                            RoadmapId = 4,
+                            CourseId = 6
+                        },
+                        new
+                        {
+                            RoadmapId = 5,
+                            CourseId = 12
+                        },
+                        new
+                        {
+                            RoadmapId = 5,
+                            CourseId = 7
+                        },
+                        new
+                        {
+                            RoadmapId = 6,
+                            CourseId = 1
+                        },
+                        new
+                        {
+                            RoadmapId = 6,
+                            CourseId = 2
+                        },
+                        new
+                        {
+                            RoadmapId = 6,
+                            CourseId = 3
+                        },
+                        new
+                        {
+                            RoadmapId = 6,
+                            CourseId = 4
+                        },
+                        new
+                        {
+                            RoadmapId = 6,
+                            CourseId = 8
                         });
                 });
 
@@ -895,6 +1236,174 @@ namespace StuMap.Migrations
                             MaterialTypeId = 1,
                             Title = "W3Schools: JavaScript Interactive Reference",
                             Url = "https://www.w3schools.com/js/"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            CourseId = 1,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Introduction to HTML tags and structure.",
+                            IsApproved = true,
+                            MaterialTypeId = 1,
+                            Title = "HTML Basics Article",
+                            Url = "https://example.com/html-basics"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            ContributorId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            CourseId = 2,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Learn how to use flexbox for layouts.",
+                            IsApproved = false,
+                            MaterialTypeId = 2,
+                            Title = "CSS Flexbox Video",
+                            Url = "https://example.com/css-flexbox-video"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            CourseId = 4,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Comprehensive guide to JavaScript basics.",
+                            IsApproved = true,
+                            MaterialTypeId = 3,
+                            Title = "JavaScript Fundamentals Book",
+                            Url = "https://example.com/js-fundamentals-book"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            CourseId = 4,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Hands-on tutorial for Python data analysis.",
+                            IsApproved = false,
+                            MaterialTypeId = 1,
+                            Title = "Python for Data Science Tutorial",
+                            Url = "https://example.com/python-data-science"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            CourseId = 6,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Exploring supervised learning algorithms.",
+                            IsApproved = true,
+                            MaterialTypeId = 6,
+                            Title = "Machine Learning Research Paper",
+                            Url = "https://example.com/ml-research-paper"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            CourseId = 7,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Test your knowledge of cybersecurity basics.",
+                            IsApproved = false,
+                            MaterialTypeId = 6,
+                            Title = "Cybersecurity Fundamentals Exam",
+                            Url = "https://example.com/cybersecurity-exam"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            CourseId = 8,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Build cross-platform apps with Flutter.",
+                            IsApproved = true,
+                            MaterialTypeId = 3,
+                            Title = "Flutter Mobile Development Video",
+                            Url = "https://example.com/flutter-video"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            CourseId = 9,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Overview of Azure cloud services.",
+                            IsApproved = false,
+                            MaterialTypeId = 1,
+                            Title = "Azure Cloud Presentation",
+                            Url = "https://example.com/azure-presentation"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            CourseId = 10,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Discussion on containerization and orchestration.",
+                            IsApproved = true,
+                            MaterialTypeId = 3,
+                            Title = "Docker & Kubernetes Podcast",
+                            Url = "https://example.com/devops-podcast"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            CourseId = 11,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Visual guide to Unity interface.",
+                            IsApproved = false,
+                            MaterialTypeId = 4,
+                            Title = "Unity Game Development Image",
+                            Url = "https://example.com/unity-image"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            CourseId = 12,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Explore all Network Types And learn How it works",
+                            IsApproved = false,
+                            MaterialTypeId = 4,
+                            Title = "Network Types",
+                            Url = "https://example.com/network-types"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            CourseId = 12,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Explore all Network Layers And learn How it works",
+                            IsApproved = false,
+                            MaterialTypeId = 4,
+                            Title = "Network Layers",
+                            Url = "https://example.com/network-Layers"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            CourseId = 5,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "python guide for beginners",
+                            IsApproved = false,
+                            MaterialTypeId = 4,
+                            Title = "Python basics",
+                            Url = "https://example.com/Python-basics"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            CourseId = 5,
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Learn how to use NumPy in Python",
+                            IsApproved = false,
+                            MaterialTypeId = 4,
+                            Title = "NumPy Library in Python",
+                            Url = "https://example.com/Numpy"
                         });
                 });
 
@@ -1012,7 +1521,7 @@ namespace StuMap.Migrations
                             IsApproved = false,
                             IsDeleted = false,
                             SpecializationId = 1,
-                            Status = 2,
+                            Status = 1,
                             SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Web development"
                         },
@@ -1025,9 +1534,61 @@ namespace StuMap.Migrations
                             IsApproved = false,
                             IsDeleted = false,
                             SpecializationId = 2,
-                            Status = 2,
+                            Status = 1,
                             SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Frontend Path"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Step-by-step guide to becoming a frontend developer.",
+                            IsApproved = false,
+                            IsDeleted = false,
+                            SpecializationId = 1,
+                            Status = 0,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Frontend Development Roadmap"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Learn Python, statistics, and machine learning basics.",
+                            IsApproved = false,
+                            IsDeleted = false,
+                            SpecializationId = 2,
+                            Status = 1,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Data Science Beginner Roadmap"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ContributorId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Introduction to network security and ethical hacking.",
+                            IsApproved = true,
+                            IsDeleted = false,
+                            SpecializationId = 3,
+                            Status = 1,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Cybersecurity Essentials"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            DateCreated = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Description = "Learn Android and iOS development fundamentals.",
+                            IsApproved = false,
+                            IsDeleted = false,
+                            SpecializationId = 4,
+                            Status = 2,
+                            SubmittedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Mobile App Development Roadmap"
                         });
                 });
 
@@ -1073,20 +1634,62 @@ namespace StuMap.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Computer Science studies how computers work, focusing on algorithms, data, and problem‑solving. It blends theory and practice to build systems like AI, databases, and operating systems.",
-                            Name = "Computer Science"
+                            Description = "Frontend and backend web technologies.",
+                            Name = "Web Development"
                         },
                         new
                         {
                             Id = 2,
-                            Description = "Information Technology applies computer systems to manage and secure data. It covers networks, servers, and user support, ensuring organizations run smoothly with reliable tech.",
-                            Name = "Information Technology"
+                            Description = "Machine learning, statistics, and data analysis.",
+                            Name = "Data Science"
                         },
                         new
                         {
                             Id = 3,
-                            Description = "Software Engineering designs and builds software using structured methods. It emphasizes quality, scalability, and teamwork across the full lifecycle—from planning to maintenance.",
-                            Name = "Software Engineering"
+                            Description = "Protecting systems, networks, and data.",
+                            Name = "Cybersecurity"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Building apps for Android and iOS.",
+                            Name = "Mobile Development"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "AWS, Azure, and cloud-native architectures.",
+                            Name = "Cloud Computing"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Deep learning, NLP, and intelligent systems.",
+                            Name = "Artificial Intelligence"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Manual and automated testing practices.",
+                            Name = "Software Testing"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "CI/CD pipelines, containerization, and automation.",
+                            Name = "DevOps"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "Designing and programming interactive games.",
+                            Name = "Game Development"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "Computer networks, protocols, and CCNA fundamentals.",
+                            Name = "Networking"
                         });
                 });
 

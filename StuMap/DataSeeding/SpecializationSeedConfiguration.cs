@@ -10,10 +10,17 @@ namespace StuMap.DataSeeding
         {
             // Seed data for Specialization entity
             builder.HasData(
-                new Specialization { Id = 1, Name = "Computer Science", Description = "Computer Science studies how computers work, focusing on algorithms, data, and problem‑solving. It blends theory and practice to build systems like AI, databases, and operating systems." },
-                new Specialization { Id = 2, Name = "Information Technology",Description = "Information Technology applies computer systems to manage and secure data. It covers networks, servers, and user support, ensuring organizations run smoothly with reliable tech." },
-                new Specialization { Id = 3, Name = "Software Engineering", Description = "Software Engineering designs and builds software using structured methods. It emphasizes quality, scalability, and teamwork across the full lifecycle—from planning to maintenance." }
-            );
+               new Specialization { Id = 1, Name = "Web Development", Description = "Frontend and backend web technologies." },
+                new Specialization { Id = 2, Name = "Data Science", Description = "Machine learning, statistics, and data analysis." },
+                new Specialization { Id = 3, Name = "Cybersecurity", Description = "Protecting systems, networks, and data." },
+                new Specialization { Id = 4, Name = "Mobile Development", Description = "Building apps for Android and iOS." },
+                new Specialization { Id = 5, Name = "Cloud Computing", Description = "AWS, Azure, and cloud-native architectures." },
+                new Specialization { Id = 6, Name = "Artificial Intelligence", Description = "Deep learning, NLP, and intelligent systems." },
+                new Specialization { Id = 7, Name = "Software Testing", Description = "Manual and automated testing practices." },
+                new Specialization { Id = 8, Name = "DevOps", Description = "CI/CD pipelines, containerization, and automation." },
+                new Specialization { Id = 9, Name = "Game Development", Description = "Designing and programming interactive games." },
+                new Specialization { Id = 10, Name = "Networking", Description = "Computer networks, protocols, and CCNA fundamentals." });
+
         }
     }
 }

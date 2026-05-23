@@ -13,11 +13,13 @@ namespace StuMap.Services
         /*---------------------------------------------------------------------------------*/
         private readonly AppDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ICertificateManager certificateRepo;
         /*---------------------------------------------------------------------------------*/
-        public ContributorRepository(AppDbContext context, UserManager<ApplicationUser> userManager)
+        public ContributorRepository(AppDbContext context, UserManager<ApplicationUser> userManager ,ICertificateManager certificateRepo)
         {
             _context = context;
             _userManager = userManager;
+            this.certificateRepo = certificateRepo;
         }
 
         public void ApproveContributor(string id)
@@ -46,7 +48,7 @@ namespace StuMap.Services
                         FullName = $"{u.FirstName} {u.LastName}",
                         Email = u.Email,
                         Specialization = u.Specialization,
-                        CertificatePath = u.CertificatePath,
+                        CertificatePath =certificateRepo.GetAll().FirstOrDefault(x=>x.ContributorId==u.Id).Url,
                         Status = (ContributorStatus)u.ContributorStatus!,
                         RequestDate = u.RequestDate
                     })];
