@@ -6,7 +6,7 @@
 <section class="mx-6 my-8 p-5">
     <div class="flex flex-col justify-center items-center">
         <p class="text-4xl font-semibold ">Explore All Courses</p>
-        <p class="text-xl text-primary-content w-200 text-center my-2">
+        <p class="text-xl text-primary-content-para w-200 text-center my-2">
             Step into the luminescent path of modern technology. Our curated courses
             guide you through the digital nebula from fundamentals to mastery.
         </p>
@@ -164,21 +164,22 @@
                 <div id="revision-details" class="flex flex-col gap-8" hidden>
                     <p class="text-4xl font-semibold ">Revision</p>
                     <div class="w-150">
-                        <div class="flex flex-col">
-                            <div class="flex text-2xl justify-between">
-                                <p>Course Title </p>
-                                <span id="get-course-title"></span>
-                                
-                            </div>
-                         
-                            <div class="flex text-2xl justify-between">
-                                <p>Course Description </p>
-                                <span id="get-course-desc"></span>
-                            </div>
+                        <div class="flex flex-col gap-8 ">
+           
+                            <label class="floating-label">
+                                <span>Course Title</span>
+                                <input id="get-course-title"  type="text"  class="input input-lg w-150" disabled />
+                              
+                            </label>
+                            <label class="floating-label">
+                                <span>Description</span>
+                                <input id="get-course-desc"  type="text"  class="input input-lg w-150 h-30" disabled/>
+                            
+                            </label>
+                            
                         </div>
                     </div>
-                    <div>
-                    </div>
+
                 </div>
                 <div id="pagination-btns" class="join flex justify-center my-8">
                     <button type="button" id="prev-btn" class="join-item btn btn-outline w-50" hidden><i class="fa-solid fa-arrow-left-long"></i> Previous page</button>

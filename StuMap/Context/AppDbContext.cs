@@ -50,6 +50,8 @@ namespace StuMap.Context
             modelBuilder.ApplyConfiguration(new TicketSeedConfiguration());
             modelBuilder.ApplyConfiguration(new CertificateSeedConfiguration());
 
+            modelBuilder.ApplyConfiguration(new RoadmapEnrollmentSeedConfiguration());
+
             //    //modelBuilder.Entity<User>().UseTptMappingStrategy();
 
             //    //modelBuilder.Entity<User>()
