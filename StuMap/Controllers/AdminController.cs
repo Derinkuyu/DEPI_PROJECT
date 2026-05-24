@@ -1,224 +1,385 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using StuMap.BLL.Services.Admin;
 using StuMap.Managers;
-using StuMap.Models.Enums;
 
 namespace StuMap.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class AdminController : Controller
+    public class AdminController(
+        IAdminUserService adminUserService,
+        IAdminContributorService adminContributorService,
+        IAdminRoadmapService adminRoadmapService,
+        IAdminCourseService adminCourseService,
+        IAdminTicketService adminTicketService) : Controller
     {
-        /*------------------------------------------------------------------------------------*/
-        private readonly IUserManager _userManager;
-        private readonly IContributorManager _contributorManager;
-        private readonly IRoadmapManager _roadmapManager;
-        private readonly ICourseManager _courseManager;
-        private readonly IContactManager _contactManager;
-
-        /*------------------------------------------------------------------------------------*/
-        public AdminController(
-            IUserManager userManager, 
-            IContributorManager contributorManager, 
-            IRoadmapManager roadmapManager, 
-            ICourseManager courseManager,
-            IContactManager contactManager)
-        {
-            _userManager = userManager;
-            _contributorManager = contributorManager;
-            _roadmapManager = roadmapManager;
-            _courseManager = courseManager;
-            _contactManager = contactManager;
-        }
         /*------------------------------------------------------------------------------------*/
         /////////// Users Management
         /*------------------------------------------------------------------------------------*/
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var users = _userManager.GetAll();
-            return View(users);
+            var result = await adminUserService.GetAllUsers();
+            if (result.Success)
+            {
+                return View(result.Data);
+            }
+            else
+            {
+                // todo: handle errors
+                return View();
+            }
         }
         /*------------------------------------------------------------------------------------*/
         [HttpGet]
 
-        public IActionResult Details(string id)
+        public async Task<IActionResult> Details(string id)
         {
-            var user = _userManager.GetById(id);
+            var result = await adminUserService.GetUserDetails(id);
 
-            return View(user);
+            if (result.Success)
+            {
+                return View(result.Data);
+            }
+            else
+            {
+                // todo: handle errors
+                return View();
+            }
         }
         /*------------------------------------------------------------------------------------*/
         [HttpGet]
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> DeleteAsync(string id)
         {
-            _userManager.Delete(id);
+            var result = await adminUserService.DeleteUser(id);
 
-            return RedirectToAction("Index");
+            if (result.Success)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                // todo: handle errors
+                return RedirectToAction("Index");
+            }
         }
         /*------------------------------------------------------------------------------------*/
-        public IActionResult Block(string id)
+        public async Task<IActionResult> BlockAsync(string id)
         {
-            _userManager.Block(id);
+            var result = await adminUserService.BlockUser(id);
 
-            return RedirectToAction("Index");
+            if (result.Success)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                // todo: handle errors
+                return RedirectToAction("Index");
+            }
         }
         /*------------------------------------------------------------------------------------*/
-        public IActionResult UnBlock(string id)
+        public async Task<IActionResult> UnBlockAsync(string id)
         {
-            _userManager.Unblock(id);
+            var result = await adminUserService.UnblockUser(id);
 
-            return RedirectToAction("Index");
+            if (result.Success)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                // todo: handle errors
+                return RedirectToAction("Index");
+            }
         }
         /*------------------------------------------------------------------------------------*/
         /////////// Contributors Management
         /*------------------------------------------------------------------------------------*/
-        public IActionResult ContributorRequests()
+        public async Task<IActionResult> ContributorRequestsAsync()
         {
-            //var requests = _contributorManager.GetPendingRequests();
-            var requests = _contributorManager.GetAllContributors();
+            var result = await adminContributorService.GetAllContributors();
 
-            return View(requests);
+            if (result.Success)
+            {
+                return View(result.Data);
+            }
+            else
+            {
+                // todo: handle errors
+                return View();
+            }
         }
         /*------------------------------------------------------------------------------------*/
-        public IActionResult ContributorDetails(string id)
+        public async Task<IActionResult> ContributorDetailsAsync(string id)
         {
-            var contributor = _contributorManager.GetContributorById(id);
-
-            return View(contributor);
+            var result = await adminContributorService.GetContributorById(id);
+            if (result.Success)
+            {
+                return View(result.Data);
+            }
+            else
+            {
+                // todo: handle errors
+                return View();
+            }
         }
         /*------------------------------------------------------------------------------------*/
-        public IActionResult ApproveContributor(string id)
+        public async Task<IActionResult> ApproveContributorAsync(string id)
         {
-            _contributorManager.ApproveContributor(id);
+            var result = await adminContributorService.ApproveContributor(id);
+            if (result.Success)
+            {
+                return RedirectToAction("ContributorRequests");
+            }
+            else
+            {
+                // todo: handle errors
+                return RedirectToAction("ContributorRequests");
+            }
 
-            return RedirectToAction("ContributorRequests");
         }
         /*------------------------------------------------------------------------------------*/
         [HttpPost]
-        public IActionResult RejectContributor(string id, string reason)
+        public async Task<IActionResult> RejectContributorAsync(string id, string reason)
         {
-            _contributorManager.RejectContributor(id, reason);
-
-            return RedirectToAction("ContributorRequests");
+            var result = await adminContributorService.RejectContributor(id, reason);
+            if (result.Success)
+            {
+                return RedirectToAction("ContributorRequests");
+            }
+            else
+            {
+                // todo: handle errors
+                return RedirectToAction("ContributorRequests");
+            }
         }
         /*------------------------------------------------------------------------------------*/
         //////////// Roadmaps Management
         /*------------------------------------------------------------------------------------*/
-        public IActionResult RoadmapRequests()
+        public async Task<IActionResult> RoadmapRequestsAsync()
         {
-            //var roadmaps = _roadmapManager.GetPendingRoadmaps();
-            var roadmaps = _roadmapManager.GetAllRoadmaps();
-
-            return View(roadmaps);
+            var result = await adminRoadmapService.GetAllRoadmaps();
+            if (result.Success)
+            {
+                return View(result.Data);
+            }
+            else
+            {
+                // todo: handle errors
+                return View();
+            }
         }
         /*------------------------------------------------------------------------------------*/
-        public IActionResult RoadmapDetails(int id)
+        public async Task<IActionResult> RoadmapDetailsAsync(int id)
         {
-            var roadmap = _roadmapManager.GetRoadmapById(id);
-
-            return View(roadmap);
+            var result = await adminRoadmapService.GetRoadmapById(id);
+            if (result.Success)
+            {
+                return View(result.Data);
+            }
+            else
+            {
+                // todo: handle errors
+                return View();
+            }
         }
         /*------------------------------------------------------------------------------------*/
-        public IActionResult ApproveRoadmap(int id)
+        public async Task<IActionResult> ApproveRoadmapAsync(int id)
         {
-            _roadmapManager.ApproveRoadmap(id);
-
-            return RedirectToAction("RoadmapRequests");
+            var result = await adminRoadmapService.ApproveRoadmap(id);
+            if (result.Success)
+            {
+                return RedirectToAction("RoadmapRequests");
+            }
+            else
+            {
+                // todo: handle errors
+                return RedirectToAction("RoadmapRequests");
+            }
         }
         /*------------------------------------------------------------------------------------*/
         [HttpPost]
-        public IActionResult RejectRoadmap(int id, string reason)
+        public async Task<IActionResult> RejectRoadmapAsync(int id, string reason)
         {
-            _roadmapManager.RejectRoadmap(id, reason);
-
-            return RedirectToAction("RoadmapRequests");
+            var result = await adminRoadmapService.RejectRoadmap(id, reason);
+            if (result.Success)
+            {
+                return RedirectToAction("RoadmapRequests");
+            }
+            else
+            {
+                // todo: handle errors
+                return RedirectToAction("RoadmapRequests");
+            }
         }
         /*------------------------------------------------------------------------------------*/
-        public IActionResult DeleteRoadmap(int id)
+        public async Task<IActionResult> DeleteRoadmap(int id)
         {
-            _roadmapManager.DeleteRoadmap(id);
-
-            return RedirectToAction("RoadmapRequests");
+            var result = await adminRoadmapService.DeleteRoadmap(id);
+            if (result.Success)
+            {
+                return RedirectToAction("RoadmapRequests");
+            }
+            else
+            {
+                // todo: handle errors
+                return RedirectToAction("RoadmapRequests");
+            }
         }
         /*------------------------------------------------------------------------------------*/
         //////////// Course Management
         /*------------------------------------------------------------------------------------*/
-        public IActionResult CourseRequests()
+        public async Task<IActionResult> CourseRequestsAsync()
         {
-            //var courses = _courseManager.GetPendingCourses();
-            var courses = _courseManager.GetAllCourses();
-
-            return View(courses);
+            var result = await adminCourseService.GetAllCourses();
+            if (result.Success)
+            {
+                return View(result.Data);
+            }
+            else
+            {
+                // todo: handle errors
+                return View();
+            }
         }
         /*------------------------------------------------------------------------------------*/
-        public IActionResult CourseDetails(int id)
+        public async Task<IActionResult> CourseDetails(int id)
         {
-            var course = _courseManager.GetCourseById(id);
-
-            return View(course);
+            var result = await adminCourseService.GetCourseById(id);
+            if (result.Success)
+            {
+                return View(result.Data);
+            }
+            else
+            {
+                // todo: handle errors
+                return View();
+            }
         }
         /*------------------------------------------------------------------------------------*/
-        public IActionResult ApproveCourse(int id)
+        public async Task<IActionResult> ApproveCourse(int id)
         {
-            _courseManager.ApproveCourse(id);
-
-            return RedirectToAction("CourseRequests");
+            var result = await adminCourseService.ApproveCourse(id);
+            if (result.Success)
+            {
+                return RedirectToAction("CourseRequests");
+            }
+            else
+            {
+                // todo: handle errors
+                return RedirectToAction("CourseRequests");
+            }
         }
         /*------------------------------------------------------------------------------------*/
         [HttpPost]
-        public IActionResult RejectCourse(int id, string reason)
+        public async Task<IActionResult> RejectCourse(int id, string reason)
         {
-            _courseManager.RejectCourse(id, reason);
-
-            return RedirectToAction("CourseRequests");
+            var result = await adminCourseService.RejectCourse(id, reason);
+            if (result.Success)
+            {
+                return RedirectToAction("CourseRequests");
+            }
+            else
+            {
+                // todo: handle errors
+                return RedirectToAction("CourseRequests");
+            }
         }
         /*------------------------------------------------------------------------------------*/
-        public IActionResult DeleteCourse(int id)
+        public async Task<IActionResult> DeleteCourse(int id)
         {
-            _courseManager.DeleteCourse(id);
-
-            return RedirectToAction("CourseRequests");
+            var result = await adminCourseService.DeleteCourse(id);
+            if (result.Success)
+            {
+                return RedirectToAction("CourseRequests");
+            }
+            else
+            {
+                // todo: handle errors
+                return RedirectToAction("CourseRequests");
+            }
         }
         /*------------------------------------------------------------------------------------*/
         ////////// Tickets Management
         /*------------------------------------------------------------------------------------*/
-        public IActionResult TicketRequests()
+        public async Task<IActionResult> TicketRequestsAsync()
         {
-            var tickets = _contactManager.GetAll();
-            return View(tickets);
+            var result = await adminTicketService.GetAllTickets();
+            if (result.Success)
+            {
+                return View(result.Data);
+            }
+            else
+            {
+                // todo: handle errors
+                return View();
+            }
+
         }
         /*------------------------------------------------------------------------------------*/
         // Ticket details view (uses ContactDetailsDto)
-        public IActionResult TicketDetails(int id)
+        public async Task<IActionResult> TicketDetails(int id)
         {
-            var ticket = _contactManager.GetDetails(id);
-            if (ticket == null) return NotFound();
-            return View(ticket);
+            var result = await adminTicketService.GetTicketById(id);
+            if (result.Success)
+            {
+                return View(result.Data);
+            }
+            else
+            {
+                if (result.StatusCode == System.Net.HttpStatusCode.NotFound) return NotFound();
+
+                // todo: handle errors
+                return View();
+            }
         }
         /*------------------------------------------------------------------------------------*/
         // Accept a ticket and optionally send a reply (POST)
         [HttpPost]
-        public IActionResult AcceptTicket(int id, string reply)
+        public async Task<IActionResult> AcceptTicket(int id, string reply)
         {
-            _contactManager.Accept(id, reply);
-            return RedirectToAction("TicketRequests");
+            var result = await adminTicketService.AcceptTicket(id, reply);
+            if (result.Success)
+            {
+                return RedirectToAction("TicketRequests");
+            }
+            else
+            {
+                // todo: handle errors
+                return RedirectToAction("TicketRequests");
+            }
         }
         /*------------------------------------------------------------------------------------*/
         // Reject a ticket with reason (POST)
         [HttpPost]
-        public IActionResult RejectTicket(int id, string reason)
+        public async Task<IActionResult> RejectTicket(int id, string reason)
         {
-            _contactManager.Reject(id, reason);
-            return RedirectToAction("TicketRequests");
+            var result = await adminTicketService.RejectTicket(id, reason);
+            if (result.Success)
+            {
+                return RedirectToAction("TicketRequests");
+            }
+            else
+            {
+                // todo: handle errors
+                return RedirectToAction("TicketRequests");
+            }
         }
         /*------------------------------------------------------------------------------------*/
         // Delete ticket
-        public IActionResult DeleteTicket(int id)
+        public async Task<IActionResult> DeleteTicket(int id)
         {
-            _contactManager.Delete(id);
-            return RedirectToAction("TicketRequests");
+            var result = await adminTicketService.DeleteTicket(id);
+            if (result.Success)
+            {
+                return RedirectToAction("TicketRequests");
+            }
+            else
+            {
+                // todo: handle errors
+                return RedirectToAction("TicketRequests");
+            }
         }
         /*------------------------------------------------------------------------------------*/
     }

@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="StuMap.BLL/StuMap.BLL.csproj" Id="98b38395-c37f-4075-8a8c-39ac2a9c6fc5" />
+  <Project Path="StuMap.DAL/StuMap.DAL.csproj" Id="2158b79a-592f-4c6c-8970-582ac121b284" />
   <Project Path="StuMap/StuMap.csproj" />
 </Solution>

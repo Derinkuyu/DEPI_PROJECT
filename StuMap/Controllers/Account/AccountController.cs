@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using StuMap.Models;
+using StuMap.DAL.Models;
 using StuMap.ViewModels.Account;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StuMap.Controllers.Account
 {

@@ -1,11 +1,17 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StuMap.API;
-using StuMap.Context;
-using StuMap.Managers;
-using StuMap.Models;
-using StuMap.Services;
-using StuMap.Services.Authentication;
+using StuMap.BLL.Managers.Authentication;
+using StuMap.BLL.Services.Authentication;
+using StuMap.DAL.Context;
+using StuMap.DAL.Models;
+using StuMap.DAL.Repositories;
+using StuMap.DAL.Repositories.Interfaces;
+//using StuMap.Context;
+//using StuMap.Managers;
+//using StuMap.Models;
+//using StuMap.Services;
+//using StuMap.Services.Authentication;
 
 namespace StuMap
 {
@@ -83,20 +89,21 @@ namespace StuMap
 
 
             // Models and Repositories Injection
-            builder.Services.AddScoped<IContactManager, ContactRepository>();
-            builder.Services.AddScoped<ICourseManager, CourseRepository>();
-            builder.Services.AddScoped<IRoadmapEnrollmentManager, RoadmapEnrollmentRepository>();
-            builder.Services.AddScoped<IRoadmapManager, RoadmapRepository>();
-            builder.Services.AddScoped<ISpecializationManager, SpecializationRepository>();
-            builder.Services.AddScoped<IMaterialManager, MaterialRepository>();
-            builder.Services.AddScoped<ICertificateManager, CertificateRepository>();
-            builder.Services.AddScoped<IMaterialTypeManager, MaterialTypeRepository>();
-            builder.Services.AddScoped<IUserManager, UserRepository>();
-            builder.Services.AddScoped<IContributorManager, ContributorRepository>();
-            builder.Services.AddScoped<ICourseEnrollmentManager, CourseEnrollmentRepository>();
-            //builder.Services.AddScoped<INotificationManager, NotificationRepository>();
-            builder.Services.AddScoped<ICourseRoadmapManager, CourseRoadmapRepository>();
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+            //builder.Services.AddScoped<IContactManager, ContactRepository>();
+            //builder.Services.AddScoped<ICourseManager, CourseRepository>();
+            //builder.Services.AddScoped<IRoadmapEnrollmentManager, RoadmapEnrollmentRepository>();
+            //builder.Services.AddScoped<IRoadmapManager, RoadmapRepository>();
+            //builder.Services.AddScoped<ISpecializationManager, SpecializationRepository>();
+            //builder.Services.AddScoped<IMaterialManager, MaterialRepository>();
+            //builder.Services.AddScoped<ICertificateManager, CertificateRepository>();
+            //builder.Services.AddScoped<IMaterialTypeManager, MaterialTypeRepository>();
+            //builder.Services.AddScoped<IUserManager, UserRepository>();
+            //builder.Services.AddScoped<IContributorManager, ContributorRepository>();
+            //builder.Services.AddScoped<ICourseEnrollmentManager, CourseEnrollmentRepository>();
+            ////builder.Services.AddScoped<INotificationManager, NotificationRepository>();
+            //builder.Services.AddScoped<ICourseRoadmapManager, CourseRoadmapRepository>();
         }
     }
 }

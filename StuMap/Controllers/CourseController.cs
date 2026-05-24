@@ -2,24 +2,44 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using StuMap.BLL.Services;
+using StuMap.DAL.Models;
 using StuMap.Managers;
-using StuMap.Models;
-using StuMap.Models.Enums;
 using System.Security.Claims;
 
 namespace StuMap.Controllers
 {
-    public class CourseController(ICourseManager courseRepo,
-        IMaterialTypeManager materialTypeRepo,
+    public class CourseController(
+        ICourseManager courseRepo,
+        IContributorService contributorService,
+        IMaterialTypeService materialTypeService,
         IMaterialManager materialRepo,
         UserManager<ApplicationUser> userManager,
         ICourseEnrollmentManager courseEnrollmentManager) : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            ViewBag.MaterialTypes = materialTypeRepo.GetAll() ;
-            ViewBag.Approved = User.IsInRole("Contributor") &&
-            userManager.GetUserAsync(User).Result?.ContributorStatus == ContributorStatus.Approved;
+            var materials = await materialTypeService.GetAll();
+            if (materials.Success)
+            {
+                ViewBag.MaterialTypes = materials.Data;
+            }
+            else
+            {
+                //handle error
+            }
+
+
+            var approved = await contributorService.IsApproved(User);
+            if (approved.Success)
+            {
+                ViewBag.Approved = approved.Data;
+            }
+            else
+            {
+                //handle error
+            }
+
 
             return View(courseRepo.GetAll().Where(x => x.Status == CourseStatus.Approved).ToList());
         }
