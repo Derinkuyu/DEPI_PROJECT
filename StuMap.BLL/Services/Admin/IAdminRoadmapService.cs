@@ -10,5 +10,8 @@ namespace StuMap.BLL.Services.Admin
         public Task<ApiResponse> ApproveRoadmap(int id);
         public Task<ApiResponse> RejectRoadmap(int id, string reason);
         public Task<ApiResponse> DeleteRoadmap(int id);
+
+        public Task<ApiResponse<List<(string title, bool isApproved)>>> GetRoadmapsStatus();
+        public Task<ApiResponse<int>> GetPendingRoadmapsCount();
     }
 }

@@ -68,7 +68,6 @@ namespace StuMap.BLL.Managers.Admin
             }
         }
 
-
         public async Task<ApiResponse<List<RoadmapRequestDto>>> GetAllRoadmaps()
         {
             try
@@ -99,6 +98,21 @@ namespace StuMap.BLL.Managers.Admin
             }
         }
 
+
+        public async Task<ApiResponse<int>> GetPendingRoadmapsCount()
+        {
+            try
+            {
+                var result = await roadmapRepository.Query().CountAsync(x => x.Status == StatusEnum.Pending ||
+                        x.Status == StatusEnum.UpdatedPending);
+
+                return ApiResponse<int>.SuccessResult(result);
+            }
+            catch (Exception)
+            {
+                return ApiResponse<int>.FailureResult("Error");
+            }
+        }
 
         public async Task<ApiResponse<RoadmapDetailsDto>> GetRoadmapById(int id)
         {
@@ -139,6 +153,31 @@ namespace StuMap.BLL.Managers.Admin
             }
         }
 
+        public async Task<ApiResponse<List<(string title, bool isApproved)>>> GetRoadmapsStatus()
+        {
+            try
+            {
+                var result = await roadmapRepository.Query()
+                    .Select(r => new
+                    {
+                        r.Title,
+                        r.IsApproved
+                    }).ToListAsync();
+
+                List<(string title, bool isApproved)> data = [];
+                foreach (var item in result)
+                {
+                    data.Add((item.Title, item.IsApproved));
+                }
+
+                return ApiResponse<List<(string, bool)>>.SuccessResult(data);
+            }
+            catch (Exception)
+            {
+                // todo: implement
+                return ApiResponse<List<(string, bool)>>.FailureResult("Error");
+            }
+        }
 
         public async Task<ApiResponse> RejectRoadmap(int id, string reason)
         {

@@ -1,4 +1,6 @@
-﻿@model List<Contact>
+﻿@using StuMap.DAL.Models
+@using StuMap.DAL.Models.Enums
+@model List<Contact>
 
 @{
     ViewData["Title"] = "Ticket Requests";
@@ -106,7 +108,7 @@
                                     </h2>
 
                                     <!-- Status -->
-                                    @if (ticket.Status == StuMap.Models.Enums.TicketStatus.Pending)
+                                    @if (ticket.Status == TicketStatusEnum.Pending)
                                     {
                                         <div class="badge badge-warning text-black whitespace-nowrap">
 
@@ -114,7 +116,7 @@
 
                                         </div>
                                     }
-                                    else if (ticket.Status == StuMap.Models.Enums.TicketStatus.Considered)
+                                    else if (ticket.Status == TicketStatusEnum.Considered)
                                     {
                                         <div class="badge badge-success text-black whitespace-nowrap">
 
@@ -214,7 +216,7 @@
                             </a>
 
                             <!-- Approval Actions -->
-                            @if (ticket.Status == StuMap.Models.Enums.TicketStatus.Pending)
+                            @if (ticket.Status == TicketStatusEnum.Pending)
                             {
                                 <div class="flex gap-2">
 

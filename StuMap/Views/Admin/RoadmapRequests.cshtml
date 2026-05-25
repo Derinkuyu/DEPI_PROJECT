@@ -242,19 +242,19 @@
                         <!-- Status -->
                         <td>
 
-                            @if (item.Status == RoadmapStatus.Pending)
+                            @if (item.Status == StatusEnum.Pending)
                             {
                                 <span class="badge badge-warning text-black px-4 py-3">
                                     Pending
                                 </span>
                             }
-                            else if (item.Status == RoadmapStatus.Approved)
+                            else if (item.Status == StatusEnum.Approved)
                             {
                                 <span class="badge badge-success text-black px-4 py-3">
                                     Approved
                                 </span>
                             }
-                            else if (item.Status == RoadmapStatus.UpdatedPending)
+                            else if (item.Status == StatusEnum.UpdatedPending)
                             {
                                 <span class="badge badge-info px-4 py-3">
                                     Updated Request
@@ -292,8 +292,8 @@
                                 </a>
 
                                 <!-- Approve -->
-                                @if (item.Status == RoadmapStatus.Pending ||
-                               item.Status == RoadmapStatus.UpdatedPending || item.Status== RoadmapStatus.Rejected)
+                                @if (item.Status == StatusEnum.Pending ||
+                               item.Status == StatusEnum.UpdatedPending || item.Status== StatusEnum.Rejected)
                                 {
                                     <a asp-action="ApproveRoadmap"
                                            asp-controller="Admin"
@@ -304,8 +304,8 @@
 
                                     </a>
                                 }
-                                @if (item.Status == RoadmapStatus.Pending ||
-                              item.Status == RoadmapStatus.UpdatedPending || item.Status == RoadmapStatus.Approved)
+                                @if (item.Status == StatusEnum.Pending ||
+                              item.Status == StatusEnum.UpdatedPending || item.Status == StatusEnum.Approved)
                                 {
                                     <!-- Reject -->
                                     <button class="btn btn-sm btn-error"

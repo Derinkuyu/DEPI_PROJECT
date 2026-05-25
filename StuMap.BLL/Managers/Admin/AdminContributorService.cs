@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using StuMap.BLL.DTO.Admin;
 using StuMap.BLL.Models;
 using StuMap.BLL.Services.Admin;
+using StuMap.DAL.Context;
 using StuMap.DAL.Models;
 using StuMap.DAL.Models.Enums;
 using StuMap.DAL.Repositories.Interfaces;
@@ -11,7 +12,7 @@ using System.Net;
 namespace StuMap.BLL.Managers.Admin
 {
     public class AdminContributorService(
-        DbContext context,
+        AppDbContext context,
         IGenericRepository<Certificate> certificateRepository,
         UserManager<ApplicationUser> userManager) : IAdminContributorService
     {
@@ -100,6 +101,20 @@ namespace StuMap.BLL.Managers.Admin
             }
         }
 
+        public async Task<ApiResponse<int>> GetPendingContributorsCount()
+        {
+            try
+            {
+                var result = (await userManager.GetUsersInRoleAsync("Contributor")).Count(x => x.ContributorStatus == StatusEnum.Pending);
+
+                return ApiResponse<int>.SuccessResult(result);
+            }
+            catch (Exception)
+            {
+                return ApiResponse<int>.FailureResult("Error");
+            }
+        }
+
         public async Task<ApiResponse> RejectContributor(string id, string reason)
         {
             try
@@ -108,8 +123,9 @@ namespace StuMap.BLL.Managers.Admin
 
                 if (user != null)
                 {
-                    user.ContributorStatus = StatusEnum.Approved;
+                    user.ContributorStatus = StatusEnum.Rejected;
                     user.RejectionReason = reason;
+
                     await context.SaveChangesAsync();
                 }
 

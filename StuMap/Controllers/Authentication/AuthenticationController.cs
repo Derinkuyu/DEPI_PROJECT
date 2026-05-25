@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StuMap.Services.Authentication;
+using StuMap.BLL.Services.Authentication;
 
 namespace StuMap.Controllers
 {

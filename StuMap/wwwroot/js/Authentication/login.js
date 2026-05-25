@@ -1,7 +1,4 @@
-﻿import { getDeviceToken } from '/js/Firebase/notification.js';
-
-
-console.log("this script is a test, Hello World!");
+﻿console.log("this script is a test, Hello World!");
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -28,7 +25,6 @@ async function performLogin() {
 
     $(`#login-error`).attr(`hidden`,`hidden`);
 
-    const deviceToken = await getDeviceToken();
     console.log("Device Token:", deviceToken);
 
     try {
@@ -39,7 +35,6 @@ async function performLogin() {
                 {
                     email: email,
                     password: pass,
-                    deviceToken: deviceToken
                 })
         });
 

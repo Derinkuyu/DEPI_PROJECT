@@ -1,4 +1,5 @@
-﻿@model Roadmap
+﻿@using StuMap.DAL.Models
+@model Roadmap
 
 
 <section class="rounded-xl px-12 my-8 mx-8 p-5 animated-background bg-linear-220 from-base-100 via-base-200 to-base-300">
@@ -8,7 +9,7 @@
             @Model.Description
         </p>
         <div class="flex  justify-start gap-5 w-full">
-            <div class="uppercase text-success tracking-widest text-sm"> <i class="fa-solid fa-graduation-cap"></i> @Model.CourseRoadmaps.Count() Courses</div>
+            <div class="uppercase text-success tracking-widest text-sm"> <i class="fa-solid fa-graduation-cap"></i> @Model.Courses.Count Courses</div>
             <div class="uppercase text-primary tracking-widest text-sm">
                 <i class="fa-regular fa-user"></i> @Model.Contributor.FirstName @Model.Contributor.LastName
             </div>
@@ -75,24 +76,24 @@
             @{
                 int count = 0;
             }
-            @foreach (var course in Model.CourseRoadmaps)
+            @foreach (var course in Model.Courses)
             {
                 count++;
                 <div class="timelinec-step">
                     <div class="dotc text-xl font-bold">@count</div>
                     <div class="flex items-baseline gap-8 mb-2">
-                        <p class="text-2xl font-semibold ">@course.Course.Title</p>
-                        <div class="uppercase  text-l text-primary-content-para tracking-widest"> <i class="fa-regular fa-user"></i> @course.Course.Contributor.FirstName @course.Course.Contributor.LastName</div>
+                        <p class="text-2xl font-semibold ">@course.Title</p>
+                        <div class="uppercase  text-l text-primary-content-para tracking-widest"> <i class="fa-regular fa-user"></i> @course.Contributor?.FirstName @course.Contributor?.LastName</div>
                     </div>
                     <p class="text-l text-primary-content-para ">
-                        @course.Course.Description
+                        @course.Description
                     </p>
                     @if (User.Identity?.IsAuthenticated ?? false)
                     {
                         <div class="flex flex-col gap-4 my-4">
                             <p class="text-xl font-semibold ">Sources</p>
                             <ul class=" ml-6">
-                                @foreach (var material in course.Course.Materials)
+                                @foreach (var material in course.Materials)
                                 {
                                     <li>
                                         <div class="tooltip  tooltip-right" data-tip="@material.Description">

@@ -1,33 +1,46 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using StuMap.Managers;
-using StuMap.Models;
-using StuMap.Models.Enums;
+using StuMap.BLL.Services;
+using StuMap.DAL.Models;
 using System.Security.Claims;
 
 namespace StuMap.Controllers
 {
     public class RoadmapController(
-        ICourseManager courseRepo,
-        IMaterialTypeManager materialTypeRepo,
-        UserManager<ApplicationUser> userManager,
-        IRoadmapManager roadmapRepo,
-        ISpecializationManager specializationRepo,
-        ICourseRoadmapManager courseRoadmapRepo,
-        IRoadmapEnrollmentManager roadmapEnrollment) : Controller
+        ICourseService courseService,
+        IMaterialTypeService materialTypeService,
+        IContributorService contributorService,
+        IRoadmapService roadmapService,
+        ISpecializationService specializationService) : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            ViewBag.Specializations = specializationRepo.GetAll();
-            var road = roadmapRepo.GetAll().Where(x => x.Status == RoadmapStatus.Approved).ToList();
+            var specializations = await specializationService.GetAll();
+            if (specializations.Success)
+            {
+                ViewBag.Specializations = specializations.Data;
+            }
 
-            ViewBag.Approved = User.IsInRole("Contributor") &&
-                userManager.GetUserAsync(User).Result?.ContributorStatus == ContributorStatus.Approved;
-           
-            return View(road);
+            var approved = await contributorService.IsApproved(User);
+            if (approved.Success)
+            {
+                ViewBag.Approved = approved.Data;
+            }
+            
+
+            var roadmaps = await roadmapService.GetApprovedRoadmaps();
+            if (roadmaps.Success)
+            {
+                return View(roadmaps.Data);
+            }
+            else
+            {
+                // handle error
+            }
+
+            return View();
         }
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId != null)
@@ -36,45 +49,92 @@ namespace StuMap.Controllers
                 if (isStudent)
                 {
                     ViewBag.IsStudent = true;
-                    ViewBag.IsEnrolled = roadmapEnrollment.IsEnrolled(userId, id);
+
+                    var isEnrolled = await roadmapService.IsEnrolledInRoadmap(userId, id);
+                    if (isEnrolled.Success)
+                    {
+                        ViewBag.IsEnrolled = isEnrolled.Data;
+                    }
+                    else
+                    {
+                        ViewBag.IsEnrolled = false;
+                    }
                 }
             }
-            Dictionary<int, string> materialType = materialTypeRepo.GetAll().ToDictionary(x => x.Id, x => x.Title);
-            ViewBag.materialType = materialType;
-            var roadmap = roadmapRepo.GetById(id);
-            return View(roadmap);
-        }
-        [Authorize(Roles = "Contributor")]
-        public IActionResult New()
-        {
-            var courses = courseRepo.GetAll().Where(x => x.Status == CourseStatus.Approved).ToList();
-            ViewBag.courses = courses;
-            ViewBag.specialization = specializationRepo.GetAll();
+            var materialTypes = await materialTypeService.GetAll();
+            if (materialTypes.Success)
+            {
+                ViewBag.materialType = materialTypes.Data!.ToDictionary(x => x.Id, x => x.Title);
+            }
+
+            var roadmap = await roadmapService.GetRoadmap(id);
+            if (roadmap.Success)
+            {
+                return View(roadmap.Data);
+            }
+            else
+            {
+                // handle error
+            }
+
             return View();
         }
         [Authorize(Roles = "Contributor")]
-        public IActionResult AddNew()
+        // todo: add policy to check if we are approved
+        public async Task<IActionResult> New()
+        {
+            var courses = await courseService.GetApprovedCourses();
+            if (courses.Success)
+            {
+                ViewBag.courses = courses.Data;
+            }
+
+            var specialization = await specializationService.GetAll();
+            if (specialization.Success)
+            {
+                ViewBag.specialization = specialization.Data;
+            }
+
+
+            return View();
+        }
+        // todo: create a dto for this
+        // todo: add policy to check if we are approved
+        [Authorize(Roles = "Contributor")]
+        public async Task<IActionResult> AddNew()
         {
             var QString = Request.Query;
             //ContributorId Added manually
             //ContributorId will be changed after auth stuf
             string conId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var newRoadmap = new Roadmap { Title = QString["RoadmapTitle"], Description = QString["RoadmapDescription"], ContributorId = conId, SpecializationId = int.Parse(QString["specialization"]) };
-            var newRoadmapId = roadmapRepo.Insert(newRoadmap);
-            List<CourseRoadmap> courseRoadmaps = Request.Query["course"]
-                            .ToList().Select(s => new CourseRoadmap { CourseId = int.Parse(s), RoadmapId = newRoadmapId }).ToList();
 
-            courseRoadmapRepo.InsertRange(courseRoadmaps);
+
+            var result = await roadmapService.SaveRoadmap(newRoadmap, [.. Request.Query["course"].ToList().Select(int.Parse!)]);
+
+            if (result.Success)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                // handle error
+            }
             return RedirectToAction("Index");
-            //ViewBag.data = courseRoadmaps;
-            //return View();
-
         }
-        public IActionResult MyRoadmaps()
+        public async Task<IActionResult> MyRoadmaps()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userRoadmaps = roadmapRepo.GetAll().Where(x => x.ContributorId == userId).ToList();
-            return View(userRoadmaps);
+            var userRoadmaps = await roadmapService.GetMyRoadmaps(userId);
+            if (userRoadmaps.Success)
+            {
+                return View(userRoadmaps.Data);
+            }
+            else
+            {
+                // handle errors
+            }
+            return View();
 
         }
     }

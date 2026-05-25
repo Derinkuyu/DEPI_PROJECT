@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using StuMap.Models;
+using StuMap.DAL.Models;
 using System.Diagnostics;
 
 namespace StuMap.Controllers

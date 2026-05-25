@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StuMap.DAL.Context;
 using StuMap.DAL.Repositories.Interfaces;
 using System.Linq.Expressions;
 
@@ -6,9 +7,9 @@ namespace StuMap.DAL.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected readonly DbContext _context;
+        protected readonly AppDbContext _context;
         protected readonly DbSet<T> _dbSet;
-        public GenericRepository(DbContext context)
+        public GenericRepository(AppDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _dbSet = _context.Set<T>();

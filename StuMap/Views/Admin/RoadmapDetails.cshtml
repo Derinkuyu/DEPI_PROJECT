@@ -54,15 +54,15 @@
                     @Model.Specialization
                 </span>
 
-                @if (Model.Status == RoadmapStatus.Pending)
+                @if (Model.Status == StatusEnum.Pending)
                 {
                     <span class="badge badge-warning text-black px-5 py-4">Pending</span>
                 }
-                else if (Model.Status == RoadmapStatus.Approved)
+                else if (Model.Status == StatusEnum.Approved)
                 {
                     <span class="badge badge-success text-black px-5 py-4">Approved</span>
                 }
-                else if (Model.Status == RoadmapStatus.UpdatedPending)
+                else if (Model.Status == StatusEnum.UpdatedPending)
                 {
                     <span class="badge badge-info px-5 py-4">Updated</span>
                 }
@@ -78,8 +78,8 @@
         <!-- Actions -->
         <div class="flex flex-col gap-3 w-full lg:w-auto lg:min-w-[16rem]">
 
-            @if (Model.Status == RoadmapStatus.Pending ||
-                 Model.Status == RoadmapStatus.UpdatedPending)
+            @if (Model.Status == StatusEnum.Pending ||
+                 Model.Status == StatusEnum.UpdatedPending)
             {
                 <a asp-action="ApproveRoadmap"
                    asp-controller="Admin"
@@ -173,15 +173,15 @@
                 </p>
                 <div class="rounded-[var(--radius-field)] bg-base-100 px-4 py-4">
 
-                    @if (Model.Status == RoadmapStatus.Pending)
+                    @if (Model.Status == StatusEnum.Pending)
                     {
                         <span class="badge badge-warning text-black">Pending</span>
                     }
-                    else if (Model.Status == RoadmapStatus.Approved)
+                    else if (Model.Status == StatusEnum.Approved)
                     {
                         <span class="badge badge-success text-black">Approved</span>
                     }
-                    else if (Model.Status == RoadmapStatus.UpdatedPending)
+                    else if (Model.Status == StatusEnum.UpdatedPending)
                     {
                         <span class="badge badge-info">Updated</span>
                     }

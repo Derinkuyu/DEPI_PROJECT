@@ -16,10 +16,9 @@ namespace StuMap.BLL.Managers
         {
             try
             {
-
                 var appUser = await userManager.GetUserAsync(user);
                 if (appUser == null)
-                    return ApiResponse<bool>.FailureResult("User Not Found", HttpStatusCode.NotFound);
+                    return ApiResponse<bool>.SuccessResult(false);
 
                 var approved = user.IsInRole("Contributor") && appUser.ContributorStatus == StatusEnum.Approved;
 

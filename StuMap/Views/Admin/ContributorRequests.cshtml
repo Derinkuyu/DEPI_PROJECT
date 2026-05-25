@@ -285,7 +285,7 @@
                             <!-- Status -->
                             <td>
 
-                                @if (item.Status == ContributorStatus.Pending)
+                                @if (item.Status == StatusEnum.Pending)
                                 {
                                     <span class="badge badge-warning text-black px-3 py-3">
 
@@ -293,7 +293,7 @@
 
                                     </span>
                                 }
-                                else if (item.Status == ContributorStatus.Approved)
+                                else if (item.Status == StatusEnum.Approved)
                                 {
                                     <span class="badge badge-success text-black px-3 py-3">
 
@@ -344,7 +344,7 @@
                                     </a>
 
                                     <!-- Approve -->
-                                    @if (item.Status == ContributorStatus.Pending || item.Status == ContributorStatus.Rejected)
+                                    @if (item.Status == StatusEnum.Pending || item.Status == StatusEnum.Rejected)
                                     {
                                         <a asp-action="ApproveContributor"
                                            asp-controller="Admin"
@@ -357,7 +357,7 @@
                                     }
 
                                     <!-- Reject -->
-                                    @if (item.Status == ContributorStatus.Pending || item.Status == ContributorStatus.Approved)
+                                    @if (item.Status == StatusEnum.Pending || item.Status == StatusEnum.Approved)
                                     {
                                         <button class="btn btn-sm btn-error"
                                                 onclick="document.getElementById('reject-modal-@item.Id').showModal()">

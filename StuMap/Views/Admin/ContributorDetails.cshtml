@@ -67,7 +67,7 @@
 
                     </span>
 
-                    @if (Model.Status == ContributorStatus.Pending)
+                    @if (Model.Status == StatusEnum.Pending)
                     {
                         <span class="badge badge-warning px-4 py-3 text-black">
 
@@ -75,7 +75,7 @@
 
                         </span>
                     }
-                    else if (Model.Status == ContributorStatus.Approved)
+                    else if (Model.Status == StatusEnum.Approved)
                     {
                         <span class="badge badge-success px-4 py-3 text-black">
 
@@ -101,7 +101,7 @@
         <!-- Actions -->
         <div class="flex flex-col sm:flex-row sm:flex-wrap gap-3 lg:justify-end">
 
-            @if (Model.Status == ContributorStatus.Pending)
+            @if (Model.Status == StatusEnum.Pending)
             {
                 <a asp-action="ApproveContributor"
                    asp-controller="Admin"
@@ -236,7 +236,7 @@
 
                 <div class="rounded-[var(--radius-field)] bg-base-100 px-4 py-3">
 
-                    @if (Model.Status == ContributorStatus.Pending)
+                    @if (Model.Status == StatusEnum.Pending)
                     {
                         <span class="badge badge-warning text-black">
 
@@ -244,7 +244,7 @@
 
                         </span>
                     }
-                    else if (Model.Status == ContributorStatus.Approved)
+                    else if (Model.Status == StatusEnum.Approved)
                     {
                         <span class="badge badge-success text-black">
 

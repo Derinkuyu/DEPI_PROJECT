@@ -1,4 +1,6 @@
-﻿@model List<Contact>
+﻿@using StuMap.DAL.Models
+@using StuMap.DAL.Models.Enums
+@model List<Contact>
 
 <div class="flex flex-col justify-center items-center">
     <p class="text-4xl font-semibold ">My Tickets</p>
@@ -37,10 +39,10 @@
                         </div>
                         <div class="w-fit">
                             <span class="px-3 py-1 rounded-full border text-sm font-medium
-                                @(ticket.Status == TicketStatus.Considered ? "text-success border-success" :
-                                                                ticket.Status == TicketStatus.Pending ? "text-warning border-warning" :
-                                                                ticket.Status == TicketStatus.Denied ? "text-error border-error" :
-                                                                "text-primary-content border-primary-content")">
+                                @(ticket.Status == TicketStatusEnum.Considered ? "text-success border-success" :
+                                ticket.Status == TicketStatusEnum.Pending ? "text-warning border-warning" :
+                                ticket.Status == TicketStatusEnum.Denied ? "text-error border-error" :
+                                "text-primary-content border-primary-content")">
                                 @ticket.Status
                             </span>
                         </div>

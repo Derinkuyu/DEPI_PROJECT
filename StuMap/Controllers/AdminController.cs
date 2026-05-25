@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StuMap.BLL.Services.Admin;
-using StuMap.Managers;
 
 namespace StuMap.Controllers
 {
@@ -49,7 +48,7 @@ namespace StuMap.Controllers
         }
         /*------------------------------------------------------------------------------------*/
         [HttpGet]
-        public async Task<IActionResult> DeleteAsync(string id)
+        public async Task<IActionResult> Delete(string id)
         {
             var result = await adminUserService.DeleteUser(id);
 
@@ -64,7 +63,7 @@ namespace StuMap.Controllers
             }
         }
         /*------------------------------------------------------------------------------------*/
-        public async Task<IActionResult> BlockAsync(string id)
+        public async Task<IActionResult> Block(string id)
         {
             var result = await adminUserService.BlockUser(id);
 
@@ -79,7 +78,7 @@ namespace StuMap.Controllers
             }
         }
         /*------------------------------------------------------------------------------------*/
-        public async Task<IActionResult> UnBlockAsync(string id)
+        public async Task<IActionResult> UnBlock(string id)
         {
             var result = await adminUserService.UnblockUser(id);
 
@@ -96,7 +95,7 @@ namespace StuMap.Controllers
         /*------------------------------------------------------------------------------------*/
         /////////// Contributors Management
         /*------------------------------------------------------------------------------------*/
-        public async Task<IActionResult> ContributorRequestsAsync()
+        public async Task<IActionResult> ContributorRequests()
         {
             var result = await adminContributorService.GetAllContributors();
 
@@ -111,7 +110,7 @@ namespace StuMap.Controllers
             }
         }
         /*------------------------------------------------------------------------------------*/
-        public async Task<IActionResult> ContributorDetailsAsync(string id)
+        public async Task<IActionResult> ContributorDetails(string id)
         {
             var result = await adminContributorService.GetContributorById(id);
             if (result.Success)
@@ -125,7 +124,7 @@ namespace StuMap.Controllers
             }
         }
         /*------------------------------------------------------------------------------------*/
-        public async Task<IActionResult> ApproveContributorAsync(string id)
+        public async Task<IActionResult> ApproveContributor(string id)
         {
             var result = await adminContributorService.ApproveContributor(id);
             if (result.Success)
@@ -141,7 +140,7 @@ namespace StuMap.Controllers
         }
         /*------------------------------------------------------------------------------------*/
         [HttpPost]
-        public async Task<IActionResult> RejectContributorAsync(string id, string reason)
+        public async Task<IActionResult> RejectContributor(string id, string reason)
         {
             var result = await adminContributorService.RejectContributor(id, reason);
             if (result.Success)
@@ -157,7 +156,7 @@ namespace StuMap.Controllers
         /*------------------------------------------------------------------------------------*/
         //////////// Roadmaps Management
         /*------------------------------------------------------------------------------------*/
-        public async Task<IActionResult> RoadmapRequestsAsync()
+        public async Task<IActionResult> RoadmapRequests()
         {
             var result = await adminRoadmapService.GetAllRoadmaps();
             if (result.Success)
@@ -171,7 +170,7 @@ namespace StuMap.Controllers
             }
         }
         /*------------------------------------------------------------------------------------*/
-        public async Task<IActionResult> RoadmapDetailsAsync(int id)
+        public async Task<IActionResult> RoadmapDetails(int id)
         {
             var result = await adminRoadmapService.GetRoadmapById(id);
             if (result.Success)
@@ -185,7 +184,7 @@ namespace StuMap.Controllers
             }
         }
         /*------------------------------------------------------------------------------------*/
-        public async Task<IActionResult> ApproveRoadmapAsync(int id)
+        public async Task<IActionResult> ApproveRoadmap(int id)
         {
             var result = await adminRoadmapService.ApproveRoadmap(id);
             if (result.Success)
@@ -200,7 +199,7 @@ namespace StuMap.Controllers
         }
         /*------------------------------------------------------------------------------------*/
         [HttpPost]
-        public async Task<IActionResult> RejectRoadmapAsync(int id, string reason)
+        public async Task<IActionResult> RejectRoadmap(int id, string reason)
         {
             var result = await adminRoadmapService.RejectRoadmap(id, reason);
             if (result.Success)
@@ -230,9 +229,9 @@ namespace StuMap.Controllers
         /*------------------------------------------------------------------------------------*/
         //////////// Course Management
         /*------------------------------------------------------------------------------------*/
-        public async Task<IActionResult> CourseRequestsAsync()
+        public async Task<IActionResult> CourseRequests()
         {
-            var result = await adminCourseService.GetAllCourses();
+            var result = await adminCourseService.GetAllCourseRequests();
             if (result.Success)
             {
                 return View(result.Data);
@@ -303,7 +302,7 @@ namespace StuMap.Controllers
         /*------------------------------------------------------------------------------------*/
         ////////// Tickets Management
         /*------------------------------------------------------------------------------------*/
-        public async Task<IActionResult> TicketRequestsAsync()
+        public async Task<IActionResult> TicketRequests()
         {
             var result = await adminTicketService.GetAllTickets();
             if (result.Success)

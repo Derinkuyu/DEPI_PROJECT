@@ -3923,17 +3923,11 @@
   .w-25 {
     width: calc(var(--spacing) * 25);
   }
-  .w-45 {
-    width: calc(var(--spacing) * 45);
-  }
   .w-50 {
     width: calc(var(--spacing) * 50);
   }
   .w-52 {
     width: calc(var(--spacing) * 52);
-  }
-  .w-60 {
-    width: calc(var(--spacing) * 60);
   }
   .w-70 {
     width: calc(var(--spacing) * 70);

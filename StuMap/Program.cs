@@ -1,7 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StuMap.API;
+using StuMap.BLL.Managers;
+using StuMap.BLL.Managers.Admin;
 using StuMap.BLL.Managers.Authentication;
+using StuMap.BLL.Services;
+using StuMap.BLL.Services.Admin;
 using StuMap.BLL.Services.Authentication;
 using StuMap.DAL.Context;
 using StuMap.DAL.Models;
@@ -38,7 +42,7 @@ namespace StuMap
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/login";
-                options.AccessDeniedPath= "/AccessDenied";
+                options.AccessDeniedPath = "/AccessDenied";
             });
             AddServices(builder);
 
@@ -90,6 +94,21 @@ namespace StuMap
 
             // Models and Repositories Injection
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            builder.Services.AddScoped<IAdminContributorService, AdminContributorService>();
+            builder.Services.AddScoped<IAdminCourseService, AdminCourseService>();
+            builder.Services.AddScoped<IAdminRoadmapService, AdminRoadmapService>();
+            builder.Services.AddScoped<IAdminTicketService, AdminTicketService>();
+            builder.Services.AddScoped<IAdminUserService, AdminUserService>();
+
+            builder.Services.AddScoped<ICourseService, CourseService>();
+            builder.Services.AddScoped<IContactService, ContactService>();
+            builder.Services.AddScoped<IContributorService, ContributorService>();
+            builder.Services.AddScoped<IMaterialTypeService, MaterialTypeService>();
+            builder.Services.AddScoped<IRoadmapService, RoadmapService>();
+            builder.Services.AddScoped<ISpecializationService, SpecializationService>();
+
+
 
             //builder.Services.AddScoped<IContactManager, ContactRepository>();
             //builder.Services.AddScoped<ICourseManager, CourseRepository>();

@@ -1,69 +1,107 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using StuMap.Managers;
-using StuMap.Models;
+using StuMap.BLL.Services;
 using System.Security.Claims;
 
 namespace StuMap.Controllers
 {
     [Authorize(Roles = "Student")]
-    public class StudentController : Controller
+    public class StudentController(
+        ICourseService courseService,
+        IRoadmapService roadmapService) : Controller
     {
-        ICourseEnrollmentManager courseEnrollment;
-        IRoadmapEnrollmentManager roadmapEnrollment;
-        public StudentController(ICourseEnrollmentManager courseEnrollmentManager, IRoadmapEnrollmentManager roadmapEnrollmentManager)
-        {
-            this.courseEnrollment = courseEnrollmentManager;
-            this.roadmapEnrollment = roadmapEnrollmentManager;
-        }
-        public IActionResult GetEnrolledCourses()
+        public async Task<IActionResult> GetEnrolledCourses()
         {
             var stuId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var courses = courseEnrollment.GetCoursesForStudent(stuId);
-            return View(courses);
+
+            var result = await courseService.GetEnrolledCourses(stuId);
+
+            if (result.Success)
+                return View(result.Data);
+
+            // handle errors
+            return View();
         }
-        public IActionResult RemoveCourse(int id)
+        public async Task<IActionResult> RemoveCourse(int id)
         {
             var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            courseEnrollment.Delete(id, studentId);
-            return RedirectToAction("GetEnrolledCourses", new { id = studentId });
+            var result = await courseService.DropCourse(studentId, id);
+
+            if (result.Success)
+                return RedirectToAction("GetEnrolledCourses");
+
+            // handle errors
+            return RedirectToAction("GetEnrolledCourses");
+
         }
-        public IActionResult RemoveCourseFromDetails(int id)
+        public async Task<IActionResult> RemoveCourseFromDetails(int id)
         {
             var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            courseEnrollment.Delete(id, studentId);
-            return RedirectToAction("Details", "Course", new { id = id });
+            var result = await courseService.DropCourse(studentId, id);
+
+            if (result.Success)
+                return RedirectToAction("Details", "Course", new { id });
+
+            // handle errors
+            return RedirectToAction("Details", "Course", new { id });
         }
-        public IActionResult AddCourseFromDetails(int id)
+
+        public async Task<IActionResult> AddCourseFromDetails(int id)
         {
             var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            courseEnrollment.Insert(new CourseEnrollment { CourseId = id, StudentId = studentId });
-            return RedirectToAction("Details", "Course", new { id = id });
+            var result = await courseService.EnrollCourse(studentId, id);
+
+            if (result.Success)
+                return RedirectToAction("Details", "Course", new { id });
+
+            // handle errors
+            return RedirectToAction("Details", "Course", new { id });
         }
-        public IActionResult GetEnrolledRoadmaps()
+
+        public async Task<IActionResult> GetEnrolledRoadmaps()
         {
             var stuId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var roadmaps = roadmapEnrollment.GetRoadmapsForStudent(stuId);
-            return View(roadmaps);
+
+            var result = await roadmapService.GetEnrolledRoadmaps(stuId);
+
+            if (result.Success)
+                return View(result.Data);
+
+            // handle errors
+            return View();
         }
-        public IActionResult RemoveRoadmap(int id)     
+        public async Task<IActionResult> RemoveRoadmap(int id)
         {
             var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            roadmapEnrollment.Delete(id, studentId);
-            return RedirectToAction("GetEnrolledRoadmaps", new { id = studentId });
+            var result = await roadmapService.DropRoadmap(studentId, id);
+
+            if (result.Success)
+                return RedirectToAction("GetEnrolledRoadmaps");
+
+            // handle errors
+            return RedirectToAction("GetEnrolledRoadmaps");
         }
-        public IActionResult RemoveRoadmapFromDetails(int id)
+        public async Task<IActionResult> RemoveRoadmapFromDetails(int id)
         {
             var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            roadmapEnrollment.Delete(id, studentId);
-            return RedirectToAction("Details", "Roadmap", new { id = id });
+            var result = await roadmapService.DropRoadmap(studentId, id);
+
+            if (result.Success)
+                return RedirectToAction("Details", "Roadmap", new { id });
+
+            // handle errors
+            return RedirectToAction("Details", "Roadmap", new { id });
         }
-        public IActionResult AddRoadmapFromDetails(int id)
+        public async Task<IActionResult> AddRoadmapFromDetails(int id)
         {
-            var stuId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            roadmapEnrollment.Insert(new RoadmapEnrollment { RoadmapId = id, StudentId = stuId });
-            return RedirectToAction("Details", "Roadmap", new { id = id });
+            var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = await roadmapService.EnrollRoadmap(studentId, id);
+
+            if (result.Success)
+                return RedirectToAction("Details", "Roadmap", new { id });
+
+            // handle errors
+            return RedirectToAction("Details", "Roadmap", new { id });
         }
     }
 }

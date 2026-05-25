@@ -1,71 +1,65 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using StuMap.Managers;
-using StuMap.Models;
+using StuMap.BLL.Services;
+using StuMap.BLL.Services.Admin;
 
 namespace StuMap.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class DashboardController : Controller
+    public class DashboardController(
+        IAdminCourseService courseService,
+        IAdminRoadmapService roadmapService,
+        IAdminUserService userService,
+        ISpecializationService specializationService,
+        IAdminContributorService contributorService) : Controller
     {
-        //Course
-        ICourseManager courseManager;
-        IRoadmapManager roadmapManager;
-        UserManager<ApplicationUser> _userManger;
-        ISpecializationManager specializationManager;
-        IContributorManager contributorManager;
-
-        public DashboardController(ICourseManager courseManager, IRoadmapManager roadmapManager, UserManager<ApplicationUser> userManger, ISpecializationManager specializationManager, IContributorManager contributorManager)
-        {
-            this.courseManager = courseManager;
-            this.roadmapManager = roadmapManager;
-            _userManger = userManger;
-            this.specializationManager = specializationManager;
-            this.contributorManager = contributorManager;
-        }
-
         public async Task<IActionResult> Index()
         {
-            var courses = courseManager.GetAll();
-            var roadMaps = roadmapManager.GetAll();
-            var users = _userManger.Users.ToList();
-            var Specializations = specializationManager.GetAll();
-            var Contributors = contributorManager.GetAllContributors();
 
-            var roadmapStatusData = roadMaps.Select(r => new
+            var roadmapsData = await roadmapService.GetRoadmapsStatus();
+            if (roadmapsData.Success)
             {
-                Title = r.Title,
-                IsApproved = r.IsApproved
-            }).ToList();
+                var roadmapStatusData = roadmapsData.Data!.Select(r => new
+                {
+                    Title = r.title,
+                    IsApproved = r.isApproved
+                }).ToList();
+                ViewBag.RoadmapStatusData = roadmapStatusData;
+
+                var RoadMapTitles = roadmapsData.Data!.Select(x => x.title).ToList();
+                ViewBag.RoadMapTitles = RoadMapTitles;
+            }
+
+            int adminsCount = (await userService.CountUsersInRole("Admin")).Data;
+            int contributorsCount = (await userService.CountUsersInRole("Contributor")).Data;
+            int studentsCount = (await userService.CountUsersInRole("Student")).Data;
+
+            ViewBag.UsersCount = contributorsCount + studentsCount;
+            ViewBag.AdminCount = adminsCount;
+            ViewBag.ContributorCount = contributorsCount;
+            ViewBag.StudentCount = studentsCount;
 
 
-            var RoadMapTitles = roadMaps.Select(x => x.Title).ToList();
-            var SpecializationsTitles = Specializations.Select(s => s.Name).ToList();
 
-            var admins = await _userManger.GetUsersInRoleAsync("Admin");
-            var contributors = await _userManger.GetUsersInRoleAsync("Contributor");
-            var Students = await _userManger.GetUsersInRoleAsync("Student");
+            var Specializations = await specializationService.GetAll();
+            if(Specializations.Success)
+            {
+                var SpecializationsTitles = Specializations.Data!.Select(s => s.Name).ToList();
+
+                ViewBag.SpecializationsTitles = SpecializationsTitles;
+            }
 
 
-            ViewBag.Course = courses;
-            ViewBag.RoadMaps = roadMaps;
-            ViewBag.RoadMapTitles = RoadMapTitles;
-            ViewBag.RoadmapStatusData = roadmapStatusData;
-            ViewBag.SpecializationsTitles = SpecializationsTitles;
 
-            ViewBag.UsersCount = users.Count - admins.Count;
-            ViewBag.AdminCount = admins.Count;
-            ViewBag.ContributorCount = contributors.Count;
-            ViewBag.StudentCount = Students.Count;
 
             //ViewBag.ContributorRequests = ContributorRequests.Count;
-            ViewBag.ContributorRequests = Contributors.Count(x => x.Status == Models.Enums.ContributorStatus.Pending);
 
-            ViewBag.PendingRoadmapsCount = roadMaps.Count(x => x.Status == Models.Enums.RoadmapStatus.Pending ||
-            x.Status == Models.Enums.RoadmapStatus.UpdatedPending);
-            ViewBag.PendingCoursesCount = courses.Count(x => x.Status == Models.Enums.CourseStatus.Pending ||
-            x.Status == Models.Enums.CourseStatus.UpdatedPending);
+            // todo: handle errors
+            ViewBag.ContributorRequests = (await contributorService.GetPendingContributorsCount()).Data;
+
+            ViewBag.PendingRoadmapsCount = (await roadmapService.GetPendingRoadmapsCount()).Data;
+
+            ViewBag.PendingCoursesCount = (await courseService.GetPendingCoursesCount()).Data;
 
 
             return View();

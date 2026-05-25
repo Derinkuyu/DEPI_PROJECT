@@ -57,7 +57,7 @@
                 </div>
 
                 <!-- Roadmap -->
-                @if (!string.IsNullOrEmpty(Model.RoadmapName))
+                @* @if (!string.IsNullOrEmpty(Model.RoadmapName))
                 {
                     <div class="badge badge-outline badge-secondary px-5 py-4 gap-2">
 
@@ -66,7 +66,7 @@
                         @Model.RoadmapName
 
                     </div>
-                }
+                } *@
 
                 <!-- Materials -->
                 <div class="badge badge-outline badge-success px-5 py-4 gap-2">
@@ -82,7 +82,7 @@
             <!-- Status -->
             <div class="flex flex-wrap gap-3 pt-2">
 
-                @if (Model.Status == CourseStatus.Pending)
+                @if (Model.Status == StatusEnum.Pending)
                 {
                     <div class="badge badge-warning badge-lg text-black px-4 py-4">
 
@@ -90,7 +90,7 @@
 
                     </div>
                 }
-                else if (Model.Status == CourseStatus.Approved)
+                else if (Model.Status == StatusEnum.Approved)
                 {
                     <div class="badge badge-success badge-lg text-black px-4 py-4">
 
@@ -98,7 +98,7 @@
 
                     </div>
                 }
-                else if (Model.Status == CourseStatus.UpdatedPending)
+                else if (Model.Status == StatusEnum.UpdatedPending)
                 {
                     <div class="badge badge-info badge-lg px-4 py-4">
 
@@ -122,8 +122,8 @@
         <!-- Right Actions -->
         <div class="flex flex-row gap-4 w-50 xl:w-auto xl:min-w-[18rem]">
 
-            @if (Model.Status == CourseStatus.Pending ||
-           Model.Status == CourseStatus.UpdatedPending)
+            @if (Model.Status == StatusEnum.Pending ||
+           Model.Status == StatusEnum.UpdatedPending)
             {
                 <!-- Approve -->
                 <a asp-action="ApproveCourse"
@@ -232,7 +232,7 @@
 
                 <div class="rounded-[var(--radius-field)] bg-base-100 px-4 py-4">
 
-                    @if (Model.Status == CourseStatus.Pending)
+                    @if (Model.Status == StatusEnum.Pending)
                     {
                         <span class="badge badge-warning text-black">
 
@@ -240,7 +240,7 @@
 
                         </span>
                     }
-                    else if (Model.Status == CourseStatus.Approved)
+                    else if (Model.Status == StatusEnum.Approved)
                     {
                         <span class="badge badge-success text-black">
 
@@ -248,7 +248,7 @@
 
                         </span>
                     }
-                    else if (Model.Status == CourseStatus.UpdatedPending)
+                    else if (Model.Status == StatusEnum.UpdatedPending)
                     {
                         <span class="badge badge-info">
 

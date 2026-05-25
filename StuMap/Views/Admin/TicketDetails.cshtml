@@ -1,4 +1,6 @@
-﻿@model Contact
+﻿@using StuMap.DAL.Models
+@using StuMap.DAL.Models.Enums
+@model Contact
 
 @{
     ViewData["Title"] = "Ticket Details";
@@ -81,7 +83,7 @@
             <!-- Status -->
             <div class="flex flex-wrap gap-3">
 
-                @if (Model.Status == StuMap.Models.Enums.TicketStatus.Pending)
+                @if (Model.Status == TicketStatusEnum.Pending)
                 {
                     <div class="badge badge-warning text-black badge-lg">
 
@@ -89,7 +91,7 @@
 
                     </div>
                 }
-                else if (Model.Status == StuMap.Models.Enums.TicketStatus.Considered)
+                else if (Model.Status == TicketStatusEnum.Considered)
                 {
                     <div class="badge badge-success text-black badge-lg">
 
@@ -113,7 +115,7 @@
         <!-- Right Actions -->
         <div class="flex flex-col gap-4 items-stretch">
 
-            @if (Model.Status == StuMap.Models.Enums.TicketStatus.Pending)
+            @if (Model.Status == TicketStatusEnum.Pending)
             {
                 <!-- Accept -->
                 <button class="btn btn-success text-black rounded-full h-14"
@@ -224,7 +226,7 @@
 
                 <div class="rounded-xl bg-base-200 border border-base-300 p-4">
 
-                    @if (Model.Status == StuMap.Models.Enums.TicketStatus.Pending)
+                    @if (Model.Status == TicketStatusEnum.Pending)
                     {
                         <span class="badge badge-warning text-black">
 
@@ -232,7 +234,7 @@
 
                         </span>
                     }
-                    else if (Model.Status == StuMap.Models.Enums.TicketStatus.Considered)
+                    else if (Model.Status == TicketStatusEnum.Considered)
                     {
                         <span class="badge badge-success text-black">
 
@@ -306,7 +308,7 @@
     </div>
 
     <!-- Resolution Section -->
-    @if (Model.Status == StuMap.Models.Enums.TicketStatus.Considered &&
+    @if (Model.Status == TicketStatusEnum.Considered &&
     !string.IsNullOrEmpty(Model.RejectionReason))
     {
         <div class="rounded-2xl border border-success/30 bg-success/10 p-8 mb-10">
@@ -341,7 +343,7 @@
     }
 
     <!-- Rejection Section -->
-    @if (Model.Status == StuMap.Models.Enums.TicketStatus.Denied &&
+    @if (Model.Status == TicketStatusEnum.Denied &&
     !string.IsNullOrEmpty(Model.RejectionReason))
     {
         <div class="rounded-2xl border border-error/30 bg-error/10 p-8">

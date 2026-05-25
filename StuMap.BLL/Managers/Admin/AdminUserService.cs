@@ -3,13 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using StuMap.BLL.DTO.Admin;
 using StuMap.BLL.Models;
 using StuMap.BLL.Services.Admin;
+using StuMap.DAL.Context;
 using StuMap.DAL.Models;
 using System.Net;
 
 namespace StuMap.BLL.Managers.Admin
 {
     public class AdminUserService(
-        DbContext context,
+        AppDbContext context,
         UserManager<ApplicationUser> userManager) : IAdminUserService
     {
 
@@ -123,6 +124,20 @@ namespace StuMap.BLL.Managers.Admin
             catch (Exception)
             {
                 return ApiResponse.FailureResult("Error unblocking user");
+            }
+        }
+
+        public async Task<ApiResponse<int>> CountUsersInRole(string role)
+        {
+            try
+            {
+                var user = (await userManager.GetUsersInRoleAsync(role)).Count;
+
+                return ApiResponse<int>.SuccessResult(user);
+            }
+            catch (Exception)
+            {
+                return ApiResponse<int>.FailureResult("Error");
             }
         }
     }

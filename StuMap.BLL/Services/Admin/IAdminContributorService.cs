@@ -6,7 +6,8 @@ namespace StuMap.BLL.Services.Admin
     public interface IAdminContributorService
     {
         public Task<ApiResponse<List<ContributorRequestDto>>> GetAllContributors();
-        //public Task<ApiResponse<List<ContributorRequestDto>>> GetPendingContributors();
+        public Task<ApiResponse<int>> GetPendingContributorsCount();
+
         public Task<ApiResponse<ContributorDetailsDto>> GetContributorById(string id);
         public Task<ApiResponse> ApproveContributor(string id);
         public Task<ApiResponse> RejectContributor(string id, string reason);

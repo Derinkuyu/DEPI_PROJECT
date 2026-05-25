@@ -10,5 +10,8 @@ namespace StuMap.BLL.Services.Admin
         public Task<ApiResponse> DeleteUser(string id);
         public Task<ApiResponse> BlockUser(string id);
         public Task<ApiResponse> UnblockUser(string id);
+
+        public Task<ApiResponse<int>> CountUsersInRole(string role);
+
     }
 }

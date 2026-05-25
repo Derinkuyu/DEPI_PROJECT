@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using StuMap.DAL.DataSeeding;
 using StuMap.DAL.Models;
 namespace StuMap.DAL.Context
 {
@@ -21,12 +22,34 @@ namespace StuMap.DAL.Context
         public virtual DbSet<MaterialType> MaterialTypes { get; set; }
         public virtual DbSet<RoadmapEnrollment> RoadmapEnrollment { get; set; }
         public virtual DbSet<CourseEnrollment> CourseEnrollments { get; set; }
-        public virtual DbSet<UserDeviceToken> UsersDeviceTokens { get; set; }
         public virtual DbSet<StudentRoadmapProgress> RoadmapsProgresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new MaterialTypeSeedConfiguration());
+
+            modelBuilder.ApplyConfiguration(new IdentityRoleSeedConfiguration());
+
+            modelBuilder.ApplyConfiguration(new IdentityUserSeedConfiguration());
+
+            modelBuilder.ApplyConfiguration(new SpecializationSeedConfiguration());
+
+            modelBuilder.ApplyConfiguration(new IdentityUserRoleSeedConfiguration());
+
+            modelBuilder.ApplyConfiguration(new CourseSeedConfiguration());
+
+            modelBuilder.ApplyConfiguration(new MaterialSeedConfiguration());
+
+            modelBuilder.ApplyConfiguration(new RoadmapSeedConfiguration());
+            modelBuilder.ApplyConfiguration(new CourseEnrollmentSeedConfiguration());
+            modelBuilder.ApplyConfiguration(new TicketSeedConfiguration());
+            modelBuilder.ApplyConfiguration(new CertificateSeedConfiguration());
+            modelBuilder.ApplyConfiguration(new CourseRoadmapSeedConfiguration());
+
+
+            //modelBuilder.ApplyConfiguration(new RoadmapEnrollmentSeedConfiguration());
 
             // todo: configure all relationships
 
@@ -40,6 +63,9 @@ namespace StuMap.DAL.Context
                 .WithOne(e => e.User)
                 .HasForeignKey(e => e.UserId).IsRequired(true);
 
+            modelBuilder.Entity<CourseRoadmap>()
+            .HasKey(cr => new { cr.CoursesId, cr.RoadmapId });
+
             modelBuilder.Entity<Roadmap>()
                 .HasOne(e => e.Specialization)
                 .WithMany(e => e.Roadmaps)
@@ -47,7 +73,7 @@ namespace StuMap.DAL.Context
 
             modelBuilder.Entity<Roadmap>()
                 .HasMany(e => e.Courses)
-                .WithMany();
+                .WithMany().UsingEntity<CourseRoadmap>();
 
             modelBuilder.Entity<Roadmap>()
                 .HasOne(e => e.Contributor)
@@ -79,6 +105,9 @@ namespace StuMap.DAL.Context
 
             modelBuilder.Entity<StudentRoadmapProgress>()
               .HasKey(e => new { e.RoadmapId, e.StudentId, e.CourseId });
+
+
+
 
             //modelBuilder.Entity<Student>()
             //    .HasMany(e => e.Roadmaps)

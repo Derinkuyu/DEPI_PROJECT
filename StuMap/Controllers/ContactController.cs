@@ -1,30 +1,30 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using StuMap.Managers;
-using StuMap.Models;
-using System.Net.Sockets;
+using StuMap.BLL.Services;
+using StuMap.DAL.Models;
 using System.Security.Claims;
 
 namespace StuMap.Controllers
 {
     [Authorize]
-    public class ContactController : Controller
+    public class ContactController(
+        IContactService contactService) : Controller
     {
-        //INotificationManager notificationManager;
-        IContactManager contactManager;
-        UserManager<ApplicationUser> userManager;
-        public ContactController( IContactManager contactManager, UserManager<ApplicationUser> userManager)
+        public async Task<IActionResult> GetAllTickets()
         {
-            this.contactManager = contactManager;
-            this.userManager = userManager;
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = await contactService.GetAll(userId);
+            if (result.Success)
+            {
+                return View(result.Data);
+            }
+            else
+            {
+                // handle error
+            }
+            return View();
         }
-        public IActionResult GetAllTickets()
-        {
-            var stuId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var tickets = contactManager.GetAll(stuId);
-            return View(tickets);
-        }
+        // todo: create a dto for this
         public async Task<IActionResult> NewTicket(Contact contact)
         {
             //if (!ModelState.IsValid)
@@ -32,20 +32,18 @@ namespace StuMap.Controllers
             //    return View(ticket); 
             //}
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            contactManager.Insert(new Contact
+
+
+            var result = await contactService.CreateNewTicket(userId, contact.Subject, contact.Body);
+            if (result.Success)
             {
-                UserId = userId,
-                Subject = contact.Subject,
-                Body = contact.Body,
-                DateSent = DateTime.Now
-            });
-
-            var admin = await userManager.GetUsersInRoleAsync("Admin");
-            var adminId = admin.FirstOrDefault()?.Id;
-            string title = "New Ticket";
-            string body = $"A new ticket has been created. Subject: {contact.Subject}";
-
-            return RedirectToAction("GetAllTickets");
+                return RedirectToAction("GetAllTickets");
+            }
+            else
+            {
+                // handle error
+                return RedirectToAction("GetAllTickets");
+            }
         }
     }
 }

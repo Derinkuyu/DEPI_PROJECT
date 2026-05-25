@@ -1,4 +1,6 @@
-﻿@model List<Course>
+﻿@using StuMap.DAL.Models
+@using StuMap.DAL.Models.Enums
+@model List<Course>
 <section class="mx-6 my-8 p-5">
     <div class="flex flex-col justify-start items-center">
         <p class="text-4xl font-semibold ">Explore Your Courses</p>
@@ -30,12 +32,12 @@
                 <td>@count</td>
                 <td>@course.Title</td>
                 <td > <a class="btn btn-outline btn-primary"asp-action="Details" asp-controller="Course" asp-route-id="@course.Id">Details</a></td>
-                             @if (course.Status==CourseStatus.Approved) { 
+                             @if (course.Status==StatusEnum.Approved) { 
                         <td><div class="badge badge-soft badge-success">
                             Approved
 </div>                            </td>
                         }
-                        else if (course.Status == CourseStatus.Rejected)
+                        else if (course.Status == StatusEnum.Rejected)
                         {
                             <td>
                                 <div class="badge badge-soft badge-error">
@@ -43,7 +45,7 @@
                                 </div>
                             </td>
                         }
-                        else if (course.Status == CourseStatus.Pending)
+                        else if (course.Status == StatusEnum.Pending)
                         {
                             <td>
                                 <div class="badge badge-soft badge-primary">

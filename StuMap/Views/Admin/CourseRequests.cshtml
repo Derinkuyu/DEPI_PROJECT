@@ -109,7 +109,7 @@
 
                                     </h2>
 
-                                    @if (course.Status == CourseStatus.Pending)
+                                    @if (course.Status == StatusEnum.Pending)
                                     {
                                         <div class="badge badge-warning text-black whitespace-nowrap">
 
@@ -117,7 +117,7 @@
 
                                         </div>
                                     }
-                                    else if (course.Status == CourseStatus.Approved)
+                                    else if (course.Status == StatusEnum.Approved)
                                     {
                                         <div class="badge badge-success text-black whitespace-nowrap">
 
@@ -125,7 +125,7 @@
 
                                         </div>
                                     }
-                                    else if (course.Status == CourseStatus.UpdatedPending)
+                                    else if (course.Status == StatusEnum.UpdatedPending)
                                     {
                                         <div class="badge badge-info whitespace-nowrap">
 
@@ -212,8 +212,8 @@
 
                             <!-- Approval Actions -->
                             <div class="flex gap-2">
-                                @if (course.Status == CourseStatus.Pending ||
-                           course.Status == CourseStatus.UpdatedPending || course.Status == CourseStatus.Rejected)
+                                @if (course.Status == StatusEnum.Pending ||
+                           course.Status == StatusEnum.UpdatedPending || course.Status == StatusEnum.Rejected)
                                 {
 
                                     <!-- Approve -->
@@ -228,8 +228,8 @@
 
                                     </a>
                                 }
-                                @if (course.Status == CourseStatus.Pending ||
-                     course.Status == CourseStatus.UpdatedPending || course.Status == CourseStatus.Approved)
+                                @if (course.Status == StatusEnum.Pending ||
+                     course.Status == StatusEnum.UpdatedPending || course.Status == StatusEnum.Approved)
                                 {
                                     <!-- Reject -->
                                     <button class="btn btn-error flex-1"

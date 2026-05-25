@@ -60,7 +60,7 @@ namespace StuMap.BLL.Managers.Admin
         }
 
 
-        public async Task<ApiResponse<List<CourseRequestDto>>> GetAllCourses()
+        public async Task<ApiResponse<List<CourseRequestDto>>> GetAllCourseRequests()
         {
             try
             {
@@ -97,6 +97,25 @@ namespace StuMap.BLL.Managers.Admin
             }
         }
 
+        public async Task<ApiResponse<List<Course>>> GetAllCourses()
+        {
+            try
+            {
+                List<Course> result = await courseRepository
+                    .Query()
+                    .Include(c => c.Contributor)
+                    .Include(c => c.Materials)
+                    .ThenInclude(m => m.MaterialType)
+                    .ToListAsync();
+
+                return ApiResponse<List<Course>>.SuccessResult(result);
+            }
+            catch (Exception)
+            {
+                // todo: implement
+                return ApiResponse<List<Course>>.FailureResult("Error");
+            }
+        }
 
         public async Task<ApiResponse<CourseDetailsDto>> GetCourseById(int id)
         {
@@ -105,11 +124,13 @@ namespace StuMap.BLL.Managers.Admin
                 var course = await courseRepository
                     .Query()
                     .Include(c => c.Materials)
+                    .ThenInclude(c => c.MaterialType)
                     .Include(c => c.Contributor)
                     .FirstOrDefaultAsync(c => c.Id == id);
 
                 if (course == null)
                     return ApiResponse<CourseDetailsDto>.FailureResult("Course not found", HttpStatusCode.NotFound);
+
 
                 CourseDetailsDto result = new()
                 {
@@ -171,6 +192,21 @@ namespace StuMap.BLL.Managers.Admin
             {
                 // todo: implement
                 return ApiResponse.FailureResult("Error");
+            }
+        }
+
+        public async Task<ApiResponse<int>> GetPendingCoursesCount()
+        {
+            try
+            {
+                var result = await courseRepository.Query().CountAsync(x => x.Status == StatusEnum.Pending ||
+                        x.Status == StatusEnum.UpdatedPending);
+
+                return ApiResponse<int>.SuccessResult(result);
+            }
+            catch (Exception)
+            {
+                return ApiResponse<int>.FailureResult("Error");
             }
         }
     }
