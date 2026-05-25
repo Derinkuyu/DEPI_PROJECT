@@ -12,6 +12,7 @@ namespace StuMap.DataSeeding
             string userId1 = "E2E368AB-8D20-401B-826A-F591202E3D19";      //c
             string userId2 = "E746D970-DB04-4D42-9493-9173C7D13EE9";  //c
             string userId6 = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67"; //c
+            string userId8 = "8CBAA357-F2D9-48FC-B4BC-27AD0BD7C1EB";// c
 
             builder.HasData(
                 new Certificate
@@ -81,7 +82,7 @@ namespace StuMap.DataSeeding
                 {
                     Id = 9,
                     Title = "Game Development with Unity",
-                    ContributorId = userId6,
+                    ContributorId = userId8,
                     DateIssued = DateTime.Parse("2026-05-17 03:29:48.8080706"),
                     Url = "https://example.com/certificates/game",
                     Approved = true

@@ -660,7 +660,7 @@ namespace StuMap.Migrations
                         {
                             Id = 9,
                             Approved = true,
-                            ContributorId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
+                            ContributorId = "8CBAA357-F2D9-48FC-B4BC-27AD0BD7C1EB",
                             DateIssued = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             Title = "Game Development with Unity",
                             Url = "https://example.com/certificates/game"
