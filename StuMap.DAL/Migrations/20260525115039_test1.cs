@@ -455,7 +455,7 @@ namespace StuMap.DAL.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "CertificatePath", "ConcurrencyStamp", "ContributorStatus", "Country", "CreatedAt", "DateOfBirth", "Email", "EmailConfirmed", "FirstName", "IsBlocked", "IsContributorRequest", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RejectionReason", "RequestDate", "RoadmapId", "SecurityStamp", "Specialization", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "074B369D-5560-4ADA-99D2-F8AECF1E2423", 0, null, "074B369D-5560-4ADA-99D2-F8AECF1E2423", 2, "Egypt", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), "aadmin@stumap.com", true, "admin", false, true, "admin", false, null, "AADMIN@STUMAP.COM", "AADMIN@STUMAP.COM", "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==", "1234567890", false, null, null, null, "074B369D-5560-4ADA-99D2-F8AECF1E2423", null, false, "admin@stumap.com" },
+                    { "074B369D-5560-4ADA-99D2-F8AECF1E2423", 0, null, "074B369D-5560-4ADA-99D2-F8AECF1E2423", 2, "Egypt", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), "admin@stumap.com", true, "admin", false, true, "admin", false, null, "ADMIN@STUMAP.COM", "ADMIN@STUMAP.COM", "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==", "1234567890", false, null, null, null, "074B369D-5560-4ADA-99D2-F8AECF1E2423", null, false, "admin@stumap.com" },
                     { "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5", 0, null, "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5", 2, "Egypt", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2000, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "ahmed@student.com", true, "Ahmed", false, true, "Hassan", false, null, "AHMED@STUDENT.COM", "AHMED@STUDENT.COM", "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==", "1234567890", false, null, null, null, "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5", null, false, "ahmed@student.com" },
                     { "8CBAA357-F2D9-48FC-B4BC-27AD0BD7C1EB", 0, null, "8CBAA357-F2D9-48FC-B4BC-27AD0BD7C1EB", 2, "Egypt", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1993, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "fatma@contributor.com", true, "Fatma", false, true, "Youssef", false, null, "FATMA@CONTRIBUTOR.COM", "FATMA@CONTRIBUTOR.COM", "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==", "1234567890", false, null, null, null, "8CBAA357-F2D9-48FC-B4BC-27AD0BD7C1EB", null, false, "fatma@contributor.com" },
                     { "B1364EFC-1779-4C6E-9623-0010F8F9EE89", 0, null, "B1364EFC-1779-4C6E-9623-0010F8F9EE89", 2, "Egypt", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), "faridaofoedu@gmail.com", true, "Farida", false, true, "Mohammed", false, null, "FARIDAOFOEDU@GMAIL.COM", "FARIDAOFOEDU@GMAIL.COM", "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==", "1234567890", false, null, null, null, "B1364EFC-1779-4C6E-9623-0010F8F9EE89", null, false, "faridaofoedu@gmail.com" },
@@ -503,9 +503,14 @@ namespace StuMap.DAL.Migrations
                 values: new object[,]
                 {
                     { "E2845098-5312-4925-94B7-2ED3664CA318", "074B369D-5560-4ADA-99D2-F8AECF1E2423" },
+                    { "CB821695-B43A-41B9-8490-15A250D25FB5", "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5" },
+                    { "2C4560E3-B816-43E5-8DA9-15C94336DC72", "8CBAA357-F2D9-48FC-B4BC-27AD0BD7C1EB" },
                     { "CB821695-B43A-41B9-8490-15A250D25FB5", "B1364EFC-1779-4C6E-9623-0010F8F9EE89" },
+                    { "CB821695-B43A-41B9-8490-15A250D25FB5", "B9ECCC1E-FF12-41D0-9BE9-83B8A57EB855" },
                     { "2C4560E3-B816-43E5-8DA9-15C94336DC72", "E2E368AB-8D20-401B-826A-F591202E3D19" },
-                    { "2C4560E3-B816-43E5-8DA9-15C94336DC72", "E746D970-DB04-4D42-9493-9173C7D13EE9" }
+                    { "CB821695-B43A-41B9-8490-15A250D25FB5", "E403198E-3791-46B5-8A8E-81F469A5B48E" },
+                    { "2C4560E3-B816-43E5-8DA9-15C94336DC72", "E746D970-DB04-4D42-9493-9173C7D13EE9" },
+                    { "2C4560E3-B816-43E5-8DA9-15C94336DC72", "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67" }
                 });
 
             migrationBuilder.InsertData(
@@ -529,11 +534,18 @@ namespace StuMap.DAL.Migrations
                 columns: new[] { "Id", "AdminReply", "Body", "DateSent", "IsRead", "RejectionReason", "RepliedAt", "Status", "Subject", "UserId" },
                 values: new object[,]
                 {
-                    { 1, null, "I am having trouble understanding the material in the course.", new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), false, null, null, 2, "Issue with course content", "B1364EFC-1779-4C6E-9623-0010F8F9EE89" },
-                    { 2, null, "I would like to see a dark mode option in the app.", new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), false, null, null, 0, "Feature request", "B1364EFC-1779-4C6E-9623-0010F8F9EE89" },
-                    { 3, null, "The app crashes when I try to access my profile.", new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), false, null, null, 1, "Bug report", "B1364EFC-1779-4C6E-9623-0010F8F9EE89" },
-                    { 4, null, "I can not accesss my saved Roadmaps.", new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), false, null, null, 1, "Access Roadmap", "B1364EFC-1779-4C6E-9623-0010F8F9EE89" },
-                    { 5, null, "I am having trouble understanding the material in the course.", new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), false, null, null, 2, "Issue with course content", "B1364EFC-1779-4C6E-9623-0010F8F9EE89" }
+                    { 1, null, "I tried enrolling in the HTML course but it failed.", new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), false, null, null, 1, "Issue with course enrollment", "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5" },
+                    { 2, null, "Can you update me on my contributor approval?", new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), true, null, null, 1, "Contributor request follow-up", "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67" },
+                    { 3, "We fixed the issue. Please try again.", "My progress isn’t updating correctly.", new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), true, null, new DateTime(2026, 5, 18, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), 2, "Bug in roadmap progress", "B9ECCC1E-FF12-41D0-9BE9-83B8A57EB855" },
+                    { 4, null, "I cannot upload my certificate file.", new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), true, "File format not supported.", null, 0, "Certificate upload issue", "E746D970-DB04-4D42-9493-9173C7D13EE9" },
+                    { 5, "Thank you for your feedback.", "The HTML course was very helpful!", new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), true, null, new DateTime(2026, 5, 18, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), 2, "Course feedback", "B1364EFC-1779-4C6E-9623-0010F8F9EE89" },
+                    { 6, null, "Please approve my frontend roadmap submission.", new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), false, null, null, 1, "Request for roadmap approval", "E746D970-DB04-4D42-9493-9173C7D13EE9" },
+                    { 7, null, "Please review my submitted material.", new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), false, null, null, 2, "Material approval request", "E746D970-DB04-4D42-9493-9173C7D13EE9" },
+                    { 8, null, "I am having trouble understanding the material in the course.", new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), false, null, null, 2, "Issue with course content", "B1364EFC-1779-4C6E-9623-0010F8F9EE89" },
+                    { 9, null, "I would like to see a dark mode option in the app.", new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), false, null, null, 0, "Feature request", "B1364EFC-1779-4C6E-9623-0010F8F9EE89" },
+                    { 10, null, "The app crashes when I try to access my profile.", new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), false, null, null, 1, "Bug report", "B1364EFC-1779-4C6E-9623-0010F8F9EE89" },
+                    { 11, null, "I can not accesss my saved Roadmaps.", new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), false, null, null, 1, "Access Roadmap", "B1364EFC-1779-4C6E-9623-0010F8F9EE89" },
+                    { 12, null, "I am having trouble understanding the material in the course.", new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), false, null, null, 2, "Issue with course content", "B1364EFC-1779-4C6E-9623-0010F8F9EE89" }
                 });
 
             migrationBuilder.InsertData(
@@ -573,9 +585,19 @@ namespace StuMap.DAL.Migrations
                 columns: new[] { "CourseId", "StudentId", "DateEnrolled" },
                 values: new object[,]
                 {
+                    { 1, "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 1, "B1364EFC-1779-4C6E-9623-0010F8F9EE89", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 2, "B1364EFC-1779-4C6E-9623-0010F8F9EE89", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3, "B1364EFC-1779-4C6E-9623-0010F8F9EE89", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 3, "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3, "B1364EFC-1779-4C6E-9623-0010F8F9EE89", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 4, "B9ECCC1E-FF12-41D0-9BE9-83B8A57EB855", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 5, "B9ECCC1E-FF12-41D0-9BE9-83B8A57EB855", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 6, "B9ECCC1E-FF12-41D0-9BE9-83B8A57EB855", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 7, "B9ECCC1E-FF12-41D0-9BE9-83B8A57EB855", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 8, "E403198E-3791-46B5-8A8E-81F469A5B48E", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 9, "E403198E-3791-46B5-8A8E-81F469A5B48E", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 10, "E403198E-3791-46B5-8A8E-81F469A5B48E", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
@@ -632,6 +654,23 @@ namespace StuMap.DAL.Migrations
                     { 23, "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67", 12, new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), "Explore all Network Layers And learn How it works", 4, "Network Layers", "https://example.com/network-Layers" },
                     { 24, "E746D970-DB04-4D42-9493-9173C7D13EE9", 5, new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), "python guide for beginners", 4, "Python basics", "https://example.com/Python-basics" },
                     { 25, "E746D970-DB04-4D42-9493-9173C7D13EE9", 5, new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706), "Learn how to use NumPy in Python", 4, "NumPy Library in Python", "https://example.com/Numpy" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "RoadmapEnrollment",
+                columns: new[] { "RoadmapId", "StudentId", "DateEnrolled" },
+                values: new object[,]
+                {
+                    { 1, "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1, "B1364EFC-1779-4C6E-9623-0010F8F9EE89", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1, "B9ECCC1E-FF12-41D0-9BE9-83B8A57EB855", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, "B1364EFC-1779-4C6E-9623-0010F8F9EE89", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, "E403198E-3791-46B5-8A8E-81F469A5B48E", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 4, "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 4, "B1364EFC-1779-4C6E-9623-0010F8F9EE89", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 5, "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 5, "B1364EFC-1779-4C6E-9623-0010F8F9EE89", new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.CreateIndex(

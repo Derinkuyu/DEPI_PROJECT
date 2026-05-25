@@ -12,7 +12,7 @@ using StuMap.DAL.Context;
 namespace StuMap.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260525111912_test1")]
+    [Migration("20260525115039_test1")]
     partial class test1
     {
         /// <inheritdoc />
@@ -164,8 +164,13 @@ namespace StuMap.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "074B369D-5560-4ADA-99D2-F8AECF1E2423",
-                            RoleId = "E2845098-5312-4925-94B7-2ED3664CA318"
+                            UserId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            RoleId = "2C4560E3-B816-43E5-8DA9-15C94336DC72"
+                        },
+                        new
+                        {
+                            UserId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            RoleId = "2C4560E3-B816-43E5-8DA9-15C94336DC72"
                         },
                         new
                         {
@@ -174,13 +179,33 @@ namespace StuMap.DAL.Migrations
                         },
                         new
                         {
-                            UserId = "E2E368AB-8D20-401B-826A-F591202E3D19",
+                            UserId = "074B369D-5560-4ADA-99D2-F8AECF1E2423",
+                            RoleId = "E2845098-5312-4925-94B7-2ED3664CA318"
+                        },
+                        new
+                        {
+                            UserId = "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5",
+                            RoleId = "CB821695-B43A-41B9-8490-15A250D25FB5"
+                        },
+                        new
+                        {
+                            UserId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67",
                             RoleId = "2C4560E3-B816-43E5-8DA9-15C94336DC72"
                         },
                         new
                         {
-                            UserId = "E746D970-DB04-4D42-9493-9173C7D13EE9",
+                            UserId = "B9ECCC1E-FF12-41D0-9BE9-83B8A57EB855",
+                            RoleId = "CB821695-B43A-41B9-8490-15A250D25FB5"
+                        },
+                        new
+                        {
+                            UserId = "8CBAA357-F2D9-48FC-B4BC-27AD0BD7C1EB",
                             RoleId = "2C4560E3-B816-43E5-8DA9-15C94336DC72"
+                        },
+                        new
+                        {
+                            UserId = "E403198E-3791-46B5-8A8E-81F469A5B48E",
+                            RoleId = "CB821695-B43A-41B9-8490-15A250D25FB5"
                         });
                 });
 
@@ -396,15 +421,15 @@ namespace StuMap.DAL.Migrations
                             Country = "Egypt",
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(2001, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
-                            Email = "aadmin@stumap.com",
+                            Email = "admin@stumap.com",
                             EmailConfirmed = true,
                             FirstName = "admin",
                             IsBlocked = false,
                             IsContributorRequest = true,
                             LastName = "admin",
                             LockoutEnabled = false,
-                            NormalizedEmail = "AADMIN@STUMAP.COM",
-                            NormalizedUserName = "AADMIN@STUMAP.COM",
+                            NormalizedEmail = "ADMIN@STUMAP.COM",
+                            NormalizedUserName = "ADMIN@STUMAP.COM",
                             PasswordHash = "AQAAAAIAAYagAAAAEA1b94YdrgyUp6jDbQIM64vRSTjw7ojIiEqwPxWnXW5jegZQlfGGUF7/OgiO1Z0Lzw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
@@ -703,6 +728,81 @@ namespace StuMap.DAL.Migrations
                         new
                         {
                             Id = 1,
+                            Body = "I tried enrolling in the HTML course but it failed.",
+                            DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            IsRead = false,
+                            Status = 1,
+                            Subject = "Issue with course enrollment",
+                            UserId = "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Body = "Can you update me on my contributor approval?",
+                            DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            IsRead = true,
+                            Status = 1,
+                            Subject = "Contributor request follow-up",
+                            UserId = "EF8CCDB4-F6F5-4A89-BF18-E6E063271F67"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AdminReply = "We fixed the issue. Please try again.",
+                            Body = "My progress isn’t updating correctly.",
+                            DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            IsRead = true,
+                            RepliedAt = new DateTime(2026, 5, 18, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Status = 2,
+                            Subject = "Bug in roadmap progress",
+                            UserId = "B9ECCC1E-FF12-41D0-9BE9-83B8A57EB855"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Body = "I cannot upload my certificate file.",
+                            DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            IsRead = true,
+                            RejectionReason = "File format not supported.",
+                            Status = 0,
+                            Subject = "Certificate upload issue",
+                            UserId = "E746D970-DB04-4D42-9493-9173C7D13EE9"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AdminReply = "Thank you for your feedback.",
+                            Body = "The HTML course was very helpful!",
+                            DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            IsRead = true,
+                            RepliedAt = new DateTime(2026, 5, 18, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            Status = 2,
+                            Subject = "Course feedback",
+                            UserId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Body = "Please approve my frontend roadmap submission.",
+                            DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            IsRead = false,
+                            Status = 1,
+                            Subject = "Request for roadmap approval",
+                            UserId = "E746D970-DB04-4D42-9493-9173C7D13EE9"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Body = "Please review my submitted material.",
+                            DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
+                            IsRead = false,
+                            Status = 2,
+                            Subject = "Material approval request",
+                            UserId = "E746D970-DB04-4D42-9493-9173C7D13EE9"
+                        },
+                        new
+                        {
+                            Id = 8,
                             Body = "I am having trouble understanding the material in the course.",
                             DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             IsRead = false,
@@ -712,7 +812,7 @@ namespace StuMap.DAL.Migrations
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 9,
                             Body = "I would like to see a dark mode option in the app.",
                             DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             IsRead = false,
@@ -722,7 +822,7 @@ namespace StuMap.DAL.Migrations
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 10,
                             Body = "The app crashes when I try to access my profile.",
                             DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             IsRead = false,
@@ -732,7 +832,7 @@ namespace StuMap.DAL.Migrations
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 11,
                             Body = "I can not accesss my saved Roadmaps.",
                             DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             IsRead = false,
@@ -742,7 +842,7 @@ namespace StuMap.DAL.Migrations
                         },
                         new
                         {
-                            Id = 5,
+                            Id = 12,
                             Body = "I am having trouble understanding the material in the course.",
                             DateSent = new DateTime(2026, 5, 17, 3, 29, 48, 808, DateTimeKind.Unspecified).AddTicks(706),
                             IsRead = false,
@@ -967,6 +1067,66 @@ namespace StuMap.DAL.Migrations
                         {
                             CourseId = 3,
                             StudentId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            CourseId = 1,
+                            StudentId = "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            CourseId = 2,
+                            StudentId = "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            CourseId = 3,
+                            StudentId = "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            CourseId = 4,
+                            StudentId = "B9ECCC1E-FF12-41D0-9BE9-83B8A57EB855",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            CourseId = 5,
+                            StudentId = "B9ECCC1E-FF12-41D0-9BE9-83B8A57EB855",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            CourseId = 6,
+                            StudentId = "B9ECCC1E-FF12-41D0-9BE9-83B8A57EB855",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            CourseId = 7,
+                            StudentId = "B9ECCC1E-FF12-41D0-9BE9-83B8A57EB855",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            CourseId = 8,
+                            StudentId = "E403198E-3791-46B5-8A8E-81F469A5B48E",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            CourseId = 9,
+                            StudentId = "E403198E-3791-46B5-8A8E-81F469A5B48E",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            CourseId = 10,
+                            StudentId = "E403198E-3791-46B5-8A8E-81F469A5B48E",
                             DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -1595,6 +1755,68 @@ namespace StuMap.DAL.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("RoadmapEnrollment");
+
+                    b.HasData(
+                        new
+                        {
+                            RoadmapId = 1,
+                            StudentId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            RoadmapId = 2,
+                            StudentId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            RoadmapId = 4,
+                            StudentId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            RoadmapId = 5,
+                            StudentId = "B1364EFC-1779-4C6E-9623-0010F8F9EE89",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            RoadmapId = 1,
+                            StudentId = "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            RoadmapId = 2,
+                            StudentId = "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            RoadmapId = 4,
+                            StudentId = "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            RoadmapId = 5,
+                            StudentId = "3BD94FC0-7656-4EC5-9C8F-90897DD64BE5",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            RoadmapId = 1,
+                            StudentId = "B9ECCC1E-FF12-41D0-9BE9-83B8A57EB855",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            RoadmapId = 2,
+                            StudentId = "E403198E-3791-46B5-8A8E-81F469A5B48E",
+                            DateEnrolled = new DateTime(2026, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("StuMap.DAL.Models.Specialization", b =>

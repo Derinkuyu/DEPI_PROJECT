@@ -104,8 +104,8 @@ nextBtn.addEventListener("click", () => {
                 x.classList.add("border-0")
             })
             accNew = revisionDetails.appendChild(copy)
-            getCourseTitle.textContent = CourseTitle.value
-            getCourseDesc.textContent = CourseDescription.value
+            getCourseTitle.value = CourseTitle.value
+            getCourseDesc.value = CourseDescription.value
         }
             
     }

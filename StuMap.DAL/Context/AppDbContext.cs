@@ -48,8 +48,9 @@ namespace StuMap.DAL.Context
             modelBuilder.ApplyConfiguration(new CertificateSeedConfiguration());
             modelBuilder.ApplyConfiguration(new CourseRoadmapSeedConfiguration());
 
+            modelBuilder.ApplyConfiguration(new RoadmapEnrollmentSeedConfiguration());
 
-            //modelBuilder.ApplyConfiguration(new RoadmapEnrollmentSeedConfiguration());
+            //    //modelBuilder.Entity<User>().UseTptMappingStrategy();
 
             // todo: configure all relationships
 

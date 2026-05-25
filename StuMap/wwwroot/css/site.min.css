@@ -3953,6 +3953,12 @@
   .w-220 {
     width: calc(var(--spacing) * 220);
   }
+  .w-240 {
+    width: calc(var(--spacing) * 240);
+  }
+  .w-250 {
+    width: calc(var(--spacing) * 250);
+  }
   .w-auto {
     width: auto;
   }
