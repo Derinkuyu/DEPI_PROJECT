@@ -8,7 +8,7 @@ StuMap is a modern, high-performance web application designed to help students d
 
 Watch a walk-through of the system features, user registration, contributor submissions, and admin moderation:
 
-👉 **[Watch the Demo Video on YouTube/Loom](https://drive.google.com/file/d/1dl3AlcRtfW1LJgchqthoUo90LWYQVfIE/view?usp=drive_link)**
+👉 **[Watch the Demo Video](https://drive.google.com/file/d/1dl3AlcRtfW1LJgchqthoUo90LWYQVfIE/view?usp=drive_link)**
 
 ---
 
